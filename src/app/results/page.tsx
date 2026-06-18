@@ -484,18 +484,6 @@ export default function ResultsPage() {
       emailing: 'loading',
       downloading: 'idle',
     });
-    // Open a blank tab synchronously to bypass browser popup blockers
-    let printWindow: Window | null = null;
-    try {
-      printWindow = window.open('', '_blank');
-      if (printWindow) {
-        printWindow.document.write('<html><head><title>Generating Report...</title><style>body{display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;color:#94a3b8;background:#020617;}</style></head><body><div style="text-align:center;"><h2>Generating Report...</h2><p>Please wait while your premium career pathway document loads.</p></div></body></html>');
-        printWindow.document.close();
-      }
-    } catch (e) {
-      console.warn('Failed to pre-open window:', e);
-    }
-
     try {
       const response = await fetch('/api/generate-pdf', {
         method: 'POST',
@@ -511,7 +499,6 @@ export default function ResultsPage() {
       });
 
       if (!response.ok) {
-        if (printWindow) printWindow.close();
         throw new Error('Failed to generate PDF');
       }
 
@@ -524,32 +511,61 @@ export default function ResultsPage() {
             generating: 'success',
             storing: 'success', // Show success to keep UI clean
             emailing: 'success',
-            downloading: 'success',
+            downloading: 'loading',
           });
 
-          if (printWindow) {
-            printWindow.document.open();
-            printWindow.document.write(data.fallbackHtml);
-            printWindow.document.close();
-            printWindow.focus();
-            setTimeout(() => {
-              printWindow.print();
-            }, 1000);
-          } else {
-            alert('Popup blocked! Please allow popups to download your report.');
-          }
+          // Load html2pdf from CDN dynamically to download PDF directly
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+          script.onload = () => {
+            // Create hidden wrapper
+            const element = document.createElement('div');
+            element.innerHTML = data.fallbackHtml;
+            element.style.position = 'absolute';
+            element.style.left = '-9999px';
+            element.style.top = '-9999px';
+            element.style.width = '210mm'; // Standard A4 width
+            document.body.appendChild(element);
 
-          setPaymentStep('success');
-          setTimeout(() => {
-            setShowUnlockModal(false);
-            setPaymentStep('details');
-          }, 3000);
+            const opt = {
+              margin: 0,
+              filename: 'Career_Pathway_Report.pdf',
+              image: { type: 'jpeg', quality: 0.98 },
+              html2canvas: { 
+                scale: 2, 
+                useCORS: true, 
+                backgroundColor: '#ffffff',
+                logging: false 
+              },
+              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+              pagebreak: { mode: ['css', 'legacy'] }
+            };
+
+            // @ts-ignore
+            window.html2pdf().from(element).set(opt).save().then(() => {
+              document.body.removeChild(element);
+              setDeliveryStatus((prev) => ({
+                ...prev,
+                downloading: 'success',
+              }));
+              setPaymentStep('success');
+              setTimeout(() => {
+                setShowUnlockModal(false);
+                setPaymentStep('details');
+              }, 3000);
+            }).catch((err: any) => {
+              console.error('html2pdf generation error:', err);
+              document.body.removeChild(element);
+              alert('Failed to save PDF. Please try again.');
+            });
+          };
+          script.onerror = () => {
+            alert('Failed to load PDF generation library. Please check your internet connection.');
+          };
+          document.head.appendChild(script);
           return;
         }
       }
-
-      // If it returned a real PDF blob, we close the pre-opened window and download the file
-      if (printWindow) printWindow.close();
 
       setDeliveryStatus((prev) => ({
         ...prev,
@@ -582,7 +598,6 @@ export default function ResultsPage() {
       }, 3000);
     } catch (error) {
       console.error(error);
-      if (printWindow) printWindow.close();
       setDeliveryStatus({
         generating: 'error',
         storing: 'error',
