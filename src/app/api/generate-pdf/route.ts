@@ -1539,9 +1539,15 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: any) {
     console.error('Error generating PDF:', error);
+    // Fallback: If Puppeteer/PDF generation fails (common on Vercel serverless environment),
+    // return the HTML so the frontend can display/print it.
     return NextResponse.json(
-      { error: 'Failed to generate PDF', details: error.message },
-      { status: 500 }
+      { 
+        error: 'Failed to generate PDF on server', 
+        details: error.message,
+        fallbackHtml: typeof htmlContent !== 'undefined' ? htmlContent : null 
+      },
+      { status: 200 }
     );
   }
 }

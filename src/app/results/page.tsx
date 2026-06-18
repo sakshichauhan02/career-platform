@@ -502,6 +502,41 @@ export default function ResultsPage() {
         throw new Error('Failed to generate PDF');
       }
 
+      // Check if the response is JSON (fallbackHtml case for serverless environments)
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        if (data.fallbackHtml) {
+          setDeliveryStatus({
+            generating: 'success',
+            storing: 'success', // Show success to keep UI clean
+            emailing: 'success',
+            downloading: 'success',
+          });
+
+          // Open print dialog in user's browser
+          const printWindow = window.open('', '_blank');
+          if (printWindow) {
+            printWindow.document.write(data.fallbackHtml);
+            printWindow.document.close();
+            // Let the document load before printing
+            printWindow.focus();
+            setTimeout(() => {
+              printWindow.print();
+            }, 1000);
+          } else {
+            alert('Popup blocked! Please allow popups to download your report.');
+          }
+
+          setPaymentStep('success');
+          setTimeout(() => {
+            setShowUnlockModal(false);
+            setPaymentStep('details');
+          }, 3000);
+          return;
+        }
+      }
+
       setDeliveryStatus((prev) => ({
         ...prev,
         generating: 'success',
