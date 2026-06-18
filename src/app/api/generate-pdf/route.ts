@@ -354,6 +354,8 @@ async function sendReportEmail(emailAddress: string, pdfBuffer: Buffer, studentN
   }
 }
 
+export const maxDuration = 60; // Set function timeout to 60 seconds
+
 async function getBrowserInstance() {
   const isLocal = process.env.NODE_ENV === 'development' || !process.env.VERCEL;
   
@@ -370,13 +372,11 @@ async function getBrowserInstance() {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const puppeteerCore = require('puppeteer-core');
     
-    // Configure chromium to fetch from public CDN URL
-    const executablePath = await chromium.executablePath(
-      'https://github.com/sparticuz/chromium/releases/download/v131.0.0/chromium-v131.0.0-pack.tar'
-    );
+    // Auto-fetch correct executable matching version of sparticuz/chromium-min
+    const executablePath = await chromium.executablePath();
     
     return await puppeteerCore.launch({
-      args: chromium.args,
+      args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
       defaultViewport: chromium.defaultViewport,
       executablePath: executablePath,
       headless: chromium.headless,
