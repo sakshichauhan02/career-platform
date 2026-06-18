@@ -354,6 +354,37 @@ async function sendReportEmail(emailAddress: string, pdfBuffer: Buffer, studentN
   }
 }
 
+async function getBrowserInstance() {
+  const isLocal = process.env.NODE_ENV === 'development' || !process.env.VERCEL;
+  
+  if (isLocal) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const localPuppeteer = require('puppeteer');
+    return await localPuppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+  } else {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const chromium = require('@sparticuz/chromium-min');
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const puppeteerCore = require('puppeteer-core');
+    
+    // Configure chromium to fetch from public CDN URL
+    const executablePath = await chromium.executablePath(
+      'https://github.com/sparticuz/chromium/releases/download/v131.0.0/chromium-v131.0.0-pack.tar'
+    );
+    
+    return await puppeteerCore.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: executablePath,
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    });
+  }
+}
+
 export async function POST(req: NextRequest) {
   let htmlContent = '';
   try {
@@ -1456,10 +1487,7 @@ export async function POST(req: NextRequest) {
 `;
 
     // 1. Generate PDF
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
+    const browser = await getBrowserInstance();
 
     const page = await browser.newPage();
     await page.setContent(htmlContent, { waitUntil: 'networkidle0' as any });
