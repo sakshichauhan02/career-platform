@@ -511,58 +511,46 @@ export default function ResultsPage() {
             generating: 'success',
             storing: 'success', // Show success to keep UI clean
             emailing: 'success',
-            downloading: 'loading',
+            downloading: 'success',
           });
 
-          // Load html2pdf from CDN dynamically to download PDF directly
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-          script.onload = () => {
-            // Create hidden wrapper
-            const element = document.createElement('div');
-            element.innerHTML = data.fallbackHtml;
-            element.style.position = 'absolute';
-            element.style.left = '-9999px';
-            element.style.top = '-9999px';
-            element.style.width = '210mm'; // Standard A4 width
-            document.body.appendChild(element);
+          // Create a hidden iframe to trigger print without opening new tabs or triggering popup blockers
+          const iframe = document.createElement('iframe');
+          iframe.style.position = 'fixed';
+          iframe.style.right = '0';
+          iframe.style.bottom = '0';
+          iframe.style.width = '0';
+          iframe.style.height = '0';
+          iframe.style.border = '0';
+          document.body.appendChild(iframe);
 
-            const opt = {
-              margin: 0,
-              filename: 'Career_Pathway_Report.pdf',
-              image: { type: 'jpeg', quality: 0.98 },
-              html2canvas: { 
-                scale: 2, 
-                useCORS: true, 
-                backgroundColor: '#ffffff',
-                logging: false 
-              },
-              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-              pagebreak: { mode: ['css', 'legacy'] }
-            };
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (iframeDoc) {
+            iframeDoc.open();
+            iframeDoc.write(data.fallbackHtml);
+            iframeDoc.close();
 
-            // @ts-ignore
-            window.html2pdf().from(element).set(opt).save().then(() => {
-              document.body.removeChild(element);
-              setDeliveryStatus((prev) => ({
-                ...prev,
-                downloading: 'success',
-              }));
-              setPaymentStep('success');
+            // Wait for resources to load before printing
+            setTimeout(() => {
+              if (iframe.contentWindow) {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+              }
+              // Remove iframe from DOM after print dialog is closed
               setTimeout(() => {
-                setShowUnlockModal(false);
-                setPaymentStep('details');
-              }, 3000);
-            }).catch((err: any) => {
-              console.error('html2pdf generation error:', err);
-              document.body.removeChild(element);
-              alert('Failed to save PDF. Please try again.');
-            });
-          };
-          script.onerror = () => {
-            alert('Failed to load PDF generation library. Please check your internet connection.');
-          };
-          document.head.appendChild(script);
+                document.body.removeChild(iframe);
+              }, 1000);
+            }, 1000);
+          } else {
+            document.body.removeChild(iframe);
+            alert('Failed to initialize print engine.');
+          }
+
+          setPaymentStep('success');
+          setTimeout(() => {
+            setShowUnlockModal(false);
+            setPaymentStep('details');
+          }, 3000);
           return;
         }
       }
