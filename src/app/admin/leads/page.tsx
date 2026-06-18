@@ -252,7 +252,7 @@ export default function LeadCRM() {
         setLeads(mergedLeads);
       } else {
         // Hydrate mock data status/notes from localStorage if any
-        const hydratedMock = MOCK_LEADS.map(l => {
+        const hydratedMock = MOCK_LEADS.map((l) => {
           const { status, notes } = getFollowup(l.id);
           return {
             ...l,
@@ -265,7 +265,7 @@ export default function LeadCRM() {
     } catch (err) {
       console.error('Error fetching leads details:', err);
       // Fallback
-      const hydratedMock = MOCK_LEADS.map(l => {
+      const hydratedMock = MOCK_LEADS.map((l) => {
         let localStatus = 'New';
         let localNotes = '';
         if (typeof window !== 'undefined') {
@@ -301,9 +301,7 @@ export default function LeadCRM() {
     newStatus: 'New' | 'Contacted' | 'Interested' | 'Converted' | 'Lost'
   ) => {
     // 1. Local state update
-    setLeads((prev) =>
-      prev.map((l) => (l.id === leadId ? { ...l, status: newStatus } : l))
-    );
+    setLeads((prev) => prev.map((l) => (l.id === leadId ? { ...l, status: newStatus } : l)));
 
     // 2. LocalStorage sync
     if (typeof window !== 'undefined') {
@@ -333,9 +331,7 @@ export default function LeadCRM() {
     const leadId = editingNotesLead.id;
 
     // 1. Local state update
-    setLeads((prev) =>
-      prev.map((l) => (l.id === leadId ? { ...l, notes: tempNotes } : l))
-    );
+    setLeads((prev) => prev.map((l) => (l.id === leadId ? { ...l, notes: tempNotes } : l)));
 
     // 2. LocalStorage sync
     if (typeof window !== 'undefined') {
@@ -372,10 +368,7 @@ export default function LeadCRM() {
 
     const typeMatch = typeFilter === 'all' || lead.type === typeFilter;
 
-    return (
-      (nameMatch || emailMatch || phoneMatch || detailsMatch || notesMatch) &&
-      typeMatch
-    );
+    return (nameMatch || emailMatch || phoneMatch || detailsMatch || notesMatch) && typeMatch;
   });
 
   const handleExportCSV = () => {
@@ -460,10 +453,12 @@ export default function LeadCRM() {
         {!isAdmin && !isSimulatingAdmin ? (
           <div className="mx-auto max-w-md rounded-2xl border border-slate-800 bg-slate-900/30 p-8 text-center backdrop-blur">
             <Shield className="mx-auto mb-4 h-12 w-12 animate-pulse text-slate-600" />
-            <h3 className="mb-2 text-lg font-bold text-white font-semibold">Administrator access required</h3>
+            <h3 className="mb-2 text-lg font-bold font-semibold text-white">
+              Administrator access required
+            </h3>
             <p className="mb-6 text-xs leading-relaxed text-slate-400">
-              You must be logged in as an administrator to access the Lead CRM. Use the
-              simulation bypass toggle above to evaluate the dashboard.
+              You must be logged in as an administrator to access the Lead CRM. Use the simulation
+              bypass toggle above to evaluate the dashboard.
             </p>
             <div className="flex flex-col gap-2">
               <Link href="/login">
@@ -523,25 +518,19 @@ export default function LeadCRM() {
                 <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-amber-500 uppercase">
                   <Users className="h-3 w-3" /> Assessment Leads
                 </div>
-                <div className="mt-1 text-2xl font-black text-amber-400">
-                  {stats.assessments}
-                </div>
+                <div className="mt-1 text-2xl font-black text-amber-400">{stats.assessments}</div>
               </div>
               <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
                 <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-indigo-500 uppercase">
                   <FileText className="h-3 w-3" /> Report Leads
                 </div>
-                <div className="mt-1 text-2xl font-black text-indigo-400">
-                  {stats.reports}
-                </div>
+                <div className="mt-1 text-2xl font-black text-indigo-400">{stats.reports}</div>
               </div>
               <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
                 <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-emerald-500 uppercase">
                   <UserCheck className="h-3 w-3" /> Mentor Leads
                 </div>
-                <div className="mt-1 text-2xl font-black text-emerald-400">
-                  {stats.mentors}
-                </div>
+                <div className="mt-1 text-2xl font-black text-emerald-400">{stats.mentors}</div>
               </div>
             </div>
 
@@ -593,9 +582,7 @@ export default function LeadCRM() {
                       <td colSpan={6} className="p-12 text-center">
                         <div className="flex flex-col items-center justify-center space-y-2">
                           <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent" />
-                          <span className="text-xs text-slate-400">
-                            Loading Lead Database...
-                          </span>
+                          <span className="text-xs text-slate-400">Loading Lead Database...</span>
                         </div>
                       </td>
                     </tr>
@@ -670,9 +657,7 @@ export default function LeadCRM() {
                           <td className="p-4">
                             <select
                               value={l.status || 'New'}
-                              onChange={(e) =>
-                                handleUpdateStatus(l.id, e.target.value as any)
-                              }
+                              onChange={(e) => handleUpdateStatus(l.id, e.target.value as any)}
                               className={`rounded border bg-slate-950 px-2 py-1 text-[11px] font-semibold transition-colors outline-none ${
                                 l.status === 'New'
                                   ? 'border-blue-500/30 text-blue-400 focus:border-blue-500'
@@ -680,16 +665,41 @@ export default function LeadCRM() {
                                     ? 'border-amber-500/30 text-amber-400 focus:border-amber-500'
                                     : l.status === 'Interested'
                                       ? 'border-purple-500/30 text-purple-400 focus:border-purple-500'
-                                        : l.status === 'Converted'
-                                          ? 'border-emerald-500/30 text-emerald-400 focus:border-emerald-500'
-                                          : 'border-slate-700 text-slate-400 focus:border-slate-500'
+                                      : l.status === 'Converted'
+                                        ? 'border-emerald-500/30 text-emerald-400 focus:border-emerald-500'
+                                        : 'border-slate-700 text-slate-400 focus:border-slate-500'
                               }`}
                             >
-                              <option value="New" className="bg-slate-950 text-blue-400 font-semibold">New</option>
-                              <option value="Contacted" className="bg-slate-950 text-amber-400 font-semibold">Contacted</option>
-                              <option value="Interested" className="bg-slate-950 text-purple-400 font-semibold">Interested</option>
-                              <option value="Converted" className="bg-slate-950 text-emerald-400 font-semibold">Converted</option>
-                              <option value="Lost" className="bg-slate-950 text-slate-400 font-semibold">Lost</option>
+                              <option
+                                value="New"
+                                className="bg-slate-950 font-semibold text-blue-400"
+                              >
+                                New
+                              </option>
+                              <option
+                                value="Contacted"
+                                className="bg-slate-950 font-semibold text-amber-400"
+                              >
+                                Contacted
+                              </option>
+                              <option
+                                value="Interested"
+                                className="bg-slate-950 font-semibold text-purple-400"
+                              >
+                                Interested
+                              </option>
+                              <option
+                                value="Converted"
+                                className="bg-slate-950 font-semibold text-emerald-400"
+                              >
+                                Converted
+                              </option>
+                              <option
+                                value="Lost"
+                                className="bg-slate-950 font-semibold text-slate-400"
+                              >
+                                Lost
+                              </option>
                             </select>
                           </td>
 
@@ -700,7 +710,7 @@ export default function LeadCRM() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => {
-                                                                    setEditingNotesLead(l);
+                                  setEditingNotesLead(l);
                                   setTempNotes(l.notes || '');
                                 }}
                                 className="h-7 w-7 rounded-lg border border-slate-800 p-0 text-slate-400 hover:bg-slate-800 hover:text-white"
@@ -731,14 +741,14 @@ export default function LeadCRM() {
       {editingNotesLead && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-5 shadow-2xl">
-            <h3 className="text-sm font-bold text-white mb-2">
+            <h3 className="mb-2 text-sm font-bold text-white">
               Edit Notes for {editingNotesLead.name}
             </h3>
-            <p className="text-[10px] text-slate-400 mb-4">
+            <p className="mb-4 text-[10px] text-slate-400">
               Lead ID: {editingNotesLead.id} ({editingNotesLead.type})
             </p>
             <textarea
-              className="w-full h-32 rounded-lg border border-slate-800 bg-slate-950 p-3 text-xs text-white placeholder-slate-600 focus:border-indigo-500 outline-none"
+              className="h-32 w-full rounded-lg border border-slate-800 bg-slate-950 p-3 text-xs text-white placeholder-slate-600 outline-none focus:border-indigo-500"
               placeholder="Enter notes about phone calls, emails, or status details..."
               value={tempNotes}
               onChange={(e) => setTempNotes(e.target.value)}
@@ -747,14 +757,14 @@ export default function LeadCRM() {
               <Button
                 variant="outline"
                 size="sm"
-                className="border-slate-800 text-slate-400 hover:bg-slate-800 text-xs"
+                className="border-slate-800 text-xs text-slate-400 hover:bg-slate-800"
                 onClick={() => setEditingNotesLead(null)}
               >
                 Cancel
               </Button>
               <Button
                 size="sm"
-                className="bg-indigo-600 text-white hover:bg-indigo-700 text-xs font-semibold"
+                className="bg-indigo-600 text-xs font-semibold text-white hover:bg-indigo-700"
                 onClick={handleSaveNotes}
               >
                 Save Notes

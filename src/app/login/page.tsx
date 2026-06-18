@@ -35,7 +35,9 @@ export default function LoginPage() {
   // Redirect if user is already logged in
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session?.user) {
         // Fetch role
         const { data: profile } = await supabase
@@ -81,12 +83,15 @@ export default function LoginPage() {
 
         if (data?.user) {
           // Manually create profile row as fallback/support
-          const { error: profileErr } = await supabase.from('profiles').upsert({
-            id: data.user.id,
-            full_name: fullName,
-            email: email,
-            role: 'student',
-          }, { onConflict: 'id' });
+          const { error: profileErr } = await supabase.from('profiles').upsert(
+            {
+              id: data.user.id,
+              full_name: fullName,
+              email: email,
+              role: 'student',
+            },
+            { onConflict: 'id' }
+          );
 
           if (profileErr) console.error('Failed to create user profile row:', profileErr);
 
@@ -136,7 +141,8 @@ export default function LoginPage() {
       let errorText = err.message || 'Authentication failed. Please check your credentials.';
 
       if (err.message === 'Email not confirmed') {
-        errorText = 'Email verification is required. Please check your inbox to confirm your email, or turn off "Confirm email" in your Supabase Auth settings (Providers > Email).';
+        errorText =
+          'Email verification is required. Please check your inbox to confirm your email, or turn off "Confirm email" in your Supabase Auth settings (Providers > Email).';
       }
 
       setMessage({
@@ -149,10 +155,10 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500/30 flex flex-col justify-between">
+    <div className="flex min-h-screen flex-col justify-between bg-slate-950 text-slate-100 selection:bg-indigo-500/30">
       <Navbar />
 
-      <main className="flex-1 flex items-center justify-center px-4 pt-28 pb-16">
+      <main className="flex flex-1 items-center justify-center px-4 pt-28 pb-16">
         <div className="relative w-full max-w-md space-y-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 p-8 text-center shadow-2xl backdrop-blur-md">
           {/* Decorative glows */}
           <div className="pointer-events-none absolute -top-16 -left-16 h-32 w-32 rounded-full bg-indigo-500/10 blur-2xl" />
@@ -161,7 +167,7 @@ export default function LoginPage() {
           {/* Logo / Header */}
           <div className="space-y-2">
             <div className="flex justify-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-400">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-indigo-500/20 bg-indigo-600/10 text-indigo-400">
                 <Compass className="h-6 w-6 animate-pulse" />
               </div>
             </div>
@@ -202,14 +208,14 @@ export default function LoginPage() {
                     Full Name
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+                    <User className="absolute top-2.5 left-3 h-4 w-4 text-slate-500" />
                     <input
                       type="text"
                       required
                       placeholder="Saksham Gupta"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full rounded-lg border border-slate-800 bg-slate-950 py-2.5 pr-4 pl-10 text-xs text-white placeholder-slate-650 transition-colors outline-none focus:border-indigo-500"
+                      className="placeholder-slate-650 w-full rounded-lg border border-slate-800 bg-slate-950 py-2.5 pr-4 pl-10 text-xs text-white transition-colors outline-none focus:border-indigo-500"
                     />
                   </div>
                 </div>
@@ -219,13 +225,13 @@ export default function LoginPage() {
                     Phone Number (Optional)
                   </label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+                    <Phone className="absolute top-2.5 left-3 h-4 w-4 text-slate-500" />
                     <input
                       type="tel"
                       placeholder="+91 98765 43210"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full rounded-lg border border-slate-800 bg-slate-950 py-2.5 pr-4 pl-10 text-xs text-white placeholder-slate-650 transition-colors outline-none focus:border-indigo-500"
+                      className="placeholder-slate-650 w-full rounded-lg border border-slate-800 bg-slate-950 py-2.5 pr-4 pl-10 text-xs text-white transition-colors outline-none focus:border-indigo-500"
                     />
                   </div>
                 </div>
@@ -237,38 +243,38 @@ export default function LoginPage() {
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+                <Mail className="absolute top-2.5 left-3 h-4 w-4 text-slate-500" />
                 <input
                   type="email"
                   required
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-slate-800 bg-slate-950 py-2.5 pr-4 pl-10 text-xs text-white placeholder-slate-650 transition-colors outline-none focus:border-indigo-500"
+                  className="placeholder-slate-650 w-full rounded-lg border border-slate-800 bg-slate-950 py-2.5 pr-4 pl-10 text-xs text-white transition-colors outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
 
             <div className="space-y-1">
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
                   Password
                 </label>
               </div>
               <div className="relative">
-                <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+                <Lock className="absolute top-2.5 left-3 h-4 w-4 text-slate-500" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-lg border border-slate-800 bg-slate-950 py-2.5 pr-10 pl-10 text-xs text-white placeholder-slate-650 transition-colors outline-none focus:border-indigo-500"
+                  className="placeholder-slate-650 w-full rounded-lg border border-slate-800 bg-slate-950 py-2.5 pr-10 pl-10 text-xs text-white transition-colors outline-none focus:border-indigo-500"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-slate-500 hover:text-slate-300"
+                  className="absolute top-2.5 right-3 text-slate-500 hover:text-slate-300"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -278,7 +284,7 @@ export default function LoginPage() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-indigo-600 font-semibold text-white shadow-lg shadow-indigo-600/15 hover:bg-indigo-700 h-10 transition-all flex items-center justify-center gap-2 mt-4"
+              className="mt-4 flex h-10 w-full items-center justify-center gap-2 bg-indigo-600 font-semibold text-white shadow-lg shadow-indigo-600/15 transition-all hover:bg-indigo-700"
             >
               {isLoading ? (
                 <>
@@ -294,14 +300,14 @@ export default function LoginPage() {
           </form>
 
           {/* Toggle link */}
-          <div className="text-xs text-slate-400 pt-2 border-t border-slate-800/40">
+          <div className="border-t border-slate-800/40 pt-2 text-xs text-slate-400">
             {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
             <button
               onClick={() => {
                 setIsSignUp(!isSignUp);
                 setMessage(null);
               }}
-              className="font-bold text-indigo-400 hover:text-indigo-300 transition-colors underline bg-transparent border-none outline-none cursor-pointer"
+              className="cursor-pointer border-none bg-transparent font-bold text-indigo-400 underline transition-colors outline-none hover:text-indigo-300"
             >
               {isSignUp ? 'Sign In here' : 'Sign Up here'}
             </button>
