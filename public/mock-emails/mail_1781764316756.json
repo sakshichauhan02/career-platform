@@ -1,0 +1,9 @@
+{
+  "id": "mail_1781764316756",
+  "to": "student@pathwayai.co",
+  "from": "PathWayAI <noreply@pathwayai.co>",
+  "subject": "Your Personalized Career Pathways Report - Student",
+  "timestamp": "2026-06-18T06:31:56.756Z",
+  "status": "MOCK_DELIVERED",
+  "note": "Configure SMTP environment variables in your .env.local to send real emails."
+}

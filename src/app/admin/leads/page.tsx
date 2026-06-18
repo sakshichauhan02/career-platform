@@ -1,0 +1,770 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import {
+  ArrowLeft,
+  Search,
+  Filter,
+  Download,
+  Users,
+  FileText,
+  UserCheck,
+  RefreshCw,
+  Mail,
+  Phone,
+  Calendar,
+  MessageSquare,
+  Shield,
+  ShieldCheck,
+  AlertCircle,
+} from 'lucide-react';
+import { Navbar } from '@/components/common/Navbar';
+import { Footer } from '@/components/common/Footer';
+import { Button } from '@/components/ui/button';
+import { supabase } from '@/lib/supabase';
+
+interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  type: 'Assessment Lead' | 'Report Lead' | 'Mentor Lead';
+  details: string;
+  created_at: string;
+  status: 'New' | 'Contacted' | 'Interested' | 'Converted' | 'Lost';
+  notes: string;
+}
+
+const MOCK_LEADS: Lead[] = [
+  {
+    id: 'l-mock-1',
+    name: 'Saksham Gupta',
+    email: 'saksham@gmail.com',
+    phone: '+91 98765 43210',
+    type: 'Mentor Lead',
+    details: 'Booked 1:1 Advising call on 2026-06-25 at 10:00 AM',
+    created_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+    status: 'Contacted',
+    notes: 'Called on 18th June. He is interested in engineering options.',
+  },
+  {
+    id: 'l-mock-2',
+    name: 'John Doe',
+    email: 'john.doe@example.com',
+    phone: '+91 99999 88888',
+    type: 'Report Lead',
+    details: 'Unlocked Premium Report. PDF Downloaded 2 times.',
+    created_at: new Date(Date.now() - 3600000 * 6).toISOString(),
+    status: 'New',
+    notes: '',
+  },
+  {
+    id: 'l-mock-3',
+    name: 'Jane Smith',
+    email: 'jane.smith@example.com',
+    phone: '+91 88888 77777',
+    type: 'Assessment Lead',
+    details: 'Completed Quiz: 12th PCB (Biology/Chemistry stream)',
+    created_at: new Date(Date.now() - 3600000 * 24).toISOString(),
+    status: 'Interested',
+    notes: 'Highly interested in medical design tools. Schedule call next week.',
+  },
+  {
+    id: 'l-mock-4',
+    name: 'Aman Sharma',
+    email: 'aman.sharma@example.com',
+    phone: '+91 77777 55555',
+    type: 'Assessment Lead',
+    details: 'Completed Quiz: 12th PCM (Maths/Physics stream)',
+    created_at: new Date(Date.now() - 3600000 * 48).toISOString(),
+    status: 'New',
+    notes: '',
+  },
+  {
+    id: 'l-mock-5',
+    name: 'Rohan Verma',
+    email: 'rohan.v@example.com',
+    phone: '+91 91111 22222',
+    type: 'Report Lead',
+    details: 'Unlocked Premium Report. Stored to Cloud Vault.',
+    created_at: new Date(Date.now() - 3600000 * 72).toISOString(),
+    status: 'Lost',
+    notes: 'Not interested in further advice.',
+  },
+];
+
+export default function LeadCRM() {
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [typeFilter, setTypeFilter] = useState<
+    'all' | 'Assessment Lead' | 'Report Lead' | 'Mentor Lead'
+  >('all');
+  const [editingNotesLead, setEditingNotesLead] = useState<Lead | null>(null);
+  const [tempNotes, setTempNotes] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSimulatingAdmin, setIsSimulatingAdmin] = useState(false);
+
+  // Verify Admin Role on Mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        const user = session?.user;
+
+        if (user) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .maybeSingle();
+
+          if (profile && profile.role === 'admin') {
+            setIsAdmin(true);
+          }
+        }
+      } catch (err) {
+        console.error('Error verifying admin authentication:', err);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  const fetchLeadsData = async () => {
+    setIsLoading(true);
+    try {
+      const mergedLeads: Lead[] = [];
+
+      // 1. Fetch Follow-up states from Supabase
+      const followupMap = new Map<string, { status: any; notes: string }>();
+      try {
+        const { data: followups } = await supabase
+          .from('lead_followups')
+          .select('lead_id, status, notes');
+        if (followups) {
+          followups.forEach((f: any) => {
+            followupMap.set(f.lead_id, { status: f.status, notes: f.notes || '' });
+          });
+        }
+      } catch (dbErr) {
+        console.error('Failed to query lead_followups table:', dbErr);
+      }
+
+      // 2. Fetch local storage fallbacks for followups
+      let localFollowups: Record<string, { status?: string; notes?: string }> = {};
+      if (typeof window !== 'undefined') {
+        const local = localStorage.getItem('lead_followups');
+        if (local) {
+          try {
+            localFollowups = JSON.parse(local);
+          } catch (_) {}
+        }
+      }
+
+      const getFollowup = (leadId: string) => {
+        const dbVal = followupMap.get(leadId);
+        const localVal = localFollowups[leadId];
+        return {
+          status: (dbVal?.status || localVal?.status || 'New') as any,
+          notes: dbVal?.notes || localVal?.notes || '',
+        };
+      };
+
+      // 3. Fetch Assessment Leads
+      const { data: assessments } = await supabase
+        .from('assessment_responses')
+        .select('id, completed_at, responses, profiles(email, full_name)');
+
+      if (assessments) {
+        assessments.forEach((a: any) => {
+          const grade = a.responses?.grade || 'N/A';
+          const { status, notes } = getFollowup(a.id);
+          mergedLeads.push({
+            id: a.id,
+            name: a.profiles?.full_name || 'Student Guest',
+            email: a.profiles?.email || 'N/A',
+            phone: 'N/A', // phone not in profiles table
+            type: 'Assessment Lead',
+            details: `Completed Quiz: ${grade.replace('school_', '').replace('_', ' ').toUpperCase()}`,
+            created_at: a.completed_at,
+            status,
+            notes,
+          });
+        });
+      }
+
+      // 4. Fetch Report Leads
+      const { data: reports } = await supabase
+        .from('report_downloads')
+        .select('id, created_at, download_count, profiles(email, full_name)');
+
+      if (reports) {
+        reports.forEach((r: any) => {
+          const { status, notes } = getFollowup(r.id);
+          mergedLeads.push({
+            id: r.id,
+            name: r.profiles?.full_name || 'Student Guest',
+            email: r.profiles?.email || 'N/A',
+            phone: 'N/A',
+            type: 'Report Lead',
+            details: `Unlocked Premium PDF. Downloaded ${r.download_count || 0} times.`,
+            created_at: r.created_at,
+            status,
+            notes,
+          });
+        });
+      }
+
+      // 5. Fetch Mentor Leads
+      const { data: bookings } = await supabase
+        .from('mentor_bookings')
+        .select(
+          'id, created_at, student_name, student_email, student_phone, booking_date, time_slot, profiles(email, full_name)'
+        );
+
+      if (bookings) {
+        bookings.forEach((b: any) => {
+          const { status, notes } = getFollowup(b.id);
+          mergedLeads.push({
+            id: b.id,
+            name: b.student_name || b.profiles?.full_name || 'Guest Student',
+            email: b.student_email || b.profiles?.email || 'N/A',
+            phone: b.student_phone || 'N/A',
+            type: 'Mentor Lead',
+            details: `Booked 1:1 call on ${b.booking_date || 'N/A'} at ${b.time_slot || 'N/A'}`,
+            created_at: b.created_at,
+            status,
+            notes,
+          });
+        });
+      }
+
+      if (mergedLeads.length > 0) {
+        // Sort by created_at descending
+        mergedLeads.sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+        setLeads(mergedLeads);
+      } else {
+        // Hydrate mock data status/notes from localStorage if any
+        const hydratedMock = MOCK_LEADS.map(l => {
+          const { status, notes } = getFollowup(l.id);
+          return {
+            ...l,
+            status: status !== 'New' ? status : l.status,
+            notes: notes !== '' ? notes : l.notes,
+          };
+        });
+        setLeads(hydratedMock);
+      }
+    } catch (err) {
+      console.error('Error fetching leads details:', err);
+      // Fallback
+      const hydratedMock = MOCK_LEADS.map(l => {
+        let localStatus = 'New';
+        let localNotes = '';
+        if (typeof window !== 'undefined') {
+          const local = localStorage.getItem('lead_followups');
+          if (local) {
+            try {
+              const parse = JSON.parse(local);
+              if (parse[l.id]) {
+                localStatus = parse[l.id].status || 'New';
+                localNotes = parse[l.id].notes || '';
+              }
+            } catch (_) {}
+          }
+        }
+        return {
+          ...l,
+          status: localStatus !== 'New' ? (localStatus as any) : l.status,
+          notes: localNotes !== '' ? localNotes : l.notes,
+        };
+      });
+      setLeads(hydratedMock);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLeadsData();
+  }, []);
+
+  const handleUpdateStatus = async (
+    leadId: string,
+    newStatus: 'New' | 'Contacted' | 'Interested' | 'Converted' | 'Lost'
+  ) => {
+    // 1. Local state update
+    setLeads((prev) =>
+      prev.map((l) => (l.id === leadId ? { ...l, status: newStatus } : l))
+    );
+
+    // 2. LocalStorage sync
+    if (typeof window !== 'undefined') {
+      const local = localStorage.getItem('lead_followups');
+      const data = local ? JSON.parse(local) : {};
+      data[leadId] = { ...(data[leadId] || { notes: '' }), status: newStatus };
+      localStorage.setItem('lead_followups', JSON.stringify(data));
+    }
+
+    // 3. Supabase upsert
+    try {
+      await supabase.from('lead_followups').upsert(
+        {
+          lead_id: leadId,
+          status: newStatus,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'lead_id' }
+      );
+    } catch (err) {
+      console.error('Failed to upsert status to Supabase:', err);
+    }
+  };
+
+  const handleSaveNotes = async () => {
+    if (!editingNotesLead) return;
+    const leadId = editingNotesLead.id;
+
+    // 1. Local state update
+    setLeads((prev) =>
+      prev.map((l) => (l.id === leadId ? { ...l, notes: tempNotes } : l))
+    );
+
+    // 2. LocalStorage sync
+    if (typeof window !== 'undefined') {
+      const local = localStorage.getItem('lead_followups');
+      const data = local ? JSON.parse(local) : {};
+      data[leadId] = { ...(data[leadId] || { status: 'New' }), notes: tempNotes };
+      localStorage.setItem('lead_followups', JSON.stringify(data));
+    }
+
+    // 3. Supabase upsert
+    try {
+      await supabase.from('lead_followups').upsert(
+        {
+          lead_id: leadId,
+          notes: tempNotes,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'lead_id' }
+      );
+    } catch (err) {
+      console.error('Failed to upsert notes to Supabase:', err);
+    }
+
+    setEditingNotesLead(null);
+  };
+
+  const filteredLeads = leads.filter((lead) => {
+    const query = searchQuery.toLowerCase();
+    const nameMatch = lead.name.toLowerCase().includes(query);
+    const emailMatch = lead.email.toLowerCase().includes(query);
+    const phoneMatch = lead.phone.includes(query);
+    const detailsMatch = lead.details.toLowerCase().includes(query);
+    const notesMatch = lead.notes.toLowerCase().includes(query);
+
+    const typeMatch = typeFilter === 'all' || lead.type === typeFilter;
+
+    return (
+      (nameMatch || emailMatch || phoneMatch || detailsMatch || notesMatch) &&
+      typeMatch
+    );
+  });
+
+  const handleExportCSV = () => {
+    // Generate CSV headers and rows
+    const headers = [
+      'Lead ID',
+      'Student Name',
+      'Email',
+      'Phone',
+      'Lead Type',
+      'Details',
+      'Follow-up Status',
+      'Notes',
+      'Created At',
+    ];
+    const rows = filteredLeads.map((l) => [
+      l.id,
+      l.name,
+      l.email,
+      l.phone,
+      l.type,
+      l.details.replace(/,/g, ';'), // prevent comma break issues in CSV
+      l.status,
+      l.notes.replace(/,/g, ';').replace(/\n/g, ' '),
+      l.created_at,
+    ]);
+
+    const csvContent =
+      'data:text/csv;charset=utf-8,' +
+      [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `PathwayAI_Leads_Report_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
+
+  const stats = {
+    total: leads.length,
+    assessments: leads.filter((l) => l.type === 'Assessment Lead').length,
+    reports: leads.filter((l) => l.type === 'Report Lead').length,
+    mentors: leads.filter((l) => l.type === 'Mentor Lead').length,
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500/30">
+      <Navbar />
+
+      <main className="container mx-auto max-w-6xl px-4 pt-28 pb-12">
+        {/* Top authorization simulation bar */}
+        <div className="mb-6 flex items-center justify-between rounded-xl border border-slate-800/60 bg-slate-900/10 p-3">
+          <div className="flex items-center gap-1.5 text-xs font-bold">
+            {isAdmin || isSimulatingAdmin ? (
+              <>
+                <ShieldCheck className="h-4.5 w-4.5 animate-pulse text-emerald-400" />
+                <span className="text-emerald-400">Admin Mode Active</span>
+              </>
+            ) : (
+              <>
+                <AlertCircle className="h-4.5 w-4.5 text-rose-400" />
+                <span className="text-rose-400">Access Restricted</span>
+              </>
+            )}
+          </div>
+          {!isAdmin && (
+            <button
+              onClick={() => setIsSimulatingAdmin(!isSimulatingAdmin)}
+              className={`rounded px-2.5 py-1 text-[10px] font-bold transition-all ${
+                isSimulatingAdmin
+                  ? 'border border-rose-500/30 bg-rose-600/20 text-rose-300'
+                  : 'bg-indigo-600 text-white hover:bg-indigo-700'
+              }`}
+            >
+              {isSimulatingAdmin ? 'Disable Bypass' : 'Simulate Access'}
+            </button>
+          )}
+        </div>
+
+        {!isAdmin && !isSimulatingAdmin ? (
+          <div className="mx-auto max-w-md rounded-2xl border border-slate-800 bg-slate-900/30 p-8 text-center backdrop-blur">
+            <Shield className="mx-auto mb-4 h-12 w-12 animate-pulse text-slate-600" />
+            <h3 className="mb-2 text-lg font-bold text-white font-semibold">Administrator access required</h3>
+            <p className="mb-6 text-xs leading-relaxed text-slate-400">
+              You must be logged in as an administrator to access the Lead CRM. Use the
+              simulation bypass toggle above to evaluate the dashboard.
+            </p>
+            <div className="flex flex-col gap-2">
+              <Link href="/login">
+                <Button className="w-full bg-indigo-600 hover:bg-indigo-700">Log In</Button>
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Header Section */}
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+              <div className="space-y-1">
+                <Link
+                  href="/admin"
+                  className="inline-flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300"
+                >
+                  <ArrowLeft className="h-3 w-3" /> Back to Admin Console
+                </Link>
+                <h1 className="bg-gradient-to-r from-indigo-200 via-indigo-400 to-purple-400 bg-clip-text text-3xl font-black tracking-tight text-transparent">
+                  Lead CRM Dashboard
+                </h1>
+                <p className="text-xs text-slate-400">
+                  Track conversion funnels. Monitor quiz submissions, report purchases, and advising
+                  scheduler registrations.
+                </p>
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  onClick={handleExportCSV}
+                  variant="outline"
+                  size="sm"
+                  className="border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900"
+                >
+                  <Download className="mr-1 h-3.5 w-3.5" /> Export filtered (CSV)
+                </Button>
+                <Button
+                  onClick={fetchLeadsData}
+                  variant="outline"
+                  size="sm"
+                  className="border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900"
+                >
+                  <RefreshCw className="mr-1 h-3.5 w-3.5" /> Refresh CRM
+                </Button>
+              </div>
+            </div>
+
+            {/* Stats Summary Panel */}
+            <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+              <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
+                <div className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                  Total Leads
+                </div>
+                <div className="mt-1 text-2xl font-black text-white">{stats.total}</div>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
+                <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-amber-500 uppercase">
+                  <Users className="h-3 w-3" /> Assessment Leads
+                </div>
+                <div className="mt-1 text-2xl font-black text-amber-400">
+                  {stats.assessments}
+                </div>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
+                <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-indigo-500 uppercase">
+                  <FileText className="h-3 w-3" /> Report Leads
+                </div>
+                <div className="mt-1 text-2xl font-black text-indigo-400">
+                  {stats.reports}
+                </div>
+              </div>
+              <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
+                <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-emerald-500 uppercase">
+                  <UserCheck className="h-3 w-3" /> Mentor Leads
+                </div>
+                <div className="mt-1 text-2xl font-black text-emerald-400">
+                  {stats.mentors}
+                </div>
+              </div>
+            </div>
+
+            {/* Search & Filter Controls */}
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-800/60 bg-slate-900/20 p-4">
+              <div className="relative flex w-full max-w-sm items-center gap-2">
+                <Search className="absolute left-3 h-4 w-4 text-slate-500" />
+                <input
+                  type="text"
+                  placeholder="Search by student name, email, phone, details..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full rounded-lg border border-slate-800 bg-slate-950 py-2 pr-4 pl-9 text-xs text-white placeholder-slate-500 transition-colors outline-none focus:border-indigo-500"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Filter className="h-3.5 w-3.5 text-slate-400" />
+                <label className="text-xs font-medium text-slate-400">Lead Type:</label>
+                <select
+                  value={typeFilter}
+                  onChange={(e) => setTypeFilter(e.target.value as any)}
+                  className="rounded-lg border border-slate-800 bg-slate-950 p-2 text-xs text-white outline-none focus:border-indigo-500"
+                >
+                  <option value="all">All Lead Funnels</option>
+                  <option value="Assessment Lead">Assessment Leads</option>
+                  <option value="Report Lead">Report Leads (Purchased)</option>
+                  <option value="Mentor Lead">Mentor Leads (Booked)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Lead Table */}
+            <div className="mb-8 overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/10">
+              <table className="w-full border-collapse text-left text-xs">
+                <thead>
+                  <tr className="border-b border-slate-800 bg-slate-950/60 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                    <th className="p-4">Student Info</th>
+                    <th className="p-4">Lead Funnel</th>
+                    <th className="p-4">Conversion Details</th>
+                    <th className="p-4">Acquired Date</th>
+                    <th className="p-4">Follow-up Status</th>
+                    <th className="p-4">Notes</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                  {isLoading ? (
+                    <tr>
+                      <td colSpan={6} className="p-12 text-center">
+                        <div className="flex flex-col items-center justify-center space-y-2">
+                          <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent" />
+                          <span className="text-xs text-slate-400">
+                            Loading Lead Database...
+                          </span>
+                        </div>
+                      </td>
+                    </tr>
+                  ) : filteredLeads.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="p-12 text-center text-slate-500">
+                        No leads found matching your search.
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredLeads.map((l) => {
+                      const formattedDate =
+                        new Date(l.created_at).toLocaleDateString('en-US', {
+                          dateStyle: 'medium',
+                        }) +
+                        ' ' +
+                        new Date(l.created_at).toLocaleTimeString('en-US', {
+                          timeStyle: 'short',
+                        });
+
+                      return (
+                        <tr key={l.id} className="transition-colors hover:bg-slate-900/30">
+                          {/* Name / Email / Phone */}
+                          <td className="space-y-1 p-4">
+                            <div className="flex items-center gap-1.5 font-bold text-white">
+                              {l.name}
+                            </div>
+                            <div className="space-y-0.5 text-[10px] text-slate-400">
+                              <div className="flex items-center gap-1.5">
+                                <Mail className="h-3 w-3 text-slate-500" />
+                                {l.email}
+                              </div>
+                              {l.phone !== 'N/A' && (
+                                <div className="flex items-center gap-1.5">
+                                  <Phone className="h-3 w-3 text-slate-500" />
+                                  {l.phone}
+                                </div>
+                              )}
+                            </div>
+                          </td>
+
+                          {/* Lead Type Badge */}
+                          <td className="p-4">
+                            <span
+                              className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold ${
+                                l.type === 'Assessment Lead'
+                                  ? 'border border-amber-500/20 bg-amber-500/10 text-amber-400'
+                                  : l.type === 'Report Lead'
+                                    ? 'border border-indigo-500/20 bg-indigo-500/10 text-indigo-400'
+                                    : 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
+                              }`}
+                            >
+                              {l.type === 'Assessment Lead' && <Users className="h-3 w-3" />}
+                              {l.type === 'Report Lead' && <FileText className="h-3 w-3" />}
+                              {l.type === 'Mentor Lead' && <UserCheck className="h-3 w-3" />}
+                              {l.type}
+                            </span>
+                          </td>
+
+                          {/* Details */}
+                          <td className="max-w-sm p-4 text-slate-300">{l.details}</td>
+
+                          {/* Created At */}
+                          <td className="p-4 text-slate-400">
+                            <div className="flex items-center gap-1.5">
+                              <Calendar className="h-3.5 w-3.5 text-slate-500" />
+                              {formattedDate}
+                            </div>
+                          </td>
+
+                          {/* Follow-up Status Dropdown */}
+                          <td className="p-4">
+                            <select
+                              value={l.status || 'New'}
+                              onChange={(e) =>
+                                handleUpdateStatus(l.id, e.target.value as any)
+                              }
+                              className={`rounded border bg-slate-950 px-2 py-1 text-[11px] font-semibold transition-colors outline-none ${
+                                l.status === 'New'
+                                  ? 'border-blue-500/30 text-blue-400 focus:border-blue-500'
+                                  : l.status === 'Contacted'
+                                    ? 'border-amber-500/30 text-amber-400 focus:border-amber-500'
+                                    : l.status === 'Interested'
+                                      ? 'border-purple-500/30 text-purple-400 focus:border-purple-500'
+                                        : l.status === 'Converted'
+                                          ? 'border-emerald-500/30 text-emerald-400 focus:border-emerald-500'
+                                          : 'border-slate-700 text-slate-400 focus:border-slate-500'
+                              }`}
+                            >
+                              <option value="New" className="bg-slate-950 text-blue-400 font-semibold">New</option>
+                              <option value="Contacted" className="bg-slate-950 text-amber-400 font-semibold">Contacted</option>
+                              <option value="Interested" className="bg-slate-950 text-purple-400 font-semibold">Interested</option>
+                              <option value="Converted" className="bg-slate-950 text-emerald-400 font-semibold">Converted</option>
+                              <option value="Lost" className="bg-slate-950 text-slate-400 font-semibold">Lost</option>
+                            </select>
+                          </td>
+
+                          {/* Notes Button & Text */}
+                          <td className="p-4">
+                            <div className="flex items-center gap-2">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => {
+                                                                    setEditingNotesLead(l);
+                                  setTempNotes(l.notes || '');
+                                }}
+                                className="h-7 w-7 rounded-lg border border-slate-800 p-0 text-slate-400 hover:bg-slate-800 hover:text-white"
+                                title="Edit Notes"
+                              >
+                                <MessageSquare className="h-3.5 w-3.5" />
+                              </Button>
+                              <span
+                                className="max-w-[120px] truncate text-[10px] text-slate-400 italic"
+                                title={l.notes || 'No notes added'}
+                              >
+                                {l.notes || 'No notes...'}
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+      </main>
+
+      {/* Notes Editor Modal */}
+      {editingNotesLead && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-5 shadow-2xl">
+            <h3 className="text-sm font-bold text-white mb-2">
+              Edit Notes for {editingNotesLead.name}
+            </h3>
+            <p className="text-[10px] text-slate-400 mb-4">
+              Lead ID: {editingNotesLead.id} ({editingNotesLead.type})
+            </p>
+            <textarea
+              className="w-full h-32 rounded-lg border border-slate-800 bg-slate-950 p-3 text-xs text-white placeholder-slate-600 focus:border-indigo-500 outline-none"
+              placeholder="Enter notes about phone calls, emails, or status details..."
+              value={tempNotes}
+              onChange={(e) => setTempNotes(e.target.value)}
+            />
+            <div className="mt-4 flex justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-slate-800 text-slate-400 hover:bg-slate-800 text-xs"
+                onClick={() => setEditingNotesLead(null)}
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                className="bg-indigo-600 text-white hover:bg-indigo-700 text-xs font-semibold"
+                onClick={handleSaveNotes}
+              >
+                Save Notes
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <Footer />
+    </div>
+  );
+}

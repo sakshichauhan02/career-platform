@@ -1,0 +1,12 @@
+{
+  "id": "booking_1781767929181",
+  "to": "sakshichauhan64771@gmail.com",
+  "subject": "Your 1:1 Career Consultation is Confirmed! - PathWayAI",
+  "bookingDetails": {
+    "name": "Sakshi Chauhan",
+    "date": "2026-07-19",
+    "timeSlot": "10:00 AM"
+  },
+  "status": "BOOKING_CONFIRMATION_MOCK_SENT",
+  "note": "SMTP variables missing. Booking confirmation email saved locally."
+}
