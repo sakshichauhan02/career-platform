@@ -484,6 +484,18 @@ export default function ResultsPage() {
       emailing: 'loading',
       downloading: 'idle',
     });
+    // Open a blank tab synchronously to bypass browser popup blockers
+    let printWindow: Window | null = null;
+    try {
+      printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write('<html><head><title>Generating Report...</title><style>body{display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;color:#94a3b8;background:#020617;}</style></head><body><div style="text-align:center;"><h2>Generating Report...</h2><p>Please wait while your premium career pathway document loads.</p></div></body></html>');
+        printWindow.document.close();
+      }
+    } catch (e) {
+      console.warn('Failed to pre-open window:', e);
+    }
+
     try {
       const response = await fetch('/api/generate-pdf', {
         method: 'POST',
@@ -499,6 +511,7 @@ export default function ResultsPage() {
       });
 
       if (!response.ok) {
+        if (printWindow) printWindow.close();
         throw new Error('Failed to generate PDF');
       }
 
@@ -514,12 +527,10 @@ export default function ResultsPage() {
             downloading: 'success',
           });
 
-          // Open print dialog in user's browser
-          const printWindow = window.open('', '_blank');
           if (printWindow) {
+            printWindow.document.open();
             printWindow.document.write(data.fallbackHtml);
             printWindow.document.close();
-            // Let the document load before printing
             printWindow.focus();
             setTimeout(() => {
               printWindow.print();
@@ -536,6 +547,9 @@ export default function ResultsPage() {
           return;
         }
       }
+
+      // If it returned a real PDF blob, we close the pre-opened window and download the file
+      if (printWindow) printWindow.close();
 
       setDeliveryStatus((prev) => ({
         ...prev,
@@ -568,6 +582,7 @@ export default function ResultsPage() {
       }, 3000);
     } catch (error) {
       console.error(error);
+      if (printWindow) printWindow.close();
       setDeliveryStatus({
         generating: 'error',
         storing: 'error',
