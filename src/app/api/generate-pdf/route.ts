@@ -355,6 +355,7 @@ async function sendReportEmail(emailAddress: string, pdfBuffer: Buffer, studentN
 }
 
 export async function POST(req: NextRequest) {
+  let htmlContent = '';
   try {
     const { profile, recommendations, email, userId } = await req.json();
 
@@ -425,7 +426,7 @@ export async function POST(req: NextRequest) {
       },
     ];
 
-    const htmlContent = `
+    htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
