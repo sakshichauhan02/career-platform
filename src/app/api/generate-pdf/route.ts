@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 import nodemailer from 'nodemailer';
