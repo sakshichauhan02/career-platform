@@ -443,7 +443,36 @@ export async function POST(req: NextRequest) {
     body {
       font-family: 'Inter', sans-serif;
       color: #0f172a;
-      background-color: #f8fafc;
+      background-color: #0f172a;
+    }
+    
+    @media screen {
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 0;
+      }
+      .page {
+        margin-bottom: 30px;
+        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
+        border-radius: 4px;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      body {
+        background-color: #ffffff;
+      }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
     }
     
     .page {
