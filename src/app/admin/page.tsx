@@ -1752,51 +1752,51 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-between overflow-x-hidden bg-slate-950 font-sans text-white">
+    <div className="flex min-h-screen flex-col justify-between overflow-x-hidden bg-background font-sans text-foreground">
       <Navbar />
 
       <main className="relative flex-grow px-4 pt-28 pb-16">
         {/* Ambient Glow background */}
-        <div className="pointer-events-none absolute top-10 left-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[130px]" />
-        <div className="pointer-events-none absolute right-1/4 bottom-10 h-96 w-96 translate-x-1/2 rounded-full bg-purple-500/10 blur-[140px]" />
+        <div className="pointer-events-none absolute top-10 left-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-secondary/10 blur-[130px]" />
+        <div className="pointer-events-none absolute right-1/4 bottom-10 h-96 w-96 translate-x-1/2 rounded-full bg-accent/10 blur-[140px]" />
 
         <div className="mx-auto max-w-7xl space-y-8">
           {/* Header block with Simulation Toggle */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <Shield className="h-4.5 w-4.5 text-indigo-400" />
-                <span className="text-xs font-bold tracking-wider text-indigo-400 uppercase">
+                <Shield className="h-4.5 w-4.5 text-primary" />
+                <span className="text-xs font-bold tracking-wider text-primary uppercase">
                   CMS Administration Panel
                 </span>
               </div>
-              <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+              <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
                 Course Catalog CMS
               </h1>
             </div>
 
             {/* Simulated Access Bypass */}
-            <div className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/40 px-4 py-2">
+            <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-2 shadow-sm">
               <div className="flex items-center gap-1.5 text-xs font-bold">
                 {isAdmin || isSimulatingAdmin ? (
                   <>
-                    <ShieldCheck className="h-4.5 w-4.5 animate-pulse text-emerald-400" />
-                    <span className="text-emerald-400">Admin Mode Active</span>
+                    <ShieldCheck className="h-4.5 w-4.5 animate-pulse text-emerald-600" />
+                    <span className="text-emerald-700">Admin Mode Active</span>
                   </>
                 ) : (
                   <>
-                    <AlertCircle className="h-4.5 w-4.5 text-rose-400" />
-                    <span className="text-rose-400">Access Restricted</span>
+                    <AlertCircle className="h-4.5 w-4.5 text-rose-600" />
+                    <span className="text-rose-700">Access Restricted</span>
                   </>
                 )}
               </div>
               {!isAdmin && (
                 <button
                   onClick={() => setIsSimulatingAdmin(!isSimulatingAdmin)}
-                  className={`rounded px-2.5 py-1 text-[10px] font-bold transition-all ${
+                  className={`rounded-full px-3 py-1 text-[10px] font-bold transition-all ${
                     isSimulatingAdmin
-                      ? 'border border-rose-500/30 bg-rose-600/20 text-rose-300'
-                      : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                      ? 'border border-rose-200 bg-rose-50 text-rose-700'
+                      : 'bg-primary text-white hover:bg-primary/95'
                   }`}
                 >
                   {isSimulatingAdmin ? 'Disable Bypass' : 'Simulate Access'}
@@ -1808,43 +1808,43 @@ export default function AdminDashboard() {
           {/* Database Notice Alert Banner */}
           {dbNotice && (
             <div
-              className={`flex items-start gap-3 rounded-xl border p-4 text-xs ${
+              className={`flex items-start gap-3 rounded-2xl border p-4 text-xs ${
                 dbNotice.type === 'success'
-                  ? 'border-emerald-500/20 bg-emerald-950/20 text-emerald-400'
+                  ? 'border-emerald-500/20 bg-emerald-50/80 text-emerald-800'
                   : dbNotice.type === 'warning'
-                    ? 'border-amber-500/20 bg-amber-950/20 text-amber-400'
-                    : 'border-rose-500/20 bg-rose-950/20 text-rose-400'
+                    ? 'border-amber-500/20 bg-amber-50/80 text-amber-800'
+                    : 'border-rose-500/20 bg-rose-50/80 text-rose-800'
               }`}
             >
               {dbNotice.type === 'success' ? (
-                <CheckCircle2 className="h-4.5 w-4.5 shrink-0" />
+                <CheckCircle2 className="h-4.5 w-4.5 shrink-0 text-emerald-600" />
               ) : (
-                <AlertCircle className="h-4.5 w-4.5 shrink-0" />
+                <AlertCircle className="h-4.5 w-4.5 shrink-0 text-amber-600" />
               )}
               <div className="space-y-1">
                 <span className="font-extrabold capitalize">
                   {dbNotice.type === 'warning' ? 'Simulated Sync' : dbNotice.type}
                 </span>
-                <p className="leading-normal text-slate-300">{dbNotice.message}</p>
+                <p className="leading-normal text-muted-foreground">{dbNotice.message}</p>
               </div>
             </div>
           )}
 
           {/* Authentication Block */}
           {!isAdmin && !isSimulatingAdmin ? (
-            <div className="mx-auto max-w-md rounded-2xl border border-slate-800 bg-slate-900/30 p-8 text-center backdrop-blur">
-              <Shield className="mx-auto mb-4 h-12 w-12 animate-pulse text-slate-600" />
-              <h3 className="mb-2 text-lg font-bold text-white">Administrator access required</h3>
-              <p className="mb-6 text-xs leading-relaxed text-slate-400">
+            <div className="mx-auto max-w-md rounded-3xl border border-border bg-card p-8 text-center backdrop-blur shadow-sm">
+              <Shield className="mx-auto mb-4 h-12 w-12 animate-pulse text-muted-foreground/65" />
+              <h3 className="mb-2 text-lg font-bold text-foreground">Administrator access required</h3>
+              <p className="mb-6 text-xs leading-relaxed text-muted-foreground">
                 You must be logged in as an administrator to access the Course Catalog CMS. Use the
                 simulation bypass toggle above to evaluate the dashboard.
               </p>
               <div className="flex flex-col gap-2">
                 <Link href="/login">
-                  <Button className="w-full bg-indigo-600 hover:bg-indigo-700">Log In</Button>
+                  <Button className="w-full bg-primary hover:bg-primary/95 rounded-full text-white">Log In</Button>
                 </Link>
                 <Link href="/">
-                  <Button variant="ghost" className="w-full text-slate-400 hover:bg-slate-900">
+                  <Button variant="ghost" className="w-full text-muted-foreground hover:bg-muted rounded-full">
                     Return to Homepage
                   </Button>
                 </Link>
@@ -1855,56 +1855,56 @@ export default function AdminDashboard() {
             <div className="space-y-6">
               {/* Stats Cards Section */}
               <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
-                <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
-                    <Grid className="h-3.5 w-3.5 text-indigo-400" />
+                <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
+                    <Grid className="h-3.5 w-3.5 text-primary" />
                     Courses
                   </div>
-                  <div className="mt-1 text-2xl font-black">{stats.totalCourses}</div>
+                  <div className="mt-1 text-2xl font-black text-foreground">{stats.totalCourses}</div>
                 </div>
 
-                <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
-                    <Tag className="h-3.5 w-3.5 text-indigo-400" />
+                <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
+                    <Tag className="h-3.5 w-3.5 text-primary" />
                     Total Tags
                   </div>
-                  <div className="mt-1 text-2xl font-black">{stats.totalTags}</div>
+                  <div className="mt-1 text-2xl font-black text-foreground">{stats.totalTags}</div>
                 </div>
 
-                <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
-                    <GraduationCap className="h-3.5 w-3.5 text-indigo-400" />
+                <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
+                    <GraduationCap className="h-3.5 w-3.5 text-primary" />
                     Specializations
                   </div>
-                  <div className="mt-1 text-2xl font-black">{stats.totalSpecializations}</div>
+                  <div className="mt-1 text-2xl font-black text-foreground">{stats.totalSpecializations}</div>
                 </div>
 
-                <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
-                    <GraduationCap className="h-3.5 w-3.5 text-indigo-400" />
+                <div className="rounded-2xl border border-border bg-card p-4 shadow-sm">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
+                    <GraduationCap className="h-3.5 w-3.5 text-primary" />
                     Colleges
                   </div>
-                  <div className="mt-1 text-2xl font-black">{stats.totalColleges}</div>
+                  <div className="mt-1 text-2xl font-black text-foreground">{stats.totalColleges}</div>
                 </div>
 
-                <div className="col-span-2 rounded-xl border border-slate-800 bg-slate-900/10 p-4 md:col-span-1">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
-                    <TrendingUp className="h-3.5 w-3.5 text-indigo-400" />
+                <div className="col-span-2 rounded-2xl border border-border bg-card p-4 md:col-span-1 shadow-sm">
+                  <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-muted-foreground uppercase">
+                    <TrendingUp className="h-3.5 w-3.5 text-primary" />
                     Total Seats
                   </div>
-                  <div className="mt-1 text-2xl font-black">{stats.totalSeats}</div>
+                  <div className="mt-1 text-2xl font-black text-foreground">{stats.totalSeats}</div>
                 </div>
               </div>
 
               {/* Navigation Tabs Bar */}
-              <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <div className="flex items-center justify-between border-b border-border pb-2">
                 <div className="flex gap-2 text-xs font-semibold">
                   <button
                     onClick={() => setActiveTab('courses')}
                     className={`px-3 pb-2.5 transition-colors ${
                       activeTab === 'courses'
-                        ? 'border-b-2 border-indigo-400 font-bold text-indigo-400'
-                        : 'text-slate-500 hover:text-slate-300'
+                        ? 'border-b-2 border-primary font-bold text-primary'
+                        : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     Courses Manager
@@ -1913,8 +1913,8 @@ export default function AdminDashboard() {
                     onClick={() => setActiveTab('colleges')}
                     className={`px-3 pb-2.5 transition-colors ${
                       activeTab === 'colleges'
-                        ? 'border-b-2 border-indigo-400 font-bold text-indigo-400'
-                        : 'text-slate-500 hover:text-slate-300'
+                        ? 'border-b-2 border-primary font-bold text-primary'
+                        : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     Colleges Manager
@@ -1923,8 +1923,8 @@ export default function AdminDashboard() {
                     onClick={() => setActiveTab('specializations')}
                     className={`px-3 pb-2.5 transition-colors ${
                       activeTab === 'specializations'
-                        ? 'border-b-2 border-indigo-400 font-bold text-indigo-400'
-                        : 'text-slate-500 hover:text-slate-300'
+                        ? 'border-b-2 border-primary font-bold text-primary'
+                        : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     College Specializations
@@ -1938,8 +1938,8 @@ export default function AdminDashboard() {
                     }}
                     className={`px-3 pb-2.5 transition-colors ${
                       activeTab === 'csv-import'
-                        ? 'border-b-2 border-indigo-400 font-bold text-indigo-400'
-                        : 'text-slate-500 hover:text-slate-300'
+                        ? 'border-b-2 border-primary font-bold text-primary'
+                        : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     CSV Importer
@@ -1948,21 +1948,21 @@ export default function AdminDashboard() {
                     onClick={() => setActiveTab('user-reports')}
                     className={`px-3 pb-2.5 transition-colors ${
                       activeTab === 'user-reports'
-                        ? 'border-b-2 border-indigo-400 font-bold text-indigo-400'
-                        : 'text-slate-500 hover:text-slate-300'
+                        ? 'border-b-2 border-primary font-bold text-primary'
+                        : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     User Reports
                   </button>
                   <Link
                     href="/admin/leads"
-                    className="px-3 pb-2.5 font-semibold text-slate-500 transition-colors hover:text-indigo-400"
+                    className="px-3 pb-2.5 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     Lead CRM
                   </Link>
                   <Link
                     href="/mentor"
-                    className="px-3 pb-2.5 font-semibold text-slate-500 transition-colors hover:text-indigo-400"
+                    className="px-3 pb-2.5 font-semibold text-muted-foreground transition-colors hover:text-primary"
                   >
                     Mentor Dashboard →
                   </Link>
@@ -2037,26 +2037,26 @@ export default function AdminDashboard() {
                 /* Colleges Management View */
                 <div className="space-y-4">
                   {/* Search, Filter, Sort Controls */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                    <div className="flex min-w-[240px] flex-1 items-center gap-2 rounded-lg border border-slate-800 bg-slate-950 px-3 py-1.5">
+                  <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-200 bg-slate-50/50 p-4 animate-in fade-in duration-300">
+                    <div className="flex min-w-[240px] flex-1 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1.5">
                       <input
                         type="text"
                         placeholder="Search colleges by name, city or state..."
                         value={collegeSearchQuery}
                         onChange={(e) => setCollegeSearchQuery(e.target.value)}
-                        className="w-full bg-transparent text-xs text-white placeholder-slate-500 outline-none"
+                        className="w-full bg-transparent text-xs text-slate-900 placeholder-slate-400 outline-none"
                       />
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3">
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase">
+                        <span className="text-[10px] font-bold text-slate-550 uppercase">
                           Type:
                         </span>
                         <select
                           value={collegeFilterType}
                           onChange={(e) => setCollegeFilterType(e.target.value as any)}
-                          className="border-slate-850 rounded-lg border bg-slate-950 p-2 text-xs text-white outline-none focus:border-indigo-500"
+                          className="border-slate-200 rounded-lg border bg-white p-2 text-xs text-slate-900 outline-none focus:border-primary"
                         >
                           <option value="all">All Types</option>
                           <option value="Government">Government</option>
@@ -2065,13 +2065,13 @@ export default function AdminDashboard() {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase">
+                        <span className="text-[10px] font-bold text-slate-550 uppercase">
                           Sort By:
                         </span>
                         <select
                           value={collegeSortBy}
                           onChange={(e) => setCollegeSortBy(e.target.value as any)}
-                          className="border-slate-850 rounded-lg border bg-slate-950 p-2 text-xs text-white outline-none focus:border-indigo-500"
+                          className="border-slate-200 rounded-lg border bg-white p-2 text-xs text-slate-900 outline-none focus:border-primary"
                         >
                           <option value="ranking">Ranking (1st first)</option>
                           <option value="fees">Fees (Low to High)</option>
@@ -2082,10 +2082,10 @@ export default function AdminDashboard() {
                   </div>
 
                   {/* Colleges Table */}
-                  <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/10">
+                  <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
                     <table className="w-full border-collapse text-left text-xs">
                       <thead>
-                        <tr className="border-b border-slate-800 bg-slate-950/60 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                        <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold tracking-wider text-slate-550 uppercase">
                           <th className="p-4">Rank</th>
                           <th className="p-4">AISHE Code</th>
                           <th className="p-4">College Name</th>
@@ -2097,145 +2097,145 @@ export default function AdminDashboard() {
                           <th className="p-4 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                      <tbody className="divide-y divide-slate-200 text-slate-600">
                         {(() => {
                           const filteredColleges = colleges
-                            .filter((col) => {
-                              const matchSearch =
-                                col.name.toLowerCase().includes(collegeSearchQuery.toLowerCase()) ||
-                                col.location
-                                  .toLowerCase()
-                                  .includes(collegeSearchQuery.toLowerCase()) ||
-                                col.state
-                                  .toLowerCase()
-                                  .includes(collegeSearchQuery.toLowerCase()) ||
-                                (col.aishe_code &&
-                                  col.aishe_code
-                                    .toLowerCase()
-                                    .includes(collegeSearchQuery.toLowerCase()));
+                              .filter((col) => {
+                                const matchSearch =
+                                    col.name.toLowerCase().includes(collegeSearchQuery.toLowerCase()) ||
+                                    col.location
+                                        .toLowerCase()
+                                        .includes(collegeSearchQuery.toLowerCase()) ||
+                                    col.state
+                                        .toLowerCase()
+                                        .includes(collegeSearchQuery.toLowerCase()) ||
+                                    (col.aishe_code &&
+                                        col.aishe_code
+                                            .toLowerCase()
+                                            .includes(collegeSearchQuery.toLowerCase()));
 
-                              const matchType =
-                                collegeFilterType === 'all' || col.type === collegeFilterType;
+                                const matchType =
+                                    collegeFilterType === 'all' || col.type === collegeFilterType;
 
-                              return matchSearch && matchType;
-                            })
-                            .sort((a, b) => {
-                              if (collegeSortBy === 'ranking') {
-                                const rankA = a.ranking || 999999;
-                                const rankB = b.ranking || 999999;
-                                return rankA - rankB;
-                              } else if (collegeSortBy === 'fees') {
-                                return a.fees_annual - b.fees_annual;
-                              } else {
-                                return a.name.localeCompare(b.name);
-                              }
-                            });
+                                return matchSearch && matchType;
+                              })
+                              .sort((a, b) => {
+                                if (collegeSortBy === 'ranking') {
+                                  const rankA = a.ranking || 999999;
+                                  const rankB = b.ranking || 999999;
+                                  return rankA - rankB;
+                                } else if (collegeSortBy === 'fees') {
+                                  return a.fees_annual - b.fees_annual;
+                                } else {
+                                  return a.name.localeCompare(b.name);
+                                }
+                              });
 
                           if (filteredColleges.length === 0) {
                             return (
-                              <tr>
-                                <td colSpan={9} className="p-8 text-center text-slate-500">
-                                  No colleges match the filters or search.
-                                </td>
-                              </tr>
+                                <tr>
+                                  <td colSpan={9} className="p-8 text-center text-slate-500">
+                                    No colleges match the filters or search.
+                                  </td>
+                                </tr>
                             );
                           }
 
                           return filteredColleges.map((col) => (
-                            <tr key={col.id} className="transition-colors hover:bg-slate-900/30">
-                              <td className="p-4 font-extrabold text-indigo-400">
-                                {col.ranking ? `#${col.ranking}` : 'N/A'}
-                              </td>
-                              <td className="p-4 font-mono font-bold text-slate-400">
-                                {col.aishe_code || 'N/A'}
-                              </td>
-                              <td className="p-4">
-                                <div className="font-bold text-white">{col.name}</div>
-                                {col.website_url && (
-                                  <a
-                                    href={col.website_url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="text-[10px] text-indigo-400/80 hover:text-indigo-400 hover:underline"
-                                  >
-                                    Visit Website
-                                  </a>
-                                )}
-                              </td>
-                              <td className="p-4 text-slate-400">
-                                {col.location}, {col.state}
-                              </td>
-                              <td className="p-4">
-                                <span
-                                  className={`inline-flex items-center rounded-full px-2 py-0.5 text-[9px] font-bold ${
-                                    col.type === 'Government'
-                                      ? 'border border-emerald-500/15 bg-emerald-500/10 text-emerald-400'
-                                      : 'border border-blue-500/15 bg-blue-500/10 text-blue-400'
-                                  }`}
-                                >
-                                  {col.type}
-                                </span>
-                              </td>
-                              <td className="p-4 font-semibold text-slate-200">
-                                ₹{col.fees_annual.toLocaleString('en-IN')}
-                              </td>
-                              <td
-                                className="max-w-[150px] truncate p-4 text-slate-400"
-                                title={col.admission_criteria}
-                              >
-                                {col.admission_criteria}
-                              </td>
-                              <td className="p-4">
-                                <div className="flex max-w-[150px] flex-wrap gap-1">
-                                  {col.entrance_exams && col.entrance_exams.length > 0 ? (
-                                    col.entrance_exams.map((exam, idx) => (
-                                      <span
-                                        key={idx}
-                                        className="text-slate-450 rounded border border-slate-800 bg-slate-950 px-1.5 py-0.5 text-[8px]"
+                              <tr key={col.id} className="transition-colors hover:bg-slate-50/50">
+                                <td className="p-4 font-extrabold text-primary">
+                                  {col.ranking ? `#${col.ranking}` : 'N/A'}
+                                </td>
+                                <td className="p-4 font-mono font-bold text-slate-500">
+                                  {col.aishe_code || 'N/A'}
+                                </td>
+                                <td className="p-4">
+                                  <div className="font-bold text-slate-900">{col.name}</div>
+                                  {col.website_url && (
+                                      <a
+                                          href={col.website_url}
+                                          target="_blank"
+                                          rel="noreferrer"
+                                          className="text-[10px] text-primary/80 hover:text-primary hover:underline"
                                       >
-                                        {exam}
-                                      </span>
-                                    ))
-                                  ) : (
-                                    <span className="text-[10px] text-slate-600">
-                                      Direct Admission
-                                    </span>
+                                        Visit Website
+                                      </a>
                                   )}
-                                </div>
-                              </td>
-                              <td className="space-x-2 p-4 text-right">
-                                <button
-                                  onClick={() =>
-                                    setCollegeModal({
-                                      isOpen: true,
-                                      mode: 'edit',
-                                      collegeId: col.id,
-                                      aishe_code: col.aishe_code || '',
-                                      name: col.name,
-                                      location: col.location,
-                                      state: col.state,
-                                      ranking: col.ranking || 100,
-                                      fees_annual: col.fees_annual,
-                                      admission_criteria: col.admission_criteria,
-                                      website_url: col.website_url || '',
-                                      type: col.type,
-                                      entrance_exams: col.entrance_exams
-                                        ? col.entrance_exams.join(', ')
-                                        : '',
-                                    })
-                                  }
-                                  className="inline-block p-1 text-indigo-400 hover:text-indigo-300"
-                                >
-                                  <Edit2 className="h-3.5 w-3.5" />
-                                </button>
-                                <button
-                                  onClick={() => handleDeleteCollege(col.id, col.name)}
-                                  className="inline-block p-1 text-rose-400 hover:text-rose-300"
-                                >
-                                  <Trash2 className="h-3.5 w-3.5" />
-                                </button>
-                              </td>
-                            </tr>
+                                </td>
+                                <td className="p-4 text-slate-500">
+                                  {col.location}, {col.state}
+                                </td>
+                                <td className="p-4">
+                                  <span
+                                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-[9px] font-bold ${
+                                          col.type === 'Government'
+                                              ? 'border border-emerald-100 bg-emerald-50 text-emerald-700'
+                                              : 'border border-blue-105 bg-blue-50 text-primary'
+                                      }`}
+                                  >
+                                    {col.type}
+                                  </span>
+                                </td>
+                                <td className="p-4 font-semibold text-slate-700">
+                                  ₹{col.fees_annual.toLocaleString('en-IN')}
+                                </td>
+                                <td
+                                    className="max-w-[150px] truncate p-4 text-slate-500"
+                                    title={col.admission_criteria}
+                                  >
+                                  {col.admission_criteria}
+                                </td>
+                                <td className="p-4">
+                                  <div className="flex max-w-[150px] flex-wrap gap-1">
+                                    {col.entrance_exams && col.entrance_exams.length > 0 ? (
+                                        col.entrance_exams.map((exam, idx) => (
+                                            <span
+                                                key={idx}
+                                                className="text-slate-600 rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[8px]"
+                                            >
+                                            {exam}
+                                          </span>
+                                        ))
+                                    ) : (
+                                        <span className="text-[10px] text-slate-500">
+                                        Direct Admission
+                                      </span>
+                                    )}
+                                  </div>
+                                </td>
+                                <td className="space-x-2 p-4 text-right">
+                                  <button
+                                      onClick={() =>
+                                          setCollegeModal({
+                                            isOpen: true,
+                                            mode: 'edit',
+                                            collegeId: col.id,
+                                            aishe_code: col.aishe_code || '',
+                                            name: col.name,
+                                            location: col.location,
+                                            state: col.state,
+                                            ranking: col.ranking || 100,
+                                            fees_annual: col.fees_annual,
+                                            admission_criteria: col.admission_criteria,
+                                            website_url: col.website_url || '',
+                                            type: col.type,
+                                            entrance_exams: col.entrance_exams
+                                                ? col.entrance_exams.join(', ')
+                                                : '',
+                                          })
+                                      }
+                                      className="inline-block p-1 text-primary hover:text-primary/80"
+                                  >
+                                    <Edit2 className="h-3.5 w-3.5" />
+                                  </button>
+                                  <button
+                                      onClick={() => handleDeleteCollege(col.id, col.name)}
+                                      className="inline-block p-1 text-rose-600 hover:text-rose-500"
+                                  >
+                                    <Trash2 className="h-3.5 w-3.5" />
+                                  </button>
+                                </td>
+                              </tr>
                           ));
                         })()}
                       </tbody>
@@ -2244,10 +2244,10 @@ export default function AdminDashboard() {
                 </div>
               ) : activeTab === 'courses' ? (
                 /* Courses Management View */
-                <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/10">
+                <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
                   <table className="w-full border-collapse text-left text-xs">
                     <thead>
-                      <tr className="border-b border-slate-800 bg-slate-950/60 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                      <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold tracking-wider text-slate-550 uppercase">
                         <th className="p-4">Name</th>
                         <th className="hidden p-4 md:table-cell">Description</th>
                         <th className="p-4">Duration</th>
@@ -2256,26 +2256,26 @@ export default function AdminDashboard() {
                         <th className="p-4 text-right">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                    <tbody className="divide-y divide-slate-200 text-slate-650">
                       {courses.map((course) => {
                         const courseTags = tags.filter((t) => t.course_id === course.id);
                         return (
-                          <tr key={course.id} className="transition-colors hover:bg-slate-900/30">
-                            <td className="max-w-[150px] truncate p-4 font-bold text-white">
+                          <tr key={course.id} className="transition-colors hover:bg-slate-50/50">
+                            <td className="max-w-[150px] truncate p-4 font-bold text-slate-900">
                               {course.name}
                             </td>
-                            <td className="hidden max-w-sm truncate p-4 text-slate-400 md:table-cell">
+                            <td className="hidden max-w-sm truncate p-4 text-slate-500 md:table-cell">
                               {course.description}
                             </td>
-                            <td className="p-4 font-semibold">{course.duration_years} Years</td>
+                            <td className="p-4 font-semibold text-slate-700">{course.duration_years} Years</td>
                             <td className="p-4">
                               <span
                                 className={`inline-flex items-center rounded-full px-2 py-0.5 text-[9px] font-bold ${
                                   course.difficulty_level === 'Advanced'
-                                    ? 'border border-rose-500/15 bg-rose-500/10 text-rose-400'
+                                    ? 'border border-rose-200 bg-rose-50 text-rose-700'
                                     : course.difficulty_level === 'Intermediate'
-                                      ? 'border border-amber-500/15 bg-amber-500/10 text-amber-400'
-                                      : 'border border-emerald-500/15 bg-emerald-500/10 text-emerald-400'
+                                      ? 'border border-amber-250 bg-amber-50 text-amber-700'
+                                      : 'border border-emerald-250 bg-emerald-50 text-emerald-700'
                                 }`}
                               >
                                 {course.difficulty_level}
@@ -2286,7 +2286,7 @@ export default function AdminDashboard() {
                                 {courseTags.map((tagObj) => (
                                   <span
                                     key={tagObj.id}
-                                    className="rounded border border-slate-700/80 bg-slate-800 px-1.5 py-0.5 text-[8px] text-slate-400"
+                                    className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[8px] text-slate-600"
                                   >
                                     {tagObj.tag}
                                   </span>
@@ -2299,7 +2299,7 @@ export default function AdminDashboard() {
                                       newTag: '',
                                     })
                                   }
-                                  className="px-1 text-[10px] font-extrabold text-indigo-400 hover:text-indigo-300"
+                                  className="px-1 text-[10px] font-extrabold text-primary hover:text-primary/80"
                                 >
                                   + Manage
                                 </button>
@@ -2316,7 +2316,7 @@ export default function AdminDashboard() {
                                     seats: 40,
                                   })
                                 }
-                                className="text-slate-450 rounded border border-slate-800 px-2 py-1 text-[10px] transition-colors hover:text-white"
+                                className="text-slate-600 rounded border border-slate-200 px-2 py-1 text-[10px] transition-colors hover:text-slate-900 hover:bg-slate-50"
                               >
                                 + Specialization
                               </button>
@@ -2332,13 +2332,13 @@ export default function AdminDashboard() {
                                     difficultyLevel: course.difficulty_level,
                                   })
                                 }
-                                className="inline-block p-1 text-indigo-400 hover:text-indigo-300"
+                                className="inline-block p-1 text-primary hover:text-primary/80"
                               >
                                 <Edit2 className="h-3.5 w-3.5" />
                               </button>
                               <button
                                 onClick={() => handleDeleteCourse(course.id, course.name)}
-                                className="inline-block p-1 text-rose-400 hover:text-rose-300"
+                                className="inline-block p-1 text-rose-600 hover:text-rose-500"
                               >
                                 <Trash2 className="h-3.5 w-3.5" />
                               </button>
@@ -2351,10 +2351,10 @@ export default function AdminDashboard() {
                 </div>
               ) : activeTab === 'specializations' ? (
                 /* Specializations Management View */
-                <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/10">
+                <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
                   <table className="w-full border-collapse text-left text-xs">
                     <thead>
-                      <tr className="border-b border-slate-800 bg-slate-950/60 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                      <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold tracking-wider text-slate-550 uppercase">
                         <th className="p-4">College</th>
                         <th className="p-4">Course Category</th>
                         <th className="p-4">Specialization Title</th>
@@ -2362,7 +2362,7 @@ export default function AdminDashboard() {
                         <th className="p-4 text-right">Actions</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                    <tbody className="divide-y divide-slate-200 text-slate-650">
                       {specializations.length === 0 ? (
                         <tr>
                           <td colSpan={5} className="p-8 text-center text-slate-500">
@@ -2374,23 +2374,23 @@ export default function AdminDashboard() {
                         specializations.map((spec) => {
                           const linkedCourse = courses.find((c) => c.id === spec.course_id);
                           return (
-                            <tr key={spec.id} className="transition-colors hover:bg-slate-900/30">
-                              <td className="p-4 font-bold text-white">
+                            <tr key={spec.id} className="transition-colors hover:bg-slate-550/50">
+                              <td className="p-4 font-bold text-slate-900">
                                 {spec.colleges?.name || 'Unknown College'}
                               </td>
-                              <td className="p-4 text-slate-400">
+                              <td className="p-4 text-slate-550">
                                 {linkedCourse ? linkedCourse.name : 'Unknown Course'}
                               </td>
-                              <td className="p-4 font-semibold text-indigo-300">
+                              <td className="p-4 font-semibold text-primary">
                                 {spec.specialization_name}
                               </td>
-                              <td className="p-4 font-bold">{spec.seats_available} Seats</td>
+                              <td className="p-4 font-bold text-slate-700">{spec.seats_available} Seats</td>
                               <td className="p-4 text-right">
                                 <button
                                   onClick={() =>
                                     handleRemoveSpecialization(spec.id, spec.specialization_name)
                                   }
-                                  className="p-1 text-rose-400 hover:text-rose-300"
+                                  className="p-1 text-rose-600 hover:text-rose-500"
                                 >
                                   <Trash2 className="h-3.5 w-3.5" />
                                 </button>
@@ -2412,21 +2412,21 @@ export default function AdminDashboard() {
                       placeholder="Search by student name or email..."
                       value={assessmentSearchQuery}
                       onChange={(e) => setAssessmentSearchQuery(e.target.value)}
-                      className="w-full max-w-sm rounded-lg border border-slate-800 bg-slate-900/50 p-2 text-xs text-white placeholder-slate-500 outline-none focus:border-indigo-500"
+                      className="w-full max-w-sm rounded-lg border border-slate-200 bg-white p-2 text-xs text-slate-900 placeholder-slate-400 outline-none focus:border-primary"
                     />
                   </div>
 
-                  <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/10">
+                  <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
                     <table className="w-full border-collapse text-left text-xs">
                       <thead>
-                        <tr className="border-b border-slate-800 bg-slate-950/60 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                        <tr className="border-b border-slate-200 bg-slate-50 text-[10px] font-bold tracking-wider text-slate-550 uppercase">
                           <th className="p-4">Student Details</th>
                           <th className="p-4">Academic Stream / Grade</th>
                           <th className="p-4">Submitted Date</th>
                           <th className="p-4 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                      <tbody className="divide-y divide-slate-200 text-slate-655">
                         {assessments.filter((ar) => {
                           const query = assessmentSearchQuery.toLowerCase();
                           const name = ar.profiles?.full_name?.toLowerCase() || '';
@@ -2459,25 +2459,25 @@ export default function AdminDashboard() {
                                 });
 
                               return (
-                                <tr key={ar.id} className="transition-colors hover:bg-slate-900/30">
+                                <tr key={ar.id} className="transition-colors hover:bg-slate-50/50">
                                   <td className="p-4">
-                                    <div className="font-bold text-white">
+                                    <div className="font-bold text-slate-900">
                                       {ar.profiles?.full_name || 'Student'}
                                     </div>
                                     <div className="text-[10px] text-slate-500">
                                       {ar.profiles?.email || 'N/A'}
                                     </div>
                                   </td>
-                                  <td className="p-4 text-slate-400 capitalize">
+                                  <td className="p-4 text-slate-500 capitalize">
                                     {gradeLabel.replace('school_', '').replace('_', ' ')}
                                   </td>
-                                  <td className="p-4 text-slate-400">{formattedDate}</td>
+                                  <td className="p-4 text-slate-500">{formattedDate}</td>
                                   <td className="p-4 text-right">
                                     <Button
                                       onClick={() => handleRegenerateReport(ar)}
                                       disabled={isRegenerating}
                                       size="sm"
-                                      className="h-8 bg-indigo-600 px-3 text-[10px] font-semibold hover:bg-indigo-700 disabled:opacity-50"
+                                      className="h-8 bg-primary hover:bg-primary/90 text-white px-3 text-[10px] font-semibold rounded-full disabled:opacity-50"
                                     >
                                       {isRegenerating ? (
                                         <>
@@ -2499,17 +2499,17 @@ export default function AdminDashboard() {
                 </div>
               ) : (
                 /* CSV Importer View */
-                <div className="space-y-6 rounded-xl border border-slate-800 bg-slate-900/10 p-6">
-                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/80 pb-4">
+                <div className="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
                     <div>
-                      <h3 className="text-base font-bold text-white">Import Records from CSV</h3>
-                      <p className="text-xs text-slate-400">
+                      <h3 className="text-base font-bold text-slate-900">Import Records from CSV</h3>
+                      <p className="text-xs text-slate-500">
                         Upload a CSV file to add multiple records at once. Duplicates and invalid
                         formats will be rejected.
                       </p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <label className="text-xs font-bold text-slate-400 uppercase">
+                      <label className="text-xs font-bold text-slate-500 uppercase">
                         Import Target:
                       </label>
                       <select
@@ -2525,7 +2525,7 @@ export default function AdminDashboard() {
                           setPreviewRows([]);
                           setImportErrors([]);
                         }}
-                        className="rounded-lg border border-slate-800 bg-slate-950 p-2 text-xs text-white outline-none focus:border-indigo-500"
+                        className="rounded-lg border border-slate-200 bg-white p-2 text-xs text-slate-900 outline-none focus:border-primary"
                       >
                         <option value="courses">Courses</option>
                         <option value="tags">Tags</option>
@@ -2537,32 +2537,32 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  <div className="space-y-2 rounded-lg border border-slate-800 bg-slate-950/40 p-4 text-xs">
-                    <p className="font-bold text-indigo-400">Required CSV Headers:</p>
+                  <div className="space-y-2 rounded-lg border border-slate-200 bg-slate-50/50 p-4 text-xs">
+                    <p className="font-bold text-primary">Required CSV Headers:</p>
                     {importTarget === 'courses' && (
-                      <code className="block rounded bg-slate-950 p-2 font-mono text-[10px] text-slate-300">
+                      <code className="block rounded bg-slate-100 p-2 font-mono text-[10px] text-slate-700">
                         name,description,duration_years,difficulty_level
                       </code>
                     )}
                     {importTarget === 'tags' && (
-                      <code className="block rounded bg-slate-950 p-2 font-mono text-[10px] text-slate-300">
+                      <code className="block rounded bg-slate-100 p-2 font-mono text-[10px] text-slate-700">
                         course_name,tag
                       </code>
                     )}
                     {importTarget === 'specializations' && (
-                      <code className="block rounded bg-slate-950 p-2 font-mono text-[10px] text-slate-300">
+                      <code className="block rounded bg-slate-100 p-2 font-mono text-[10px] text-slate-700">
                         college_name,course_name,specialization_name,seats_available
                       </code>
                     )}
                     {importTarget === 'colleges' && (
-                      <code className="block rounded bg-slate-950 p-2 font-mono text-[10px] text-slate-300">
+                      <code className="block rounded bg-slate-100 p-2 font-mono text-[10px] text-slate-700">
                         name,location,state,ranking,fees_annual,admission_criteria,website_url,type,entrance_exams
                         (use semicolon ';' for multiple exams)
                       </code>
                     )}
                   </div>
 
-                  <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-800 bg-slate-950/20 p-8 text-center">
+                  <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/50 p-8 text-center">
                     <input
                       type="file"
                       id="csvFileInput"
@@ -2572,12 +2572,12 @@ export default function AdminDashboard() {
                     />
                     <label
                       htmlFor="csvFileInput"
-                      className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 px-4 py-2.5 text-xs font-bold text-white transition-all hover:border-slate-700 hover:bg-slate-800"
+                      className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 shadow-sm transition-all hover:bg-slate-50 hover:border-slate-300"
                     >
                       Choose CSV File
                     </label>
                     {csvFile ? (
-                      <p className="mt-2 text-xs font-semibold text-emerald-400">
+                      <p className="mt-2 text-xs font-semibold text-emerald-600">
                         Selected File: {csvFile.name}
                       </p>
                     ) : (
@@ -2588,27 +2588,27 @@ export default function AdminDashboard() {
                   </div>
 
                   {previewRows.length > 0 && (
-                    <div className="space-y-4 border-t border-slate-800/80 pt-4">
+                    <div className="space-y-4 border-t border-slate-200 pt-4">
                       <div className="flex items-center justify-between">
-                        <h4 className="text-sm font-bold text-white">
+                        <h4 className="text-sm font-bold text-slate-900">
                           Import Preview ({previewRows.length} Rows)
                         </h4>
                         {importErrors.length > 0 ? (
-                          <span className="text-xs font-bold text-rose-400">
+                          <span className="text-xs font-bold text-rose-600">
                             ❌ {importErrors.length} validation error(s) found. Please fix your file
                             and try again.
                           </span>
                         ) : (
-                          <span className="text-emerald-450 flex items-center gap-1 text-xs font-bold">
+                          <span className="text-emerald-700 flex items-center gap-1 text-xs font-bold">
                             ✓ CSV Validated successfully! Ready to commit.
                           </span>
                         )}
                       </div>
 
-                      <div className="max-h-[300px] overflow-x-auto overflow-y-auto rounded-lg border border-slate-800 bg-slate-950/60">
+                      <div className="max-h-[300px] overflow-x-auto overflow-y-auto rounded-lg border border-slate-200 bg-slate-50/50">
                         <table className="w-full border-collapse text-left text-xs">
                           <thead>
-                            <tr className="border-slate-850 border-b bg-slate-950/90 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+                            <tr className="border-slate-200 border-b bg-slate-100/80 text-[10px] font-bold tracking-wider text-slate-650 uppercase">
                               <th className="p-3">Row</th>
                               {importTarget === 'courses' && (
                                 <>
@@ -2643,16 +2643,16 @@ export default function AdminDashboard() {
                               <th className="p-3 text-right">Status</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-slate-850 divide-y text-slate-300">
+                          <tbody className="divide-slate-200 divide-y text-slate-700">
                             {previewRows.map((row) => (
                               <tr
                                 key={row.rowNum}
-                                className={`transition-colors ${row.valid ? 'hover:bg-slate-900/30' : 'bg-rose-950/10 hover:bg-rose-950/20'}`}
+                                className={`transition-colors ${row.valid ? 'hover:bg-slate-100/50' : 'bg-rose-50 hover:bg-rose-100/50'}`}
                               >
                                 <td className="p-3 font-semibold text-slate-500">{row.rowNum}</td>
                                 {importTarget === 'courses' && (
                                   <>
-                                    <td className="max-w-[150px] truncate p-3 font-bold text-white">
+                                    <td className="max-w-[150px] truncate p-3 font-bold text-slate-900">
                                       {row.data.name}
                                     </td>
                                     <td className="p-3">{row.data.duration_years} Years</td>
@@ -2661,7 +2661,7 @@ export default function AdminDashboard() {
                                 )}
                                 {importTarget === 'tags' && (
                                   <>
-                                    <td className="p-3 font-bold text-white">
+                                    <td className="p-3 font-bold text-slate-900">
                                       {row.data.course_name}
                                     </td>
                                     <td className="p-3">{row.data.tag}</td>
@@ -2669,11 +2669,11 @@ export default function AdminDashboard() {
                                 )}
                                 {importTarget === 'specializations' && (
                                   <>
-                                    <td className="p-3 font-bold text-white">
+                                    <td className="p-3 font-bold text-slate-900">
                                       {row.data.college_name}
                                     </td>
                                     <td className="p-3">{row.data.course_name}</td>
-                                    <td className="p-3 text-indigo-300">
+                                    <td className="p-3 text-primary font-semibold">
                                       {row.data.specialization_name}
                                     </td>
                                     <td className="p-3">{row.data.seats_available} Seats</td>
@@ -2681,7 +2681,7 @@ export default function AdminDashboard() {
                                 )}
                                 {importTarget === 'colleges' && (
                                   <>
-                                    <td className="p-3 font-bold text-white">{row.data.name}</td>
+                                    <td className="p-3 font-bold text-slate-900">{row.data.name}</td>
                                     <td className="p-3">
                                       {row.data.location}, {row.data.state}
                                     </td>
@@ -2698,13 +2698,13 @@ export default function AdminDashboard() {
                                 )}
                                 <td className="p-3 text-right">
                                   {row.valid ? (
-                                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9px] font-bold text-emerald-400">
+                                    <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[9px] font-bold text-emerald-700 border border-emerald-100">
                                       Ready
                                     </span>
                                   ) : (
                                     <span
                                       title={row.errors.join(', ')}
-                                      className="inline-flex cursor-help items-center rounded-full bg-rose-500/10 px-2 py-0.5 text-[9px] font-bold text-rose-400"
+                                      className="inline-flex cursor-help items-center rounded-full bg-rose-50 px-2 py-0.5 text-[9px] font-bold text-rose-700 border border-rose-100"
                                     >
                                       Error
                                     </span>
@@ -2717,7 +2717,7 @@ export default function AdminDashboard() {
                       </div>
 
                       {importErrors.length > 0 && (
-                        <div className="space-y-1 rounded-lg border border-rose-500/20 bg-rose-950/20 p-4 text-rose-400">
+                        <div className="space-y-1 rounded-lg border border-rose-200 bg-rose-50 p-4 text-rose-700">
                           <p className="text-[10px] font-extrabold tracking-wider uppercase">
                             Validation Failures:
                           </p>
@@ -2742,14 +2742,14 @@ export default function AdminDashboard() {
                             setPreviewRows([]);
                             setImportErrors([]);
                           }}
-                          className="flex-1 border-slate-800 text-slate-400 hover:bg-slate-800"
+                          className="flex-1 border-slate-350 text-slate-700 hover:bg-slate-50"
                         >
                           Clear Import
                         </Button>
                         <Button
                           disabled={importErrors.length > 0 || isImporting}
                           onClick={handleCommitImport}
-                          className="flex-1 bg-indigo-600 font-bold text-white hover:bg-indigo-700"
+                          className="flex-1 bg-indigo-650 font-bold text-white hover:bg-indigo-700"
                         >
                           {isImporting ? 'Processing Commit...' : 'Commit Import'}
                         </Button>
@@ -2772,15 +2772,15 @@ export default function AdminDashboard() {
       {/* 1. Create/Edit Course Modal */}
       <AnimatePresence>
         {courseModal.isOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
-            <div className="w-full max-w-md space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6 text-left shadow-2xl">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-lg font-bold text-white">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm">
+            <div className="w-full max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 className="text-lg font-bold text-slate-900">
                   {courseModal.mode === 'create' ? 'Create New Course' : 'Edit Course Details'}
                 </h3>
                 <button
                   onClick={() => setCourseModal((prev) => ({ ...prev, isOpen: false }))}
-                  className="text-slate-400 hover:text-white"
+                  className="text-slate-500 hover:text-slate-850"
                 >
                   <X className="h-4.5 w-4.5" />
                 </button>
@@ -2788,19 +2788,19 @@ export default function AdminDashboard() {
 
               <form onSubmit={handleSaveCourse} className="space-y-4 text-xs">
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-400 uppercase">Course Name</label>
+                  <label className="font-semibold text-slate-500 uppercase">Course Name</label>
                   <input
                     type="text"
                     required
                     value={courseModal.name}
                     onChange={(e) => setCourseModal((prev) => ({ ...prev, name: e.target.value }))}
-                    className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                     placeholder="e.g., Space Technology & Satellite Systems"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-400 uppercase">Description</label>
+                  <label className="font-semibold text-slate-500 uppercase">Description</label>
                   <textarea
                     required
                     rows={4}
@@ -2808,14 +2808,14 @@ export default function AdminDashboard() {
                     onChange={(e) =>
                       setCourseModal((prev) => ({ ...prev, description: e.target.value }))
                     }
-                    className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                     placeholder="Enter course scope, curriculum details, and career pathways..."
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">
+                    <label className="font-semibold text-slate-500 uppercase">
                       Duration (Years)
                     </label>
                     <input
@@ -2830,12 +2830,12 @@ export default function AdminDashboard() {
                           durationYears: Number(e.target.value),
                         }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">Difficulty</label>
+                    <label className="font-semibold text-slate-500 uppercase">Difficulty</label>
                     <select
                       value={courseModal.difficultyLevel}
                       onChange={(e) =>
@@ -2847,7 +2847,7 @@ export default function AdminDashboard() {
                             | 'Advanced',
                         }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                     >
                       <option value="Beginner">Beginner</option>
                       <option value="Intermediate">Intermediate</option>
@@ -2856,16 +2856,16 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="flex gap-3 border-t border-slate-800/80 pt-3">
+                <div className="flex gap-3 border-t border-slate-200 pt-3">
                   <Button
                     type="button"
                     onClick={() => setCourseModal((prev) => ({ ...prev, isOpen: false }))}
                     variant="outline"
-                    className="text-slate-450 flex-1 border-slate-800 hover:bg-slate-800"
+                    className="text-slate-700 flex-1 border-slate-300 hover:bg-slate-50"
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700">
+                  <Button type="submit" className="flex-1 bg-primary text-white hover:bg-primary/95 font-semibold">
                     Save Course
                   </Button>
                 </div>
@@ -2878,13 +2878,13 @@ export default function AdminDashboard() {
       {/* 2. Manage Tags Modal */}
       <AnimatePresence>
         {tagModal.isOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
-            <div className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6 text-left shadow-2xl">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-lg font-bold text-white">Manage Course Tags</h3>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm">
+            <div className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 className="text-lg font-bold text-slate-900">Manage Course Tags</h3>
                 <button
                   onClick={() => setTagModal((prev) => ({ ...prev, isOpen: false }))}
-                  className="text-slate-400 hover:text-white"
+                  className="text-slate-500 hover:text-slate-850"
                 >
                   <X className="h-4.5 w-4.5" />
                 </button>
@@ -2895,7 +2895,7 @@ export default function AdminDashboard() {
                 <label className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">
                   Active Tags
                 </label>
-                <div className="flex min-h-[40px] flex-wrap gap-1.5 rounded-lg border border-slate-800 bg-slate-950/40 p-2">
+                <div className="flex min-h-[40px] flex-wrap gap-1.5 rounded-lg border border-slate-200 bg-slate-50 p-2">
                   {tags.filter((t) => t.course_id === tagModal.courseId).length === 0 ? (
                     <span className="p-1 text-[10px] text-slate-500">No tags set.</span>
                   ) : (
@@ -2904,13 +2904,13 @@ export default function AdminDashboard() {
                       .map((tObj) => (
                         <span
                           key={tObj.id}
-                          className="inline-flex items-center gap-1 rounded border border-slate-700 bg-slate-800 px-2 py-0.5 text-[10px] text-slate-300"
+                          className="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-100 px-2 py-0.5 text-[10px] text-slate-700"
                         >
                           {tObj.tag}
                           <button
                             type="button"
                             onClick={() => handleRemoveTag(tObj.id, tObj.tag)}
-                            className="font-extrabold text-rose-400 hover:text-rose-300"
+                            className="font-extrabold text-rose-600 hover:text-rose-500"
                           >
                             ×
                           </button>
@@ -2921,7 +2921,7 @@ export default function AdminDashboard() {
               </div>
 
               {/* Form to add a tag */}
-              <form onSubmit={handleAddTag} className="space-y-4 border-t border-slate-800/80 pt-2">
+              <form onSubmit={handleAddTag} className="space-y-4 border-t border-slate-200 pt-2">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">
                     Add New Tag
@@ -2932,10 +2932,10 @@ export default function AdminDashboard() {
                       required
                       value={tagModal.newTag}
                       onChange={(e) => setTagModal((prev) => ({ ...prev, newTag: e.target.value }))}
-                      className="border-slate-850 flex-grow rounded-lg border bg-slate-950 px-2.5 py-1.5 text-xs text-white outline-none focus:border-indigo-500"
+                      className="border-slate-200 flex-grow rounded-lg border bg-white px-2.5 py-1.5 text-xs text-slate-900 outline-none focus:border-primary"
                       placeholder="e.g., machine_learning"
                     />
-                    <Button type="submit" size="xs" className="bg-indigo-600 hover:bg-indigo-700">
+                    <Button type="submit" size="xs" className="bg-primary hover:bg-primary/95 text-white">
                       <PlusCircle className="h-3.5 w-3.5" />
                     </Button>
                   </div>
@@ -2945,7 +2945,7 @@ export default function AdminDashboard() {
                   <Button
                     onClick={() => setTagModal((prev) => ({ ...prev, isOpen: false }))}
                     variant="outline"
-                    className="border-slate-800 text-xs text-slate-400 hover:bg-slate-800"
+                    className="border-slate-300 text-xs text-slate-700 hover:bg-slate-55"
                   >
                     Close
                   </Button>
@@ -2959,26 +2959,25 @@ export default function AdminDashboard() {
       {/* 3. Manage Specializations Modal */}
       <AnimatePresence>
         {specModal.isOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
-            <div className="w-full max-w-md space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6 text-left shadow-2xl">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-lg font-bold text-white">Add College Specialization</h3>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm">
+            <div className="w-full max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 className="text-lg font-bold text-slate-900">Add College Specialization</h3>
                 <button
                   onClick={() => setSpecModal((prev) => ({ ...prev, isOpen: false }))}
-                  className="text-slate-400 hover:text-white"
+                  className="text-slate-500 hover:text-slate-850"
                 >
                   <X className="h-4.5 w-4.5" />
                 </button>
               </div>
 
-              {/* Current specializations summary list */}
+              {/* Render Existing specializations */}
               <div className="space-y-2">
                 <label className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">
                   Linked Specializations
                 </label>
                 <div className="max-h-[120px] space-y-1.5 overflow-y-auto pr-1">
-                  {specializations.filter((s) => s.course_id === specModal.courseId).length ===
-                  0 ? (
+                  {specializations.filter((s) => s.course_id === specModal.courseId).length === 0 ? (
                     <p className="p-1 text-[10px] text-slate-500 italic">No colleges linked yet.</p>
                   ) : (
                     specializations
@@ -2986,10 +2985,10 @@ export default function AdminDashboard() {
                       .map((sObj) => (
                         <div
                           key={sObj.id}
-                          className="flex items-center justify-between rounded-lg border border-slate-800 bg-slate-950/40 p-2 text-[10px]"
+                          className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-2 text-[10px]"
                         >
                           <div>
-                            <span className="font-bold text-slate-300">
+                            <span className="font-bold text-slate-700">
                               {sObj.colleges?.name || 'Unknown'}
                             </span>
                             <span className="block text-[9px] text-slate-500">
@@ -3000,7 +2999,7 @@ export default function AdminDashboard() {
                             onClick={() =>
                               handleRemoveSpecialization(sObj.id, sObj.specialization_name)
                             }
-                            className="text-rose-400 hover:text-rose-300"
+                            className="text-rose-600 hover:text-rose-500"
                           >
                             Remove
                           </button>
@@ -3013,17 +3012,17 @@ export default function AdminDashboard() {
               {/* Form to add college specialization */}
               <form
                 onSubmit={handleAddSpecialization}
-                className="space-y-3 border-t border-slate-800/80 pt-3 text-xs"
+                className="space-y-3 border-t border-slate-200 pt-3 text-xs"
               >
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-400 uppercase">Select College</label>
+                  <label className="font-semibold text-slate-500 uppercase">Select College</label>
                   <select
                     required
                     value={specModal.collegeId}
                     onChange={(e) =>
                       setSpecModal((prev) => ({ ...prev, collegeId: e.target.value }))
                     }
-                    className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2 text-xs text-white outline-none focus:border-indigo-500"
+                    className="border-slate-200 w-full rounded-lg border bg-white p-2 text-xs text-slate-900 outline-none focus:border-primary"
                   >
                     <option value="">Choose a college...</option>
                     {colleges.map((col) => (
@@ -3036,7 +3035,7 @@ export default function AdminDashboard() {
 
                 <div className="grid grid-cols-3 gap-3">
                   <div className="col-span-2 space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">
+                    <label className="font-semibold text-slate-500 uppercase">
                       Specialization Name
                     </label>
                     <input
@@ -3046,13 +3045,13 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         setSpecModal((prev) => ({ ...prev, specName: e.target.value }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2 text-white outline-none focus:border-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2 text-slate-900 outline-none focus:border-primary"
                       placeholder="e.g., Artificial Intelligence & ML"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">Seats</label>
+                    <label className="font-semibold text-slate-500 uppercase">Seats</label>
                     <input
                       type="number"
                       required
@@ -3062,21 +3061,21 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         setSpecModal((prev) => ({ ...prev, seats: Number(e.target.value) }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2 text-white outline-none focus:border-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2 text-slate-900 outline-none focus:border-primary"
                     />
                   </div>
                 </div>
 
-                <div className="flex gap-3 border-t border-slate-800/80 pt-3">
+                <div className="flex gap-3 border-t border-slate-200 pt-3">
                   <Button
                     type="button"
                     onClick={() => setSpecModal((prev) => ({ ...prev, isOpen: false }))}
                     variant="outline"
-                    className="flex-1 border-slate-800 text-slate-400 hover:bg-slate-800"
+                    className="flex-1 border-slate-350 text-slate-700 hover:bg-slate-50"
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700">
+                  <Button type="submit" className="flex-1 bg-primary text-white hover:bg-primary/95 font-semibold">
                     Add Specialization
                   </Button>
                 </div>
@@ -3089,15 +3088,15 @@ export default function AdminDashboard() {
       {/* 4. Create/Edit College Modal */}
       <AnimatePresence>
         {collegeModal.isOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
-            <div className="w-full max-w-lg space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6 text-left shadow-2xl">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-lg font-bold text-white">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm">
+            <div className="w-full max-w-lg space-y-4 rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-2xl">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 className="text-lg font-bold text-slate-900">
                   {collegeModal.mode === 'create' ? 'Create New College' : 'Edit College Details'}
                 </h3>
                 <button
                   onClick={() => setCollegeModal((prev) => ({ ...prev, isOpen: false }))}
-                  className="text-slate-400 hover:text-white"
+                  className="text-slate-500 hover:text-slate-850"
                 >
                   <X className="h-4.5 w-4.5" />
                 </button>
@@ -3106,7 +3105,7 @@ export default function AdminDashboard() {
               <form onSubmit={handleSaveCollege} className="space-y-4 text-xs">
                 <div className="grid grid-cols-3 gap-4">
                   <div className="col-span-2 space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">College Name</label>
+                    <label className="font-semibold text-slate-500 uppercase">College Name</label>
                     <input
                       type="text"
                       required
@@ -3114,20 +3113,20 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         setCollegeModal((prev) => ({ ...prev, name: e.target.value }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       placeholder="e.g., Indian Institute of Technology Bombay"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">AISHE Code</label>
+                    <label className="font-semibold text-slate-500 uppercase">AISHE Code</label>
                     <input
                       type="text"
                       value={collegeModal.aishe_code}
                       onChange={(e) =>
                         setCollegeModal((prev) => ({ ...prev, aishe_code: e.target.value }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       placeholder="e.g., C-12345"
                     />
                   </div>
@@ -3135,7 +3134,7 @@ export default function AdminDashboard() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">
+                    <label className="font-semibold text-slate-500 uppercase">
                       City / Location
                     </label>
                     <input
@@ -3145,13 +3144,13 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         setCollegeModal((prev) => ({ ...prev, location: e.target.value }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       placeholder="e.g., Mumbai"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">State</label>
+                    <label className="font-semibold text-slate-500 uppercase">State</label>
                     <input
                       type="text"
                       required
@@ -3159,7 +3158,7 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         setCollegeModal((prev) => ({ ...prev, state: e.target.value }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       placeholder="e.g., Maharashtra"
                     />
                   </div>
@@ -3167,7 +3166,7 @@ export default function AdminDashboard() {
 
                 <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">
+                    <label className="font-semibold text-slate-500 uppercase">
                       NIRF / State Rank
                     </label>
                     <input
@@ -3177,13 +3176,13 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         setCollegeModal((prev) => ({ ...prev, ranking: Number(e.target.value) }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       placeholder="e.g., 5"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">
+                    <label className="font-semibold text-slate-500 uppercase">
                       Annual Fees (INR)
                     </label>
                     <input
@@ -3197,12 +3196,12 @@ export default function AdminDashboard() {
                           fees_annual: Number(e.target.value),
                         }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">College Type</label>
+                    <label className="font-semibold text-slate-500 uppercase">College Type</label>
                     <select
                       value={collegeModal.type}
                       onChange={(e) =>
@@ -3211,7 +3210,7 @@ export default function AdminDashboard() {
                           type: e.target.value as 'Government' | 'Private',
                         }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                     >
                       <option value="Government">Government</option>
                       <option value="Private">Private</option>
@@ -3220,7 +3219,7 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="font-semibold text-slate-400 uppercase">
+                  <label className="font-semibold text-slate-500 uppercase">
                     Admission Criteria
                   </label>
                   <input
@@ -3230,27 +3229,27 @@ export default function AdminDashboard() {
                     onChange={(e) =>
                       setCollegeModal((prev) => ({ ...prev, admission_criteria: e.target.value }))
                     }
-                    className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                     placeholder="e.g., JEE Advanced cut-off percentile score"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">Website URL</label>
+                    <label className="font-semibold text-slate-500 uppercase">Website URL</label>
                     <input
                       type="url"
                       value={collegeModal.website_url}
                       onChange={(e) =>
                         setCollegeModal((prev) => ({ ...prev, website_url: e.target.value }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       placeholder="e.g., https://www.iitb.ac.in"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="font-semibold text-slate-400 uppercase">
+                    <label className="font-semibold text-slate-500 uppercase">
                       Entrance Exams (Comma-separated)
                     </label>
                     <input
@@ -3259,22 +3258,22 @@ export default function AdminDashboard() {
                       onChange={(e) =>
                         setCollegeModal((prev) => ({ ...prev, entrance_exams: e.target.value }))
                       }
-                      className="border-slate-850 w-full rounded-lg border bg-slate-950 p-2.5 text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                      className="border-slate-200 w-full rounded-lg border bg-white p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       placeholder="e.g., JEE Main, JEE Advanced"
                     />
                   </div>
                 </div>
 
-                <div className="flex gap-3 border-t border-slate-800/80 pt-3">
+                <div className="flex gap-3 border-t border-slate-200 pt-3">
                   <Button
                     type="button"
                     onClick={() => setCollegeModal((prev) => ({ ...prev, isOpen: false }))}
                     variant="outline"
-                    className="text-slate-450 flex-1 border-slate-800 hover:bg-slate-800"
+                    className="text-slate-700 flex-1 border-slate-350 hover:bg-slate-50"
                   >
                     Cancel
                   </Button>
-                  <Button type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700">
+                  <Button type="submit" className="flex-1 bg-primary text-white hover:bg-primary/95 font-semibold">
                     Save College
                   </Button>
                 </div>

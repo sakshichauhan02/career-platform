@@ -95,21 +95,21 @@ export function Testimonials() {
   const current = testimonials[activeIdx];
 
   return (
-    <section className="relative overflow-hidden border-t border-slate-900 bg-slate-950 py-20">
+    <section className="border-border relative overflow-hidden border-t bg-white py-24">
       <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mx-auto mb-12 max-w-3xl">
-          <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
             Loved by Students, Parents & Mentors
           </h2>
-          <p className="mt-4 text-lg text-slate-400">
+          <p className="mt-4 text-lg font-medium text-slate-500">
             Real stories from families and guides who achieved complete career clarity.
           </p>
         </div>
 
         {/* Carousel Slider Panel */}
-        <div className="relative mx-auto flex min-h-[320px] max-w-3xl items-center justify-center rounded-3xl border border-slate-900 bg-slate-900/10 p-8 shadow-2xl backdrop-blur-xl sm:min-h-[260px] sm:p-12">
-          <Quote className="pointer-events-none absolute top-8 right-8 h-12 w-12 text-slate-800/35" />
+        <div className="border-border relative mx-auto flex min-h-[320px] max-w-3xl items-center justify-center rounded-3xl border bg-slate-50/50 p-8 shadow-md sm:min-h-[260px] sm:p-12">
+          <Quote className="pointer-events-none absolute top-8 right-8 h-12 w-12 text-blue-600/10" />
 
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
@@ -125,10 +125,10 @@ export function Testimonials() {
               <span
                 className={`mb-6 inline-block rounded-full border px-3 py-1 text-[10px] font-bold tracking-widest uppercase ${
                   current.type === 'Student'
-                    ? 'border-indigo-500/20 bg-indigo-500/10 text-indigo-400'
+                    ? 'border-blue-100 bg-blue-50 text-blue-600'
                     : current.type === 'Parent'
-                      ? 'border-violet-500/20 bg-violet-500/10 text-violet-400'
-                      : 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
+                      ? 'border-violet-100 bg-violet-50 text-violet-600'
+                      : 'border-emerald-100 bg-emerald-50 text-emerald-600'
                 }`}
               >
                 {current.type} Review
@@ -142,15 +142,15 @@ export function Testimonials() {
               </div>
 
               {/* Quote Text */}
-              <p className="mb-8 text-base leading-relaxed text-slate-300 italic sm:text-lg">
+              <p className="mb-8 text-base leading-relaxed text-slate-700 italic sm:text-lg">
                 &quot;{current.quote}&quot;
               </p>
 
               {/* Author Info */}
-              <div className="border-slate-850/80 flex items-center justify-between border-t pt-4">
+              <div className="border-border flex items-center justify-between border-t pt-4">
                 <div>
-                  <h4 className="text-base font-bold text-white">{current.author}</h4>
-                  <p className="mt-0.5 text-xs text-slate-500">
+                  <h4 className="text-base font-bold text-slate-900">{current.author}</h4>
+                  <p className="mt-0.5 text-xs font-semibold text-slate-400">
                     {current.role} &bull; {current.location}
                   </p>
                 </div>
@@ -163,7 +163,7 @@ export function Testimonials() {
         <div className="mt-8 flex items-center justify-center gap-3">
           <button
             onClick={handlePrev}
-            className="rounded-full border border-slate-900 bg-slate-950 p-2 text-slate-400 transition-colors hover:border-slate-800 hover:text-white"
+            className="border-border rounded-full border bg-white p-2 text-slate-500 shadow-sm transition-colors hover:bg-slate-50 hover:text-blue-600"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -177,7 +177,7 @@ export function Testimonials() {
                   setActiveIdx(idx);
                 }}
                 className={`h-2 rounded-full transition-all duration-300 ${
-                  activeIdx === idx ? 'w-6 bg-indigo-500' : 'w-2 bg-slate-800 hover:bg-slate-700'
+                  activeIdx === idx ? 'w-6 bg-blue-600' : 'w-2 bg-slate-200 hover:bg-slate-300'
                 }`}
               />
             ))}
@@ -185,7 +185,7 @@ export function Testimonials() {
 
           <button
             onClick={handleNext}
-            className="rounded-full border border-slate-900 bg-slate-950 p-2 text-slate-400 transition-colors hover:border-slate-800 hover:text-white"
+            className="border-border rounded-full border bg-white p-2 text-slate-500 shadow-sm transition-colors hover:bg-slate-50 hover:text-blue-600"
           >
             <ChevronRight className="h-5 w-5" />
           </button>

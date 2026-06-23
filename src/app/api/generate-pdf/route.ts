@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from 'next/server';
+import puppeteer from 'puppeteer';
+import puppeteerCore from 'puppeteer-core';
+import chromium from '@sparticuz/chromium-min';
 import fs from 'fs';
 import path from 'path';
 import nodemailer from 'nodemailer';
@@ -357,30 +360,23 @@ export const maxDuration = 60; // Set function timeout to 60 seconds
 
 async function getBrowserInstance() {
   const isLocal = process.env.NODE_ENV === 'development' || !process.env.VERCEL;
-  
+
   if (isLocal) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const localPuppeteer = require('puppeteer');
-    return await localPuppeteer.launch({
+    return await puppeteer.launch({
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const chromium = require('@sparticuz/chromium-min');
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const puppeteerCore = require('puppeteer-core');
-    
     // Auto-fetch correct executable matching version of sparticuz/chromium-min
     const executablePath = await chromium.executablePath();
-    
+
     return await puppeteerCore.launch({
       args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
-      defaultViewport: chromium.defaultViewport,
+      defaultViewport: (chromium as any).defaultViewport,
       executablePath: executablePath,
-      headless: chromium.headless,
+      headless: (chromium as any).headless,
       ignoreHTTPSErrors: true,
-    });
+    } as any);
   }
 }
 
@@ -1573,7 +1569,7 @@ export async function POST(req: NextRequest) {
     );
 
     // 5. Allow Download (Return the PDF buffer directly)
-    return new NextResponse(pdfBuffer, {
+    return new NextResponse(pdfBuffer as any, {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
@@ -1585,10 +1581,10 @@ export async function POST(req: NextRequest) {
     // Fallback: If Puppeteer/PDF generation fails (common on Vercel serverless environment),
     // return the HTML so the frontend can display/print it.
     return NextResponse.json(
-      { 
-        error: 'Failed to generate PDF on server', 
+      {
+        error: 'Failed to generate PDF on server',
         details: error.message,
-        fallbackHtml: typeof htmlContent !== 'undefined' ? htmlContent : null 
+        fallbackHtml: typeof htmlContent !== 'undefined' ? htmlContent : null,
       },
       { status: 200 }
     );

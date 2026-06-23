@@ -59,11 +59,11 @@ export default function WorkStyleStep() {
           return (
             <div
               key={sld.key}
-              className="space-y-3 rounded-xl border border-slate-800 bg-slate-900/35 p-5"
+              className="space-y-3 rounded-xl border border-slate-200 bg-slate-50/50 p-5"
             >
               <div>
-                <p className="text-sm font-semibold text-white">{sld.title}</p>
-                <p className="mt-0.5 text-xs text-slate-400">{sld.desc}</p>
+                <p className="text-sm font-bold text-slate-900">{sld.title}</p>
+                <p className="mt-0.5 text-xs text-slate-500">{sld.desc}</p>
               </div>
 
               {/* Slider Input with markers */}
@@ -75,20 +75,20 @@ export default function WorkStyleStep() {
                   step="1"
                   value={value}
                   onChange={(e) => handleSliderChange(sld.key, parseInt(e.target.value))}
-                  className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-800 accent-indigo-500 transition-all focus:outline-none"
+                  className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-blue-600 transition-all focus:outline-none"
                   style={{
-                    background: `linear-gradient(to right, #6366f1 0%, #6366f1 ${
+                    background: `linear-gradient(to right, #1e40af 0%, #1e40af ${
                       ((value - 1) / 4) * 100
-                    }%, #1e293b ${((value - 1) / 4) * 100}%, #1e293b 100%)`,
+                    }%, #e2e8f0 ${((value - 1) / 4) * 100}%, #e2e8f0 100%)`,
                   }}
                 />
 
-                <div className="flex justify-between text-[10px] font-medium text-slate-400">
-                  <span className={value <= 2 ? 'font-bold text-indigo-400' : ''}>
+                <div className="flex justify-between text-[10px] font-medium text-slate-500">
+                  <span className={value <= 2 ? 'font-extrabold text-blue-600' : ''}>
                     {sld.leftLabel}
                   </span>
-                  <span className={value === 3 ? 'font-bold text-indigo-400' : ''}>Moderate</span>
-                  <span className={value >= 4 ? 'font-bold text-indigo-400' : ''}>
+                  <span className={value === 3 ? 'font-extrabold text-blue-600' : ''}>Moderate</span>
+                  <span className={value >= 4 ? 'font-extrabold text-blue-600' : ''}>
                     {sld.rightLabel}
                   </span>
                 </div>

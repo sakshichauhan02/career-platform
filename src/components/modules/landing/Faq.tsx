@@ -35,14 +35,14 @@ export function Faq() {
   };
 
   return (
-    <section className="relative border-t border-slate-900 bg-slate-950 py-20">
+    <section className="border-border relative border-t bg-slate-50/50 py-24">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16 text-center">
-          <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 text-lg text-slate-400">
+          <p className="mt-4 text-lg font-medium text-slate-500">
             Everything you need to know about our assessment, reports, and mentor slots.
           </p>
         </div>
@@ -54,15 +54,15 @@ export function Faq() {
             return (
               <div
                 key={faq.question}
-                className="overflow-hidden rounded-2xl border border-slate-900 bg-slate-900/10 transition-colors duration-200 hover:border-slate-800"
+                className="border-border overflow-hidden rounded-3xl border bg-white shadow-sm transition-all duration-200 hover:border-blue-500/20"
               >
                 <button
                   onClick={() => toggle(idx)}
-                  className="flex w-full items-center justify-between px-6 py-5 text-left text-base font-semibold text-white focus:outline-none sm:text-lg"
+                  className="flex w-full items-center justify-between px-6 py-5 text-left text-base font-bold text-slate-900 transition-colors hover:text-blue-600 focus:outline-none sm:text-lg"
                 >
                   <span>{faq.question}</span>
                   <ChevronDown
-                    className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180 text-indigo-400' : ''}`}
+                    className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180 text-blue-600' : ''}`}
                   />
                 </button>
 
@@ -74,7 +74,7 @@ export function Faq() {
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.2, ease: 'easeInOut' }}
                     >
-                      <div className="border-t border-slate-950 px-6 pt-3 pb-5 text-sm leading-relaxed text-slate-400 sm:text-base">
+                      <div className="border-border border-t px-6 pt-3 pb-5 text-sm leading-relaxed font-medium text-slate-500 sm:text-base">
                         {faq.answer}
                       </div>
                     </motion.div>

@@ -51,7 +51,11 @@ const budgetOptions: BudgetOption[] = [
   },
 ];
 
-export default function BudgetStep() {
+interface BudgetStepProps {
+  onSelect?: () => void;
+}
+
+export default function BudgetStep({ onSelect }: BudgetStepProps) {
   const { data, updateStepData } = useAssessmentStore();
 
   return (
@@ -70,31 +74,36 @@ export default function BudgetStep() {
               type="button"
               whileHover={{ scale: 1.01, x: 4 }}
               whileTap={{ scale: 0.99 }}
-              onClick={() => updateStepData({ budget: opt.id })}
-              className={`flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-200 focus:ring-1 focus:ring-indigo-500 focus:outline-none ${
+              onClick={() => {
+                updateStepData({ budget: opt.id });
+                if (onSelect) {
+                  setTimeout(onSelect, 250);
+                }
+              }}
+              className={`flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-200 focus:ring-1 focus:ring-primary focus:outline-none ${
                 isSelected
-                  ? 'border-indigo-500 bg-indigo-950/20'
-                  : 'border-slate-800 bg-slate-900/40 hover:border-slate-700 hover:bg-slate-900/60'
+                  ? 'border-blue-600 bg-blue-50/50 shadow-md shadow-blue-500/5'
+                  : 'border-slate-200 bg-white hover:border-blue-500/20 hover:bg-slate-50/50'
               }`}
             >
               <div className="flex items-center gap-4">
                 <div
                   className={`rounded-lg p-2.5 transition-colors duration-200 ${
-                    isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'
+                    isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'
                   }`}
                 >
                   <Icon className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-sm leading-snug font-semibold text-white">{opt.label}</p>
-                  <p className="mt-0.5 text-[10px] leading-snug text-slate-400">{opt.desc}</p>
+                  <p className="text-sm leading-snug font-semibold text-slate-900">{opt.label}</p>
+                  <p className="mt-0.5 text-[10px] leading-snug text-slate-500">{opt.desc}</p>
                 </div>
               </div>
 
               <div className="pl-3 text-right">
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-bold ${
-                    isSelected ? 'bg-indigo-500/20 text-indigo-300' : 'bg-slate-800 text-slate-400'
+                    isSelected ? 'bg-blue-100 text-blue-750' : 'bg-slate-100 text-slate-600'
                   }`}
                 >
                   {opt.feeText}

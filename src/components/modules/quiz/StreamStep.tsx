@@ -45,7 +45,11 @@ const streamOptions: SingleSelectOption<StreamType>[] = [
   },
 ];
 
-export default function StreamStep() {
+interface StreamStepProps {
+  onSelect?: () => void;
+}
+
+export default function StreamStep({ onSelect }: StreamStepProps) {
   const { data, updateStepData } = useAssessmentStore();
 
   return (
@@ -56,7 +60,12 @@ export default function StreamStep() {
       <SingleSelect
         options={streamOptions}
         selectedValue={data.stream || null}
-        onChange={(value) => updateStepData({ stream: value })}
+        onChange={(value) => {
+          updateStepData({ stream: value });
+          if (onSelect) {
+            setTimeout(onSelect, 250);
+          }
+        }}
         columns={2}
       />
     </QuestionCard>

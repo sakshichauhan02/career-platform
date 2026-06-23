@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
           receipt: `rcpt_${Date.now()}`,
         });
         orderId = order.id;
-        finalAmount = order.amount / 100;
+        finalAmount = Number(order.amount) / 100;
       } catch (rzpErr: any) {
         console.warn('Razorpay order creation failed, falling back to mock order:', rzpErr);
       }

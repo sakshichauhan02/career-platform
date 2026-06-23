@@ -89,25 +89,27 @@ export function SingleSelect<T extends string | number>({
             whileHover={{ scale: 1.02, translateY: -2 }}
             whileTap={{ scale: 0.98 }}
             className={cn(
-              'flex items-start gap-4 rounded-xl border p-4 text-left transition-all duration-300 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-950 focus:outline-none',
+              'flex items-start gap-4 rounded-3xl border p-4 text-left shadow-sm transition-all duration-300 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white focus:outline-none',
               isSelected
-                ? 'border-indigo-500 bg-indigo-950/45 shadow-lg shadow-indigo-500/10'
-                : 'border-slate-800 bg-slate-900/50 hover:border-slate-700 hover:bg-slate-900/80'
+                ? 'border-blue-600 bg-blue-50/50 shadow-md shadow-blue-500/5'
+                : 'border-border bg-white hover:border-blue-500/20 hover:bg-slate-50/50'
             )}
           >
             {Icon && (
               <div
                 className={cn(
-                  'rounded-lg p-2.5 transition-colors duration-300',
-                  isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'
+                  'rounded-2xl p-2.5 transition-colors duration-300',
+                  isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'
                 )}
               >
                 <Icon className="h-6 w-6" />
               </div>
             )}
             <div className="space-y-1">
-              <p className="font-semibold text-white">{opt.label}</p>
-              {opt.desc && <p className="text-xs leading-relaxed text-slate-400">{opt.desc}</p>}
+              <p className="font-bold text-slate-900">{opt.label}</p>
+              {opt.desc && (
+                <p className="text-xs leading-relaxed font-medium text-slate-500">{opt.desc}</p>
+              )}
             </div>
           </motion.button>
         );

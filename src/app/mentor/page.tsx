@@ -306,7 +306,7 @@ export default function MentorDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500/30">
+    <div className="bg-background text-foreground selection:bg-primary/10 min-h-screen">
       <Navbar />
 
       <main className="container mx-auto max-w-6xl px-4 py-8">
@@ -315,14 +315,12 @@ export default function MentorDashboard() {
           <div className="space-y-1">
             <Link
               href="/admin"
-              className="inline-flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300"
+              className="text-primary hover:text-primary/80 inline-flex items-center gap-1 text-xs font-medium"
             >
               <ArrowLeft className="h-3 w-3" /> Back to Admin Console
             </Link>
-            <h1 className="bg-gradient-to-r from-indigo-200 via-indigo-400 to-purple-400 bg-clip-text text-3xl font-black tracking-tight text-transparent text-white">
-              Mentor Dashboard
-            </h1>
-            <p className="text-xs text-slate-400">
+            <h1 className="text-foreground text-3xl font-black tracking-tight">Mentor Dashboard</h1>
+            <p className="text-muted-foreground text-sm">
               Review consultations, manage slots, assign guides, and update booking timelines.
             </p>
           </div>
@@ -332,7 +330,7 @@ export default function MentorDashboard() {
               onClick={fetchBookings}
               variant="outline"
               size="sm"
-              className="border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900"
+              className="border-border text-foreground hover:bg-muted rounded-full text-xs font-semibold"
             >
               <RefreshCw className="mr-1 h-3.5 w-3.5" /> Reload List
             </Button>
@@ -346,16 +344,16 @@ export default function MentorDashboard() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className={`mb-6 flex items-center gap-3 rounded-xl border p-4 text-sm ${
+              className={`mb-6 flex items-center gap-3 rounded-2xl border p-4 text-sm ${
                 notice.type === 'success'
-                  ? 'border-emerald-500/20 bg-emerald-950/20 text-emerald-300'
-                  : 'border-rose-500/20 bg-rose-950/20 text-rose-300'
+                  ? 'border-emerald-500/20 bg-emerald-50/80 text-emerald-800'
+                  : 'border-rose-500/20 bg-rose-50/80 text-rose-800'
               }`}
             >
               {notice.type === 'success' ? (
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-400" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />
               ) : (
-                <AlertCircle className="h-5 w-5 shrink-0 text-rose-400" />
+                <AlertCircle className="h-5 w-5 shrink-0 text-rose-600" />
               )}
               <span>{notice.message}</span>
             </motion.div>
@@ -364,32 +362,32 @@ export default function MentorDashboard() {
 
         {/* Stats Grid */}
         <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-5">
-          <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-            <div className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+          <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+            <div className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
               Total Calls
             </div>
-            <div className="mt-1 text-2xl font-black text-white">{stats.total}</div>
+            <div className="text-foreground mt-1 text-2xl font-black">{stats.total}</div>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-            <div className="text-[10px] font-bold tracking-wider text-amber-500 uppercase">
+          <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+            <div className="text-[10px] font-bold tracking-wider text-amber-600 uppercase">
               Pending
             </div>
-            <div className="mt-1 text-2xl font-black text-amber-400">{stats.pending}</div>
+            <div className="mt-1 text-2xl font-black text-amber-600">{stats.pending}</div>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-            <div className="text-[10px] font-bold tracking-wider text-indigo-500 uppercase">
+          <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+            <div className="text-primary text-[10px] font-bold tracking-wider uppercase">
               Scheduled
             </div>
-            <div className="mt-1 text-2xl font-black text-indigo-400">{stats.scheduled}</div>
+            <div className="text-primary mt-1 text-2xl font-black">{stats.scheduled}</div>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-            <div className="text-[10px] font-bold tracking-wider text-emerald-500 uppercase">
+          <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+            <div className="text-[10px] font-bold tracking-wider text-emerald-600 uppercase">
               Completed
             </div>
-            <div className="mt-1 text-2xl font-black text-emerald-400">{stats.completed}</div>
+            <div className="mt-1 text-2xl font-black text-emerald-600">{stats.completed}</div>
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-            <div className="text-[10px] font-bold tracking-wider text-slate-600 uppercase">
+          <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+            <div className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">
               Cancelled
             </div>
             <div className="mt-1 text-2xl font-black text-slate-500">{stats.cancelled}</div>
@@ -397,25 +395,25 @@ export default function MentorDashboard() {
         </div>
 
         {/* Filter Controls Bar */}
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-800/60 bg-slate-900/20 p-4">
+        <div className="border-border bg-card mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border p-4 shadow-sm">
           <div className="relative flex w-full max-w-sm items-center gap-2">
-            <Search className="absolute left-3 h-4 w-4 text-slate-500" />
+            <Search className="text-muted-foreground absolute left-3.5 h-4 w-4" />
             <input
               type="text"
               placeholder="Search by student name, email, or phone..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-lg border border-slate-800 bg-slate-950 py-2 pr-4 pl-9 text-xs text-white placeholder-slate-500 transition-colors outline-none focus:border-indigo-500"
+              className="border-border bg-background text-foreground placeholder-muted-foreground/60 focus:border-primary focus:ring-primary/10 w-full rounded-full border py-2 pr-4 pl-10 text-xs transition-all outline-none focus:ring-2"
             />
           </div>
 
           <div className="flex items-center gap-2">
-            <Filter className="h-3.5 w-3.5 text-slate-400" />
-            <label className="text-xs font-medium text-slate-400">Status Filter:</label>
+            <Filter className="text-muted-foreground h-3.5 w-3.5" />
+            <label className="text-muted-foreground text-xs font-medium">Status Filter:</label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as any)}
-              className="rounded-lg border border-slate-800 bg-slate-950 p-2 text-xs text-white outline-none focus:border-indigo-500"
+              className="border-border bg-background text-foreground focus:border-primary focus:ring-primary/10 rounded-full border px-3 py-2 text-xs outline-none focus:ring-2"
             >
               <option value="all">All Bookings</option>
               <option value="Pending">Pending</option>
@@ -427,148 +425,150 @@ export default function MentorDashboard() {
         </div>
 
         {/* Bookings List Table */}
-        <div className="mb-8 overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/10">
-          <table className="w-full border-collapse text-left text-xs">
-            <thead>
-              <tr className="border-b border-slate-800 bg-slate-950/60 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
-                <th className="p-4">Student Details</th>
-                <th className="p-4">Call Schedule</th>
-                <th className="p-4">Assigned Mentor</th>
-                <th className="p-4">Status</th>
-                <th className="p-4 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
-              {isLoading ? (
-                <tr>
-                  <td colSpan={5} className="p-12 text-center">
-                    <div className="flex flex-col items-center justify-center space-y-2">
-                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent" />
-                      <span className="text-xs text-slate-400">
-                        Loading consultation records...
-                      </span>
-                    </div>
-                  </td>
+        <div className="border-border bg-card mb-8 overflow-hidden rounded-2xl border shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-left text-xs">
+              <thead>
+                <tr className="border-border bg-muted/30 text-muted-foreground border-b text-[10px] font-bold tracking-wider uppercase">
+                  <th className="p-4">Student Details</th>
+                  <th className="p-4">Call Schedule</th>
+                  <th className="p-4">Assigned Mentor</th>
+                  <th className="p-4">Status</th>
+                  <th className="p-4 text-right">Actions</th>
                 </tr>
-              ) : filteredBookings.length === 0 ? (
-                <tr>
-                  <td colSpan={5} className="p-12 text-center text-slate-500">
-                    No bookings match your current filter preferences.
-                  </td>
-                </tr>
-              ) : (
-                filteredBookings.map((b) => {
-                  const assignedMentor =
-                    MENTORS_LIST.find((m) => m.id === b.mentor_id) || MENTORS_LIST[7];
-
-                  return (
-                    <tr key={b.id} className="transition-colors hover:bg-slate-900/30">
-                      {/* Student Info */}
-                      <td className="space-y-1 p-4">
-                        <div className="flex items-center gap-1.5 font-bold text-white">
-                          <User className="h-3.5 w-3.5 text-indigo-400" />
-                          {b.student_name || 'Guest Student'}
-                        </div>
-                        <div className="space-y-0.5 text-[10px] text-slate-400">
-                          <div className="flex items-center gap-1.5">
-                            <Mail className="h-3 w-3 text-slate-500" />
-                            {b.student_email || 'N/A'}
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <Phone className="h-3 w-3 text-slate-500" />
-                            {b.student_phone || 'N/A'}
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Timings */}
-                      <td className="space-y-1 p-4">
-                        <div className="flex items-center gap-1.5 font-bold text-white">
-                          <Calendar className="h-3.5 w-3.5 text-indigo-400" />
-                          {b.booking_date || 'N/A'}
-                        </div>
-                        <div className="flex items-center gap-1.5 text-[10px] text-indigo-300">
-                          <Clock className="h-3 w-3" />
-                          {b.time_slot || 'N/A'}
-                        </div>
-                        <button
-                          onClick={() =>
-                            setRescheduleModal({
-                              isOpen: true,
-                              bookingId: b.id,
-                              date: b.booking_date || '',
-                              timeSlot: b.time_slot || '',
-                            })
-                          }
-                          className="mt-1 inline-flex items-center gap-1 text-[9px] font-semibold text-indigo-400 hover:text-indigo-300 hover:underline"
-                        >
-                          <Edit className="h-2.5 w-2.5" /> Reschedule
-                        </button>
-                      </td>
-
-                      {/* Mentor assigned */}
-                      <td className="space-y-1 p-4">
-                        <div className="flex items-center gap-1.5 font-bold text-white">
-                          <UserCheck className="h-3.5 w-3.5 text-indigo-400" />
-                          {assignedMentor.name}
-                        </div>
-                        <div className="text-[10px] text-slate-400">
-                          {assignedMentor.role} ({assignedMentor.company})
-                        </div>
-                        <button
-                          onClick={() =>
-                            setAssignModal({
-                              isOpen: true,
-                              bookingId: b.id,
-                              mentorId: b.mentor_id,
-                            })
-                          }
-                          className="mt-1 inline-flex items-center gap-1 text-[9px] font-semibold text-indigo-400 hover:text-indigo-300 hover:underline"
-                        >
-                          <Edit className="h-2.5 w-2.5" /> Reassign Mentor
-                        </button>
-                      </td>
-
-                      {/* Status badge */}
-                      <td className="p-4">
-                        <span
-                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold ${
-                            b.status === 'Pending'
-                              ? 'border border-amber-500/20 bg-amber-500/10 text-amber-400'
-                              : b.status === 'Scheduled'
-                                ? 'border border-indigo-500/20 bg-indigo-500/10 text-indigo-400'
-                                : b.status === 'Completed'
-                                  ? 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
-                                  : 'border border-slate-700 bg-slate-800 text-slate-400'
-                          }`}
-                        >
-                          {b.status === 'Pending' && <Clock className="h-3 w-3" />}
-                          {b.status === 'Scheduled' && <Calendar className="h-3 w-3" />}
-                          {b.status === 'Completed' && <CheckCircle2 className="h-3 w-3" />}
-                          {b.status === 'Cancelled' && <XCircle className="h-3 w-3" />}
-                          {b.status}
+              </thead>
+              <tbody className="divide-border text-foreground divide-y">
+                {isLoading ? (
+                  <tr>
+                    <td colSpan={5} className="p-12 text-center">
+                      <div className="flex flex-col items-center justify-center space-y-2">
+                        <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
+                        <span className="text-muted-foreground text-xs font-medium">
+                          Loading consultation records...
                         </span>
-                      </td>
+                      </div>
+                    </td>
+                  </tr>
+                ) : filteredBookings.length === 0 ? (
+                  <tr>
+                    <td colSpan={5} className="text-muted-foreground p-12 text-center">
+                      No bookings match your current filter preferences.
+                    </td>
+                  </tr>
+                ) : (
+                  filteredBookings.map((b) => {
+                    const assignedMentor =
+                      MENTORS_LIST.find((m) => m.id === b.mentor_id) || MENTORS_LIST[7];
 
-                      {/* Dropdown status updater actions */}
-                      <td className="relative p-4 text-right">
-                        <select
-                          value={b.status}
-                          onChange={(e) => handleUpdateStatus(b.id, e.target.value)}
-                          className="max-w-[120px] rounded-lg border border-slate-800 bg-slate-950 p-1.5 text-[10px] text-slate-300 outline-none focus:border-indigo-500"
-                        >
-                          <option value="Pending">Set Pending</option>
-                          <option value="Scheduled">Set Scheduled</option>
-                          <option value="Completed">Set Completed</option>
-                          <option value="Cancelled">Set Cancelled</option>
-                        </select>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
+                    return (
+                      <tr key={b.id} className="hover:bg-muted/30 transition-colors">
+                        {/* Student Info */}
+                        <td className="space-y-1 p-4">
+                          <div className="text-foreground flex items-center gap-1.5 font-bold">
+                            <User className="text-primary h-3.5 w-3.5" />
+                            {b.student_name || 'Guest Student'}
+                          </div>
+                          <div className="text-muted-foreground space-y-0.5 text-[10px]">
+                            <div className="flex items-center gap-1.5">
+                              <Mail className="text-muted-foreground h-3 w-3" />
+                              {b.student_email || 'N/A'}
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <Phone className="text-muted-foreground h-3 w-3" />
+                              {b.student_phone || 'N/A'}
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Timings */}
+                        <td className="space-y-1 p-4">
+                          <div className="text-foreground flex items-center gap-1.5 font-bold">
+                            <Calendar className="text-primary h-3.5 w-3.5" />
+                            {b.booking_date || 'N/A'}
+                          </div>
+                          <div className="text-primary flex items-center gap-1.5 text-[10px] font-medium">
+                            <Clock className="h-3 w-3" />
+                            {b.time_slot || 'N/A'}
+                          </div>
+                          <button
+                            onClick={() =>
+                              setRescheduleModal({
+                                isOpen: true,
+                                bookingId: b.id,
+                                date: b.booking_date || '',
+                                timeSlot: b.time_slot || '',
+                              })
+                            }
+                            className="text-primary hover:text-primary/80 mt-1 inline-flex items-center gap-1 text-[9px] font-semibold hover:underline"
+                          >
+                            <Edit className="h-2.5 w-2.5" /> Reschedule
+                          </button>
+                        </td>
+
+                        {/* Mentor assigned */}
+                        <td className="space-y-1 p-4">
+                          <div className="text-foreground flex items-center gap-1.5 font-bold">
+                            <UserCheck className="text-primary h-3.5 w-3.5" />
+                            {assignedMentor.name}
+                          </div>
+                          <div className="text-muted-foreground text-[10px]">
+                            {assignedMentor.role} ({assignedMentor.company})
+                          </div>
+                          <button
+                            onClick={() =>
+                              setAssignModal({
+                                isOpen: true,
+                                bookingId: b.id,
+                                mentorId: b.mentor_id,
+                              })
+                            }
+                            className="text-primary hover:text-primary/80 mt-1 inline-flex items-center gap-1 text-[9px] font-semibold hover:underline"
+                          >
+                            <Edit className="h-2.5 w-2.5" /> Reassign Mentor
+                          </button>
+                        </td>
+
+                        {/* Status badge */}
+                        <td className="p-4">
+                          <span
+                            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold ${
+                              b.status === 'Pending'
+                                ? 'border border-amber-500/20 bg-amber-50 text-amber-700'
+                                : b.status === 'Scheduled'
+                                  ? 'border-primary/20 bg-primary/5 text-primary border'
+                                  : b.status === 'Completed'
+                                    ? 'border border-emerald-500/20 bg-emerald-50 text-emerald-700'
+                                    : 'border border-slate-200 bg-slate-100 text-slate-600'
+                            }`}
+                          >
+                            {b.status === 'Pending' && <Clock className="h-3 w-3" />}
+                            {b.status === 'Scheduled' && <Calendar className="h-3 w-3" />}
+                            {b.status === 'Completed' && <CheckCircle2 className="h-3 w-3" />}
+                            {b.status === 'Cancelled' && <XCircle className="h-3 w-3" />}
+                            {b.status}
+                          </span>
+                        </td>
+
+                        {/* Dropdown status updater actions */}
+                        <td className="relative p-4 text-right">
+                          <select
+                            value={b.status}
+                            onChange={(e) => handleUpdateStatus(b.id, e.target.value)}
+                            className="border-border bg-background text-foreground focus:border-primary focus:ring-primary/10 max-w-[120px] rounded-full border p-1.5 text-[10px] outline-none focus:ring-2"
+                          >
+                            <option value="Pending">Set Pending</option>
+                            <option value="Scheduled">Set Scheduled</option>
+                            <option value="Completed">Set Completed</option>
+                            <option value="Cancelled">Set Cancelled</option>
+                          </select>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
 
@@ -579,19 +579,19 @@ export default function MentorDashboard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
-              className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl"
+              className="border-border bg-card w-full max-w-sm space-y-4 rounded-3xl border p-6 shadow-2xl"
             >
-              <h3 className="text-base font-bold text-white">Reschedule Call</h3>
+              <h3 className="text-foreground text-base font-bold">Reschedule Call</h3>
 
               <div className="space-y-3 text-xs">
                 <div className="space-y-1">
-                  <label className="text-[9px] font-bold text-slate-400 uppercase">
+                  <label className="text-muted-foreground text-[9px] font-bold uppercase">
                     Select Date
                   </label>
                   <input
@@ -602,12 +602,12 @@ export default function MentorDashboard() {
                         prev ? { ...prev, date: e.target.value } : null
                       )
                     }
-                    className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-xs text-white outline-none focus:border-indigo-500"
+                    className="border-border bg-background text-foreground focus:border-primary focus:ring-primary/10 w-full rounded-full border p-2.5 text-xs outline-none focus:ring-2"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[9px] font-bold text-slate-400 uppercase">
+                  <label className="text-muted-foreground text-[9px] font-bold uppercase">
                     Select Slot
                   </label>
                   <select
@@ -617,7 +617,7 @@ export default function MentorDashboard() {
                         prev ? { ...prev, timeSlot: e.target.value } : null
                       )
                     }
-                    className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-xs text-white outline-none focus:border-indigo-500"
+                    className="border-border bg-background text-foreground focus:border-primary focus:ring-primary/10 w-full rounded-full border p-2.5 text-xs outline-none focus:ring-2"
                   >
                     <option value="10:00 AM">10:00 AM - 10:30 AM</option>
                     <option value="11:30 AM">11:30 AM - 12:00 PM</option>
@@ -631,13 +631,13 @@ export default function MentorDashboard() {
                 <Button
                   variant="outline"
                   onClick={() => setRescheduleModal(null)}
-                  className="flex-1 border-slate-800 text-xs text-slate-300 hover:bg-slate-800"
+                  className="border-border text-foreground hover:bg-muted flex-1 rounded-full text-xs"
                 >
                   Cancel
                 </Button>
                 <Button
                   onClick={handleReschedule}
-                  className="flex-1 bg-indigo-600 text-xs font-bold hover:bg-indigo-700"
+                  className="bg-primary hover:bg-primary/95 flex-1 rounded-full text-xs font-bold text-white"
                 >
                   Save Schedule
                 </Button>
@@ -654,18 +654,18 @@ export default function MentorDashboard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
-              className="w-full max-w-sm space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl"
+              className="border-border bg-card w-full max-w-sm space-y-4 rounded-3xl border p-6 shadow-2xl"
             >
-              <h3 className="text-base font-bold text-white">Assign Mentor</h3>
+              <h3 className="text-foreground text-base font-bold">Assign Mentor</h3>
 
               <div className="space-y-1 text-xs">
-                <label className="text-[9px] font-bold text-slate-400 uppercase">
+                <label className="text-muted-foreground text-[9px] font-bold uppercase">
                   Select Industry Mentor
                 </label>
                 <select
@@ -673,7 +673,7 @@ export default function MentorDashboard() {
                   onChange={(e) =>
                     setAssignModal((prev) => (prev ? { ...prev, mentorId: e.target.value } : null))
                   }
-                  className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-xs text-white outline-none focus:border-indigo-500"
+                  className="border-border bg-background text-foreground focus:border-primary focus:ring-primary/10 w-full rounded-full border p-2.5 text-xs outline-none focus:ring-2"
                 >
                   {MENTORS_LIST.map((m) => (
                     <option key={m.id} value={m.id}>
@@ -687,13 +687,13 @@ export default function MentorDashboard() {
                 <Button
                   variant="outline"
                   onClick={() => setAssignModal(null)}
-                  className="flex-1 border-slate-800 text-xs text-slate-300 hover:bg-slate-800"
+                  className="border-border text-foreground hover:bg-muted flex-1 rounded-full text-xs"
                 >
                   Cancel
                 </Button>
                 <Button
                   onClick={handleAssignMentor}
-                  className="flex-1 bg-indigo-600 text-xs font-bold hover:bg-indigo-700"
+                  className="bg-primary hover:bg-primary/95 flex-1 rounded-full text-xs font-bold text-white"
                 >
                   Confirm Mentor
                 </Button>

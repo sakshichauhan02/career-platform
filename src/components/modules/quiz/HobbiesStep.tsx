@@ -52,9 +52,9 @@ export default function HobbiesStep() {
     >
       <div className="space-y-6">
         {/* Selected Items Row */}
-        <div className="min-h-12 rounded-xl border border-dashed border-slate-800 bg-slate-950/40 p-3">
+        <div className="min-h-12 rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-3">
           {data.hobbies.length === 0 ? (
-            <p className="py-2 text-center text-xs text-slate-500">
+            <p className="py-2 text-center text-xs text-slate-400">
               No hobbies selected yet. Click options below or add custom ones.
             </p>
           ) : (
@@ -66,13 +66,13 @@ export default function HobbiesStep() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-indigo-500/50 bg-indigo-500/25 px-3 py-1 text-xs font-medium text-indigo-300"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600 shadow-sm"
                   >
                     {hobby}
                     <button
                       type="button"
                       onClick={() => toggleHobby(hobby)}
-                      className="rounded-full p-0.5 hover:bg-indigo-500/50 hover:text-white focus:outline-none"
+                      className="rounded-full p-0.5 hover:bg-blue-100 hover:text-blue-750 focus:outline-none"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -94,10 +94,10 @@ export default function HobbiesStep() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => toggleHobby(hobby)}
-                className={`rounded-lg border px-3 py-2 text-xs font-medium transition-all duration-200 focus:ring-1 focus:ring-indigo-500 focus:outline-none ${
+                className={`rounded-lg border px-3 py-2 text-xs font-medium transition-all duration-200 focus:ring-1 focus:ring-primary focus:outline-none ${
                   isSelected
-                    ? 'border-indigo-500 bg-indigo-950/20 text-indigo-300'
-                    : 'border-slate-800 bg-slate-900/40 text-slate-300 hover:border-slate-700 hover:bg-slate-900/60'
+                    ? 'border-blue-600 bg-blue-50/50 text-blue-700 font-bold'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-blue-500/20 hover:bg-slate-50/50'
                 }`}
               >
                 {hobby}
@@ -115,12 +115,12 @@ export default function HobbiesStep() {
               placeholder="Type other hobby..."
               value={customHobby}
               onChange={(e) => setCustomHobby(e.target.value)}
-              className="w-full rounded-lg border border-slate-800 bg-slate-900/40 py-2 pr-4 pl-9 text-xs text-white placeholder-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+              className="w-full rounded-lg border border-slate-200 bg-white py-2 pr-4 pl-9 text-xs text-slate-900 placeholder-slate-400 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
             />
           </div>
           <button
             type="submit"
-            className="flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-indigo-700 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+            className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-primary/90 focus:ring-1 focus:ring-primary focus:outline-none"
           >
             <Plus className="h-3.5 w-3.5" />
             Add

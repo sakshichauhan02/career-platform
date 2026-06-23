@@ -18,7 +18,7 @@ const categories = [
     icon: Terminal,
     coursesCount: 82,
     avgSalary: '₹8-22 LPA',
-    color: 'from-blue-500/20 to-indigo-500/20 text-indigo-400',
+    color: 'from-blue-500/10 to-indigo-500/10 text-blue-600',
     topPick: 'AI, Cyber Security, Software Eng.',
   },
   {
@@ -26,7 +26,7 @@ const categories = [
     icon: LineChart,
     coursesCount: 65,
     avgSalary: '₹6-18 LPA',
-    color: 'from-violet-500/20 to-purple-500/20 text-violet-400',
+    color: 'from-violet-500/10 to-purple-500/10 text-violet-600',
     topPick: 'FinTech, Data Analytics, Actuarial Sci.',
   },
   {
@@ -34,7 +34,7 @@ const categories = [
     icon: Palette,
     coursesCount: 48,
     avgSalary: '₹5-14 LPA',
-    color: 'from-pink-500/20 to-rose-500/20 text-rose-400',
+    color: 'from-pink-500/10 to-rose-500/10 text-rose-600',
     topPick: 'UI/UX Design, Animation, Fashion Tech.',
   },
   {
@@ -42,7 +42,7 @@ const categories = [
     icon: Stethoscope,
     coursesCount: 39,
     avgSalary: '₹9-26 LPA',
-    color: 'from-emerald-500/20 to-teal-500/20 text-emerald-400',
+    color: 'from-emerald-500/10 to-teal-500/10 text-emerald-600',
     topPick: 'BioTechnology, Genetics, Clinical Res.',
   },
   {
@@ -50,7 +50,7 @@ const categories = [
     icon: Scale,
     coursesCount: 22,
     avgSalary: '₹7-16 LPA',
-    color: 'from-amber-500/20 to-orange-500/20 text-amber-400',
+    color: 'from-amber-500/10 to-orange-500/10 text-amber-600',
     topPick: 'Cyber Law, Corporate Law, Policy Res.',
   },
   {
@@ -58,7 +58,7 @@ const categories = [
     icon: BookMarked,
     coursesCount: 34,
     avgSalary: '₹4-11 LPA',
-    color: 'from-cyan-500/20 to-sky-500/20 text-cyan-400',
+    color: 'from-cyan-500/10 to-sky-500/10 text-cyan-600',
     topPick: 'Clinical Psychology, Liberal Arts, Jour.',
   },
 ];
@@ -79,21 +79,21 @@ const itemVariants = {
 
 export function Categories() {
   return (
-    <section className="relative border-t border-slate-900 bg-slate-950 py-20">
+    <section className="border-border relative border-t bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
+            <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
               Explore Popular Career Fields
             </h2>
-            <p className="mt-4 text-lg text-slate-400">
+            <p className="mt-4 text-lg font-medium text-slate-500">
               Unlock detailed insights for 500+ career paths mapped to Class 12 streams (Science,
               Commerce, Arts).
             </p>
           </div>
           <Link href="/courses">
-            <span className="group flex items-center gap-1 text-sm font-semibold text-indigo-400 hover:text-indigo-300">
+            <span className="group flex cursor-pointer items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700">
               View all 500+ careers
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
@@ -114,35 +114,35 @@ export function Categories() {
               <motion.div
                 key={item.name}
                 variants={itemVariants}
-                className="group flex flex-col justify-between rounded-2xl border border-slate-900 bg-slate-900/10 p-6 transition-all duration-300 hover:border-slate-800 hover:bg-slate-900/20"
+                className="group border-border flex flex-col justify-between rounded-3xl border bg-slate-50/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/20 hover:shadow-lg hover:shadow-blue-500/5"
               >
                 <div>
                   {/* Icon & Title */}
                   <div className="mb-6 flex items-center gap-4">
-                    <div className={`rounded-xl bg-gradient-to-r p-3 ${item.color} flex-shrink-0`}>
+                    <div className={`rounded-2xl bg-gradient-to-r p-3 ${item.color} flex-shrink-0`}>
                       <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-lg font-bold text-white transition-colors group-hover:text-indigo-400">
+                    <h3 className="text-lg font-bold text-slate-900 transition-colors group-hover:text-blue-600">
                       {item.name}
                     </h3>
                   </div>
 
                   {/* Top Picks */}
-                  <p className="mb-1 text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                  <p className="mb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">
                     Trending Specialties
                   </p>
-                  <p className="mb-6 text-sm font-medium text-slate-300">{item.topPick}</p>
+                  <p className="mb-6 text-sm font-semibold text-slate-600">{item.topPick}</p>
                 </div>
 
                 {/* Stats */}
-                <div className="flex items-center justify-between border-t border-slate-900/80 pt-4 text-xs font-semibold">
+                <div className="border-border flex items-center justify-between border-t pt-4 text-xs font-semibold">
                   <div>
-                    <span className="block text-slate-500">COURSES</span>
-                    <span className="mt-1 block text-slate-300">{item.coursesCount} Programs</span>
+                    <span className="block text-slate-400">COURSES</span>
+                    <span className="mt-1 block text-slate-700">{item.coursesCount} Programs</span>
                   </div>
                   <div className="text-right">
-                    <span className="block text-slate-500">AVG. PACKAGE</span>
-                    <span className="mt-1 block font-mono text-emerald-400">{item.avgSalary}</span>
+                    <span className="block text-slate-400">AVG. PACKAGE</span>
+                    <span className="mt-1 block font-mono text-emerald-600">{item.avgSalary}</span>
                   </div>
                 </div>
               </motion.div>

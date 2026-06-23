@@ -93,9 +93,9 @@ export default function PrioritiesStep() {
     >
       <div className="space-y-6">
         {/* Selected Ranking display */}
-        <div className="min-h-12 rounded-xl border border-dashed border-slate-800 bg-slate-950/40 p-4">
+        <div className="min-h-12 rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-4">
           {data.priorities.length === 0 ? (
-            <p className="py-1 text-center text-xs text-slate-500">
+            <p className="py-1 text-center text-xs text-slate-400">
               Click priorities below to build your ranking list.
             </p>
           ) : (
@@ -106,16 +106,16 @@ export default function PrioritiesStep() {
                 return (
                   <div
                     key={pId}
-                    className="flex items-center gap-2 rounded-lg border border-indigo-400/20 bg-indigo-600 px-3 py-1.5 text-xs text-white shadow-md shadow-indigo-600/10"
+                    className="flex items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs text-blue-700 shadow-sm font-bold"
                   >
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-950/60 text-[10px] font-bold">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold text-white">
                       {idx + 1}
                     </span>
                     <span>{item?.label}</span>
                     <button
                       type="button"
                       onClick={() => handleToggle(pId)}
-                      className="rounded-full p-0.5 hover:bg-slate-900/50 focus:outline-none"
+                      className="rounded-full p-0.5 hover:bg-blue-100 hover:text-blue-900 focus:outline-none"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -139,32 +139,32 @@ export default function PrioritiesStep() {
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
                 onClick={() => handleToggle(item.id)}
-                className={`flex items-center justify-between rounded-xl border p-4 text-left transition-all duration-200 focus:ring-1 focus:ring-indigo-500 focus:outline-none ${
+                className={`flex items-center justify-between rounded-xl border p-4 text-left transition-all duration-200 focus:ring-1 focus:ring-primary focus:outline-none ${
                   isSelected
-                    ? 'border-indigo-500 bg-indigo-950/20'
-                    : 'border-slate-800 bg-slate-900/40 hover:border-slate-700 hover:bg-slate-900/60'
+                    ? 'border-blue-600 bg-blue-50/50 shadow-md shadow-blue-500/5'
+                    : 'border-slate-200 bg-white hover:border-blue-500/20 hover:bg-slate-50/50'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div
                     className={`rounded-lg p-2.5 transition-colors duration-200 ${
-                      isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'
+                      isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'
                     }`}
                   >
                     <Icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-sm leading-snug font-semibold text-white">{item.label}</p>
-                    <p className="mt-0.5 text-[10px] leading-tight text-slate-400">{item.desc}</p>
+                    <p className="text-sm leading-snug font-semibold text-slate-900">{item.label}</p>
+                    <p className="mt-0.5 text-[10px] leading-tight text-slate-500">{item.desc}</p>
                   </div>
                 </div>
 
                 {isSelected ? (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-xs font-extrabold text-white">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-xs font-extrabold text-white">
                     {rank}
                   </div>
                 ) : (
-                  <div className="h-6 w-6 rounded-full border border-slate-700 hover:border-slate-500" />
+                  <div className="h-6 w-6 rounded-full border border-slate-200 hover:border-slate-350" />
                 )}
               </motion.button>
             );

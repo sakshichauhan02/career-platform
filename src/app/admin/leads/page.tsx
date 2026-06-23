@@ -417,32 +417,32 @@ export default function LeadCRM() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500/30">
+    <div className="bg-background text-foreground selection:bg-primary/10 min-h-screen">
       <Navbar />
 
       <main className="container mx-auto max-w-6xl px-4 pt-28 pb-12">
         {/* Top authorization simulation bar */}
-        <div className="mb-6 flex items-center justify-between rounded-xl border border-slate-800/60 bg-slate-900/10 p-3">
+        <div className="border-border bg-card mb-6 flex items-center justify-between rounded-2xl border p-3 shadow-sm">
           <div className="flex items-center gap-1.5 text-xs font-bold">
             {isAdmin || isSimulatingAdmin ? (
               <>
-                <ShieldCheck className="h-4.5 w-4.5 animate-pulse text-emerald-400" />
-                <span className="text-emerald-400">Admin Mode Active</span>
+                <ShieldCheck className="h-4.5 w-4.5 animate-pulse text-emerald-600" />
+                <span className="text-emerald-700">Admin Mode Active</span>
               </>
             ) : (
               <>
-                <AlertCircle className="h-4.5 w-4.5 text-rose-400" />
-                <span className="text-rose-400">Access Restricted</span>
+                <AlertCircle className="h-4.5 w-4.5 text-rose-600" />
+                <span className="text-rose-700">Access Restricted</span>
               </>
             )}
           </div>
           {!isAdmin && (
             <button
               onClick={() => setIsSimulatingAdmin(!isSimulatingAdmin)}
-              className={`rounded px-2.5 py-1 text-[10px] font-bold transition-all ${
+              className={`rounded-full px-3 py-1 text-[10px] font-bold transition-all ${
                 isSimulatingAdmin
-                  ? 'border border-rose-500/30 bg-rose-600/20 text-rose-300'
-                  : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                  ? 'border border-rose-200 bg-rose-50 text-rose-700'
+                  : 'bg-primary hover:bg-primary/95 text-white'
               }`}
             >
               {isSimulatingAdmin ? 'Disable Bypass' : 'Simulate Access'}
@@ -451,18 +451,20 @@ export default function LeadCRM() {
         </div>
 
         {!isAdmin && !isSimulatingAdmin ? (
-          <div className="mx-auto max-w-md rounded-2xl border border-slate-800 bg-slate-900/30 p-8 text-center backdrop-blur">
-            <Shield className="mx-auto mb-4 h-12 w-12 animate-pulse text-slate-600" />
-            <h3 className="mb-2 text-lg font-bold font-semibold text-white">
+          <div className="border-border bg-card mx-auto max-w-md rounded-3xl border p-8 text-center shadow-sm">
+            <Shield className="text-muted-foreground/60 mx-auto mb-4 h-12 w-12 animate-pulse" />
+            <h3 className="text-foreground mb-2 text-lg font-bold">
               Administrator access required
             </h3>
-            <p className="mb-6 text-xs leading-relaxed text-slate-400">
+            <p className="text-muted-foreground mb-6 text-xs leading-relaxed">
               You must be logged in as an administrator to access the Lead CRM. Use the simulation
               bypass toggle above to evaluate the dashboard.
             </p>
             <div className="flex flex-col gap-2">
               <Link href="/login">
-                <Button className="w-full bg-indigo-600 hover:bg-indigo-700">Log In</Button>
+                <Button className="bg-primary hover:bg-primary/95 w-full rounded-full text-white">
+                  Log In
+                </Button>
               </Link>
             </div>
           </div>
@@ -473,14 +475,14 @@ export default function LeadCRM() {
               <div className="space-y-1">
                 <Link
                   href="/admin"
-                  className="inline-flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300"
+                  className="text-primary hover:text-primary/80 inline-flex items-center gap-1 text-xs font-medium"
                 >
                   <ArrowLeft className="h-3 w-3" /> Back to Admin Console
                 </Link>
-                <h1 className="bg-gradient-to-r from-indigo-200 via-indigo-400 to-purple-400 bg-clip-text text-3xl font-black tracking-tight text-transparent">
+                <h1 className="text-foreground text-3xl font-black tracking-tight">
                   Lead CRM Dashboard
                 </h1>
-                <p className="text-xs text-slate-400">
+                <p className="text-muted-foreground text-sm">
                   Track conversion funnels. Monitor quiz submissions, report purchases, and advising
                   scheduler registrations.
                 </p>
@@ -491,7 +493,7 @@ export default function LeadCRM() {
                   onClick={handleExportCSV}
                   variant="outline"
                   size="sm"
-                  className="border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900"
+                  className="border-border text-foreground hover:bg-muted rounded-full text-xs font-semibold"
                 >
                   <Download className="mr-1 h-3.5 w-3.5" /> Export filtered (CSV)
                 </Button>
@@ -499,7 +501,7 @@ export default function LeadCRM() {
                   onClick={fetchLeadsData}
                   variant="outline"
                   size="sm"
-                  className="border-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-900"
+                  className="border-border text-foreground hover:bg-muted rounded-full text-xs font-semibold"
                 >
                   <RefreshCw className="mr-1 h-3.5 w-3.5" /> Refresh CRM
                 </Button>
@@ -508,52 +510,52 @@ export default function LeadCRM() {
 
             {/* Stats Summary Panel */}
             <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-              <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                <div className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">
+              <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+                <div className="text-muted-foreground text-[10px] font-bold tracking-wider uppercase">
                   Total Leads
                 </div>
-                <div className="mt-1 text-2xl font-black text-white">{stats.total}</div>
+                <div className="text-foreground mt-1 text-2xl font-black">{stats.total}</div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-amber-500 uppercase">
+              <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+                <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-amber-600 uppercase">
                   <Users className="h-3 w-3" /> Assessment Leads
                 </div>
-                <div className="mt-1 text-2xl font-black text-amber-400">{stats.assessments}</div>
+                <div className="mt-1 text-2xl font-black text-amber-600">{stats.assessments}</div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-indigo-500 uppercase">
+              <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+                <div className="text-primary flex items-center gap-1 text-[10px] font-bold tracking-wider uppercase">
                   <FileText className="h-3 w-3" /> Report Leads
                 </div>
-                <div className="mt-1 text-2xl font-black text-indigo-400">{stats.reports}</div>
+                <div className="text-primary mt-1 text-2xl font-black">{stats.reports}</div>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-900/10 p-4">
-                <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-emerald-500 uppercase">
+              <div className="border-border bg-card rounded-2xl border p-4 shadow-sm">
+                <div className="flex items-center gap-1 text-[10px] font-bold tracking-wider text-emerald-600 uppercase">
                   <UserCheck className="h-3 w-3" /> Mentor Leads
                 </div>
-                <div className="mt-1 text-2xl font-black text-emerald-400">{stats.mentors}</div>
+                <div className="mt-1 text-2xl font-black text-emerald-600">{stats.mentors}</div>
               </div>
             </div>
 
             {/* Search & Filter Controls */}
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-800/60 bg-slate-900/20 p-4">
+            <div className="border-border bg-card mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border p-4 shadow-sm">
               <div className="relative flex w-full max-w-sm items-center gap-2">
-                <Search className="absolute left-3 h-4 w-4 text-slate-500" />
+                <Search className="text-muted-foreground absolute left-3.5 h-4 w-4" />
                 <input
                   type="text"
                   placeholder="Search by student name, email, phone, details..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-lg border border-slate-800 bg-slate-950 py-2 pr-4 pl-9 text-xs text-white placeholder-slate-500 transition-colors outline-none focus:border-indigo-500"
+                  className="border-border bg-background text-foreground placeholder-muted-foreground/60 focus:border-primary focus:ring-primary/10 w-full rounded-full border py-2 pr-4 pl-10 text-xs transition-all outline-none focus:ring-2"
                 />
               </div>
 
               <div className="flex items-center gap-2">
-                <Filter className="h-3.5 w-3.5 text-slate-400" />
-                <label className="text-xs font-medium text-slate-400">Lead Type:</label>
+                <Filter className="text-muted-foreground h-3.5 w-3.5" />
+                <label className="text-muted-foreground text-xs font-medium">Lead Type:</label>
                 <select
                   value={typeFilter}
                   onChange={(e) => setTypeFilter(e.target.value as any)}
-                  className="rounded-lg border border-slate-800 bg-slate-950 p-2 text-xs text-white outline-none focus:border-indigo-500"
+                  className="border-border bg-background text-foreground focus:border-primary focus:ring-primary/10 rounded-full border px-3 py-2 text-xs outline-none focus:ring-2"
                 >
                   <option value="all">All Lead Funnels</option>
                   <option value="Assessment Lead">Assessment Leads</option>
@@ -564,174 +566,178 @@ export default function LeadCRM() {
             </div>
 
             {/* Lead Table */}
-            <div className="mb-8 overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/10">
-              <table className="w-full border-collapse text-left text-xs">
-                <thead>
-                  <tr className="border-b border-slate-800 bg-slate-950/60 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
-                    <th className="p-4">Student Info</th>
-                    <th className="p-4">Lead Funnel</th>
-                    <th className="p-4">Conversion Details</th>
-                    <th className="p-4">Acquired Date</th>
-                    <th className="p-4">Follow-up Status</th>
-                    <th className="p-4">Notes</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-300">
-                  {isLoading ? (
-                    <tr>
-                      <td colSpan={6} className="p-12 text-center">
-                        <div className="flex flex-col items-center justify-center space-y-2">
-                          <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent" />
-                          <span className="text-xs text-slate-400">Loading Lead Database...</span>
-                        </div>
-                      </td>
+            <div className="border-border bg-card mb-8 overflow-hidden rounded-2xl border shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse text-left text-xs">
+                  <thead>
+                    <tr className="border-border bg-muted/30 text-muted-foreground border-b text-[10px] font-bold tracking-wider uppercase">
+                      <th className="p-4">Student Info</th>
+                      <th className="p-4">Lead Funnel</th>
+                      <th className="p-4">Conversion Details</th>
+                      <th className="p-4">Acquired Date</th>
+                      <th className="p-4">Follow-up Status</th>
+                      <th className="p-4">Notes</th>
                     </tr>
-                  ) : filteredLeads.length === 0 ? (
-                    <tr>
-                      <td colSpan={6} className="p-12 text-center text-slate-500">
-                        No leads found matching your search.
-                      </td>
-                    </tr>
-                  ) : (
-                    filteredLeads.map((l) => {
-                      const formattedDate =
-                        new Date(l.created_at).toLocaleDateString('en-US', {
-                          dateStyle: 'medium',
-                        }) +
-                        ' ' +
-                        new Date(l.created_at).toLocaleTimeString('en-US', {
-                          timeStyle: 'short',
-                        });
-
-                      return (
-                        <tr key={l.id} className="transition-colors hover:bg-slate-900/30">
-                          {/* Name / Email / Phone */}
-                          <td className="space-y-1 p-4">
-                            <div className="flex items-center gap-1.5 font-bold text-white">
-                              {l.name}
-                            </div>
-                            <div className="space-y-0.5 text-[10px] text-slate-400">
-                              <div className="flex items-center gap-1.5">
-                                <Mail className="h-3 w-3 text-slate-500" />
-                                {l.email}
-                              </div>
-                              {l.phone !== 'N/A' && (
-                                <div className="flex items-center gap-1.5">
-                                  <Phone className="h-3 w-3 text-slate-500" />
-                                  {l.phone}
-                                </div>
-                              )}
-                            </div>
-                          </td>
-
-                          {/* Lead Type Badge */}
-                          <td className="p-4">
-                            <span
-                              className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold ${
-                                l.type === 'Assessment Lead'
-                                  ? 'border border-amber-500/20 bg-amber-500/10 text-amber-400'
-                                  : l.type === 'Report Lead'
-                                    ? 'border border-indigo-500/20 bg-indigo-500/10 text-indigo-400'
-                                    : 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
-                              }`}
-                            >
-                              {l.type === 'Assessment Lead' && <Users className="h-3 w-3" />}
-                              {l.type === 'Report Lead' && <FileText className="h-3 w-3" />}
-                              {l.type === 'Mentor Lead' && <UserCheck className="h-3 w-3" />}
-                              {l.type}
+                  </thead>
+                  <tbody className="divide-border text-foreground divide-y">
+                    {isLoading ? (
+                      <tr>
+                        <td colSpan={6} className="p-12 text-center">
+                          <div className="flex flex-col items-center justify-center space-y-2">
+                            <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
+                            <span className="text-muted-foreground text-xs font-medium">
+                              Loading Lead Database...
                             </span>
-                          </td>
+                          </div>
+                        </td>
+                      </tr>
+                    ) : filteredLeads.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="text-muted-foreground p-12 text-center">
+                          No leads found matching your search.
+                        </td>
+                      </tr>
+                    ) : (
+                      filteredLeads.map((l) => {
+                        const formattedDate =
+                          new Date(l.created_at).toLocaleDateString('en-US', {
+                            dateStyle: 'medium',
+                          }) +
+                          ' ' +
+                          new Date(l.created_at).toLocaleTimeString('en-US', {
+                            timeStyle: 'short',
+                          });
 
-                          {/* Details */}
-                          <td className="max-w-sm p-4 text-slate-300">{l.details}</td>
+                        return (
+                          <tr key={l.id} className="hover:bg-muted/30 transition-colors">
+                            {/* Name / Email / Phone */}
+                            <td className="space-y-1 p-4">
+                              <div className="text-foreground flex items-center gap-1.5 font-bold">
+                                {l.name}
+                              </div>
+                              <div className="text-muted-foreground space-y-0.5 text-[10px]">
+                                <div className="flex items-center gap-1.5">
+                                  <Mail className="text-muted-foreground h-3 w-3" />
+                                  {l.email}
+                                </div>
+                                {l.phone !== 'N/A' && (
+                                  <div className="flex items-center gap-1.5">
+                                    <Phone className="text-muted-foreground h-3 w-3" />
+                                    {l.phone}
+                                  </div>
+                                )}
+                              </div>
+                            </td>
 
-                          {/* Created At */}
-                          <td className="p-4 text-slate-400">
-                            <div className="flex items-center gap-1.5">
-                              <Calendar className="h-3.5 w-3.5 text-slate-500" />
-                              {formattedDate}
-                            </div>
-                          </td>
-
-                          {/* Follow-up Status Dropdown */}
-                          <td className="p-4">
-                            <select
-                              value={l.status || 'New'}
-                              onChange={(e) => handleUpdateStatus(l.id, e.target.value as any)}
-                              className={`rounded border bg-slate-950 px-2 py-1 text-[11px] font-semibold transition-colors outline-none ${
-                                l.status === 'New'
-                                  ? 'border-blue-500/30 text-blue-400 focus:border-blue-500'
-                                  : l.status === 'Contacted'
-                                    ? 'border-amber-500/30 text-amber-400 focus:border-amber-500'
-                                    : l.status === 'Interested'
-                                      ? 'border-purple-500/30 text-purple-400 focus:border-purple-500'
-                                      : l.status === 'Converted'
-                                        ? 'border-emerald-500/30 text-emerald-400 focus:border-emerald-500'
-                                        : 'border-slate-700 text-slate-400 focus:border-slate-500'
-                              }`}
-                            >
-                              <option
-                                value="New"
-                                className="bg-slate-950 font-semibold text-blue-400"
-                              >
-                                New
-                              </option>
-                              <option
-                                value="Contacted"
-                                className="bg-slate-950 font-semibold text-amber-400"
-                              >
-                                Contacted
-                              </option>
-                              <option
-                                value="Interested"
-                                className="bg-slate-950 font-semibold text-purple-400"
-                              >
-                                Interested
-                              </option>
-                              <option
-                                value="Converted"
-                                className="bg-slate-950 font-semibold text-emerald-400"
-                              >
-                                Converted
-                              </option>
-                              <option
-                                value="Lost"
-                                className="bg-slate-950 font-semibold text-slate-400"
-                              >
-                                Lost
-                              </option>
-                            </select>
-                          </td>
-
-                          {/* Notes Button & Text */}
-                          <td className="p-4">
-                            <div className="flex items-center gap-2">
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => {
-                                  setEditingNotesLead(l);
-                                  setTempNotes(l.notes || '');
-                                }}
-                                className="h-7 w-7 rounded-lg border border-slate-800 p-0 text-slate-400 hover:bg-slate-800 hover:text-white"
-                                title="Edit Notes"
-                              >
-                                <MessageSquare className="h-3.5 w-3.5" />
-                              </Button>
+                            {/* Lead Type Badge */}
+                            <td className="p-4">
                               <span
-                                className="max-w-[120px] truncate text-[10px] text-slate-400 italic"
-                                title={l.notes || 'No notes added'}
+                                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold ${
+                                  l.type === 'Assessment Lead'
+                                    ? 'border border-amber-500/20 bg-amber-50 text-amber-700'
+                                    : l.type === 'Report Lead'
+                                      ? 'border-primary/20 bg-primary/5 text-primary border'
+                                      : 'border border-emerald-500/20 bg-emerald-50 text-emerald-700'
+                                }`}
                               >
-                                {l.notes || 'No notes...'}
+                                {l.type === 'Assessment Lead' && <Users className="h-3 w-3" />}
+                                {l.type === 'Report Lead' && <FileText className="h-3 w-3" />}
+                                {l.type === 'Mentor Lead' && <UserCheck className="h-3 w-3" />}
+                                {l.type}
                               </span>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+                            </td>
+
+                            {/* Details */}
+                            <td className="text-muted-foreground max-w-sm p-4">{l.details}</td>
+
+                            {/* Created At */}
+                            <td className="text-muted-foreground p-4">
+                              <div className="flex items-center gap-1.5">
+                                <Calendar className="text-muted-foreground h-3.5 w-3.5" />
+                                {formattedDate}
+                              </div>
+                            </td>
+
+                            {/* Follow-up Status Dropdown */}
+                            <td className="p-4">
+                              <select
+                                value={l.status || 'New'}
+                                onChange={(e) => handleUpdateStatus(l.id, e.target.value as any)}
+                                className={`bg-background rounded-full border px-2.5 py-1.5 text-[11px] font-semibold transition-colors outline-none ${
+                                  l.status === 'New'
+                                    ? 'border-blue-200 text-blue-700 focus:border-blue-500'
+                                    : l.status === 'Contacted'
+                                      ? 'border-amber-200 text-amber-700 focus:border-amber-500'
+                                      : l.status === 'Interested'
+                                        ? 'border-purple-200 text-purple-700 focus:border-purple-500'
+                                        : l.status === 'Converted'
+                                          ? 'border-emerald-200 text-emerald-700 focus:border-emerald-500'
+                                          : 'border-slate-200 text-slate-600 focus:border-slate-500'
+                                }`}
+                              >
+                                <option
+                                  value="New"
+                                  className="bg-background font-semibold text-blue-700"
+                                >
+                                  New
+                                </option>
+                                <option
+                                  value="Contacted"
+                                  className="bg-background font-semibold text-amber-700"
+                                >
+                                  Contacted
+                                </option>
+                                <option
+                                  value="Interested"
+                                  className="bg-background font-semibold text-purple-700"
+                                >
+                                  Interested
+                                </option>
+                                <option
+                                  value="Converted"
+                                  className="bg-background font-semibold text-emerald-700"
+                                >
+                                  Converted
+                                </option>
+                                <option
+                                  value="Lost"
+                                  className="bg-background font-semibold text-slate-600"
+                                >
+                                  Lost
+                                </option>
+                              </select>
+                            </td>
+
+                            {/* Notes Button & Text */}
+                            <td className="p-4">
+                              <div className="flex items-center gap-2">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    setEditingNotesLead(l);
+                                    setTempNotes(l.notes || '');
+                                  }}
+                                  className="border-border text-muted-foreground hover:bg-muted hover:text-foreground h-7 w-7 rounded-full border p-0"
+                                  title="Edit Notes"
+                                >
+                                  <MessageSquare className="h-3.5 w-3.5" />
+                                </Button>
+                                <span
+                                  className="text-muted-foreground max-w-[120px] truncate text-[10px] italic"
+                                  title={l.notes || 'No notes added'}
+                                >
+                                  {l.notes || 'No notes...'}
+                                </span>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </>
         )}
@@ -739,16 +745,16 @@ export default function LeadCRM() {
 
       {/* Notes Editor Modal */}
       {editingNotesLead && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-5 shadow-2xl">
-            <h3 className="mb-2 text-sm font-bold text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
+          <div className="border-border bg-card w-full max-w-md rounded-3xl border p-5 shadow-2xl">
+            <h3 className="text-foreground mb-2 text-sm font-bold">
               Edit Notes for {editingNotesLead.name}
             </h3>
-            <p className="mb-4 text-[10px] text-slate-400">
+            <p className="text-muted-foreground mb-4 text-[10px]">
               Lead ID: {editingNotesLead.id} ({editingNotesLead.type})
             </p>
             <textarea
-              className="h-32 w-full rounded-lg border border-slate-800 bg-slate-950 p-3 text-xs text-white placeholder-slate-600 outline-none focus:border-indigo-500"
+              className="border-border bg-background text-foreground placeholder-muted-foreground/60 focus:border-primary focus:ring-primary/10 h-32 w-full rounded-2xl border p-3 text-xs outline-none focus:ring-2"
               placeholder="Enter notes about phone calls, emails, or status details..."
               value={tempNotes}
               onChange={(e) => setTempNotes(e.target.value)}
@@ -757,14 +763,14 @@ export default function LeadCRM() {
               <Button
                 variant="outline"
                 size="sm"
-                className="border-slate-800 text-xs text-slate-400 hover:bg-slate-800"
+                className="border-border text-foreground hover:bg-muted rounded-full text-xs"
                 onClick={() => setEditingNotesLead(null)}
               >
                 Cancel
               </Button>
               <Button
                 size="sm"
-                className="bg-indigo-600 text-xs font-semibold text-white hover:bg-indigo-700"
+                className="bg-primary hover:bg-primary/95 rounded-full text-xs font-semibold text-white"
                 onClick={handleSaveNotes}
               >
                 Save Notes

@@ -186,7 +186,7 @@ const defaultMentor = {
 
 export default function ResultsPage() {
   const [recommendations, setRecommendations] = useState<ScoredCourse[]>([]);
-  const [profile, setProfile] = useState<AssessmentData | null>(null);
+  const [profile, setProfile] = useState<(AssessmentData & { id?: string; name?: string; email?: string }) | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [expandedCourseId, setExpandedCourseId] = useState<string | null>(null);
   const [activeTabByCourse, setActiveTabByCourse] = useState<
@@ -606,13 +606,43 @@ export default function ResultsPage() {
         try {
           const parsed = JSON.parse(localData);
           if (parsed.recommendations && parsed.recommendations.length > 0) {
-            setRecommendations(parsed.recommendations);
+            const activeProfile = parsed.profile as (AssessmentData & { id?: string; name?: string; email?: string }) | null;
+            
+            // Recalculate explanations on the fly to ensure grammar and styling fixes are immediately applied
+            const updatedRecs = parsed.recommendations.map((item: ScoredCourse) => {
+              if (activeProfile) {
+                return {
+                  ...item,
+                  explanation: generateExplanation(activeProfile, item.course),
+                };
+              } else {
+                // Sanitize old cached explanation grammar in place if no profile is found
+                if (item.explanation && item.explanation.whyThisCourseFits) {
+                  let text = item.explanation.whyThisCourseFits;
+                  if (text.includes('You enjoy matches your')) {
+                    text = text.replace('You enjoy matches your', 'You enjoy exploring your');
+                  } else if (text.includes('You enjoy matches')) {
+                    text = text.replace('You enjoy matches', 'You enjoy focusing on');
+                  }
+                  return {
+                    ...item,
+                    explanation: {
+                      ...item.explanation,
+                      whyThisCourseFits: text,
+                    },
+                  };
+                }
+              }
+              return item;
+            });
+
+            setRecommendations(updatedRecs);
             if (parsed.profile) setProfile(parsed.profile);
             // Default first course expanded
-            setExpandedCourseId(parsed.recommendations[0].course.id);
+            setExpandedCourseId(updatedRecs[0].course.id);
             // Initialize default tabs
             const defaultTabs: Record<string, 'why' | 'strength' | 'interests' | 'workStyle'> = {};
-            parsed.recommendations.forEach((item: ScoredCourse) => {
+            updatedRecs.forEach((item: ScoredCourse) => {
               defaultTabs[item.course.id] = 'why';
             });
             setActiveTabByCourse(defaultTabs);
@@ -661,10 +691,17 @@ export default function ResultsPage() {
                 }): ScoredCourse | null => {
                   const matchedCourse = PREDEFINED_COURSES.find((c) => c.name === row.career_title);
                   if (matchedCourse) {
+                    let sanitizedReasoning = row.reasoning;
+                    if (sanitizedReasoning.includes('You enjoy matches your')) {
+                      sanitizedReasoning = sanitizedReasoning.replace('You enjoy matches your', 'You enjoy exploring your');
+                    } else if (sanitizedReasoning.includes('You enjoy matches')) {
+                      sanitizedReasoning = sanitizedReasoning.replace('You enjoy matches', 'You enjoy focusing on');
+                    }
+
                     const explanation = activeProfile
                       ? generateExplanation(activeProfile, matchedCourse)
                       : {
-                          whyThisCourseFits: row.reasoning,
+                          whyThisCourseFits: sanitizedReasoning,
                           strengthAnalysis: `This course utilizes your strengths and analytical capabilities.`,
                           interestAnalysis: `Matches your interest categories: ${row.recommended_paths.join(', ')}.`,
                           careerFitAnalysis: `Matches your workplace priorities.`,
@@ -772,8 +809,8 @@ export default function ResultsPage() {
     ];
 
     return (
-      <div className="space-y-5 rounded-xl border border-slate-800/40 bg-slate-950/40 p-4">
-        <h5 className="text-xs font-bold tracking-wider text-slate-400 uppercase">
+      <div className="space-y-5 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h5 className="text-xs font-bold tracking-wider text-slate-500 uppercase">
           Work Style Fit Audit
         </h5>
         <div className="space-y-4">
@@ -791,27 +828,33 @@ export default function ResultsPage() {
             return (
               <div key={axis.name} className="space-y-1">
                 <div className="flex items-center justify-between text-[11px]">
-                  <span className="font-bold text-slate-300">{axis.name}</span>
+                  <span className="font-bold text-slate-900">{axis.name}</span>
                   <span
-                    className={`font-semibold ${matchDelta <= 1 ? 'text-emerald-400' : matchDelta <= 2 ? 'text-amber-400' : 'text-rose-400'}`}
+                    className={`font-bold ${
+                      matchDelta <= 1
+                        ? 'text-emerald-600'
+                        : matchDelta <= 2
+                          ? 'text-amber-600'
+                          : 'text-rose-600'
+                    }`}
                   >
                     {fitRating} (User: {axis.user} vs Course: {axis.course})
                   </span>
                 </div>
                 <div className="relative flex h-5 items-center">
                   {/* Base Track */}
-                  <div className="h-2 w-full rounded-full bg-slate-800" />
+                  <div className="h-2 w-full rounded-full bg-slate-200" />
 
-                  {/* Course Recommended Area Glow */}
+                  {/* Course Recommended Area */}
                   <div
-                    className="absolute h-3.5 w-3.5 rounded-full border border-indigo-400 bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] transition-all"
+                    className="absolute h-3.5 w-3.5 rounded-full border border-blue-500 bg-blue-600 transition-all"
                     style={{ left: `calc(${coursePercent}% - 7px)` }}
                     title="Course Standard Requirement"
                   />
 
                   {/* User Level Indicator */}
                   <div
-                    className="absolute h-2.5 w-2.5 rounded-full border border-emerald-400 bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] transition-all"
+                    className="absolute h-2.5 w-2.5 rounded-full border border-emerald-500 bg-emerald-600 transition-all"
                     style={{ left: `calc(${userPercent}% - 5px)` }}
                     title="Your Selection"
                   />
@@ -829,19 +872,19 @@ export default function ResultsPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-between overflow-x-hidden bg-slate-950 font-sans text-white">
+    <div className="flex min-h-screen flex-col justify-between overflow-x-hidden bg-background font-sans text-foreground">
       <Navbar />
 
       <main className="relative flex-grow px-4 pt-28 pb-16">
         {/* Glow Effects */}
-        <div className="pointer-events-none absolute top-10 left-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[130px]" />
-        <div className="pointer-events-none absolute right-1/4 bottom-20 h-96 w-96 translate-x-1/2 rounded-full bg-purple-500/10 blur-[140px]" />
+        <div className="pointer-events-none absolute top-10 left-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-primary/5 blur-[130px]" />
+        <div className="pointer-events-none absolute right-1/4 bottom-20 h-96 w-96 translate-x-1/2 rounded-full bg-secondary/5 blur-[140px]" />
 
         <div className="mx-auto max-w-7xl">
           {/* Back Button */}
           <Link
             href="/quiz"
-            className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 transition-colors duration-200 hover:text-white"
+            className="mb-8 inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 transition-colors duration-200 hover:text-slate-900"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Assessment
@@ -850,22 +893,22 @@ export default function ResultsPage() {
           {/* Loading State */}
           {isLoading ? (
             <div className="flex min-h-[450px] flex-col items-center justify-center space-y-4 text-center">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-500 border-t-transparent" />
-              <p className="animate-pulse text-sm font-semibold text-slate-400">
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+              <p className="animate-pulse text-sm font-semibold text-slate-500">
                 Analyzing profiles and generating career roadmaps...
               </p>
             </div>
           ) : recommendations.length === 0 ? (
             /* Empty State */
-            <div className="mx-auto flex min-h-[400px] max-w-md flex-col items-center justify-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/10 p-8 text-center">
-              <Compass className="mb-4 h-12 w-12 animate-pulse text-slate-600" />
-              <h3 className="mb-2 text-lg font-bold text-white">No recommendations found</h3>
-              <p className="mb-6 text-xs leading-relaxed text-slate-400">
+            <div className="mx-auto flex min-h-[400px] max-w-md flex-col items-center justify-center rounded-3xl border border-dashed border-slate-200 bg-white p-8 text-center shadow-sm">
+              <Compass className="mb-4 h-12 w-12 animate-pulse text-slate-400" />
+              <h3 className="mb-2 text-lg font-bold text-slate-900">No recommendations found</h3>
+              <p className="mb-6 text-xs leading-relaxed text-slate-500">
                 It looks like you haven&apos;t completed the career discovery assessment yet or your
                 cached results have expired.
               </p>
               <Link href="/quiz">
-                <Button className="bg-indigo-600 font-semibold text-white hover:bg-indigo-700">
+                <Button className="rounded-full bg-primary font-semibold text-white hover:bg-primary/90">
                   Take Assessment Now
                 </Button>
               </Link>
@@ -878,35 +921,35 @@ export default function ResultsPage() {
                 {/* Header & Profile Stats */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 animate-pulse text-indigo-400" />
-                    <span className="text-xs font-bold tracking-wider text-indigo-400 uppercase">
+                    <Sparkles className="h-5 w-5 animate-pulse text-primary" />
+                    <span className="text-xs font-bold tracking-wider text-primary uppercase">
                       AI Recommendation Core
                     </span>
                   </div>
-                  <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                  <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
                     Your Tailored Career Matches
                   </h1>
-                  <p className="max-w-2xl text-sm leading-relaxed text-slate-400">
+                  <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
                     Based on your stream, interest vectors, extracurricular hobbies, and workplace
                     style preferences, our recommendation engine identified these top 5 pathways.
                   </p>
 
                   {/* Profile Summary Badges */}
                   {profile && (
-                    <div className="space-y-3 rounded-xl border border-slate-800/80 bg-slate-900/30 p-4">
+                    <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                       <div className="text-xs font-bold tracking-wider text-slate-500 uppercase">
                         Your Assessment Profile Audit
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {profile.educationLevel && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-800 px-3 py-1 text-xs font-medium text-slate-300">
-                            <GraduationCap className="h-3.5 w-3.5 text-indigo-400" />
+                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 border border-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                            <GraduationCap className="h-3.5 w-3.5 text-primary" />
                             {EDUCATION_LABELS[profile.educationLevel] || profile.educationLevel}
                           </span>
                         )}
                         {profile.stream && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-800 px-3 py-1 text-xs font-medium text-slate-300">
-                            <Compass className="h-3.5 w-3.5 text-indigo-400" />
+                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 border border-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                            <Compass className="h-3.5 w-3.5 text-primary" />
                             Stream: {profile.stream.toUpperCase()}
                           </span>
                         )}
@@ -914,9 +957,9 @@ export default function ResultsPage() {
                           profile.interests.slice(0, 2).map((interest: string) => (
                             <span
                               key={interest}
-                              className="inline-flex items-center gap-1 rounded-full border border-indigo-500/10 bg-indigo-950/40 px-3 py-1 text-xs font-medium text-indigo-300"
+                              className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary"
                             >
-                              <Brain className="h-3.5 w-3.5 text-indigo-400" />
+                              <Brain className="h-3.5 w-3.5 text-primary" />
                               {INTEREST_LABELS[interest] || interest}
                             </span>
                           ))}
@@ -924,9 +967,9 @@ export default function ResultsPage() {
                           profile.priorities.slice(0, 2).map((priority: string) => (
                             <span
                               key={priority}
-                              className="inline-flex items-center gap-1 rounded-full border border-teal-500/10 bg-teal-950/40 px-3 py-1 text-xs font-medium text-teal-300"
+                              className="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-800"
                             >
-                              <Briefcase className="h-3.5 w-3.5 text-teal-400" />
+                              <Briefcase className="h-3.5 w-3.5 text-emerald-600" />
                               {PRIORITY_LABELS[priority] || priority}
                             </span>
                           ))}
@@ -951,8 +994,8 @@ export default function ResultsPage() {
                         transition={{ duration: 0.4, delay: idx * 0.08 }}
                         className={`group rounded-2xl border transition-all duration-300 ${
                           isExpanded
-                            ? 'border-indigo-500/40 bg-slate-900/40 shadow-[0_0_30px_rgba(99,102,241,0.05)]'
-                            : 'border-slate-800/80 bg-slate-900/10 hover:border-slate-700/80 hover:bg-slate-900/20'
+                            ? 'border-primary/40 bg-white shadow-lg'
+                            : 'border-slate-200 bg-white hover:border-slate-350 hover:shadow-md'
                         }`}
                       >
                         {/* Summary Header block */}
@@ -961,11 +1004,11 @@ export default function ResultsPage() {
                           className="flex cursor-pointer flex-wrap items-center justify-between gap-4 p-5 select-none"
                         >
                           <div className="flex min-w-[250px] flex-1 items-center gap-4">
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-700/80 bg-slate-800 font-extrabold text-indigo-400 shadow-md">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 font-extrabold text-primary shadow-sm">
                               #{idx + 1}
                             </span>
                             <div className="space-y-1">
-                              <h3 className="text-lg font-bold text-white transition-colors group-hover:text-indigo-400">
+                              <h3 className="text-lg font-bold text-slate-900 transition-colors group-hover:text-primary">
                                 {course.name}
                               </h3>
                               <div className="flex items-center gap-3 text-xs text-slate-500">
@@ -973,14 +1016,14 @@ export default function ResultsPage() {
                                   <Clock className="h-3.5 w-3.5" />
                                   {course.durationYears} Years
                                 </span>
-                                <span className="h-1 w-1 rounded-full bg-slate-700" />
+                                <span className="h-1 w-1 rounded-full bg-slate-300" />
                                 <span
                                   className={`flex items-center gap-1 ${
                                     course.difficultyLevel === 'Advanced'
-                                      ? 'text-rose-400'
+                                      ? 'text-rose-600'
                                       : course.difficultyLevel === 'Intermediate'
-                                        ? 'text-amber-400'
-                                        : 'text-emerald-400'
+                                        ? 'text-amber-600'
+                                        : 'text-emerald-600'
                                   }`}
                                 >
                                   <Award className="h-3.5 w-3.5" />
@@ -992,16 +1035,16 @@ export default function ResultsPage() {
 
                           {/* Match % visualization */}
                           <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1">
-                              <span className="text-xs font-bold text-indigo-300">Match %</span>
-                              <span className="text-sm font-extrabold text-indigo-400">
+                            <div className="flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1">
+                              <span className="text-xs font-bold text-primary">Match %</span>
+                              <span className="text-sm font-extrabold text-primary">
                                 {score}%
                               </span>
                             </div>
                             {isExpanded ? (
-                              <ChevronUp className="h-5 w-5 text-slate-400" />
+                              <ChevronUp className="h-5 w-5 text-slate-500" />
                             ) : (
-                              <ChevronDown className="h-5 w-5 text-slate-400 transition-colors group-hover:text-white" />
+                              <ChevronDown className="h-5 w-5 text-slate-500 transition-colors group-hover:text-slate-900" />
                             )}
                           </div>
                         </div>
@@ -1014,27 +1057,27 @@ export default function ResultsPage() {
                               animate={{ opacity: 1, height: 'auto' }}
                               exit={{ opacity: 0, height: 0 }}
                               transition={{ duration: 0.3 }}
-                              className="overflow-hidden border-t border-slate-800/80"
+                              className="overflow-hidden border-t border-slate-100"
                             >
                               <div className="space-y-6 p-5">
                                 {/* Description */}
-                                <p className="text-sm leading-relaxed text-slate-300">
+                                <p className="text-sm leading-relaxed text-slate-650">
                                   {course.description}
                                 </p>
 
                                 {/* why it matches checklist */}
                                 {matchReasons && matchReasons.length > 0 && (
                                   <div className="space-y-2">
-                                    <div className="text-[10px] font-bold tracking-wider text-indigo-400 uppercase">
+                                    <div className="text-[10px] font-bold tracking-wider text-primary uppercase">
                                       Key Match Indicators
                                     </div>
                                     <ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
                                       {matchReasons.map((reason, rIdx) => (
                                         <li
                                           key={rIdx}
-                                          className="flex items-start gap-2 rounded-lg border border-indigo-500/5 bg-indigo-950/20 p-2 text-xs text-indigo-200/80"
+                                          className="flex items-start gap-2 rounded-lg border border-primary/10 bg-primary/5 p-2.5 text-xs text-primary"
                                         >
-                                          <Compass className="mt-0.5 h-4 w-4 shrink-0 text-indigo-500" />
+                                          <Compass className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                                           <span>{reason}</span>
                                         </li>
                                       ))}
@@ -1045,70 +1088,70 @@ export default function ResultsPage() {
                                 {/* Interactive Tabs panel */}
                                 <div className="space-y-4">
                                   {/* Tab bar header */}
-                                  <div className="flex gap-2 overflow-x-auto border-b border-slate-800/80 text-xs font-semibold">
+                                  <div className="flex gap-2 overflow-x-auto border-b border-slate-100 text-xs font-semibold">
                                     <button
                                       onClick={() => handleTabChange(course.id, 'why')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'why' ? 'border-b-2 border-indigo-400 font-bold text-indigo-400' : 'text-slate-500 hover:text-slate-300'}`}
+                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'why' ? 'border-b-2 border-primary font-bold text-primary' : 'text-slate-500 hover:text-slate-900'}`}
                                     >
                                       Summary Fit
                                     </button>
                                     <button
                                       onClick={() => handleTabChange(course.id, 'strength')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'strength' ? 'border-b-2 border-indigo-400 font-bold text-indigo-400' : 'text-slate-500 hover:text-slate-300'}`}
+                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'strength' ? 'border-b-2 border-primary font-bold text-primary' : 'text-slate-500 hover:text-slate-900'}`}
                                     >
                                       Strengths Analysis
                                     </button>
                                     <button
                                       onClick={() => handleTabChange(course.id, 'interests')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'interests' ? 'border-b-2 border-indigo-400 font-bold text-indigo-400' : 'text-slate-500 hover:text-slate-300'}`}
+                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'interests' ? 'border-b-2 border-primary font-bold text-primary' : 'text-slate-500 hover:text-slate-900'}`}
                                     >
                                       Interest Fit
                                     </button>
                                     <button
                                       onClick={() => handleTabChange(course.id, 'workStyle')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'workStyle' ? 'border-b-2 border-indigo-400 font-bold text-indigo-400' : 'text-slate-500 hover:text-slate-300'}`}
+                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'workStyle' ? 'border-b-2 border-primary font-bold text-primary' : 'text-slate-500 hover:text-slate-900'}`}
                                     >
                                       Work Style Fit
                                     </button>
                                   </div>
 
                                   {/* Tab Content */}
-                                  <div className="min-h-[100px] text-xs leading-relaxed text-slate-300">
-                                    {currentTab === 'why' && explanation && (
-                                      <p className="rounded-xl border border-slate-900 bg-slate-950/20 p-4">
-                                        {explanation.whyThisCourseFits}
-                                      </p>
-                                    )}
-                                    {currentTab === 'strength' && explanation && (
-                                      <p className="rounded-xl border border-slate-900 bg-slate-950/20 p-4">
-                                        {explanation.strengthAnalysis}
-                                      </p>
-                                    )}
-                                    {currentTab === 'interests' && explanation && (
-                                      <p className="rounded-xl border border-slate-900 bg-slate-950/20 p-4">
-                                        {explanation.interestAnalysis}
-                                      </p>
-                                    )}
-                                    {currentTab === 'workStyle' && (
-                                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                                        <div className="flex items-center rounded-xl border border-slate-900 bg-slate-950/20 p-4">
-                                          <p>{explanation?.careerFitAnalysis}</p>
-                                        </div>
-                                        {profile &&
-                                          renderWorkStyleComparison(
-                                            profile.workStyle,
-                                            course.workStyle
-                                          )}
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
+                                  <div className="min-h-[100px] text-xs leading-relaxed text-slate-600">
+                                     {currentTab === 'why' && explanation && (
+                                       <p className="rounded-xl border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed shadow-sm">
+                                         {explanation.whyThisCourseFits}
+                                       </p>
+                                     )}
+                                     {currentTab === 'strength' && explanation && (
+                                       <p className="rounded-xl border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed shadow-sm">
+                                         {explanation.strengthAnalysis}
+                                       </p>
+                                     )}
+                                     {currentTab === 'interests' && explanation && (
+                                       <p className="rounded-xl border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed shadow-sm">
+                                         {explanation.interestAnalysis}
+                                       </p>
+                                     )}
+                                     {currentTab === 'workStyle' && (
+                                       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                         <div className="flex items-center rounded-xl border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed shadow-sm">
+                                           <p>{explanation?.careerFitAnalysis}</p>
+                                         </div>
+                                         {profile &&
+                                           renderWorkStyleComparison(
+                                             profile.workStyle,
+                                             course.workStyle
+                                           )}
+                                       </div>
+                                     )}
+                                   </div>
+                                 </div>
 
-                                {/* Career Outlook Subcard */}
-                                <div className="space-y-4 rounded-xl border border-slate-800 bg-slate-950/60 p-4">
-                                  <div className="flex items-center gap-2 border-b border-slate-800/60 pb-2.5">
-                                    <TrendingUp className="h-4.5 w-4.5 text-indigo-400" />
-                                    <h4 className="text-sm font-bold text-white">
+                                 {/* Career Outlook Subcard */}
+                                 <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                                  <div className="flex items-center gap-2 border-b border-slate-250/60 pb-2.5">
+                                    <TrendingUp className="h-4.5 w-4.5 text-primary" />
+                                    <h4 className="text-sm font-bold text-slate-900">
                                       Career Outlook & Market Trends
                                     </h4>
                                   </div>
@@ -1130,8 +1173,8 @@ export default function ResultsPage() {
                                       <span className="text-[10px] font-semibold text-slate-500 uppercase">
                                         Average Salary
                                       </span>
-                                      <div className="flex items-center gap-0.5 font-extrabold text-white">
-                                        <DollarSign className="h-3.5 w-3.5 text-emerald-400" />
+                                      <div className="flex items-center gap-0.5 font-extrabold text-slate-900">
+                                        <DollarSign className="h-3.5 w-3.5 text-emerald-600" />
                                         {outlook.salaryRange.split(' / ')[0]}
                                       </div>
                                     </div>
@@ -1139,7 +1182,7 @@ export default function ResultsPage() {
                                       <span className="text-[10px] font-semibold text-slate-500 uppercase">
                                         Decade Growth
                                       </span>
-                                      <div className="font-extrabold text-indigo-300">
+                                      <div className="font-extrabold text-primary">
                                         {outlook.growthRate.split(' ')[0]}
                                       </div>
                                     </div>
@@ -1147,7 +1190,7 @@ export default function ResultsPage() {
                                       <span className="text-[10px] font-semibold text-slate-500 uppercase">
                                         Study Duration
                                       </span>
-                                      <div className="font-extrabold text-slate-300">
+                                      <div className="font-extrabold text-slate-900">
                                         {course.durationYears} Years
                                       </div>
                                     </div>
@@ -1161,7 +1204,7 @@ export default function ResultsPage() {
                                       {outlook.topRoles.map((role: string) => (
                                         <span
                                           key={role}
-                                          className="rounded border border-slate-800 bg-slate-900 px-2 py-0.5 text-[10px] text-slate-400"
+                                          className="rounded border border-slate-200 bg-white px-2 py-0.5 text-[10px] text-slate-600"
                                         >
                                           {role}
                                         </span>
@@ -1169,32 +1212,31 @@ export default function ResultsPage() {
                                     </div>
                                   </div>
 
-                                  <p className="border-t border-slate-900 pt-2 text-xs leading-relaxed text-slate-400">
+                                  <p className="border-t border-slate-200/60 pt-2 text-xs leading-relaxed text-slate-500">
                                     {outlook.outlookDescription}
                                   </p>
                                 </div>
 
                                 {/* Action bar buttons */}
-                                <div className="flex flex-wrap gap-3 border-t border-slate-900 pt-3">
+                                <div className="flex flex-wrap gap-3 border-t border-slate-100 pt-3">
                                   <Button
                                     onClick={() => setSelectedCourseForDetail(item)}
                                     variant="outline"
-                                    className="min-w-[140px] flex-1 border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white"
+                                    className="min-w-[140px] flex-1 border-slate-200 text-slate-650 hover:bg-slate-50 rounded-full"
                                   >
                                     <BookOpen className="mr-1.5 h-4 w-4" />
                                     Explore Course
                                   </Button>
                                   <Button
                                     onClick={() => setShowUnlockModal(true)}
-                                    variant="secondary"
-                                    className="min-w-[140px] flex-1 bg-slate-800 text-slate-200 hover:bg-slate-700"
+                                    className="min-w-[140px] flex-1 bg-secondary text-white hover:bg-secondary/90 rounded-full"
                                   >
-                                    <Download className="mr-1.5 h-4 w-4 text-indigo-400" />
+                                    <Download className="mr-1.5 h-4 w-4 text-white" />
                                     Unlock Report
                                   </Button>
                                   <Button
                                     onClick={() => setSelectedMentorCourse(item)}
-                                    className="min-w-[140px] flex-1 bg-indigo-600 text-white hover:bg-indigo-700"
+                                    className="min-w-[140px] flex-1 bg-primary text-white hover:bg-primary/90 rounded-full"
                                   >
                                     <User className="mr-1.5 h-4 w-4" />
                                     Talk To Mentor
@@ -1214,7 +1256,7 @@ export default function ResultsPage() {
                   <Link href="/quiz">
                     <Button
                       variant="outline"
-                      className="border-slate-800 text-slate-400 hover:bg-slate-900 hover:text-white"
+                      className="border-slate-200 text-slate-500 hover:bg-slate-50 rounded-full"
                     >
                       Retake Career Assessment
                     </Button>
@@ -1225,43 +1267,43 @@ export default function ResultsPage() {
               {/* Right Column: Premium Sidebar details */}
               <div className="space-y-6 lg:col-span-4">
                 {/* 1. Unlock Report Card */}
-                <div className="relative overflow-hidden rounded-2xl border border-indigo-500/20 bg-indigo-950/10 p-5 shadow-lg backdrop-blur">
-                  <div className="absolute top-0 right-0 h-16 w-16 translate-x-4 -translate-y-4 rounded-full bg-indigo-500/10 blur-md" />
+                <div className="relative overflow-hidden rounded-2xl border border-secondary/20 bg-secondary/5 p-5 shadow-sm">
+                  <div className="absolute top-0 right-0 h-16 w-16 translate-x-4 -translate-y-4 rounded-full bg-secondary/10 blur-md" />
 
                   <div className="mb-3 flex items-center gap-2">
-                    <Sparkles className="h-4.5 w-4.5 animate-pulse text-indigo-400" />
-                    <span className="text-[10px] font-extrabold tracking-wider text-indigo-400 uppercase">
+                    <Sparkles className="h-4.5 w-4.5 animate-pulse text-secondary" />
+                    <span className="text-[10px] font-extrabold tracking-wider text-secondary uppercase">
                       Premium Toolkit
                     </span>
                   </div>
 
-                  <h3 className="mb-2 text-base font-bold text-white">
+                  <h3 className="mb-2 text-base font-bold text-slate-900">
                     Comprehensive Career Discovery Report
                   </h3>
-                  <p className="mb-4 text-xs leading-relaxed text-slate-400">
+                  <p className="mb-4 text-xs leading-relaxed text-slate-655">
                     Get a 15-page tailored PDF audit showing deep analytical assessments,
                     year-by-year action plans, college checklists, and salary trends.
                   </p>
 
                   {/* Bullet Preview */}
-                  <ul className="mb-6 space-y-2 text-xs text-slate-300">
+                  <ul className="mb-6 space-y-2 text-xs text-slate-700">
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-indigo-400" />
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-secondary" />
                       <span>Custom subject choices</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-indigo-400" />
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-secondary" />
                       <span>Top 10 College admission guides</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-indigo-400" />
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-secondary" />
                       <span>12-Month execution roadmap</span>
                     </li>
                   </ul>
 
                   <Button
                     onClick={() => setShowUnlockModal(true)}
-                    className="w-full bg-gradient-to-r from-indigo-500 to-violet-500 font-semibold text-white shadow-[0_4px_15px_rgba(99,102,241,0.3)] transition-opacity hover:opacity-90"
+                    className="w-full bg-secondary text-white font-semibold shadow-sm hover:bg-secondary/90 rounded-full"
                   >
                     <Lock className="mr-1.5 h-4 w-4" />
                     Unlock Premium Report
@@ -1269,15 +1311,15 @@ export default function ResultsPage() {
                 </div>
 
                 {/* 2. Top Mentors Preview */}
-                <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/20 p-5">
-                  <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
-                    <h3 className="text-sm font-bold text-white">Recommended Mentors</h3>
-                    <span className="text-[10px] font-semibold text-indigo-400 uppercase">
+                <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <h3 className="text-sm font-bold text-slate-900">Recommended Mentors</h3>
+                    <span className="text-[10px] font-semibold text-primary uppercase">
                       1:1 Advice
                     </span>
                   </div>
 
-                  <p className="text-xs leading-relaxed text-slate-400">
+                  <p className="text-xs leading-relaxed text-slate-550">
                     Connect directly with industry experts matching your recommended career paths to
                     clarify syllabus questions or corporate realities.
                   </p>
@@ -1289,21 +1331,21 @@ export default function ResultsPage() {
                       return (
                         <div
                           key={item.course.id}
-                          className="flex items-center gap-3 rounded-xl border border-slate-900 bg-slate-950/40 p-3"
+                          className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/50 p-3"
                         >
                           <img
                             src={mentor.avatar}
                             alt={mentor.name}
-                            className="h-10 w-10 shrink-0 rounded-full border border-slate-800 object-cover"
+                            className="h-10 w-10 shrink-0 rounded-full border border-slate-200 object-cover"
                           />
                           <div className="min-w-0 flex-1">
-                            <h4 className="truncate text-xs font-bold text-white">{mentor.name}</h4>
-                            <p className="truncate text-[10px] text-slate-400">{mentor.role}</p>
-                            <p className="truncate text-[9px] text-slate-500">{mentor.company}</p>
+                            <h4 className="truncate text-xs font-bold text-slate-900">{mentor.name}</h4>
+                            <p className="truncate text-[10px] text-slate-550">{mentor.role}</p>
+                            <p className="truncate text-[9px] text-slate-400">{mentor.company}</p>
                           </div>
                           <button
                             onClick={() => setSelectedMentorCourse(item)}
-                            className="shrink-0 text-[10px] font-bold text-indigo-400 hover:text-indigo-300"
+                            className="shrink-0 text-[10px] font-bold text-primary hover:text-primary/80"
                           >
                             Book
                           </button>
@@ -1317,38 +1359,38 @@ export default function ResultsPage() {
                       if (recommendations[0]) setSelectedMentorCourse(recommendations[0]);
                     }}
                     variant="outline"
-                    className="w-full border-slate-800 text-xs text-slate-300 hover:bg-slate-800"
+                    className="w-full border-slate-200 text-xs text-slate-600 hover:bg-slate-50 rounded-full"
                   >
                     Browse All Mentors
                   </Button>
                 </div>
 
                 {/* 3. Next Steps Quick Checklist */}
-                <div className="space-y-3 rounded-2xl border border-slate-800 bg-slate-900/10 p-5">
-                  <h3 className="text-sm font-bold text-white">Suggested Next Steps</h3>
+                <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <h3 className="text-sm font-bold text-slate-900">Suggested Next Steps</h3>
                   <div className="space-y-3 text-xs">
                     <div className="flex gap-2">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-800 text-[10px] font-bold text-slate-400">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-100 text-[10px] font-bold text-slate-600">
                         1
                       </span>
-                      <p className="leading-normal text-slate-400">
+                      <p className="leading-normal text-slate-550">
                         Verify college eligibility requirements under{' '}
-                        <span className="font-semibold text-white">Explore Course</span>.
+                        <span className="font-semibold text-slate-900">Explore Course</span>.
                       </p>
                     </div>
                     <div className="flex gap-2">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-800 text-[10px] font-bold text-slate-400">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-100 text-[10px] font-bold text-slate-600">
                         2
                       </span>
-                      <p className="leading-normal text-slate-400">
+                      <p className="leading-normal text-slate-550">
                         Download your customized career audit report.
                       </p>
                     </div>
                     <div className="flex gap-2">
-                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-800 text-[10px] font-bold text-slate-400">
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-100 text-[10px] font-bold text-slate-600">
                         3
                       </span>
-                      <p className="leading-normal text-slate-400">
+                      <p className="leading-normal text-slate-550">
                         Schedule a 15-minute alignment call with a mentor.
                       </p>
                     </div>
@@ -1374,43 +1416,43 @@ export default function ResultsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 p-4 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
-              className="w-full max-w-lg space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6 text-left shadow-2xl"
+              className="w-full max-w-lg space-y-4 rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-2xl"
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="text-[10px] font-extrabold tracking-widest text-indigo-400 uppercase">
+                  <span className="text-[10px] font-extrabold tracking-widest text-primary uppercase">
                     Course Exploration
                   </span>
-                  <h3 className="mt-1 text-xl font-bold text-white">
+                  <h3 className="mt-1 text-xl font-bold text-slate-900">
                     {selectedCourseForDetail.course.name}
                   </h3>
                 </div>
                 <button
                   onClick={() => setSelectedCourseForDetail(null)}
-                  className="text-xs font-bold text-slate-400 hover:text-white"
+                  className="text-xs font-bold text-slate-400 hover:text-slate-950"
                 >
                   Close
                 </button>
               </div>
 
-              <div className="max-h-[350px] space-y-4 overflow-y-auto pr-2 text-xs leading-relaxed text-slate-300">
+              <div className="max-h-[350px] space-y-4 overflow-y-auto pr-2 text-xs leading-relaxed text-slate-600">
                 <div>
-                  <h4 className="mb-1 font-bold text-white">About the Domain</h4>
+                  <h4 className="mb-1 font-bold text-slate-900">About the Domain</h4>
                   <p>{selectedCourseForDetail.course.description}</p>
                 </div>
 
                 <div>
-                  <h4 className="mb-1 font-bold text-white">Top University Programs</h4>
+                  <h4 className="mb-1 font-bold text-slate-900">Top University Programs</h4>
                   <ul className="list-disc space-y-1 pl-4">
                     {(selectedCourseForDetail.explanation?.careerOutlook?.topColleges || []).map(
                       (coll: string) => (
-                        <li key={coll} className="text-slate-400">
+                        <li key={coll} className="text-slate-500">
                           {coll}
                         </li>
                       )
@@ -1419,8 +1461,8 @@ export default function ResultsPage() {
                 </div>
 
                 <div>
-                  <h4 className="mb-1 font-bold text-white">Sample Study Curriculum</h4>
-                  <p className="text-slate-400">
+                  <h4 className="mb-1 font-bold text-slate-900">Sample Study Curriculum</h4>
+                  <p className="text-slate-500">
                     Typical semesters cover fundamental academic theory, analytical design, project
                     workshops, and professional summer internships. Key modules include{' '}
                     {selectedCourseForDetail.course.interests
@@ -1430,7 +1472,7 @@ export default function ResultsPage() {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between rounded-lg border border-slate-800 bg-slate-950 p-3 text-[10px] font-semibold text-slate-400">
+                <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-3 text-[10px] font-semibold text-slate-600">
                   <span>Minimum Study: {selectedCourseForDetail.course.durationYears} Years</span>
                   <span>Difficulty: {selectedCourseForDetail.course.difficultyLevel}</span>
                 </div>
@@ -1439,7 +1481,7 @@ export default function ResultsPage() {
               <div className="flex flex-col gap-2 pt-2">
                 <div className="flex gap-3">
                   <Link href={`/courses/${selectedCourseForDetail.course.id}`} className="flex-1">
-                    <Button className="w-full border border-slate-800 bg-slate-900/50 text-slate-300 hover:bg-slate-800">
+                    <Button className="w-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 rounded-full">
                       View Full Details
                     </Button>
                   </Link>
@@ -1448,7 +1490,7 @@ export default function ResultsPage() {
                       setSelectedCourseForDetail(null);
                       setShowUnlockModal(true);
                     }}
-                    className="flex-1 bg-indigo-600 hover:bg-indigo-700"
+                    className="flex-1 bg-primary text-white hover:bg-primary/90 rounded-full"
                   >
                     Get Roadmap PDF
                   </Button>
@@ -1456,7 +1498,7 @@ export default function ResultsPage() {
                 <Button
                   onClick={() => setSelectedCourseForDetail(null)}
                   variant="ghost"
-                  className="w-full text-slate-500 hover:text-slate-300"
+                  className="w-full text-slate-500 hover:text-slate-900"
                 >
                   Dismiss
                 </Button>
@@ -1473,58 +1515,58 @@ export default function ResultsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 p-4 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
-              className="relative w-full max-w-md space-y-4 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-6 text-center shadow-2xl"
+              className="relative w-full max-w-md space-y-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-2xl"
             >
               {/* Decorative background gradients */}
-              <div className="pointer-events-none absolute -top-16 -left-16 h-32 w-32 rounded-full bg-indigo-500/10 blur-2xl" />
-              <div className="pointer-events-none absolute -right-16 -bottom-16 h-32 w-32 rounded-full bg-purple-500/10 blur-2xl" />
+              <div className="pointer-events-none absolute -top-16 -left-16 h-32 w-32 rounded-full bg-secondary/5 blur-2xl" />
+              <div className="pointer-events-none absolute -right-16 -bottom-16 h-32 w-32 rounded-full bg-primary/5 blur-2xl" />
 
               {paymentStep === 'details' && (
                 <>
-                  <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-400">
+                  <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-secondary/15 text-secondary">
                     <Lock className="h-6 w-6" />
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-white">Unlock Premium Career Report</h3>
-                    <p className="mx-auto max-w-sm text-xs leading-relaxed text-slate-400">
+                    <h3 className="text-xl font-bold text-slate-900">Unlock Premium Career Report</h3>
+                    <p className="mx-auto max-w-sm text-xs leading-relaxed text-slate-600">
                       Get instant access to your 10-page detailed analysis, mentor matching, action
                       milestones, and target college audits.
                     </p>
                   </div>
 
                   {/* Features list */}
-                  <div className="my-2 space-y-2 border-t border-b border-slate-800/60 px-1 py-2 text-left text-xs text-slate-300">
+                  <div className="my-2 space-y-2 border-t border-b border-slate-200 px-1 py-2 text-left text-xs text-slate-600">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-indigo-400">✦</span>
+                      <span className="text-sm text-secondary">✦</span>
                       <span>10-Page Tailored Print-Ready PDF</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-indigo-400">✦</span>
+                      <span className="text-sm text-secondary">✦</span>
                       <span>Verified Industry Mentor Recommendations</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-indigo-400">✦</span>
+                      <span className="text-sm text-secondary">✦</span>
                       <span>Personalized Stream & Course Action Plan</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-indigo-400">✦</span>
+                      <span className="text-sm text-secondary">✦</span>
                       <span>Free 1:1 Live Counseling Booking Token</span>
                     </div>
                   </div>
 
                   {/* Simulated pricing panel */}
-                  <div className="space-y-1 rounded-xl border border-indigo-500/10 bg-indigo-950/20 p-4">
-                    <div className="text-[10px] font-bold tracking-wider text-indigo-400 uppercase">
+                  <div className="space-y-1 rounded-xl border border-secondary/10 bg-secondary/5 p-4">
+                    <div className="text-[10px] font-bold tracking-wider text-secondary uppercase">
                       Premium Access Pass
                     </div>
-                    <div className="text-2xl font-black text-white">
+                    <div className="text-2xl font-black text-slate-900">
                       ₹49 <span className="text-xs font-normal text-slate-500">/ One-time fee</span>
                     </div>
                     <div className="text-[9px] text-slate-500">
@@ -1535,14 +1577,14 @@ export default function ResultsPage() {
                   <div className="flex flex-col gap-2 pt-2">
                     <Button
                       onClick={handleStartPayment}
-                      className="h-11 w-full bg-indigo-600 font-semibold text-white shadow-md shadow-indigo-600/15 transition-all hover:bg-indigo-700"
+                      className="h-11 w-full bg-secondary font-semibold text-white shadow-sm transition-all hover:bg-secondary/90 rounded-full"
                     >
                       Pay & Download Report
                     </Button>
                     <Button
                       onClick={() => setShowUnlockModal(false)}
                       variant="ghost"
-                      className="w-full text-slate-400 hover:bg-slate-800"
+                      className="w-full text-slate-500 hover:bg-slate-50 rounded-full"
                     >
                       Go Back
                     </Button>
@@ -1553,20 +1595,20 @@ export default function ResultsPage() {
               {paymentStep === 'paying' && (
                 <div className="flex flex-col items-center space-y-6 py-8">
                   <div className="relative flex items-center justify-center">
-                    <div className="h-16 w-16 animate-spin rounded-full border-4 border-indigo-500/10 border-t-indigo-500" />
-                    <div className="absolute text-indigo-400">
+                    <div className="h-16 w-16 animate-spin rounded-full border-4 border-secondary/10 border-t-secondary" />
+                    <div className="absolute text-secondary">
                       <Sparkles className="h-6 w-6 animate-pulse" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <h3 className="text-lg font-semibold text-white">Simulating Payment...</h3>
-                    <p className="mx-auto max-w-xs text-xs text-slate-400">
+                    <h3 className="text-lg font-semibold text-slate-900">Simulating Payment...</h3>
+                    <p className="mx-auto max-w-xs text-xs text-slate-500">
                       Connecting to secure gateway. Please do not close this window or refresh the
                       page.
                     </p>
                   </div>
-                  <div className="h-1.5 w-full max-w-[200px] overflow-hidden rounded-full bg-slate-800">
-                    <div className="h-full w-2/3 animate-pulse rounded-full bg-indigo-500" />
+                  <div className="h-1.5 w-full max-w-[200px] overflow-hidden rounded-full bg-slate-100">
+                    <div className="h-full w-2/3 animate-pulse rounded-full bg-secondary" />
                   </div>
                 </div>
               )}
@@ -1574,69 +1616,69 @@ export default function ResultsPage() {
               {paymentStep === 'delivering' && (
                 <div className="space-y-5 py-6 text-left">
                   <div className="mb-4 space-y-1 text-center">
-                    <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                    <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
                       <CheckCircle2 className="h-5 w-5" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">Payment Verified!</h3>
-                    <p className="text-xs text-slate-400">Executing delivery pipelines...</p>
+                    <h3 className="text-lg font-bold text-slate-900">Payment Verified!</h3>
+                    <p className="text-xs text-slate-500">Executing delivery pipelines...</p>
                   </div>
 
-                  <div className="space-y-3 rounded-xl border border-slate-800/60 bg-slate-950/40 p-4">
+                  <div className="space-y-3 rounded-xl border border-slate-200 bg-slate-50/50 p-4">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400">1. Generating custom PDF report</span>
+                      <span className="text-slate-650">1. Generating custom PDF report</span>
                       {deliveryStatus.generating === 'loading' && (
-                        <span className="animate-pulse font-medium text-indigo-400">
+                        <span className="animate-pulse font-medium text-primary">
                           Generating...
                         </span>
                       )}
                       {deliveryStatus.generating === 'success' && (
-                        <span className="font-semibold text-emerald-400">✓ Ready</span>
+                        <span className="font-semibold text-emerald-600">✓ Ready</span>
                       )}
                       {deliveryStatus.generating === 'error' && (
-                        <span className="font-semibold text-red-400">✕ Failed</span>
+                        <span className="font-semibold text-red-655">✕ Failed</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400">2. Storing report to secure vault</span>
+                      <span className="text-slate-650">2. Storing report to secure vault</span>
                       {deliveryStatus.storing === 'loading' && (
                         <span className="font-medium text-slate-500">Waiting...</span>
                       )}
                       {deliveryStatus.storing === 'success' && (
-                        <span className="font-semibold text-emerald-400">✓ Stored</span>
+                        <span className="font-semibold text-emerald-600">✓ Stored</span>
                       )}
                       {deliveryStatus.storing === 'error' && (
-                        <span className="font-semibold text-red-400">✕ Failed</span>
+                        <span className="font-semibold text-red-655">✕ Failed</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400">
+                      <span className="text-slate-650">
                         3. Emailing copy to {profile?.email || 'your email'}
                       </span>
                       {deliveryStatus.emailing === 'loading' && (
                         <span className="font-medium text-slate-500">Waiting...</span>
                       )}
                       {deliveryStatus.emailing === 'success' && (
-                        <span className="font-semibold text-emerald-400">✓ Emailed</span>
+                        <span className="font-semibold text-emerald-600">✓ Emailed</span>
                       )}
                       {deliveryStatus.emailing === 'error' && (
-                        <span className="font-semibold text-red-400">✕ Failed</span>
+                        <span className="font-semibold text-red-655">✕ Failed</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400">4. Triggering browser download</span>
+                      <span className="text-slate-650">4. Triggering browser download</span>
                       {deliveryStatus.downloading === 'idle' && (
                         <span className="font-medium text-slate-500">Pending...</span>
                       )}
                       {deliveryStatus.downloading === 'loading' && (
-                        <span className="animate-pulse font-medium text-indigo-400">
+                        <span className="animate-pulse font-medium text-primary">
                           Downloading...
                         </span>
                       )}
                       {deliveryStatus.downloading === 'success' && (
-                        <span className="font-semibold text-emerald-400">✓ Downloaded</span>
+                        <span className="font-semibold text-emerald-600">✓ Downloaded</span>
                       )}
                       {deliveryStatus.downloading === 'error' && (
-                        <span className="font-semibold text-red-400">✕ Failed</span>
+                        <span className="font-semibold text-red-655">✕ Failed</span>
                       )}
                     </div>
                   </div>
@@ -1645,17 +1687,17 @@ export default function ResultsPage() {
 
               {paymentStep === 'success' && (
                 <div className="flex flex-col items-center space-y-4 py-8">
-                  <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                  <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
                     <CheckCircle2 className="h-8 w-8 animate-bounce" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-xl font-bold text-white">All Steps Completed!</h3>
-                    <p className="text-xs text-slate-400">
+                    <h3 className="text-xl font-bold text-slate-900">All Steps Completed!</h3>
+                    <p className="text-xs text-slate-500">
                       Your career assessment report has been generated, emailed, and downloaded
                       successfully.
                     </p>
                   </div>
-                  <div className="animate-pulse pt-2 text-xs font-semibold text-indigo-400">
+                  <div className="animate-pulse pt-2 text-xs font-semibold text-primary">
                     Closing modal in a moment...
                   </div>
                 </div>
@@ -1672,23 +1714,23 @@ export default function ResultsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 p-4 backdrop-blur-sm"
           >
             <motion.div
               initial={{ scale: 0.95, y: 15 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 15 }}
-              className="w-full max-w-md space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6 text-left shadow-2xl"
+              className="w-full max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-2xl"
             >
               {bookingSuccess ? (
                 /* Success booking message */
                 <div className="space-y-4 py-6 text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="text-lg font-bold text-white">Consultation Scheduled!</h3>
-                    <p className="text-xs leading-relaxed text-slate-400">
+                    <h3 className="text-lg font-bold text-slate-900">Consultation Scheduled!</h3>
+                    <p className="text-xs leading-relaxed text-slate-600">
                       Your 1:1 advising call has been confirmed. A calendar invite with details and
                       access link has been sent to your email.
                     </p>
@@ -1698,7 +1740,7 @@ export default function ResultsPage() {
                       setBookingSuccess(false);
                       setSelectedMentorCourse(null);
                     }}
-                    className="mt-2 w-full bg-indigo-600 hover:bg-indigo-700"
+                    className="mt-2 w-full bg-primary hover:bg-primary/90 text-white rounded-full"
                   >
                     Awesome, Thanks!
                   </Button>
@@ -1708,27 +1750,27 @@ export default function ResultsPage() {
                 <>
                   <div className="flex items-start justify-between">
                     <div>
-                      <span className="text-[10px] font-extrabold tracking-widest text-indigo-400 uppercase">
+                      <span className="text-[10px] font-extrabold tracking-widest text-primary uppercase">
                         Mentor Booking
                       </span>
-                      <h3 className="mt-1 text-lg font-bold text-white">
+                      <h3 className="mt-1 text-lg font-bold text-slate-900">
                         Schedule 1:1 Career Consultation
                       </h3>
                     </div>
                     <button
                       onClick={() => setSelectedMentorCourse(null)}
-                      className="text-xs font-bold text-slate-400 hover:text-white"
+                      className="text-xs font-bold text-slate-400 hover:text-slate-950"
                     >
                       Cancel
                     </button>
                   </div>
 
                   {/* Consultation Pricing Banner */}
-                  <div className="flex items-center justify-between rounded-xl border border-indigo-500/10 bg-indigo-950/20 px-4 py-2.5">
-                    <span className="text-[10px] font-bold tracking-wider text-indigo-400 uppercase">
+                  <div className="flex items-center justify-between rounded-xl border border-primary/10 bg-primary/5 px-4 py-2.5">
+                    <span className="text-[10px] font-bold tracking-wider text-primary uppercase">
                       Consultation Fee
                     </span>
-                    <span className="text-sm font-black text-white">
+                    <span className="text-sm font-black text-slate-900">
                       ₹99{' '}
                       <span className="text-[9px] font-normal text-slate-500">/ 30-min call</span>
                     </span>
@@ -1739,20 +1781,20 @@ export default function ResultsPage() {
                     const mentor =
                       MENTORS_BY_COURSE[selectedMentorCourse.course.id] || defaultMentor;
                     return (
-                      <div className="flex items-center gap-3 rounded-xl border border-slate-900 bg-slate-950/60 p-3">
+                      <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 p-3">
                         <img
                           src={mentor.avatar}
                           alt={mentor.name}
-                          className="h-10 w-10 rounded-full border border-slate-800 object-cover"
+                          className="h-10 w-10 rounded-full border border-slate-205 object-cover"
                         />
                         <div>
-                          <h4 className="text-xs font-bold text-white">{mentor.name}</h4>
-                          <p className="text-[10px] text-indigo-300">
+                          <h4 className="text-xs font-bold text-slate-900">{mentor.name}</h4>
+                          <p className="text-[10px] text-primary">
                             {mentor.role} at {mentor.company}
                           </p>
                           <div className="mt-0.5 flex items-center gap-2 text-[8px] text-slate-500">
-                            <span className="flex items-center gap-0.5 text-amber-400">
-                              <Star className="h-2.5 w-2.5 fill-amber-400 text-amber-400" />{' '}
+                            <span className="flex items-center gap-0.5 text-amber-500">
+                              <Star className="h-2.5 w-2.5 fill-amber-500 text-amber-500" />{' '}
                               {mentor.rating}
                             </span>
                             <span>•</span>
@@ -1765,7 +1807,7 @@ export default function ResultsPage() {
 
                   <form onSubmit={handleMentorPayment} className="space-y-3 text-xs">
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-400 uppercase">
+                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
                         Full Name
                       </label>
                       <input
@@ -1774,12 +1816,12 @@ export default function ResultsPage() {
                         placeholder="Enter your name"
                         value={bookingName}
                         onChange={(e) => setBookingName(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-xs text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-400 uppercase">
+                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
                         Phone Number
                       </label>
                       <input
@@ -1788,12 +1830,12 @@ export default function ResultsPage() {
                         placeholder="Enter your phone number"
                         value={bookingPhone}
                         onChange={(e) => setBookingPhone(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-xs text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-400 uppercase">
+                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
                         Email Address
                       </label>
                       <input
@@ -1802,12 +1844,12 @@ export default function ResultsPage() {
                         placeholder="Enter your email"
                         value={bookingEmail}
                         onChange={(e) => setBookingEmail(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-xs text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-400 uppercase">
+                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
                         Choose Date
                       </label>
                       <input
@@ -1815,19 +1857,19 @@ export default function ResultsPage() {
                         required
                         value={bookingDate}
                         onChange={(e) => setBookingDate(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-xs text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-400 uppercase">
+                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
                         Choose Time Slot
                       </label>
                       <select
                         required
                         value={bookingTime}
                         onChange={(e) => setBookingTime(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-slate-950 p-2.5 text-xs text-white outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
                       >
                         <option value="">Select a slot...</option>
                         <option value="10:00 AM">10:00 AM - 10:30 AM</option>
@@ -1842,14 +1884,14 @@ export default function ResultsPage() {
                         type="button"
                         onClick={() => setSelectedMentorCourse(null)}
                         variant="outline"
-                        className="flex-1 border-slate-800 text-slate-400 hover:bg-slate-800"
+                        className="flex-1 border-slate-200 text-slate-500 hover:bg-slate-50 rounded-full"
                         disabled={isBookingLoading}
                       >
                         Go Back
                       </Button>
                       <Button
                         type="submit"
-                        className="flex-1 bg-indigo-600 font-bold hover:bg-indigo-700"
+                        className="flex-1 bg-primary text-white font-bold hover:bg-primary/90 rounded-full"
                         disabled={isBookingLoading}
                       >
                         {isBookingLoading ? 'Processing...' : 'Pay & Confirm Booking'}

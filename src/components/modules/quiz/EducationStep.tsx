@@ -51,7 +51,11 @@ const options: SingleSelectOption<EducationLevel>[] = [
   },
 ];
 
-export default function EducationStep() {
+interface EducationStepProps {
+  onSelect?: () => void;
+}
+
+export default function EducationStep({ onSelect }: EducationStepProps) {
   const { data, updateStepData } = useAssessmentStore();
 
   return (
@@ -74,6 +78,10 @@ export default function EducationStep() {
             educationLevel: value,
             stream: newStream,
           });
+
+          if (onSelect) {
+            setTimeout(onSelect, 250);
+          }
         }}
         columns={2}
       />

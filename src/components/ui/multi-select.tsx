@@ -76,9 +76,9 @@ export function MultiSelect<T extends string | number>({
   return (
     <div className="space-y-4">
       {/* Visual top counter/row for current choices */}
-      <div className="min-h-12 rounded-xl border border-dashed border-slate-800 bg-slate-950/40 p-3">
+      <div className="border-border min-h-12 rounded-3xl border border-dashed bg-slate-50/50 p-3">
         {selectedValues.length === 0 ? (
-          <p className="py-2 text-center text-xs text-slate-500">
+          <p className="py-2 text-center text-xs font-semibold text-slate-400">
             No selections yet. Click options below to choose.
           </p>
         ) : (
@@ -93,13 +93,13 @@ export function MultiSelect<T extends string | number>({
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-indigo-500/50 bg-indigo-500/25 px-3 py-1 text-xs font-medium text-indigo-300"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-bold text-blue-600 shadow-sm"
                   >
                     {label}
                     <button
                       type="button"
                       onClick={() => toggleValue(val)}
-                      className="rounded-full p-0.5 hover:bg-indigo-500/50 hover:text-white focus:outline-none"
+                      className="rounded-full p-0.5 hover:bg-blue-100 hover:text-blue-700 focus:outline-none"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -134,36 +134,38 @@ export function MultiSelect<T extends string | number>({
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
               className={cn(
-                'flex items-center gap-3 rounded-lg border p-3.5 text-left transition-all duration-200 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-950 focus:outline-none',
+                'flex items-center gap-3 rounded-3xl border p-3.5 text-left shadow-sm transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white focus:outline-none',
                 isSelected
-                  ? 'border-indigo-500 bg-indigo-950/30'
-                  : 'border-slate-800 bg-slate-900/40 hover:border-slate-700 hover:bg-slate-900/60'
+                  ? 'border-blue-600 bg-blue-50/50'
+                  : 'border-border bg-white hover:border-blue-500/20 hover:bg-slate-50/50'
               )}
             >
               {Icon && (
                 <div
                   className={cn(
-                    'rounded-md p-2 transition-colors duration-250',
-                    isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'
+                    'rounded-2xl p-2 transition-colors duration-250',
+                    isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'
                   )}
                 >
                   <Icon className="h-5 w-5" />
                 </div>
               )}
               <div className="flex-1 space-y-0.5 pr-4">
-                <p className="text-sm leading-none font-semibold text-white">{opt.label}</p>
+                <p className="text-sm leading-none font-bold text-slate-900">{opt.label}</p>
                 {opt.desc && (
-                  <p className="mt-1 text-[11px] leading-tight text-slate-400">{opt.desc}</p>
+                  <p className="mt-1 text-[11px] leading-tight font-medium text-slate-500">
+                    {opt.desc}
+                  </p>
                 )}
               </div>
 
               {/* Checkbox circle indicator */}
               <div
                 className={cn(
-                  'flex h-5 w-5 items-center justify-center rounded-md border transition-all duration-200',
+                  'flex h-5 w-5 items-center justify-center rounded-lg border transition-all duration-200',
                   isSelected
-                    ? 'border-indigo-500 bg-indigo-600 text-white'
-                    : 'bg-slate-850 border-slate-700 hover:border-slate-500'
+                    ? 'border-blue-600 bg-blue-600 text-white'
+                    : 'border-border bg-white hover:border-blue-500/20'
                 )}
               >
                 {isSelected && (
