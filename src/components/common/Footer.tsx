@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Compass, Github, Twitter, Linkedin } from 'lucide-react';
+import { Compass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function Footer() {
@@ -24,26 +24,6 @@ export function Footer() {
               Empowering students of class 10, 11, and 12 to make informed career and course choices
               with precision AI recommendations and 1-on-1 expert mentor interactions.
             </p>
-            <div className="flex space-x-5">
-              <Link
-                href="https://twitter.com"
-                className="text-slate-400 transition-colors duration-200 hover:text-blue-600"
-              >
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link
-                href="https://linkedin.com"
-                className="text-slate-400 transition-colors duration-200 hover:text-blue-600"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
-              <Link
-                href="https://github.com"
-                className="text-slate-400 transition-colors duration-200 hover:text-blue-600"
-              >
-                <Github className="h-5 w-5" />
-              </Link>
-            </div>
           </div>
 
           {/* Nav Grid */}
