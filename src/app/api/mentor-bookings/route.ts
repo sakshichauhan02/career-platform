@@ -57,29 +57,39 @@ async function sendBookingConfirmationEmail(
     });
     return { sent: true, mode: 'SMTP' };
   } else {
-    const mockMailDir = path.join(process.cwd(), 'public', 'mock-emails');
-    if (!fs.existsSync(mockMailDir)) {
-      fs.mkdirSync(mockMailDir, { recursive: true });
-    }
-    const mailId = `booking_${Date.now()}`;
-    const mockMailPath = path.join(mockMailDir, `${mailId}.json`);
+    try {
+      const mockMailDir = path.join(process.cwd(), 'public', 'mock-emails');
+      if (!fs.existsSync(mockMailDir)) {
+        fs.mkdirSync(mockMailDir, { recursive: true });
+      }
+      const mailId = `booking_${Date.now()}`;
+      const mockMailPath = path.join(mockMailDir, `${mailId}.json`);
 
-    fs.writeFileSync(
-      mockMailPath,
-      JSON.stringify(
-        {
-          id: mailId,
-          to: emailAddress,
-          subject: 'Your 1:1 Career Consultation is Confirmed! - PathWayAI',
-          bookingDetails: { name, date, timeSlot },
-          status: 'BOOKING_CONFIRMATION_MOCK_SENT',
-          note: 'SMTP variables missing. Booking confirmation email saved locally.',
-        },
-        null,
-        2
-      )
-    );
-    return { sent: true, mode: 'MOCK', mockPath: `/mock-emails/${mailId}.json` };
+      fs.writeFileSync(
+        mockMailPath,
+        JSON.stringify(
+          {
+            id: mailId,
+            to: emailAddress,
+            subject: 'Your 1:1 Career Consultation is Confirmed! - PathWayAI',
+            bookingDetails: { name, date, timeSlot },
+            status: 'BOOKING_CONFIRMATION_MOCK_SENT',
+            note: 'SMTP variables missing. Booking confirmation email saved locally.',
+          },
+          null,
+          2
+        )
+      );
+      return { sent: true, mode: 'MOCK', mockPath: `/mock-emails/${mailId}.json` };
+    } catch (writeErr: any) {
+      console.warn('Failed to write mock email to read-only filesystem:', writeErr.message);
+      console.info('Simulated Booking Confirmation Email details:', {
+        to: emailAddress,
+        subject: 'Your 1:1 Career Consultation is Confirmed! - PathWayAI',
+        bookingDetails: { name, date, timeSlot },
+      });
+      return { sent: true, mode: 'LOGGED', note: 'SMTP variables missing and filesystem is read-only. Logged to console.' };
+    }
   }
 }
 

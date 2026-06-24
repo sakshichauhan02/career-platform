@@ -329,30 +329,40 @@ async function sendReportEmail(emailAddress: string, pdfBuffer: Buffer, studentN
     });
     return { sent: true, mode: 'SMTP' };
   } else {
-    const mockMailDir = path.join(process.cwd(), 'public', 'mock-emails');
-    if (!fs.existsSync(mockMailDir)) {
-      fs.mkdirSync(mockMailDir, { recursive: true });
-    }
-    const mailId = `mail_${Date.now()}`;
-    const mockMailPath = path.join(mockMailDir, `${mailId}.json`);
+    try {
+      const mockMailDir = path.join(process.cwd(), 'public', 'mock-emails');
+      if (!fs.existsSync(mockMailDir)) {
+        fs.mkdirSync(mockMailDir, { recursive: true });
+      }
+      const mailId = `mail_${Date.now()}`;
+      const mockMailPath = path.join(mockMailDir, `${mailId}.json`);
 
-    fs.writeFileSync(
-      mockMailPath,
-      JSON.stringify(
-        {
-          id: mailId,
-          to: emailAddress,
-          from: fromEmail,
-          subject: `Your Personalized Career Pathways Report - ${studentName}`,
-          timestamp: new Date().toISOString(),
-          status: 'MOCK_DELIVERED',
-          note: 'Configure SMTP environment variables in your .env.local to send real emails.',
-        },
-        null,
-        2
-      )
-    );
-    return { sent: true, mode: 'MOCK', mockPath: `/mock-emails/${mailId}.json` };
+      fs.writeFileSync(
+        mockMailPath,
+        JSON.stringify(
+          {
+            id: mailId,
+            to: emailAddress,
+            from: fromEmail,
+            subject: `Your Personalized Career Pathways Report - ${studentName}`,
+            timestamp: new Date().toISOString(),
+            status: 'MOCK_DELIVERED',
+            note: 'Configure SMTP environment variables in your .env.local to send real emails.',
+          },
+          null,
+          2
+        )
+      );
+      return { sent: true, mode: 'MOCK', mockPath: `/mock-emails/${mailId}.json` };
+    } catch (writeErr: any) {
+      console.warn('Failed to write mock email to read-only filesystem:', writeErr.message);
+      console.info('Simulated Report Email details:', {
+        to: emailAddress,
+        from: fromEmail,
+        subject: `Your Personalized Career Pathways Report - ${studentName}`,
+      });
+      return { sent: true, mode: 'LOGGED', note: 'SMTP variables missing and filesystem is read-only. Logged to console.' };
+    }
   }
 }
 
