@@ -89,7 +89,7 @@ export function MentorBookingSection({
             onClick={handleBooking}
             className="group w-full rounded-full bg-gradient-to-r from-blue-600 to-blue-500 py-5 text-xs font-bold text-white shadow-md shadow-blue-500/10 transition-all hover:scale-[1.01] hover:from-blue-700 hover:to-blue-600 hover:shadow-lg active:scale-[0.99]"
           >
-            Book 1:1 Career Guidance Session ₹99
+            Book 1:1 Session - ₹99
             <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </Button>
         </div>
@@ -198,9 +198,9 @@ export function MentorBookingSection({
 
                 <Button
                   onClick={handleBooking}
-                  className="group w-full rounded-full bg-gradient-to-r from-blue-600 to-blue-500 py-6 font-bold text-white shadow-md shadow-blue-500/10 transition-all hover:scale-[1.02] hover:from-blue-700 hover:to-blue-600 hover:shadow-lg active:scale-[0.98]"
+                  className="group w-full rounded-full bg-gradient-to-r from-blue-600 to-blue-500 py-6 text-xs font-bold text-white shadow-md shadow-blue-500/10 transition-all hover:scale-[1.02] hover:from-blue-700 hover:to-blue-600 hover:shadow-lg active:scale-[0.98]"
                 >
-                  Book 1:1 Career Guidance Session ₹99
+                  Book 1:1 Session - ₹99
                   <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Button>
               </div>
