@@ -107,6 +107,13 @@ export function MentorBookingModal({ isOpen, onClose }: MentorBookingModalProps)
     // 1. Load Razorpay script
     const loaded = await loadRazorpayScript();
     if (!loaded) {
+      const isProduction = window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1');
+      if (isProduction) {
+        alert('Failed to load the payment gateway. Please verify your internet connection and disable any ad blockers.');
+        setIsLoading(false);
+        setPaymentStep('details');
+        return;
+      }
       console.warn('Razorpay SDK failed to load. Simulating successful checkout.');
       await handleBookingInsert();
       return;
@@ -135,6 +142,13 @@ export function MentorBookingModal({ isOpen, onClose }: MentorBookingModalProps)
         orderData.keyId === 'rzp_test_placeholder' ||
         orderData.orderId.startsWith('order_mock_')
       ) {
+        const isProduction = window.location.hostname !== 'localhost' && !window.location.hostname.includes('127.0.0.1');
+        if (isProduction) {
+          alert('Payment gateway configuration error. Please contact support.');
+          setIsLoading(false);
+          setPaymentStep('details');
+          return;
+        }
         console.info('Mock keys detected. Bypassing Razorpay modal.');
         await fetch('/api/razorpay/verify-payment', {
           method: 'POST',

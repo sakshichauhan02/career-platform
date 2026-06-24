@@ -22,8 +22,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing productName or amount' }, { status: 400 });
     }
 
+    const isProduction = process.env.NODE_ENV === 'production' || !!process.env.VERCEL;
+
+    if (isProduction && (!process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID === 'rzp_test_placeholder')) {
+      return NextResponse.json(
+        { error: 'Payment gateway is not configured on the server' },
+        { status: 500 }
+      );
+    }
+
     // 1. Create a Razorpay Order
-    // Note: If using mock keys, we handle potential client-side fallback, but try creating real order first
     let orderId = `order_mock_${Date.now()}`;
     let finalAmount = amount;
 
@@ -37,7 +45,13 @@ export async function POST(req: NextRequest) {
         orderId = order.id;
         finalAmount = Number(order.amount) / 100;
       } catch (rzpErr: any) {
-        console.warn('Razorpay order creation failed, falling back to mock order:', rzpErr);
+        console.warn('Razorpay order creation failed:', rzpErr);
+        if (isProduction) {
+          return NextResponse.json(
+            { error: 'Failed to initiate payment transaction', details: rzpErr.message },
+            { status: 500 }
+          );
+        }
       }
     }
 
