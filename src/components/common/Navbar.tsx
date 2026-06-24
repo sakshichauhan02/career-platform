@@ -18,19 +18,50 @@ const navItems = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     // Get initial session
     const getSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
+      if (session?.user) {
+        try {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .maybeSingle();
+          setIsAdmin(profile?.role === 'admin');
+        } catch (err) {
+          console.error('Navbar admin role check error:', err);
+          setIsAdmin(false);
+        }
+      } else {
+        setIsAdmin(false);
+      }
     };
     getSession();
 
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         setUser(session?.user ?? null);
+        if (session?.user) {
+          try {
+            const { data: profile } = await supabase
+              .from('profiles')
+              .select('role')
+              .eq('id', session.user.id)
+              .maybeSingle();
+            setIsAdmin(profile?.role === 'admin');
+          } catch (err) {
+            console.error('Navbar auth change admin check error:', err);
+            setIsAdmin(false);
+          }
+        } else {
+          setIsAdmin(false);
+        }
       }
     );
 
@@ -38,6 +69,13 @@ export function Navbar() {
       subscription.unsubscribe();
     };
   }, []);
+
+  const visibleNavItems = navItems.filter(item => {
+    if (item.name === 'Admin CMS') {
+      return isAdmin;
+    }
+    return true;
+  });
 
   return (
     <nav className="border-border/80 fixed top-0 right-0 left-0 z-50 border-b bg-white/80 backdrop-blur-md">
@@ -56,7 +94,7 @@ export function Navbar() {
 
           {/* Desktop Nav Items */}
           <div className="hidden items-center gap-8 md:flex">
-            {navItems.map((item) => (
+            {visibleNavItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
@@ -138,7 +176,7 @@ export function Navbar() {
             className="border-border border-b bg-white/95 backdrop-blur-md md:hidden"
           >
             <div className="space-y-1 px-4 py-4 sm:px-6">
-              {navItems.map((item) => (
+              {visibleNavItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}

@@ -176,6 +176,7 @@ const MOCK_ASSESSMENTS = [
 export default function AdminDashboard() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isSimulatingAdmin, setIsSimulatingAdmin] = useState(false);
+  const [isLocal, setIsLocal] = useState(false);
 
   // DB States
   const [courses, setCourses] = useState<CourseDB[]>([]);
@@ -1122,6 +1123,8 @@ export default function AdminDashboard() {
 
   // Verify Admin Role on Mount
   useEffect(() => {
+    setIsLocal(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
     const checkAuth = async () => {
       try {
         const {
@@ -1209,11 +1212,11 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
-    if (isAdmin || isSimulatingAdmin) {
+    if (isAdmin || (isSimulatingAdmin && isLocal)) {
       fetchCMSData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAdmin, isSimulatingAdmin]);
+  }, [isAdmin, isSimulatingAdmin, isLocal]);
 
   const showNotice = (type: 'success' | 'warning' | 'error', message: string) => {
     setDbNotice({ type, message });
@@ -1778,7 +1781,7 @@ export default function AdminDashboard() {
             {/* Simulated Access Bypass */}
             <div className="border-border bg-card flex items-center gap-3 rounded-2xl border px-4 py-2 shadow-sm">
               <div className="flex items-center gap-1.5 text-xs font-bold">
-                {isAdmin || isSimulatingAdmin ? (
+                {isAdmin || (isSimulatingAdmin && isLocal) ? (
                   <>
                     <ShieldCheck className="h-4.5 w-4.5 animate-pulse text-emerald-600" />
                     <span className="text-emerald-700">Admin Mode Active</span>
@@ -1790,7 +1793,7 @@ export default function AdminDashboard() {
                   </>
                 )}
               </div>
-              {!isAdmin && (
+              {!isAdmin && isLocal && (
                 <button
                   onClick={() => setIsSimulatingAdmin(!isSimulatingAdmin)}
                   className={`rounded-full px-3 py-1 text-[10px] font-bold transition-all ${
@@ -1831,15 +1834,18 @@ export default function AdminDashboard() {
           )}
 
           {/* Authentication Block */}
-          {!isAdmin && !isSimulatingAdmin ? (
+          {!isAdmin && !(isSimulatingAdmin && isLocal) ? (
             <div className="border-border bg-card mx-auto max-w-md rounded-3xl border p-8 text-center shadow-sm backdrop-blur">
               <Shield className="text-muted-foreground/65 mx-auto mb-4 h-12 w-12 animate-pulse" />
               <h3 className="text-foreground mb-2 text-lg font-bold">
                 Administrator access required
               </h3>
               <p className="text-muted-foreground mb-6 text-xs leading-relaxed">
-                You must be logged in as an administrator to access the Course Catalog CMS. Use the
-                simulation bypass toggle above to evaluate the dashboard.
+                {isLocal ? (
+                  "You must be logged in as an administrator to access the Course Catalog CMS. Use the simulation bypass toggle above to evaluate the dashboard."
+                ) : (
+                  "You must be logged in as an administrator to access the Course Catalog CMS."
+                )}
               </p>
               <div className="flex flex-col gap-2">
                 <Link href="/login">

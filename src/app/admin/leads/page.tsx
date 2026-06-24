@@ -106,9 +106,12 @@ export default function LeadCRM() {
   const [tempNotes, setTempNotes] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isSimulatingAdmin, setIsSimulatingAdmin] = useState(false);
+  const [isLocal, setIsLocal] = useState(false);
 
   // Verify Admin Role on Mount
   useEffect(() => {
+    setIsLocal(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
     const checkAuth = async () => {
       try {
         const {
@@ -424,7 +427,7 @@ export default function LeadCRM() {
         {/* Top authorization simulation bar */}
         <div className="border-border bg-card mb-6 flex items-center justify-between rounded-2xl border p-3 shadow-sm">
           <div className="flex items-center gap-1.5 text-xs font-bold">
-            {isAdmin || isSimulatingAdmin ? (
+            {isAdmin || (isSimulatingAdmin && isLocal) ? (
               <>
                 <ShieldCheck className="h-4.5 w-4.5 animate-pulse text-emerald-600" />
                 <span className="text-emerald-700">Admin Mode Active</span>
@@ -436,7 +439,7 @@ export default function LeadCRM() {
               </>
             )}
           </div>
-          {!isAdmin && (
+          {!isAdmin && isLocal && (
             <button
               onClick={() => setIsSimulatingAdmin(!isSimulatingAdmin)}
               className={`rounded-full px-3 py-1 text-[10px] font-bold transition-all ${
@@ -450,15 +453,18 @@ export default function LeadCRM() {
           )}
         </div>
 
-        {!isAdmin && !isSimulatingAdmin ? (
+        {!isAdmin && !(isSimulatingAdmin && isLocal) ? (
           <div className="border-border bg-card mx-auto max-w-md rounded-3xl border p-8 text-center shadow-sm">
             <Shield className="text-muted-foreground/60 mx-auto mb-4 h-12 w-12 animate-pulse" />
             <h3 className="text-foreground mb-2 text-lg font-bold">
               Administrator access required
             </h3>
             <p className="text-muted-foreground mb-6 text-xs leading-relaxed">
-              You must be logged in as an administrator to access the Lead CRM. Use the simulation
-              bypass toggle above to evaluate the dashboard.
+              {isLocal ? (
+                "You must be logged in as an administrator to access the Lead CRM. Use the simulation bypass toggle above to evaluate the dashboard."
+              ) : (
+                "You must be logged in as an administrator to access the Lead CRM."
+              )}
             </p>
             <div className="flex flex-col gap-2">
               <Link href="/login">
