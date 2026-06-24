@@ -6,18 +6,20 @@ import { Navbar } from '@/components/common/Navbar';
 import { Footer } from '@/components/common/Footer';
 import { MentorBookingSection } from '@/components/common/MentorBookingSection';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/lib/supabase';
 import {
   GraduationCap,
   Award,
-  Briefcase,
   ArrowRight,
-  FileText,
   CheckCircle2,
   Brain,
   Compass,
-  TrendingUp,
+  Lock,
+  Download,
+  Sparkles,
 } from 'lucide-react';
-import { ScoredCourse } from '@/services/recommendationEngine';
+import { PREDEFINED_COURSES, ScoredCourse } from '@/services/recommendationEngine';
+import { generateExplanation, CAREER_OUTLOOKS, defaultOutlook } from '@/services/explanationEngine';
 import { AssessmentData } from '@/types/assessment';
 
 const EDUCATION_LABELS: Record<string, string> = {
@@ -32,24 +34,228 @@ const EDUCATION_LABELS: Record<string, string> = {
 
 export default function StudentDashboard() {
   const [profile, setProfile] = useState<
-    (AssessmentData & { name?: string; email?: string }) | null
+    (AssessmentData & { id?: string; name?: string; email?: string }) | null
   >(null);
   const [recommendations, setRecommendations] = useState<ScoredCourse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isReportUnlocked, setIsReportUnlocked] = useState(false);
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const localData = localStorage.getItem('pathway_latest_results');
-    if (localData) {
+    const loadDashboardData = async () => {
       try {
-        const parsed = JSON.parse(localData);
-        if (parsed.profile) setProfile(parsed.profile);
-        if (parsed.recommendations) setRecommendations(parsed.recommendations);
+        // 1. Load data from localStorage first for immediate render
+        const localData = localStorage.getItem('pathway_latest_results');
+        const localUnlocked = localStorage.getItem('pathway_report_unlocked') === 'true';
+        setIsReportUnlocked(localUnlocked);
+
+        let initialProfile: any = null;
+        let initialRecommendations: ScoredCourse[] = [];
+
+        if (localData) {
+          try {
+            const parsed = JSON.parse(localData);
+            if (parsed.profile) initialProfile = parsed.profile;
+            if (parsed.recommendations) initialRecommendations = parsed.recommendations;
+          } catch (err) {
+            console.error('Failed to parse dashboard data from localStorage:', err);
+          }
+        }
+
+        if (initialProfile) setProfile(initialProfile);
+        if (initialRecommendations.length > 0) setRecommendations(initialRecommendations);
+
+        // 2. Check Supabase auth session
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (session?.user) {
+          setIsAuthenticated(true);
+          setUser(session.user);
+
+          // 3. Check payment status in DB
+          const { data: payments } = await supabase
+            .from('payments')
+            .select('id')
+            .eq('user_id', session.user.id)
+            .eq('product_name', 'Career Report')
+            .eq('status', 'success')
+            .limit(1);
+
+          const dbUnlocked = !!(payments && payments.length > 0);
+          setIsReportUnlocked(dbUnlocked);
+          if (dbUnlocked) {
+            localStorage.setItem('pathway_report_unlocked', 'true');
+          }
+
+          // 4. Fetch DB records as fallback/override
+          const { data: dbResp } = await supabase
+            .from('assessment_responses')
+            .select('responses')
+            .eq('user_id', session.user.id)
+            .order('completed_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+          const { data: dbRecs } = await supabase
+            .from('recommendations')
+            .select('*')
+            .eq('user_id', session.user.id);
+
+          if (dbResp?.responses && dbRecs && dbRecs.length > 0) {
+            const dbProfile = dbResp.responses as AssessmentData;
+
+            // Reconstruct recommendations using PREDEFINED_COURSES
+            const reconstructed = dbRecs
+              .map((row): ScoredCourse | null => {
+                const matchedCourse = PREDEFINED_COURSES.find((c) => c.name === row.career_title);
+                if (!matchedCourse) return null;
+
+                const explanation = dbProfile
+                  ? generateExplanation(dbProfile, matchedCourse)
+                  : {
+                      whyThisCourseFits: row.reasoning,
+                      strengthAnalysis: `This course utilizes your strengths and analytical capabilities.`,
+                      interestAnalysis: `Matches your interest categories: ${(row.recommended_paths || []).join(', ')}.`,
+                      careerFitAnalysis: `Matches your workplace priorities.`,
+                      careerOutlook: CAREER_OUTLOOKS[matchedCourse.id] || defaultOutlook,
+                    };
+
+                return {
+                  course: matchedCourse,
+                  score: Math.round(row.match_score),
+                  matchReasons: [row.reasoning],
+                  explanation,
+                  breakdown: {
+                    streamScore: 0,
+                    interestScore: 0,
+                    hobbyScore: 0,
+                    workStyleScore: 0,
+                    priorityScore: 0,
+                    totalScore: Math.round(row.match_score),
+                  },
+                };
+              })
+              .filter((x): x is ScoredCourse => x !== null);
+
+            if (reconstructed.length > 0) {
+              setProfile(dbProfile);
+              setRecommendations(reconstructed);
+
+              // Also update localStorage so it's fresh
+              localStorage.setItem(
+                'pathway_latest_results',
+                JSON.stringify({
+                  profile: dbProfile,
+                  recommendations: reconstructed,
+                })
+              );
+            }
+          }
+        } else {
+          setIsAuthenticated(false);
+          setUser(null);
+        }
       } catch (err) {
-        console.error('Failed to parse dashboard data from localStorage:', err);
+        console.error('Error loading dashboard data:', err);
+      } finally {
+        setIsLoading(false);
       }
-    }
-    setIsLoading(false);
+    };
+
+    loadDashboardData();
   }, []);
+
+  const handleDownloadPdf = async () => {
+    if (!profile || recommendations.length === 0) {
+      alert('No report data available to generate PDF.');
+      return;
+    }
+
+    setIsGeneratingPdf(true);
+
+    try {
+      const activeEmail = user?.email || profile.email || 'student@pathwayai.co';
+      const activeUserId = user?.id || profile.id || `anon_${Date.now()}`;
+
+      const response = await fetch('/api/generate-pdf', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          profile,
+          recommendations: recommendations.map((r) => ({
+            score: r.score,
+            course: {
+              name: r.course.name,
+              interests: r.course.interests || [],
+            },
+            explanation: r.explanation?.whyThisCourseFits || r.explanation || '',
+          })),
+          email: activeEmail,
+          userId: activeUserId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate PDF');
+      }
+
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        if (data.fallbackHtml) {
+          // Create dynamic iframe for printing
+          const iframe = document.createElement('iframe');
+          iframe.style.position = 'fixed';
+          iframe.style.right = '0';
+          iframe.style.bottom = '0';
+          iframe.style.width = '0';
+          iframe.style.height = '0';
+          iframe.style.border = '0';
+          document.body.appendChild(iframe);
+
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (iframeDoc) {
+            iframeDoc.open();
+            iframeDoc.write(data.fallbackHtml);
+            iframeDoc.close();
+
+            setTimeout(() => {
+              if (iframe.contentWindow) {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+              }
+              setTimeout(() => {
+                document.body.removeChild(iframe);
+              }, 1000);
+            }, 1000);
+          } else {
+            document.body.removeChild(iframe);
+            alert('Failed to initialize print engine.');
+          }
+          return;
+        }
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Career_Pathway_Report.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('PDF generation failed:', err);
+      alert('Error generating report PDF. Please try again.');
+    } finally {
+      setIsGeneratingPdf(false);
+    }
+  };
 
   const topCourse = recommendations[0];
 
@@ -69,21 +275,42 @@ export default function StudentDashboard() {
             {/* Header */}
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="space-y-1">
-                <h1 className="text-3xl leading-tight font-black tracking-tight text-slate-900">
-                  Welcome Back, {profile.name || 'Student'}! 👋
-                </h1>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-3xl leading-tight font-black tracking-tight text-slate-900">
+                    Welcome Back, {profile.name || 'Student'}! 👋
+                  </h1>
+                  {!isReportUnlocked && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-bold text-amber-800">
+                      <Lock className="h-3 w-3" />
+                      Preview Mode
+                    </span>
+                  )}
+                </div>
                 <p className="text-sm font-medium text-slate-500">
                   Here is your career preparation status, recommended pathways, and next steps.
                 </p>
               </div>
 
               <div className="flex items-center gap-3">
-                <Link href="/dashboard/report">
-                  <Button className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-2 text-xs font-bold text-white shadow-md transition-all hover:from-blue-700 hover:to-blue-600 active:scale-[0.98]">
-                    View Full Report
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                  </Button>
-                </Link>
+                {isReportUnlocked ? (
+                  <Link href="/dashboard/report">
+                    <Button className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-2 text-xs font-bold text-white shadow-md transition-all hover:from-blue-700 hover:to-blue-600 active:scale-[0.98]">
+                      View Full Report
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <a
+                    href="https://topmate.io/sakshi_chauhan34/2170535"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-2 text-xs font-bold text-white shadow-md transition-all hover:from-blue-700 hover:to-blue-600 active:scale-[0.98]">
+                      Unlock Full Report ₹49
+                      <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+                    </Button>
+                  </a>
+                )}
               </div>
             </div>
 
@@ -132,15 +359,30 @@ export default function StudentDashboard() {
               <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-extrabold tracking-wider text-slate-400 uppercase">
-                    Next Action
+                    {isReportUnlocked ? 'Next Action' : 'Report Status'}
                   </span>
-                  <Compass className="h-5 w-5 text-blue-600" />
+                  {isReportUnlocked ? (
+                    <Compass className="h-5 w-5 text-blue-600" />
+                  ) : (
+                    <Lock className="h-5 w-5 text-amber-500" />
+                  )}
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-base font-bold text-slate-900">Mentor Call Pending</h3>
-                  <p className="text-xs font-semibold text-emerald-600">
-                    ₹99 Special Advisor Slot Available
-                  </p>
+                  {isReportUnlocked ? (
+                    <>
+                      <h3 className="text-base font-bold text-slate-900">Mentor Call Pending</h3>
+                      <p className="text-xs font-semibold text-emerald-600">
+                        ₹99 Special Advisor Slot Available
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="text-base font-bold text-slate-900">Preview Mode (Locked)</h3>
+                      <p className="text-xs font-semibold text-blue-600">
+                        Unlock Premium Report (₹49)
+                      </p>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -151,9 +393,16 @@ export default function StudentDashboard() {
               <div className="space-y-6 lg:col-span-8">
                 <div className="space-y-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                   <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                    <h2 className="text-base font-black text-slate-950">
-                      Top Recommended Career Pathways
-                    </h2>
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-base font-black text-slate-950">
+                        Top Recommended Career Pathways
+                      </h2>
+                      {!isReportUnlocked && (
+                        <span className="inline-flex items-center rounded bg-amber-50 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
+                          Preview Only
+                        </span>
+                      )}
+                    </div>
                     <Link
                       href="/dashboard/report"
                       className="text-xs font-bold text-blue-600 hover:underline"
@@ -207,6 +456,72 @@ export default function StudentDashboard() {
 
               {/* Action Checklist (Right Column) */}
               <div className="space-y-6 lg:col-span-4">
+                {/* Premium Report Lock / Unlock Card */}
+                {isReportUnlocked ? (
+                  <div className="space-y-4 rounded-3xl border border-emerald-200 bg-emerald-50/30 p-6 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-extrabold tracking-wider text-emerald-600 uppercase">
+                        Premium Unlocked
+                      </span>
+                      <Sparkles className="h-5 w-5 text-emerald-600 animate-pulse" />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-black text-slate-950">Download PDF Report</h3>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        Download your customized 15-page comprehensive career report with roadmap, universities, and strategy.
+                      </p>
+                    </div>
+                    {isGeneratingPdf ? (
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs font-semibold text-slate-600">
+                          <span>Generating PDF...</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                          <div className="h-full bg-emerald-600 rounded-full animate-infinite-loading" />
+                        </div>
+                      </div>
+                    ) : (
+                      <Button
+                        onClick={handleDownloadPdf}
+                        className="w-full rounded-full bg-emerald-600 py-4 text-xs font-bold text-white shadow-sm hover:bg-emerald-700 flex items-center justify-center gap-1.5"
+                      >
+                        <Download className="h-4 w-4" />
+                        Download PDF Report
+                      </Button>
+                    )}
+                  </div>
+                ) : (
+                  <div className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <Lock className="h-4 w-4 text-slate-400" />
+                        <span className="text-[10px] font-extrabold tracking-wider text-slate-400 uppercase">
+                          Premium Locked
+                        </span>
+                      </div>
+                      <span className="inline-flex items-center rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-800">
+                        Premium Report
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-black text-slate-950">Detailed Career Roadmap</h3>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        Unlock your complete 15-page PDF report including detailed career roadmap, college recommendations, and deep insights.
+                      </p>
+                    </div>
+                    <a
+                      href="https://topmate.io/sakshi_chauhan34/2170535"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block"
+                    >
+                      <Button className="w-full rounded-full bg-gradient-to-r from-blue-600 to-blue-500 py-4 text-xs font-bold text-white shadow-sm hover:from-blue-700 hover:to-blue-600">
+                        Unlock Full Report ₹49
+                      </Button>
+                    </a>
+                  </div>
+                )}
+
                 <div className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                   <h3 className="border-b border-slate-100 pb-3 text-sm font-black text-slate-950">
                     Your Action Checklist

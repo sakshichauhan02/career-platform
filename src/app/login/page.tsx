@@ -49,7 +49,9 @@ export default function LoginPage() {
         if (profile?.role === 'admin') {
           router.push('/admin');
         } else {
-          router.push('/quiz');
+          const params = new URLSearchParams(window.location.search);
+          const redirect = params.get('redirect') || '/quiz';
+          router.push(redirect);
         }
       }
     };
@@ -102,7 +104,9 @@ export default function LoginPage() {
 
           // Wait a moment and redirect
           setTimeout(() => {
-            router.push('/quiz');
+            const params = new URLSearchParams(window.location.search);
+            const redirect = params.get('redirect') || '/quiz';
+            router.push(redirect);
           }, 1500);
         }
       } else {
@@ -131,7 +135,9 @@ export default function LoginPage() {
             if (profile?.role === 'admin') {
               router.push('/admin');
             } else {
-              router.push('/quiz');
+              const params = new URLSearchParams(window.location.search);
+              const redirect = params.get('redirect') || '/quiz';
+              router.push(redirect);
             }
           }, 1200);
         }

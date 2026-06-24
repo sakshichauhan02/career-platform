@@ -200,6 +200,7 @@ export default function ResultsPage() {
   // CTA States
   const [selectedCourseForDetail, setSelectedCourseForDetail] = useState<ScoredCourse | null>(null);
   const [showUnlockModal, setShowUnlockModal] = useState(false);
+  const [isReportUnlocked, setIsReportUnlocked] = useState(false);
 
   const handleMentorBookingClick = () => {
     trackEvent('mentor_booking_clicked', {
@@ -617,6 +618,17 @@ export default function ResultsPage() {
 
   useEffect(() => {
     const loadResults = async () => {
+      // Check query param or localStorage fallback for instantaneous feedback
+      if (typeof window !== 'undefined') {
+        const params = new URLSearchParams(window.location.search);
+        if (
+          params.get('unlocked') === 'true' ||
+          localStorage.getItem('pathway_report_unlocked') === 'true'
+        ) {
+          setIsReportUnlocked(true);
+        }
+      }
+
       // 1. Check localStorage first
       const localData = localStorage.getItem('pathway_latest_results');
       if (localData) {
@@ -680,6 +692,23 @@ export default function ResultsPage() {
         } = await supabase.auth.getSession();
         if (session?.user) {
           const userId = session.user.id;
+
+          // Check database payment status
+          try {
+            const { data: payments } = await supabase
+              .from('payments')
+              .select('id')
+              .eq('user_id', userId)
+              .eq('product_name', 'Career Report')
+              .eq('status', 'success')
+              .limit(1);
+
+            if (payments && payments.length > 0) {
+              setIsReportUnlocked(true);
+            }
+          } catch (payErr) {
+            console.error('Error checking payment status from DB:', payErr);
+          }
 
           // Fetch recommendations
           const { data: dbRecs } = await supabase
@@ -1087,158 +1116,180 @@ export default function ResultsPage() {
                                 <p className="text-slate-650 text-sm leading-relaxed">
                                   {course.description}
                                 </p>
+                                {isReportUnlocked ? (
+                                  <>
+                                    {/* why it matches checklist */}
+                                    {matchReasons && matchReasons.length > 0 && (
+                                      <div className="space-y-2">
+                                        <div className="text-primary text-[10px] font-bold tracking-wider uppercase">
+                                          Key Match Indicators
+                                        </div>
+                                        <ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                                          {matchReasons.map((reason, rIdx) => (
+                                            <li
+                                              key={rIdx}
+                                              className="border-primary/10 bg-primary/5 text-primary flex items-start gap-2 rounded-lg border p-2.5 text-xs"
+                                            >
+                                              <Compass className="text-primary mt-0.5 h-4 w-4 shrink-0" />
+                                              <span>{reason}</span>
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    )}
 
-                                {/* why it matches checklist */}
-                                {matchReasons && matchReasons.length > 0 && (
-                                  <div className="space-y-2">
-                                    <div className="text-primary text-[10px] font-bold tracking-wider uppercase">
-                                      Key Match Indicators
-                                    </div>
-                                    <ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                                      {matchReasons.map((reason, rIdx) => (
-                                        <li
-                                          key={rIdx}
-                                          className="border-primary/10 bg-primary/5 text-primary flex items-start gap-2 rounded-lg border p-2.5 text-xs"
+                                    {/* Interactive Tabs panel */}
+                                    <div className="space-y-4">
+                                      {/* Tab bar header */}
+                                      <div className="flex gap-2 overflow-x-auto border-b border-slate-100 text-xs font-semibold">
+                                        <button
+                                          onClick={() => handleTabChange(course.id, 'why')}
+                                          className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'why' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
                                         >
-                                          <Compass className="text-primary mt-0.5 h-4 w-4 shrink-0" />
-                                          <span>{reason}</span>
-                                        </li>
-                                      ))}
-                                    </ul>
+                                          Summary Fit
+                                        </button>
+                                        <button
+                                          onClick={() => handleTabChange(course.id, 'strength')}
+                                          className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'strength' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
+                                        >
+                                          Strengths Analysis
+                                        </button>
+                                        <button
+                                          onClick={() => handleTabChange(course.id, 'interests')}
+                                          className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'interests' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
+                                        >
+                                          Interest Fit
+                                        </button>
+                                        <button
+                                          onClick={() => handleTabChange(course.id, 'workStyle')}
+                                          className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'workStyle' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
+                                        >
+                                          Work Style Fit
+                                        </button>
+                                      </div>
+
+                                      {/* Tab Content */}
+                                      <div className="min-h-[100px] text-xs leading-relaxed text-slate-600">
+                                        {currentTab === 'why' && explanation && (
+                                          <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
+                                            {explanation.whyThisCourseFits}
+                                          </p>
+                                        )}
+                                        {currentTab === 'strength' && explanation && (
+                                          <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
+                                            {explanation.strengthAnalysis}
+                                          </p>
+                                        )}
+                                        {currentTab === 'interests' && explanation && (
+                                          <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
+                                            {explanation.interestAnalysis}
+                                          </p>
+                                        )}
+                                        {currentTab === 'workStyle' && (
+                                          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                            <div className="flex items-center rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
+                                              <p>{explanation?.careerFitAnalysis}</p>
+                                            </div>
+                                            {profile &&
+                                              renderWorkStyleComparison(
+                                                profile.workStyle,
+                                                course.workStyle
+                                              )}
+                                          </div>
+                                        )}
+                                      </div>
+                                    </div>
+
+                                    {/* Career Outlook Subcard */}
+                                    <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                                      <div className="border-slate-250/60 flex items-center gap-2 border-b pb-2.5">
+                                        <TrendingUp className="text-primary h-4.5 w-4.5" />
+                                        <h4 className="text-sm font-bold text-slate-900">
+                                          Career Outlook & Market Trends
+                                        </h4>
+                                      </div>
+
+                                      <div className="grid grid-cols-2 gap-4 text-xs md:grid-cols-4">
+                                        <div className="space-y-1">
+                                          <span className="text-[10px] font-semibold text-slate-500 uppercase">
+                                            Demand Level
+                                          </span>
+                                          <div>
+                                            <span
+                                              className={`inline-flex rounded-full border px-2.5 py-0.5 text-[10px] font-bold ${getDemandColorBadge(outlook.demandLevel)}`}
+                                            >
+                                              {outlook.demandLevel}
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div className="space-y-1">
+                                          <span className="text-[10px] font-semibold text-slate-500 uppercase">
+                                            Average Salary
+                                          </span>
+                                          <div className="flex items-center gap-0.5 font-extrabold text-slate-900">
+                                            <DollarSign className="h-3.5 w-3.5 text-emerald-600" />
+                                            {outlook.salaryRange.split(' / ')[0]}
+                                          </div>
+                                        </div>
+                                        <div className="space-y-1">
+                                          <span className="text-[10px] font-semibold text-slate-500 uppercase">
+                                            Decade Growth
+                                          </span>
+                                          <div className="text-primary font-extrabold">
+                                            {outlook.growthRate.split(' ')[0]}
+                                          </div>
+                                        </div>
+                                        <div className="space-y-1">
+                                          <span className="text-[10px] font-semibold text-slate-500 uppercase">
+                                            Study Duration
+                                          </span>
+                                          <div className="font-extrabold text-slate-900">
+                                            {course.durationYears} Years
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      <div className="space-y-1.5 text-xs">
+                                        <span className="text-[10px] font-semibold text-slate-500 uppercase">
+                                          Hiring Roles & Positions
+                                        </span>
+                                        <div className="flex flex-wrap gap-1.5">
+                                          {outlook.topRoles.map((role: string) => (
+                                            <span
+                                              key={role}
+                                              className="rounded border border-slate-200 bg-white px-2 py-0.5 text-[10px] text-slate-600"
+                                            >
+                                              {role}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      </div>
+
+                                      <p className="border-t border-slate-200/60 pt-2 text-xs leading-relaxed text-slate-500">
+                                        {outlook.outlookDescription}
+                                      </p>
+                                    </div>
+                                  </>
+                                ) : (
+                                  /* Lock overlay card */
+                                  <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/40 via-white to-indigo-50/20 p-6 text-center space-y-4 shadow-sm">
+                                    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                                      <Lock className="h-5 w-5" />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <h4 className="text-sm font-bold text-slate-900">Detailed Insights & College Fit Locked</h4>
+                                      <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+                                        Unlock the premium career report to access stream fit analysis, hiring roles, work style alignment, top university listings, and entrance exam roadmaps.
+                                      </p>
+                                    </div>
+                                    <Button
+                                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
+                                      className="rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-2.5 font-bold text-white hover:from-blue-700 hover:to-blue-600 active:scale-[0.98] transition-all text-xs"
+                                    >
+                                      Unlock Full Report ₹49
+                                    </Button>
                                   </div>
                                 )}
-
-                                {/* Interactive Tabs panel */}
-                                <div className="space-y-4">
-                                  {/* Tab bar header */}
-                                  <div className="flex gap-2 overflow-x-auto border-b border-slate-100 text-xs font-semibold">
-                                    <button
-                                      onClick={() => handleTabChange(course.id, 'why')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'why' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
-                                    >
-                                      Summary Fit
-                                    </button>
-                                    <button
-                                      onClick={() => handleTabChange(course.id, 'strength')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'strength' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
-                                    >
-                                      Strengths Analysis
-                                    </button>
-                                    <button
-                                      onClick={() => handleTabChange(course.id, 'interests')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'interests' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
-                                    >
-                                      Interest Fit
-                                    </button>
-                                    <button
-                                      onClick={() => handleTabChange(course.id, 'workStyle')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'workStyle' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
-                                    >
-                                      Work Style Fit
-                                    </button>
-                                  </div>
-
-                                  {/* Tab Content */}
-                                  <div className="min-h-[100px] text-xs leading-relaxed text-slate-600">
-                                    {currentTab === 'why' && explanation && (
-                                      <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
-                                        {explanation.whyThisCourseFits}
-                                      </p>
-                                    )}
-                                    {currentTab === 'strength' && explanation && (
-                                      <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
-                                        {explanation.strengthAnalysis}
-                                      </p>
-                                    )}
-                                    {currentTab === 'interests' && explanation && (
-                                      <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
-                                        {explanation.interestAnalysis}
-                                      </p>
-                                    )}
-                                    {currentTab === 'workStyle' && (
-                                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                                        <div className="flex items-center rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
-                                          <p>{explanation?.careerFitAnalysis}</p>
-                                        </div>
-                                        {profile &&
-                                          renderWorkStyleComparison(
-                                            profile.workStyle,
-                                            course.workStyle
-                                          )}
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-
-                                {/* Career Outlook Subcard */}
-                                <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                                  <div className="border-slate-250/60 flex items-center gap-2 border-b pb-2.5">
-                                    <TrendingUp className="text-primary h-4.5 w-4.5" />
-                                    <h4 className="text-sm font-bold text-slate-900">
-                                      Career Outlook & Market Trends
-                                    </h4>
-                                  </div>
-
-                                  <div className="grid grid-cols-2 gap-4 text-xs md:grid-cols-4">
-                                    <div className="space-y-1">
-                                      <span className="text-[10px] font-semibold text-slate-500 uppercase">
-                                        Demand Level
-                                      </span>
-                                      <div>
-                                        <span
-                                          className={`inline-flex rounded-full border px-2.5 py-0.5 text-[10px] font-bold ${getDemandColorBadge(outlook.demandLevel)}`}
-                                        >
-                                          {outlook.demandLevel}
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <div className="space-y-1">
-                                      <span className="text-[10px] font-semibold text-slate-500 uppercase">
-                                        Average Salary
-                                      </span>
-                                      <div className="flex items-center gap-0.5 font-extrabold text-slate-900">
-                                        <DollarSign className="h-3.5 w-3.5 text-emerald-600" />
-                                        {outlook.salaryRange.split(' / ')[0]}
-                                      </div>
-                                    </div>
-                                    <div className="space-y-1">
-                                      <span className="text-[10px] font-semibold text-slate-500 uppercase">
-                                        Decade Growth
-                                      </span>
-                                      <div className="text-primary font-extrabold">
-                                        {outlook.growthRate.split(' ')[0]}
-                                      </div>
-                                    </div>
-                                    <div className="space-y-1">
-                                      <span className="text-[10px] font-semibold text-slate-500 uppercase">
-                                        Study Duration
-                                      </span>
-                                      <div className="font-extrabold text-slate-900">
-                                        {course.durationYears} Years
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div className="space-y-1.5 text-xs">
-                                    <span className="text-[10px] font-semibold text-slate-500 uppercase">
-                                      Hiring Roles & Positions
-                                    </span>
-                                    <div className="flex flex-wrap gap-1.5">
-                                      {outlook.topRoles.map((role: string) => (
-                                        <span
-                                          key={role}
-                                          className="rounded border border-slate-200 bg-white px-2 py-0.5 text-[10px] text-slate-600"
-                                        >
-                                          {role}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  </div>
-
-                                  <p className="border-t border-slate-200/60 pt-2 text-xs leading-relaxed text-slate-500">
-                                    {outlook.outlookDescription}
-                                  </p>
-                                </div>
 
                                 {/* Action bar buttons */}
                                 <div className="flex flex-wrap gap-3 border-t border-slate-100 pt-3">
@@ -1250,13 +1301,27 @@ export default function ResultsPage() {
                                     <BookOpen className="mr-1.5 h-4 w-4" />
                                     Explore Course
                                   </Button>
-                                  <Button
-                                    onClick={() => setShowUnlockModal(true)}
-                                    className="bg-secondary hover:bg-secondary/90 min-w-[140px] flex-1 rounded-full text-white"
-                                  >
-                                    <Download className="mr-1.5 h-4 w-4 text-white" />
-                                    Unlock Report
-                                  </Button>
+                                  {isReportUnlocked ? (
+                                    <Button
+                                      onClick={() => {
+                                        setPaymentStep('delivering');
+                                        setShowUnlockModal(true);
+                                        handleDownloadPdf();
+                                      }}
+                                      className="bg-secondary hover:bg-secondary/90 min-w-[140px] flex-1 rounded-full text-white"
+                                    >
+                                      <Download className="mr-1.5 h-4 w-4 text-white" />
+                                      Download PDF
+                                    </Button>
+                                  ) : (
+                                    <Button
+                                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
+                                      className="bg-secondary hover:bg-secondary/90 min-w-[140px] flex-1 rounded-full text-white"
+                                    >
+                                      <Lock className="mr-1.5 h-4 w-4 text-white" />
+                                      Unlock Full Report ₹49
+                                    </Button>
+                                  )}
                                   <Button
                                     onClick={handleMentorBookingClick}
                                     className="bg-primary hover:bg-primary/90 min-w-[140px] flex-1 rounded-full text-white"
@@ -1324,13 +1389,27 @@ export default function ResultsPage() {
                     </li>
                   </ul>
 
-                  <Button
-                    onClick={() => setShowUnlockModal(true)}
-                    className="bg-secondary hover:bg-secondary/90 w-full rounded-full font-semibold text-white shadow-sm"
-                  >
-                    <Lock className="mr-1.5 h-4 w-4" />
-                    Unlock Premium Report
-                  </Button>
+                  {isReportUnlocked ? (
+                    <Button
+                      onClick={() => {
+                        setPaymentStep('delivering');
+                        setShowUnlockModal(true);
+                        handleDownloadPdf();
+                      }}
+                      className="bg-secondary hover:bg-secondary/90 w-full rounded-full font-semibold text-white shadow-sm"
+                    >
+                      <Download className="mr-1.5 h-4 w-4 text-white" />
+                      Download PDF Report
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
+                      className="bg-secondary hover:bg-secondary/90 w-full rounded-full font-semibold text-white shadow-sm"
+                    >
+                      <Lock className="mr-1.5 h-4 w-4" />
+                      Unlock Full Report ₹49
+                    </Button>
+                  )}
                 </div>
 
                 {/* 2. Topmate Mentor Booking Section */}
@@ -1422,35 +1501,57 @@ export default function ResultsPage() {
                   <p>{selectedCourseForDetail.course.description}</p>
                 </div>
 
-                <div>
-                  <h4 className="mb-1 font-bold text-slate-900">Top University Programs</h4>
-                  <ul className="list-disc space-y-1 pl-4">
-                    {(selectedCourseForDetail.explanation?.careerOutlook?.topColleges || []).map(
-                      (coll: string) => (
-                        <li key={coll} className="text-slate-500">
-                          {coll}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
+                {isReportUnlocked ? (
+                  <>
+                    <div>
+                      <h4 className="mb-1 font-bold text-slate-900">Top University Programs</h4>
+                      <ul className="list-disc space-y-1 pl-4">
+                        {(selectedCourseForDetail.explanation?.careerOutlook?.topColleges || []).map(
+                          (coll: string) => (
+                            <li key={coll} className="text-slate-500">
+                              {coll}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </div>
 
-                <div>
-                  <h4 className="mb-1 font-bold text-slate-900">Sample Study Curriculum</h4>
-                  <p className="text-slate-500">
-                    Typical semesters cover fundamental academic theory, analytical design, project
-                    workshops, and professional summer internships. Key modules include{' '}
-                    {selectedCourseForDetail.course.interests
-                      .map((i) => i.split('_').join(' '))
-                      .join(', ')}
-                    .
-                  </p>
-                </div>
+                    <div>
+                      <h4 className="mb-1 font-bold text-slate-900">Sample Study Curriculum</h4>
+                      <p className="text-slate-500">
+                        Typical semesters cover fundamental academic theory, analytical design, project
+                        workshops, and professional summer internships. Key modules include{' '}
+                        {selectedCourseForDetail.course.interests
+                          .map((i) => i.split('_').join(' '))
+                          .join(', ')}
+                        .
+                      </p>
+                    </div>
 
-                <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-3 text-[10px] font-semibold text-slate-600">
-                  <span>Minimum Study: {selectedCourseForDetail.course.durationYears} Years</span>
-                  <span>Difficulty: {selectedCourseForDetail.course.difficultyLevel}</span>
-                </div>
+                    <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-3 text-[10px] font-semibold text-slate-600">
+                      <span>Minimum Study: {selectedCourseForDetail.course.durationYears} Years</span>
+                      <span>Difficulty: {selectedCourseForDetail.course.difficultyLevel}</span>
+                    </div>
+                  </>
+                ) : (
+                  <div className="rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50/20 to-indigo-50/10 p-5 text-center space-y-3">
+                    <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                      <Lock className="h-4 w-4" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-xs font-bold text-slate-900">University Matches & Curriculum Locked</h4>
+                      <p className="text-[10px] text-slate-500 max-w-xs mx-auto leading-relaxed">
+                        Unlock the premium career report to view top tier university programs, college compatibility match scores, and year-by-year syllabus roadmaps.
+                      </p>
+                    </div>
+                    <Button
+                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
+                      className="rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-1.5 font-bold text-white hover:from-blue-700 hover:to-blue-600 active:scale-[0.98] transition-all text-[9px]"
+                    >
+                      Unlock Full Report ₹49
+                    </Button>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-col gap-2 pt-2">
@@ -1460,15 +1561,26 @@ export default function ResultsPage() {
                       View Full Details
                     </Button>
                   </Link>
-                  <Button
-                    onClick={() => {
-                      setSelectedCourseForDetail(null);
-                      setShowUnlockModal(true);
-                    }}
-                    className="bg-primary hover:bg-primary/90 flex-1 rounded-full text-white"
-                  >
-                    Get Roadmap PDF
-                  </Button>
+                  {isReportUnlocked ? (
+                    <Button
+                      onClick={() => {
+                        setSelectedCourseForDetail(null);
+                        setPaymentStep('delivering');
+                        setShowUnlockModal(true);
+                        handleDownloadPdf();
+                      }}
+                      className="bg-primary hover:bg-primary/90 flex-1 rounded-full text-white"
+                    >
+                      Get Roadmap PDF
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
+                      className="bg-secondary hover:bg-secondary/90 flex-1 rounded-full text-white"
+                    >
+                      Unlock Full Report ₹49
+                    </Button>
+                  )}
                 </div>
                 <Button
                   onClick={() => setSelectedCourseForDetail(null)}
