@@ -24,9 +24,11 @@ export default function ClaimReportPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<any>(null);
-  
+
   // Claiming states
-  const [claimStatus, setClaimStatus] = useState<'idle' | 'claiming' | 'success' | 'no-data' | 'error'>('idle');
+  const [claimStatus, setClaimStatus] = useState<
+    'idle' | 'claiming' | 'success' | 'no-data' | 'error'
+  >('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [localResults, setLocalResults] = useState<any>(null);
 
@@ -44,11 +46,13 @@ export default function ClaimReportPage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
         if (session?.user) {
           setIsAuthenticated(true);
           setUser(session.user);
-          
+
           // Load local storage data
           const localData = localStorage.getItem('pathway_latest_results');
           if (localData) {
@@ -69,7 +73,7 @@ export default function ClaimReportPage() {
               .eq('product_name', 'Career Report')
               .eq('status', 'success')
               .limit(1);
-              
+
             if (payments && payments.length > 0) {
               setClaimStatus('success');
               localStorage.setItem('pathway_report_unlocked', 'true');
@@ -103,10 +107,7 @@ export default function ClaimReportPage() {
       };
 
       // A. Clear old recommendations
-      await supabase
-        .from('recommendations')
-        .delete()
-        .eq('user_id', currentUser.id);
+      await supabase.from('recommendations').delete().eq('user_id', currentUser.id);
 
       // B. Insert recommendations
       const insertRows = recommendations.map((scored: any) => ({
@@ -117,7 +118,7 @@ export default function ClaimReportPage() {
         recommended_paths: scored.course.interests || [],
         created_at: new Date().toISOString(),
       }));
-      
+
       const { error: recsError } = await supabase.from('recommendations').insert(insertRows);
       if (recsError) throw recsError;
 
@@ -312,18 +313,20 @@ export default function ClaimReportPage() {
   };
 
   return (
-    <div className="bg-slate-50/50 text-slate-900 selection:bg-blue-50 min-h-screen flex flex-col justify-between">
+    <div className="flex min-h-screen flex-col justify-between bg-slate-50/50 text-slate-900 selection:bg-blue-50">
       <Navbar />
 
-      <main className="container mx-auto max-w-xl px-4 py-32 flex-grow flex flex-col justify-center">
+      <main className="container mx-auto flex max-w-xl flex-grow flex-col justify-center px-4 py-32">
         {isLoading ? (
           <div className="flex flex-col items-center justify-center space-y-4 py-12">
             <div className="h-10 w-10 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
-            <p className="text-sm font-medium text-slate-500">Verifying secure payment session...</p>
+            <p className="text-sm font-medium text-slate-500">
+              Verifying secure payment session...
+            </p>
           </div>
         ) : !isAuthenticated ? (
           /* Authentication Gate */
-          <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-md text-center space-y-6">
+          <div className="space-y-6 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-md">
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 shadow-sm">
               <CheckCircle2 className="h-7 w-7" />
             </div>
@@ -332,35 +335,40 @@ export default function ClaimReportPage() {
               <span className="text-[10px] font-extrabold tracking-widest text-emerald-600 uppercase">
                 Payment Completed Successfully
               </span>
-              <h1 className="text-2xl font-black text-slate-900 leading-snug">
+              <h1 className="text-2xl leading-snug font-black text-slate-900">
                 Claim Your Premium Report
               </h1>
-              <p className="text-xs text-slate-500 leading-relaxed max-w-sm mx-auto">
-                To associate your premium career recommendations with a permanent account and generate your custom 15-page PDF report, please log in or sign up.
+              <p className="mx-auto max-w-sm text-xs leading-relaxed text-slate-500">
+                To associate your premium career recommendations with a permanent account and
+                generate your custom 15-page PDF report, please log in or sign up.
               </p>
             </div>
 
-            <div className="border-t border-slate-100 pt-6 flex flex-col gap-3">
+            <div className="flex flex-col gap-3 border-t border-slate-100 pt-6">
               <Link href="/login?redirect=/claim-report" className="w-full">
                 <Button className="w-full rounded-full bg-gradient-to-r from-blue-600 to-blue-500 py-6 font-bold text-white shadow-sm hover:from-blue-700 hover:to-blue-600 active:scale-[0.99]">
                   Log In or Create Account
                   <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
               </Link>
-              <p className="text-[10px] text-slate-400 font-medium">
+              <p className="text-[10px] font-medium text-slate-400">
                 Your report data will automatically load once your account is ready.
               </p>
             </div>
           </div>
         ) : (
           /* Logged In Claims Flow */
-          <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-md text-center space-y-6">
+          <div className="space-y-6 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-md">
             {claimStatus === 'claiming' && (
               <div className="space-y-4 py-8">
                 <div className="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" />
                 <div className="space-y-1">
-                  <h3 className="text-base font-bold text-slate-900">Claiming your Premium Report...</h3>
-                  <p className="text-xs text-slate-400">Saving assessment results and unlocking premium access.</p>
+                  <h3 className="text-base font-bold text-slate-900">
+                    Claiming your Premium Report...
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Saving assessment results and unlocking premium access.
+                  </p>
                 </div>
               </div>
             )}
@@ -375,33 +383,35 @@ export default function ClaimReportPage() {
                   <span className="text-[10px] font-extrabold tracking-widest text-emerald-600 uppercase">
                     Report Claimed Successfully
                   </span>
-                  <h1 className="text-2xl font-black text-slate-900 leading-snug">
+                  <h1 className="text-2xl leading-snug font-black text-slate-900">
                     Premium Toolkit Unlocked!
                   </h1>
-                  <p className="text-xs text-slate-500 leading-relaxed max-w-sm mx-auto">
-                    Your report is now securely stored under your account **{user.email}**. You can download your customized PDF now or view detailed fit insights immediately.
+                  <p className="mx-auto max-w-sm text-xs leading-relaxed text-slate-500">
+                    Your report is now securely stored under your account **{user.email}**. You can
+                    download your customized PDF now or view detailed fit insights immediately.
                   </p>
                 </div>
 
-                <div className="border-t border-slate-100 pt-6 space-y-3">
+                <div className="space-y-3 border-t border-slate-100 pt-6">
                   {/* PDF Download Action */}
                   {isGeneratingPdf ? (
-                    <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 space-y-3">
+                    <div className="space-y-3 rounded-2xl border border-slate-100 bg-slate-50 p-4">
                       <div className="flex items-center justify-between text-xs font-semibold text-slate-600">
                         <span>Generating customized PDF...</span>
-                        <span className="animate-pulse text-blue-600 font-bold">Processing</span>
+                        <span className="animate-pulse font-bold text-blue-600">Processing</span>
                       </div>
-                      <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-600 rounded-full animate-infinite-loading" />
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+                        <div className="animate-infinite-loading h-full rounded-full bg-blue-600" />
                       </div>
-                      <p className="text-[9px] text-slate-400 text-left leading-normal">
-                        This takes a moment as we compile curriculum tracks, salary ranges, and university matches.
+                      <p className="text-left text-[9px] leading-normal text-slate-400">
+                        This takes a moment as we compile curriculum tracks, salary ranges, and
+                        university matches.
                       </p>
                     </div>
                   ) : (
                     <Button
                       onClick={handleDownloadPdf}
-                      className="w-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 py-6 font-bold text-white shadow-sm hover:from-emerald-700 hover:to-emerald-600 active:scale-[0.99] flex items-center justify-center gap-1.5"
+                      className="flex w-full items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 py-6 font-bold text-white shadow-sm hover:from-emerald-700 hover:to-emerald-600 active:scale-[0.99]"
                     >
                       <Download className="h-4.5 w-4.5" />
                       {pdfSuccess ? 'Download PDF Again' : 'Download Premium PDF Report'}
@@ -410,12 +420,18 @@ export default function ClaimReportPage() {
 
                   <div className="flex gap-3">
                     <Link href="/results?unlocked=true" className="flex-1">
-                      <Button variant="outline" className="w-full rounded-full border-slate-200 text-slate-600 hover:bg-slate-50 py-5 text-xs font-bold">
+                      <Button
+                        variant="outline"
+                        className="w-full rounded-full border-slate-200 py-5 text-xs font-bold text-slate-600 hover:bg-slate-50"
+                      >
                         View Unlocked Report
                       </Button>
                     </Link>
                     <Link href="/dashboard" className="flex-1">
-                      <Button variant="ghost" className="w-full rounded-full text-slate-500 hover:text-slate-900 py-5 text-xs font-bold">
+                      <Button
+                        variant="ghost"
+                        className="w-full rounded-full py-5 text-xs font-bold text-slate-500 hover:text-slate-900"
+                      >
                         Go to Dashboard
                       </Button>
                     </Link>
@@ -431,18 +447,23 @@ export default function ClaimReportPage() {
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-lg font-black text-slate-900">No Active Report Found</h3>
-                  <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
-                    We could not detect any recent quiz results in this browser session. If you recently paid on Topmate, please make sure you are using the same device/browser or check your dashboard.
+                  <p className="mx-auto max-w-sm text-xs leading-relaxed text-slate-500">
+                    We could not detect any recent quiz results in this browser session. If you
+                    recently paid on Topmate, please make sure you are using the same device/browser
+                    or check your dashboard.
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 pt-4 border-t border-slate-100">
+                <div className="flex flex-col gap-2 border-t border-slate-100 pt-4">
                   <Link href="/quiz">
-                    <Button className="w-full rounded-full bg-primary py-5 text-xs font-bold">
+                    <Button className="bg-primary w-full rounded-full py-5 text-xs font-bold">
                       Take Free Career Quiz
                     </Button>
                   </Link>
                   <Link href="/dashboard">
-                    <Button variant="outline" className="w-full rounded-full border-slate-200 py-5 text-xs font-bold text-slate-600">
+                    <Button
+                      variant="outline"
+                      className="w-full rounded-full border-slate-200 py-5 text-xs font-bold text-slate-600"
+                    >
                       Go to Dashboard
                     </Button>
                   </Link>
@@ -457,19 +478,22 @@ export default function ClaimReportPage() {
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-lg font-black text-slate-900">Claim Report Failed</h3>
-                  <p className="text-xs text-rose-600 leading-relaxed max-w-sm mx-auto">
+                  <p className="mx-auto max-w-sm text-xs leading-relaxed text-rose-600">
                     {errorMessage}
                   </p>
                 </div>
-                <div className="flex gap-3 pt-4 border-t border-slate-100">
+                <div className="flex gap-3 border-t border-slate-100 pt-4">
                   <Button
                     onClick={() => claimReport(user, localResults)}
-                    className="flex-1 rounded-full bg-primary py-5 text-xs font-bold"
+                    className="bg-primary flex-1 rounded-full py-5 text-xs font-bold"
                   >
                     Retry Saving
                   </Button>
                   <Link href="/dashboard" className="flex-1">
-                    <Button variant="outline" className="w-full rounded-full border-slate-200 py-5 text-xs font-bold text-slate-600">
+                    <Button
+                      variant="outline"
+                      className="w-full rounded-full border-slate-200 py-5 text-xs font-bold text-slate-600"
+                    >
                       Go to Dashboard
                     </Button>
                   </Link>

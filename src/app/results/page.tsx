@@ -1272,19 +1272,29 @@ export default function ResultsPage() {
                                   </>
                                 ) : (
                                   /* Lock overlay card */
-                                  <div className="rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/40 via-white to-indigo-50/20 p-6 text-center space-y-4 shadow-sm">
+                                  <div className="space-y-4 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/40 via-white to-indigo-50/20 p-6 text-center shadow-sm">
                                     <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-600">
                                       <Lock className="h-5 w-5" />
                                     </div>
                                     <div className="space-y-1">
-                                      <h4 className="text-sm font-bold text-slate-900">Detailed Insights & College Fit Locked</h4>
-                                      <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                                        Unlock the premium career report to access stream fit analysis, hiring roles, work style alignment, top university listings, and entrance exam roadmaps.
+                                      <h4 className="text-sm font-bold text-slate-900">
+                                        Detailed Insights & College Fit Locked
+                                      </h4>
+                                      <p className="mx-auto max-w-md text-xs leading-relaxed text-slate-500">
+                                        Unlock the premium career report to access stream fit
+                                        analysis, hiring roles, work style alignment, top university
+                                        listings, and entrance exam roadmaps.
                                       </p>
                                     </div>
                                     <Button
-                                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
-                                      className="rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-2.5 font-bold text-white hover:from-blue-700 hover:to-blue-600 active:scale-[0.98] transition-all text-xs"
+                                      onClick={() =>
+                                        window.open(
+                                          'https://topmate.io/sakshi_chauhan34/2170535',
+                                          '_blank',
+                                          'noopener,noreferrer'
+                                        )
+                                      }
+                                      className="rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-2.5 text-xs font-bold text-white transition-all hover:from-blue-700 hover:to-blue-600 active:scale-[0.98]"
                                     >
                                       Unlock Full Report ₹49
                                     </Button>
@@ -1301,7 +1311,7 @@ export default function ResultsPage() {
                                     <BookOpen className="mr-1.5 h-4 w-4" />
                                     Explore Course
                                   </Button>
-                                  {isReportUnlocked ? (
+                                  {isReportUnlocked && (
                                     <Button
                                       onClick={() => {
                                         setPaymentStep('delivering');
@@ -1312,14 +1322,6 @@ export default function ResultsPage() {
                                     >
                                       <Download className="mr-1.5 h-4 w-4 text-white" />
                                       Download PDF
-                                    </Button>
-                                  ) : (
-                                    <Button
-                                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
-                                      className="bg-secondary hover:bg-secondary/90 min-w-[140px] flex-1 rounded-full text-white"
-                                    >
-                                      <Lock className="mr-1.5 h-4 w-4 text-white" />
-                                      Unlock Full Report ₹49
                                     </Button>
                                   )}
                                   <Button
@@ -1403,7 +1405,13 @@ export default function ResultsPage() {
                     </Button>
                   ) : (
                     <Button
-                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
+                      onClick={() =>
+                        window.open(
+                          'https://topmate.io/sakshi_chauhan34/2170535',
+                          '_blank',
+                          'noopener,noreferrer'
+                        )
+                      }
                       className="bg-secondary hover:bg-secondary/90 w-full rounded-full font-semibold text-white shadow-sm"
                     >
                       <Lock className="mr-1.5 h-4 w-4" />
@@ -1506,21 +1514,21 @@ export default function ResultsPage() {
                     <div>
                       <h4 className="mb-1 font-bold text-slate-900">Top University Programs</h4>
                       <ul className="list-disc space-y-1 pl-4">
-                        {(selectedCourseForDetail.explanation?.careerOutlook?.topColleges || []).map(
-                          (coll: string) => (
-                            <li key={coll} className="text-slate-500">
-                              {coll}
-                            </li>
-                          )
-                        )}
+                        {(
+                          selectedCourseForDetail.explanation?.careerOutlook?.topColleges || []
+                        ).map((coll: string) => (
+                          <li key={coll} className="text-slate-500">
+                            {coll}
+                          </li>
+                        ))}
                       </ul>
                     </div>
 
                     <div>
                       <h4 className="mb-1 font-bold text-slate-900">Sample Study Curriculum</h4>
                       <p className="text-slate-500">
-                        Typical semesters cover fundamental academic theory, analytical design, project
-                        workshops, and professional summer internships. Key modules include{' '}
+                        Typical semesters cover fundamental academic theory, analytical design,
+                        project workshops, and professional summer internships. Key modules include{' '}
                         {selectedCourseForDetail.course.interests
                           .map((i) => i.split('_').join(' '))
                           .join(', ')}
@@ -1529,24 +1537,35 @@ export default function ResultsPage() {
                     </div>
 
                     <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-3 text-[10px] font-semibold text-slate-600">
-                      <span>Minimum Study: {selectedCourseForDetail.course.durationYears} Years</span>
+                      <span>
+                        Minimum Study: {selectedCourseForDetail.course.durationYears} Years
+                      </span>
                       <span>Difficulty: {selectedCourseForDetail.course.difficultyLevel}</span>
                     </div>
                   </>
                 ) : (
-                  <div className="rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50/20 to-indigo-50/10 p-5 text-center space-y-3">
+                  <div className="space-y-3 rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50/20 to-indigo-50/10 p-5 text-center">
                     <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600">
                       <Lock className="h-4 w-4" />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="text-xs font-bold text-slate-900">University Matches & Curriculum Locked</h4>
-                      <p className="text-[10px] text-slate-500 max-w-xs mx-auto leading-relaxed">
-                        Unlock the premium career report to view top tier university programs, college compatibility match scores, and year-by-year syllabus roadmaps.
+                      <h4 className="text-xs font-bold text-slate-900">
+                        University Matches & Curriculum Locked
+                      </h4>
+                      <p className="mx-auto max-w-xs text-[10px] leading-relaxed text-slate-500">
+                        Unlock the premium career report to view top tier university programs,
+                        college compatibility match scores, and year-by-year syllabus roadmaps.
                       </p>
                     </div>
                     <Button
-                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
-                      className="rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-1.5 font-bold text-white hover:from-blue-700 hover:to-blue-600 active:scale-[0.98] transition-all text-[9px]"
+                      onClick={() =>
+                        window.open(
+                          'https://topmate.io/sakshi_chauhan34/2170535',
+                          '_blank',
+                          'noopener,noreferrer'
+                        )
+                      }
+                      className="rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-1.5 text-[9px] font-bold text-white transition-all hover:from-blue-700 hover:to-blue-600 active:scale-[0.98]"
                     >
                       Unlock Full Report ₹49
                     </Button>
@@ -1561,7 +1580,7 @@ export default function ResultsPage() {
                       View Full Details
                     </Button>
                   </Link>
-                  {isReportUnlocked ? (
+                  {isReportUnlocked && (
                     <Button
                       onClick={() => {
                         setSelectedCourseForDetail(null);
@@ -1572,13 +1591,6 @@ export default function ResultsPage() {
                       className="bg-primary hover:bg-primary/90 flex-1 rounded-full text-white"
                     >
                       Get Roadmap PDF
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() => window.open('https://topmate.io/sakshi_chauhan34/2170535', '_blank', 'noopener,noreferrer')}
-                      className="bg-secondary hover:bg-secondary/90 flex-1 rounded-full text-white"
-                    >
-                      Unlock Full Report ₹49
                     </Button>
                   )}
                 </div>

@@ -68,7 +68,9 @@ export default function StudentDashboard() {
         if (initialRecommendations.length > 0) setRecommendations(initialRecommendations);
 
         // 2. Check Supabase auth session
-        const { data: { session } } = await supabase.auth.getSession();
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
 
         if (session?.user) {
           setIsAuthenticated(true);
@@ -463,12 +465,13 @@ export default function StudentDashboard() {
                       <span className="text-[10px] font-extrabold tracking-wider text-emerald-600 uppercase">
                         Premium Unlocked
                       </span>
-                      <Sparkles className="h-5 w-5 text-emerald-600 animate-pulse" />
+                      <Sparkles className="h-5 w-5 animate-pulse text-emerald-600" />
                     </div>
                     <div className="space-y-2">
                       <h3 className="text-lg font-black text-slate-950">Download PDF Report</h3>
-                      <p className="text-xs text-slate-500 leading-relaxed">
-                        Download your customized 15-page comprehensive career report with roadmap, universities, and strategy.
+                      <p className="text-xs leading-relaxed text-slate-500">
+                        Download your customized 15-page comprehensive career report with roadmap,
+                        universities, and strategy.
                       </p>
                     </div>
                     {isGeneratingPdf ? (
@@ -476,14 +479,14 @@ export default function StudentDashboard() {
                         <div className="flex items-center justify-between text-xs font-semibold text-slate-600">
                           <span>Generating PDF...</span>
                         </div>
-                        <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                          <div className="h-full bg-emerald-600 rounded-full animate-infinite-loading" />
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+                          <div className="animate-infinite-loading h-full rounded-full bg-emerald-600" />
                         </div>
                       </div>
                     ) : (
                       <Button
                         onClick={handleDownloadPdf}
-                        className="w-full rounded-full bg-emerald-600 py-4 text-xs font-bold text-white shadow-sm hover:bg-emerald-700 flex items-center justify-center gap-1.5"
+                        className="flex w-full items-center justify-center gap-1.5 rounded-full bg-emerald-600 py-4 text-xs font-bold text-white shadow-sm hover:bg-emerald-700"
                       >
                         <Download className="h-4 w-4" />
                         Download PDF Report
@@ -505,8 +508,9 @@ export default function StudentDashboard() {
                     </div>
                     <div className="space-y-2">
                       <h3 className="text-lg font-black text-slate-950">Detailed Career Roadmap</h3>
-                      <p className="text-xs text-slate-500 leading-relaxed">
-                        Unlock your complete 15-page PDF report including detailed career roadmap, college recommendations, and deep insights.
+                      <p className="text-xs leading-relaxed text-slate-500">
+                        Unlock your complete 15-page PDF report including detailed career roadmap,
+                        college recommendations, and deep insights.
                       </p>
                     </div>
                     <a
@@ -608,9 +612,9 @@ export default function StudentDashboard() {
                   Welcome to PathWayAI! 🚀
                 </h1>
                 <p className="text-sm leading-relaxed font-medium text-slate-500">
-                  You haven&apos;t completed your career assessment quiz yet. Unlock 100% precise career
-                  stream recommendations, college compatibility match scores, and direct advisor
-                  guidance by taking our 5-minute quiz.
+                  You haven&apos;t completed your career assessment quiz yet. Unlock 100% precise
+                  career stream recommendations, college compatibility match scores, and direct
+                  advisor guidance by taking our 5-minute quiz.
                 </p>
               </div>
 
