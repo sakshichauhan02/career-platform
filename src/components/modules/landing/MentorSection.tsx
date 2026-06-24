@@ -16,7 +16,7 @@ export function MentorSection() {
       sessionType: '1:1 Career Guidance',
       price: '₹99',
     });
-    window.open('https://topmate.io/sakshi_chauhan34/2170492', '_blank');
+    setIsModalOpen(true);
   };
 
   return (
