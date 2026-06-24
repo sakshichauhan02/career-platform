@@ -1460,7 +1460,7 @@ export default function ResultsPage() {
                 </div>
               </div>
 
-              <div className="mt-12">
+              <div className="mt-12 lg:col-span-12">
                 <MentorBookingSection variant="full" />
               </div>
             </div>
