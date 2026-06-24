@@ -353,13 +353,13 @@ export function QuizContainer() {
         className="w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8"
       >
         <div className="flex flex-col items-center text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-650">
+          <div className="text-emerald-650 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50">
             <CheckCircle2 className="h-8 w-8" />
           </div>
           <h2 className="mt-4 text-2xl font-extrabold text-slate-900 sm:text-3xl">
             Assessment Complete!
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-550">
+          <p className="text-slate-550 mt-2 text-sm leading-relaxed">
             We analyzed your stream, interests, hobbies, work style, and career priorities. Here are
             your top matches:
           </p>
@@ -389,7 +389,7 @@ export function QuizContainer() {
                       hidden: { opacity: 0, y: 15 },
                       show: { opacity: 1, y: 0 },
                     }}
-                    className="group rounded-xl border border-slate-200 bg-slate-50/50 p-4 text-left transition-all duration-300 hover:border-primary/20 hover:bg-white hover:shadow-sm"
+                    className="group hover:border-primary/20 rounded-xl border border-slate-200 bg-slate-50/50 p-4 text-left transition-all duration-300 hover:bg-white hover:shadow-sm"
                   >
                     {/* Header: Rank, Title, Score */}
                     <div className="flex flex-wrap items-start justify-between gap-3">
@@ -397,12 +397,12 @@ export function QuizContainer() {
                         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-200 text-xs font-bold text-slate-700">
                           #{idx + 1}
                         </span>
-                        <h4 className="text-base font-bold text-slate-900 transition-colors group-hover:text-primary">
+                        <h4 className="group-hover:text-primary text-base font-bold text-slate-900 transition-colors">
                           {course.name}
                         </h4>
                       </div>
                       <div className="flex items-center gap-1">
-                        <span className="text-sm font-extrabold text-primary">{score}%</span>
+                        <span className="text-primary text-sm font-extrabold">{score}%</span>
                         <span className="text-[10px] font-semibold text-slate-500 uppercase">
                           Match
                         </span>
@@ -415,7 +415,7 @@ export function QuizContainer() {
                         initial={{ width: 0 }}
                         animate={{ width: `${score}%` }}
                         transition={{ duration: 0.8, ease: 'easeOut' }}
-                        className="h-full rounded-full bg-primary"
+                        className="bg-primary h-full rounded-full"
                       />
                     </div>
 
@@ -434,8 +434,8 @@ export function QuizContainer() {
                           course.difficultyLevel === 'Advanced'
                             ? 'border border-rose-200 bg-rose-50 text-rose-700'
                             : course.difficultyLevel === 'Intermediate'
-                              ? 'border border-amber-250 bg-amber-50 text-amber-700'
-                              : 'border border-emerald-250 bg-emerald-50 text-emerald-700'
+                              ? 'border-amber-250 border bg-amber-50 text-amber-700'
+                              : 'border-emerald-250 border bg-emerald-50 text-emerald-700'
                         }`}
                       >
                         <Award className="h-3 w-3" />
@@ -445,7 +445,7 @@ export function QuizContainer() {
 
                     {/* Matching criteria checklist */}
                     {matchReasons && matchReasons.length > 0 && (
-                      <div className="mt-3 border-t border-slate-150 pt-3">
+                      <div className="border-slate-150 mt-3 border-t pt-3">
                         <span className="mb-1.5 block text-[10px] font-bold tracking-wider text-slate-500 uppercase">
                           Why It Matches You
                         </span>
@@ -453,9 +453,9 @@ export function QuizContainer() {
                           {matchReasons.slice(0, 3).map((reason: string, rIdx: number) => (
                             <li
                               key={rIdx}
-                              className="flex items-start gap-1.5 text-[10px] leading-relaxed text-primary"
+                              className="text-primary flex items-start gap-1.5 text-[10px] leading-relaxed"
                             >
-                              <Compass className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                              <Compass className="text-primary mt-0.5 h-3.5 w-3.5 shrink-0" />
                               <span>{reason}</span>
                             </li>
                           ))}
@@ -469,7 +469,7 @@ export function QuizContainer() {
                         onClick={() =>
                           setExpandedCourseId(expandedCourseId === course.id ? null : course.id)
                         }
-                        className="flex items-center gap-1 text-[10px] font-bold text-primary transition-colors hover:text-primary/80"
+                        className="text-primary hover:text-primary/80 flex items-center gap-1 text-[10px] font-bold transition-colors"
                       >
                         {expandedCourseId === course.id ? (
                           <>
@@ -485,7 +485,7 @@ export function QuizContainer() {
                       </button>
                     </div>
 
-                     {/* Collapsible explanation panel using framer-motion */}
+                    {/* Collapsible explanation panel using framer-motion */}
                     <AnimatePresence initial={false}>
                       {expandedCourseId === course.id && item.explanation && (
                         <motion.div
@@ -502,8 +502,8 @@ export function QuizContainer() {
                           <div className="space-y-4 rounded-lg border border-slate-200 bg-slate-50/50 p-4">
                             {/* Why it fits */}
                             <div className="space-y-1">
-                              <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-wider text-primary uppercase">
-                                <Sparkles className="h-3.5 w-3.5 text-primary" />
+                              <span className="text-primary flex items-center gap-1.5 text-[10px] font-bold tracking-wider uppercase">
+                                <Sparkles className="text-primary h-3.5 w-3.5" />
                                 Why This Course Fits
                               </span>
                               <p className="text-[11px] leading-relaxed text-slate-600">
@@ -560,10 +560,12 @@ export function QuizContainer() {
         </div>
 
         {/* Global report banner */}
-        <div className="mt-6 flex items-start gap-3 rounded-xl border border-primary/20 bg-primary/5 p-4 text-left">
-          <Sparkles className="mt-0.5 h-5 w-5 shrink-0 animate-pulse text-primary" />
+        <div className="border-primary/20 bg-primary/5 mt-6 flex items-start gap-3 rounded-xl border p-4 text-left">
+          <Sparkles className="text-primary mt-0.5 h-5 w-5 shrink-0 animate-pulse" />
           <div>
-            <h5 className="text-xs font-bold text-primary animate-pulse">Detailed Report Available</h5>
+            <h5 className="text-primary animate-pulse text-xs font-bold">
+              Detailed Report Available
+            </h5>
             <p className="mt-1 text-[10px] leading-relaxed text-slate-500">
               Your comprehensive Career Discovery report has been compiled and is ready for download
               in your dashboard.
@@ -580,13 +582,13 @@ export function QuizContainer() {
               resetAssessment();
             }}
             variant="outline"
-            className="flex items-center gap-1.5 border-slate-200 text-slate-600 hover:bg-slate-50 rounded-full"
+            className="flex items-center gap-1.5 rounded-full border-slate-200 text-slate-600 hover:bg-slate-50"
           >
             <RotateCcw className="h-4 w-4" />
             Retake Assessment
           </Button>
           <Link href="/courses" passHref>
-            <Button className="w-full bg-primary text-white hover:bg-primary/90 rounded-full sm:w-auto">
+            <Button className="bg-primary hover:bg-primary/90 w-full rounded-full text-white sm:w-auto">
               Browse Careers & Courses
             </Button>
           </Link>
@@ -604,15 +606,15 @@ export function QuizContainer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-50 flex items-center justify-center rounded-2xl bg-white/95 p-6 text-center backdrop-blur-sm shadow-xl"
+            className="absolute inset-0 z-50 flex items-center justify-center rounded-2xl bg-white/95 p-6 text-center shadow-xl backdrop-blur-sm"
           >
             <div className="max-w-md space-y-6">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <div className="bg-primary/10 text-primary mx-auto flex h-12 w-12 items-center justify-center rounded-full">
                 <Save className="h-6 w-6" />
               </div>
               <div className="space-y-2">
                 <h3 className="text-xl font-bold text-slate-900">Resume previous session?</h3>
-                <p className="text-xs leading-relaxed text-slate-650">
+                <p className="text-slate-650 text-xs leading-relaxed">
                   We found an unfinished assessment saved in your browser storage. Would you like to
                   resume from where you left off or start fresh?
                 </p>
@@ -620,14 +622,14 @@ export function QuizContainer() {
               <div className="flex flex-col gap-2.5 sm:flex-row sm:justify-center">
                 <Button
                   onClick={() => loadCachedSession()}
-                  className="bg-primary text-white hover:bg-primary/90 rounded-full"
+                  className="bg-primary hover:bg-primary/90 rounded-full text-white"
                 >
                   Resume Assessment
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => resetAssessment()}
-                  className="text-slate-500 hover:bg-slate-550 hover:text-slate-950 rounded-full"
+                  className="hover:bg-slate-550 rounded-full text-slate-500 hover:text-slate-950"
                 >
                   Start Fresh
                 </Button>

@@ -325,7 +325,12 @@ export const PREDEFINED_COURSES: Course[] = [
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
     interests: ['tech_ai', 'law_civil'],
-    hobbies: ['Tinkering with gadgets', 'Coding / Side Projects', 'Video Gaming', 'Solving Puzzles / Chess'],
+    hobbies: [
+      'Tinkering with gadgets',
+      'Coding / Side Projects',
+      'Video Gaming',
+      'Solving Puzzles / Chess',
+    ],
     workStyle: { collaboration: 2, workplace: 1, structure: 1 },
     priorities: ['stability_security', 'high_salary', 'prestige_status'],
     reasoningTemplate:
@@ -350,7 +355,8 @@ export const PREDEFINED_COURSES: Course[] = [
   {
     id: '507a676e-1671-4e30-a746-0b8469107063',
     name: 'Software Engineering & Distributed Systems',
-    description: 'Design highly available distributed systems, master architectural design patterns, and manage modern software lifecycle operations.',
+    description:
+      'Design highly available distributed systems, master architectural design patterns, and manage modern software lifecycle operations.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'general'],
@@ -358,12 +364,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Tinkering with gadgets', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 3 },
     priorities: ['high_salary', 'creative_freedom', 'global_mobility'],
-    reasoningTemplate: 'Highly aligns with your interests in technology, systems programming, and digital innovation.',
+    reasoningTemplate:
+      'Highly aligns with your interests in technology, systems programming, and digital innovation.',
   },
   {
     id: 'fb0d171e-6af4-4d2d-ae91-f9c5c06a0412',
     name: 'Robotics & Automation Engineering',
-    description: 'Build autonomous robots, design mechanical actuators, and program real-time controller systems using ROS and C++.',
+    description:
+      'Build autonomous robots, design mechanical actuators, and program real-time controller systems using ROS and C++.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
@@ -371,12 +379,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Coding / Side Projects', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['creative_freedom', 'high_salary'],
-    reasoningTemplate: 'Matches your mechanical curiosity, programming background, and interest in automated robotics systems.',
+    reasoningTemplate:
+      'Matches your mechanical curiosity, programming background, and interest in automated robotics systems.',
   },
   {
     id: 'c78fdf66-2b71-4381-a3ec-fee775030118',
     name: 'Internet of Things (IoT) & Embedded Systems',
-    description: 'Architect connected networks of smart sensors, program microcontrollers, and manage real-time edge computing data pipelines.',
+    description:
+      'Architect connected networks of smart sensors, program microcontrollers, and manage real-time edge computing data pipelines.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'general'],
@@ -384,12 +394,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Coding / Side Projects', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['stability_security', 'creative_freedom'],
-    reasoningTemplate: 'Perfect for your hardware tinkering skills, systems thinking, and interest in smart networks.',
+    reasoningTemplate:
+      'Perfect for your hardware tinkering skills, systems thinking, and interest in smart networks.',
   },
   {
     id: 'b2a36ace-bcfe-4a36-a20e-5dc9acb0a222',
     name: 'Blockchain & Smart Contract Engineering',
-    description: 'Design decentralized web applications, write secure Solidity contracts, and analyze cryptographic token economics.',
+    description:
+      'Design decentralized web applications, write secure Solidity contracts, and analyze cryptographic token economics.',
     durationYears: 3,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'commerce', 'general'],
@@ -397,12 +409,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Solving Puzzles / Chess', 'Video Gaming'],
     workStyle: { collaboration: 2, workplace: 1, structure: 4 },
     priorities: ['high_salary', 'global_mobility', 'creative_freedom'],
-    reasoningTemplate: 'Aligns with your coding strengths, strategic logic, and interest in decentralized finance systems.',
+    reasoningTemplate:
+      'Aligns with your coding strengths, strategic logic, and interest in decentralized finance systems.',
   },
   {
     id: '21c39373-bdc4-4306-a89c-07a31b21c010',
     name: 'DevOps & Cloud Site Reliability',
-    description: 'Automate software delivery pipelines, manage Kubernetes clusters, and orchestrate scalable infrastructure-as-code.',
+    description:
+      'Automate software delivery pipelines, manage Kubernetes clusters, and orchestrate scalable infrastructure-as-code.',
     durationYears: 3,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
@@ -410,12 +424,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Tinkering with gadgets', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['stability_security', 'high_salary', 'global_mobility'],
-    reasoningTemplate: 'Combines your interest in cloud architecture, system automation, and high-security operations.',
+    reasoningTemplate:
+      'Combines your interest in cloud architecture, system automation, and high-security operations.',
   },
   {
     id: 'bd821578-5ced-4f03-a1e1-6fe5491c8010',
     name: 'Game Development & Graphics Programming',
-    description: 'Program 3D physics engines, write shaders, and build interactive gameplay systems using C++, Unity, and Unreal Engine.',
+    description:
+      'Program 3D physics engines, write shaders, and build interactive gameplay systems using C++, Unity, and Unreal Engine.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'general'],
@@ -423,12 +439,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Video Gaming', 'Coding / Side Projects', 'Painting / Sketching / Sculpting'],
     workStyle: { collaboration: 4, workplace: 1, structure: 5 },
     priorities: ['creative_freedom', 'global_mobility'],
-    reasoningTemplate: 'Combines your software engineering skills, creative design flair, and gaming hobbies.',
+    reasoningTemplate:
+      'Combines your software engineering skills, creative design flair, and gaming hobbies.',
   },
   {
     id: '8c70cd32-4557-415a-afc9-27d89d045005',
     name: 'Network Infrastructure & Architecture',
-    description: 'Design routing protocols, configure virtual networks, and build resilient hardware infrastructures for enterprise datacenters.',
+    description:
+      'Design routing protocols, configure virtual networks, and build resilient hardware infrastructures for enterprise datacenters.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'general'],
@@ -436,12 +454,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Coding / Side Projects', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['stability_security', 'high_salary'],
-    reasoningTemplate: 'Perfect for your logical troubleshooting skills and interest in hardware and network setups.',
+    reasoningTemplate:
+      'Perfect for your logical troubleshooting skills and interest in hardware and network setups.',
   },
   {
     id: '7a51223e-13a4-4e94-ac69-f5cb72120020',
     name: 'Embedded Systems & VLSI Design',
-    description: 'Design microchip architectures, write low-level firmware, and test integrated circuit layouts using VHDL and Verilog.',
+    description:
+      'Design microchip architectures, write low-level firmware, and test integrated circuit layouts using VHDL and Verilog.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
@@ -449,12 +469,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Coding / Side Projects', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 2, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'stability_security'],
-    reasoningTemplate: 'Matches your deep hardware engineering curiosity, logical puzzles hobby, and academic focus.',
+    reasoningTemplate:
+      'Matches your deep hardware engineering curiosity, logical puzzles hobby, and academic focus.',
   },
   {
     id: '7faefa9a-6f86-4385-a310-28c2c96f8638',
     name: 'Full-Stack Web Engineering',
-    description: 'Build responsive web applications using modern Javascript frameworks, scalable REST/GraphQL APIs, and relational databases.',
+    description:
+      'Build responsive web applications using modern Javascript frameworks, scalable REST/GraphQL APIs, and relational databases.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['pcm', 'commerce', 'arts', 'general'],
@@ -462,12 +484,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Creative Writing / Blogging', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'high_salary', 'work_life_balance'],
-    reasoningTemplate: 'Ideal for your creative building interest, coding background, and preference for user-facing applications.',
+    reasoningTemplate:
+      'Ideal for your creative building interest, coding background, and preference for user-facing applications.',
   },
   {
     id: '23b1d0dc-8e8d-403d-a0ad-3cd30c028100',
     name: 'Mobile Application Engineering',
-    description: 'Design and develop native iOS and Android apps alongside cross-platform systems using Swift, Kotlin, and React Native.',
+    description:
+      'Design and develop native iOS and Android apps alongside cross-platform systems using Swift, Kotlin, and React Native.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['pcm', 'commerce', 'arts', 'general'],
@@ -475,12 +499,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Tinkering with gadgets', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['high_salary', 'global_mobility', 'work_life_balance'],
-    reasoningTemplate: 'Strongly matches your app development interests, coding side projects, and focus on clean mobile UX.',
+    reasoningTemplate:
+      'Strongly matches your app development interests, coding side projects, and focus on clean mobile UX.',
   },
   {
     id: '128e3696-79a9-4870-a06b-27b196108806',
     name: 'High-Performance Computing & Clusters',
-    description: 'Configure supercomputer architectures, write parallel algorithms, and manage large-scale computational grids.',
+    description:
+      'Configure supercomputer architectures, write parallel algorithms, and manage large-scale computational grids.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
@@ -488,12 +514,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Solving Puzzles / Chess', 'Tinkering with gadgets'],
     workStyle: { collaboration: 2, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'prestige_status'],
-    reasoningTemplate: 'Perfect for your mathematical problem solving, systems architecture interest, and academic focus.',
+    reasoningTemplate:
+      'Perfect for your mathematical problem solving, systems architecture interest, and academic focus.',
   },
   {
     id: 'e99b6e80-0aeb-47a9-aee3-70141e088b6a',
     name: 'Database Administration & Big Data Systems',
-    description: 'Optimize high-throughput SQL and NoSQL database clusters, manage data lakes, and configure Hadoop/Spark analytics environments.',
+    description:
+      'Optimize high-throughput SQL and NoSQL database clusters, manage data lakes, and configure Hadoop/Spark analytics environments.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'commerce', 'general'],
@@ -501,12 +529,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Coding / Side Projects', 'Reading / Podcasts'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['stability_security', 'high_salary'],
-    reasoningTemplate: 'Aligns with your logical data organizing strengths, coding projects, and focus on analytical systems.',
+    reasoningTemplate:
+      'Aligns with your logical data organizing strengths, coding projects, and focus on analytical systems.',
   },
   {
     id: '8e01fca3-e5dc-482a-ae6b-dd7e0d840080',
     name: 'Virtual & Augmented Reality Engineering',
-    description: 'Build immersive spatial computing software, configure tracking systems, and program interactive VR/AR environments.',
+    description:
+      'Build immersive spatial computing software, configure tracking systems, and program interactive VR/AR environments.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'arts', 'general'],
@@ -514,12 +544,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Video Gaming', 'Coding / Side Projects', 'Photography / Videography'],
     workStyle: { collaboration: 4, workplace: 1, structure: 5 },
     priorities: ['creative_freedom', 'global_mobility'],
-    reasoningTemplate: 'Perfect fit for your interest in virtual worlds, spatial computing, and digital design.',
+    reasoningTemplate:
+      'Perfect fit for your interest in virtual worlds, spatial computing, and digital design.',
   },
   {
     id: '13850cfc-7e88-42aa-a36d-0d265f128008',
     name: 'Computer Vision & Image Processing',
-    description: 'Implement object recognition systems, program spatial camera calibration algorithms, and deploy optical tracking models.',
+    description:
+      'Implement object recognition systems, program spatial camera calibration algorithms, and deploy optical tracking models.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
@@ -527,12 +559,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Solving Puzzles / Chess', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 3 },
     priorities: ['high_salary', 'global_mobility'],
-    reasoningTemplate: 'Aligns with your advanced mathematical skills, interest in camera systems, and coding background.',
+    reasoningTemplate:
+      'Aligns with your advanced mathematical skills, interest in camera systems, and coding background.',
   },
   {
     id: '4d3708bf-f08a-4dd1-abbd-bdd5a4400208',
     name: 'Natural Language Processing & Speech Tech',
-    description: 'Train neural language models, build speech recognition engines, and design dialogue agents using deep learning frameworks.',
+    description:
+      'Train neural language models, build speech recognition engines, and design dialogue agents using deep learning frameworks.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
@@ -540,12 +574,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Reading / Podcasts', 'Creative Writing / Blogging'],
     workStyle: { collaboration: 3, workplace: 1, structure: 3 },
     priorities: ['high_salary', 'creative_freedom'],
-    reasoningTemplate: 'Strongly matches your natural language focus, deep learning coding interest, and writing hobbies.',
+    reasoningTemplate:
+      'Strongly matches your natural language focus, deep learning coding interest, and writing hobbies.',
   },
   {
     id: 'e306f68e-da15-4878-a939-137107c20486',
     name: 'Quantum Software & Algorithms',
-    description: 'Master quantum mechanics fundamentals, write quantum gates circuits, and program quantum algorithms on real quantum hardware.',
+    description:
+      'Master quantum mechanics fundamentals, write quantum gates circuits, and program quantum algorithms on real quantum hardware.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
@@ -553,12 +589,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Tinkering with gadgets', 'Reading / Podcasts'],
     workStyle: { collaboration: 2, workplace: 1, structure: 3 },
     priorities: ['creative_freedom', 'prestige_status', 'global_mobility'],
-    reasoningTemplate: 'Designed for your deep theoretical physics curiosity, strategic chess puzzles hobby, and research focus.',
+    reasoningTemplate:
+      'Designed for your deep theoretical physics curiosity, strategic chess puzzles hobby, and research focus.',
   },
   {
     id: '544dce95-2921-4974-aa7d-6c59df000186',
     name: 'Geographic Information Systems (GIS) Technology',
-    description: 'Analyze spatial mapping data, build interactive cartographic models, and manage geographical databases.',
+    description:
+      'Analyze spatial mapping data, build interactive cartographic models, and manage geographical databases.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['pcm', 'arts', 'general'],
@@ -566,12 +604,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Reading / Podcasts', 'Photography / Videography'],
     workStyle: { collaboration: 3, workplace: 2, structure: 3 },
     priorities: ['stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Matches your mapping interest, spatial technology curiosity, and preference for structured systems.',
+    reasoningTemplate:
+      'Matches your mapping interest, spatial technology curiosity, and preference for structured systems.',
   },
   {
     id: '59e6f631-5f1a-4caf-a506-fc3cc45902c2',
     name: 'Human-Robot Interaction & Social Robotics',
-    description: 'Design responsive robot behaviors, study human cognitive mechanics, and build collaborative robotic assistants.',
+    description:
+      'Design responsive robot behaviors, study human cognitive mechanics, and build collaborative robotic assistants.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'general'],
@@ -579,12 +619,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Coding / Side Projects', 'Reading / Podcasts'],
     workStyle: { collaboration: 4, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'social_impact'],
-    reasoningTemplate: 'A stellar combination of your technological coding interests and human social support goals.',
+    reasoningTemplate:
+      'A stellar combination of your technological coding interests and human social support goals.',
   },
   {
     id: 'b9b05beb-1787-4df6-abae-37848011805b',
     name: 'Digital Twin & Industrial IoT Systems',
-    description: 'Model real-time physical systems in software, integrate industrial sensor telemetry, and build predictive maintenance simulations.',
+    description:
+      'Model real-time physical systems in software, integrate industrial sensor telemetry, and build predictive maintenance simulations.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'general'],
@@ -592,12 +634,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Coding / Side Projects', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'stability_security'],
-    reasoningTemplate: 'Matches your system modeling interest, coding projects, and industrial systems curiosity.',
+    reasoningTemplate:
+      'Matches your system modeling interest, coding projects, and industrial systems curiosity.',
   },
   {
     id: '5662572e-c798-4807-ab91-fad755460000',
     name: 'Edge AI & TinyML Systems',
-    description: 'Optimize and deploy deep learning models on low-power, resource-constrained microcontroller hardware.',
+    description:
+      'Optimize and deploy deep learning models on low-power, resource-constrained microcontroller hardware.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
@@ -605,12 +649,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Tinkering with gadgets', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'creative_freedom', 'global_mobility'],
-    reasoningTemplate: 'Perfect for your micro-hardware interests, deep learning models focus, and systems programming.',
+    reasoningTemplate:
+      'Perfect for your micro-hardware interests, deep learning models focus, and systems programming.',
   },
   {
     id: 'f1d6ba14-115c-4cc0-a6e0-8a7612115488',
     name: 'Cardiology & Cardiovascular Sciences',
-    description: 'Study cardiovascular pathologies, analyze diagnostic ECG recordings, and assist in clinical heart surgery procedures.',
+    description:
+      'Study cardiovascular pathologies, analyze diagnostic ECG recordings, and assist in clinical heart surgery procedures.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['pcb', 'general'],
@@ -618,12 +664,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Playing Sports / Fitness', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 4, workplace: 2, structure: 2 },
     priorities: ['stability_security', 'social_impact', 'prestige_status'],
-    reasoningTemplate: 'Perfect for your medical care goals, deep biological interests, and high prestige priority.',
+    reasoningTemplate:
+      'Perfect for your medical care goals, deep biological interests, and high prestige priority.',
   },
   {
     id: '24bd45f4-64d9-4edf-ae40-64a80a249945',
     name: 'Neurology & Brain Sciences',
-    description: 'Investigate nervous system pathologies, analyze electroencephalograms, and treat neurological disorders.',
+    description:
+      'Investigate nervous system pathologies, analyze electroencephalograms, and treat neurological disorders.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['pcb', 'general'],
@@ -631,12 +679,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Tinkering with gadgets'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['prestige_status', 'stability_security', 'social_impact'],
-    reasoningTemplate: 'Matches your deep neurological sciences curiosity, logical diagnostics interest, and clinical goals.',
+    reasoningTemplate:
+      'Matches your deep neurological sciences curiosity, logical diagnostics interest, and clinical goals.',
   },
   {
     id: '7c318b1c-75fd-4f1d-a609-cc7aca743181',
     name: 'Pediatrics & Child Healthcare',
-    description: 'Master child developmental milestones, diagnose pediatric illnesses, and manage neonatal clinical care units.',
+    description:
+      'Master child developmental milestones, diagnose pediatric illnesses, and manage neonatal clinical care units.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['pcb', 'general'],
@@ -644,12 +694,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Gardening / Cooking', 'Playing Sports / Fitness'],
     workStyle: { collaboration: 4, workplace: 4, structure: 2 },
     priorities: ['social_impact', 'stability_security'],
-    reasoningTemplate: 'Aligns with your empathetic children education focus, pediatric medical care goals, and clinical interest.',
+    reasoningTemplate:
+      'Aligns with your empathetic children education focus, pediatric medical care goals, and clinical interest.',
   },
   {
     id: '1582a5f7-af92-4e99-a9ba-104c6e0582a1',
     name: 'Nursing & Patient Care Sciences',
-    description: 'Deliver critical patient care, manage ward operations, administer clinical medications, and assist doctors in procedures.',
+    description:
+      'Deliver critical patient care, manage ward operations, administer clinical medications, and assist doctors in procedures.',
     durationYears: 4,
     difficultyLevel: 'Beginner',
     streams: ['pcb', 'general'],
@@ -657,12 +709,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Playing Sports / Fitness', 'Gardening / Cooking'],
     workStyle: { collaboration: 5, workplace: 4, structure: 2 },
     priorities: ['social_impact', 'stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Ideal for your patient support goals, cooperative medical care style, and clinical environment interest.',
+    reasoningTemplate:
+      'Ideal for your patient support goals, cooperative medical care style, and clinical environment interest.',
   },
   {
     id: 'a4d2ed2f-cf52-4c79-a76b-802ab88452c5',
     name: 'Dentistry & Oral Health (BDS)',
-    description: 'Diagnose oral pathologies, perform orthodontic corrections, and deliver specialized dental healthcare treatments.',
+    description:
+      'Diagnose oral pathologies, perform orthodontic corrections, and deliver specialized dental healthcare treatments.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['pcb', 'general'],
@@ -670,12 +724,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Painting / Sketching / Sculpting', 'Tinkering with gadgets', 'Reading / Podcasts'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['stability_security', 'prestige_status', 'work_life_balance'],
-    reasoningTemplate: 'Combines your orthopedic dental care goals, fine manual sketching hobbies, and stable career priority.',
+    reasoningTemplate:
+      'Combines your orthopedic dental care goals, fine manual sketching hobbies, and stable career priority.',
   },
   {
     id: 'd9b0ab41-658e-4f9a-abbc-3e52ea4180a9',
     name: 'Pharmacy & Pharmaceutical Chemistry',
-    description: 'Master drug compositions, study biochemical pharmacology, and manage commercial pharmaceutical distribution.',
+    description:
+      'Master drug compositions, study biochemical pharmacology, and manage commercial pharmaceutical distribution.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcb', 'pcm', 'general'],
@@ -683,12 +739,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Gardening / Cooking'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['stability_security', 'high_salary'],
-    reasoningTemplate: 'Matches your interest in biochemical drug compositions, pharmaceutical economics, and stable research.',
+    reasoningTemplate:
+      'Matches your interest in biochemical drug compositions, pharmaceutical economics, and stable research.',
   },
   {
     id: 'cec9178f-b2e7-42b0-ae7c-2e3c8182c103',
     name: 'Physiotherapy & Rehabilitation (BPT)',
-    description: 'Design orthopedic recovery routines, treat sports injuries, and deliver muscular-skeletal rehabilitation treatments.',
+    description:
+      'Design orthopedic recovery routines, treat sports injuries, and deliver muscular-skeletal rehabilitation treatments.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcb', 'general'],
@@ -696,12 +754,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Playing Sports / Fitness', 'Reading / Podcasts', 'Playing musical instruments'],
     workStyle: { collaboration: 4, workplace: 4, structure: 3 },
     priorities: ['social_impact', 'work_life_balance', 'stability_security'],
-    reasoningTemplate: 'Perfect for your orthopedic recovery interests, active physical fitness style, and patient counseling goals.',
+    reasoningTemplate:
+      'Perfect for your orthopedic recovery interests, active physical fitness style, and patient counseling goals.',
   },
   {
     id: '8da75801-c8cc-4d72-a645-6b8f27888450',
     name: 'Biomedical Engineering & Medical Devices',
-    description: 'Design advanced medical scanners, construct prosthetic limbs, and calibrate clinical diagnostic electronics.',
+    description:
+      'Design advanced medical scanners, construct prosthetic limbs, and calibrate clinical diagnostic electronics.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'pcb', 'general'],
@@ -709,12 +769,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Coding / Side Projects', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['high_salary', 'global_mobility', 'creative_freedom'],
-    reasoningTemplate: 'Aligns with your medical scanner engineering interests, electronic tinkering skills, and high salary priority.',
+    reasoningTemplate:
+      'Aligns with your medical scanner engineering interests, electronic tinkering skills, and high salary priority.',
   },
   {
     id: '1da7db4a-ed97-4c37-a3f0-3018390d87c3',
     name: 'Nutrition, Dietetics & Metabolic Health',
-    description: 'Analyze nutritional deficiencies, formulate metabolic diet charts, and manage community health wellness programs.',
+    description:
+      'Analyze nutritional deficiencies, formulate metabolic diet charts, and manage community health wellness programs.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['pcb', 'general'],
@@ -722,12 +784,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Gardening / Cooking', 'Reading / Podcasts', 'Playing Sports / Fitness'],
     workStyle: { collaboration: 4, workplace: 1, structure: 3 },
     priorities: ['social_impact', 'work_life_balance'],
-    reasoningTemplate: 'Perfect for your metabolic diet interests, home cooking hobbies, and family support goals.',
+    reasoningTemplate:
+      'Perfect for your metabolic diet interests, home cooking hobbies, and family support goals.',
   },
   {
     id: '0afef8df-6702-4b36-a26d-fc4bbd0202b0',
     name: 'Epidemiology & Public Health Administration',
-    description: 'Model contagious disease spread patterns, analyze public health statistics, and manage healthcare policy campaigns.',
+    description:
+      'Model contagious disease spread patterns, analyze public health statistics, and manage healthcare policy campaigns.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcb', 'pcm', 'general'],
@@ -735,12 +799,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Debating / Public Speaking'],
     workStyle: { collaboration: 4, workplace: 2, structure: 2 },
     priorities: ['social_impact', 'stability_security', 'prestige_status'],
-    reasoningTemplate: 'Matches your public health statistics interests, logical reasoning, and social policy goals.',
+    reasoningTemplate:
+      'Matches your public health statistics interests, logical reasoning, and social policy goals.',
   },
   {
     id: '2d65d3e2-56e1-4c1b-ad7b-84125f0461c1',
     name: 'Clinical Pathology & Diagnostics',
-    description: 'Analyze blood smears, process biopsy tissue slides, and run clinical diagnostic lab equipment.',
+    description:
+      'Analyze blood smears, process biopsy tissue slides, and run clinical diagnostic lab equipment.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcb', 'general'],
@@ -748,12 +814,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Tinkering with gadgets'],
     workStyle: { collaboration: 2, workplace: 2, structure: 1 },
     priorities: ['stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Ideal for your independent diagnostic research style, high structured preference, and clinical focus.',
+    reasoningTemplate:
+      'Ideal for your independent diagnostic research style, high structured preference, and clinical focus.',
   },
   {
     id: '116102dd-bf00-4a5c-a0ae-61a71d110000',
     name: 'Medical Genetics & Counseling',
-    description: 'Analyze genetic mutation screenings, counsel families on hereditary risks, and study gene-therapy models.',
+    description:
+      'Analyze genetic mutation screenings, counsel families on hereditary risks, and study gene-therapy models.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcb', 'general'],
@@ -761,12 +829,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Coding / Side Projects'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['stability_security', 'social_impact', 'global_mobility'],
-    reasoningTemplate: 'Matches your genetic mutation interest, scientific research focus, and family support goals.',
+    reasoningTemplate:
+      'Matches your genetic mutation interest, scientific research focus, and family support goals.',
   },
   {
     id: '023db7f3-3b76-4833-aa39-4b34c9023483',
     name: 'Radiology & Medical Imaging Technology',
-    description: 'Operate advanced MRI, CT, and X-ray scanners, manage radiation safety, and catalog medical imaging records.',
+    description:
+      'Operate advanced MRI, CT, and X-ray scanners, manage radiation safety, and catalog medical imaging records.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcb', 'pcm', 'general'],
@@ -774,12 +844,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Tinkering with gadgets', 'Video Gaming', 'Reading / Podcasts'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Matches your scanner operations interest, electronic troubleshooting skills, and stable career goals.',
+    reasoningTemplate:
+      'Matches your scanner operations interest, electronic troubleshooting skills, and stable career goals.',
   },
   {
     id: '5f407d57-1d16-451e-a342-562cb41d0051',
     name: 'Oncology & Cancer Biology Sciences',
-    description: 'Study cellular mutation pathways, analyze chemotherapy protocols, and participate in clinical cancer research studies.',
+    description:
+      'Study cellular mutation pathways, analyze chemotherapy protocols, and participate in clinical cancer research studies.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['pcb', 'general'],
@@ -787,12 +859,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Coding / Side Projects'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['prestige_status', 'social_impact', 'stability_security'],
-    reasoningTemplate: 'Perfect for your deep cancer biology interest, clinical cancer research goals, and high status priority.',
+    reasoningTemplate:
+      'Perfect for your deep cancer biology interest, clinical cancer research goals, and high status priority.',
   },
   {
     id: '99bfb46b-0ab1-4422-a793-0ef64c08b100',
     name: 'Immunology & Vaccine Development',
-    description: 'Investigate lymphatic immune responses, study autoimmune diseases, and research biochemical vaccine formulations.',
+    description:
+      'Investigate lymphatic immune responses, study autoimmune diseases, and research biochemical vaccine formulations.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcb', 'general'],
@@ -800,12 +874,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Tinkering with gadgets'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['stability_security', 'global_mobility', 'social_impact'],
-    reasoningTemplate: 'Aligns with your vaccine development interests, deep laboratory research style, and global impact priority.',
+    reasoningTemplate:
+      'Aligns with your vaccine development interests, deep laboratory research style, and global impact priority.',
   },
   {
     id: 'c7ed826d-ef29-4384-a728-c4ba2ac72900',
     name: 'Sports Medicine & Athletic Performance',
-    description: 'Study human biokinetics, manage athletic recovery plans, and treat muscular-skeletal sports trauma.',
+    description:
+      'Study human biokinetics, manage athletic recovery plans, and treat muscular-skeletal sports trauma.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcb', 'general'],
@@ -813,12 +889,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Playing Sports / Fitness', 'Reading / Podcasts', 'Playing musical instruments'],
     workStyle: { collaboration: 4, workplace: 4, structure: 3 },
     priorities: ['social_impact', 'work_life_balance'],
-    reasoningTemplate: 'Perfect for your biokinetics recovery focus, active sports fitness style, and patient coaching goals.',
+    reasoningTemplate:
+      'Perfect for your biokinetics recovery focus, active sports fitness style, and patient coaching goals.',
   },
   {
     id: 'c9b7a004-2a59-431a-a9e3-ee91ad081120',
     name: 'Clinical Pharmacology & Toxicology',
-    description: 'Analyze chemical poisoning vectors, study pharmaceutical drug interactions, and run forensic toxicology assays.',
+    description:
+      'Analyze chemical poisoning vectors, study pharmaceutical drug interactions, and run forensic toxicology assays.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcb', 'pcm', 'general'],
@@ -826,12 +904,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Tinkering with gadgets'],
     workStyle: { collaboration: 2, workplace: 2, structure: 2 },
     priorities: ['stability_security', 'high_salary'],
-    reasoningTemplate: 'Aligns with your chemical toxicology interests, independent laboratory focus, and stable career priority.',
+    reasoningTemplate:
+      'Aligns with your chemical toxicology interests, independent laboratory focus, and stable career priority.',
   },
   {
     id: '7cf5c0a9-73f4-4138-a90f-01d32070f400',
     name: 'Geriatric Healthcare & Aging Sciences',
-    description: 'Study age-related cognitive and physical decline, and manage specialized medical care programs for senior citizens.',
+    description:
+      'Study age-related cognitive and physical decline, and manage specialized medical care programs for senior citizens.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcb', 'general'],
@@ -839,12 +919,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Gardening / Cooking', 'Playing Sports / Fitness'],
     workStyle: { collaboration: 4, workplace: 4, structure: 2 },
     priorities: ['social_impact', 'stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Matches your elderly care interests, patient support goals, and empathetic clinical focus.',
+    reasoningTemplate:
+      'Matches your elderly care interests, patient support goals, and empathetic clinical focus.',
   },
   {
     id: '0659267d-ed28-49a3-afeb-71bc42040802',
     name: 'Optometry & Ophthalmic Sciences',
-    description: 'Conduct visual acuity examinations, diagnose refractive errors, and manage clinical vision correction therapies.',
+    description:
+      'Conduct visual acuity examinations, diagnose refractive errors, and manage clinical vision correction therapies.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['pcb', 'general'],
@@ -852,12 +934,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Tinkering with gadgets', 'Gardening / Cooking'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Matches your clinical eye examination focus, independent desk style, and stable career priority.',
+    reasoningTemplate:
+      'Matches your clinical eye examination focus, independent desk style, and stable career priority.',
   },
   {
     id: '0b70cf7b-9ccf-45b4-a097-bf943b08404b',
     name: 'Hospital Operations & Healthcare Mgmt',
-    description: 'Manage clinical staffing networks, audit healthcare compliance regulations, and optimize emergency ward workflows.',
+    description:
+      'Manage clinical staffing networks, audit healthcare compliance regulations, and optimize emergency ward workflows.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcb', 'commerce', 'general'],
@@ -865,12 +949,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Playing Sports / Fitness'],
     workStyle: { collaboration: 5, workplace: 2, structure: 3 },
     priorities: ['stability_security', 'high_salary', 'prestige_status'],
-    reasoningTemplate: 'Perfect for your hospital operations interest, cooperative management style, and stable administrative goals.',
+    reasoningTemplate:
+      'Perfect for your hospital operations interest, cooperative management style, and stable administrative goals.',
   },
   {
     id: 'e6022e10-e5b5-444b-ad03-b76aade40004',
     name: 'Corporate Finance & Treasury Management',
-    description: 'Analyze capital budgeting, manage corporate cash flow liquidity, and evaluate merger and acquisition transactions.',
+    description:
+      'Analyze capital budgeting, manage corporate cash flow liquidity, and evaluate merger and acquisition transactions.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'pcm', 'general'],
@@ -878,12 +964,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Reading / Podcasts', 'Video Gaming'],
     workStyle: { collaboration: 4, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'prestige_status', 'global_mobility'],
-    reasoningTemplate: 'Highly aligns with your corporate finance interest, corporate cash liquidity focus, and investment goals.',
+    reasoningTemplate:
+      'Highly aligns with your corporate finance interest, corporate cash liquidity focus, and investment goals.',
   },
   {
     id: '29efcd97-ba72-4035-aa93-9dcecd286201',
     name: 'Human Resources & Talent Management',
-    description: 'Design corporate recruitment strategies, manage labor relations, and optimize employee training pipelines.',
+    description:
+      'Design corporate recruitment strategies, manage labor relations, and optimize employee training pipelines.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['commerce', 'arts', 'general'],
@@ -891,12 +979,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Gardening / Cooking'],
     workStyle: { collaboration: 4, workplace: 1, structure: 3 },
     priorities: ['work_life_balance', 'social_impact', 'stability_security'],
-    reasoningTemplate: 'Perfect for your corporate staffing interests, people coaching goals, and stable administration priority.',
+    reasoningTemplate:
+      'Perfect for your corporate staffing interests, people coaching goals, and stable administration priority.',
   },
   {
     id: '4689c370-e774-4859-a5a1-fd46e5460081',
     name: 'Supply Chain & Logistics Engineering',
-    description: 'Optimize global shipping routes, manage inventory warehouses, and negotiate vendor procurement contracts.',
+    description:
+      'Optimize global shipping routes, manage inventory warehouses, and negotiate vendor procurement contracts.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'pcm', 'general'],
@@ -904,12 +994,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Reading / Podcasts', 'Tinkering with gadgets'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['high_salary', 'stability_security', 'global_mobility'],
-    reasoningTemplate: 'Matches your shipping logistics interests, warehouse efficiency focus, and global trade career goals.',
+    reasoningTemplate:
+      'Matches your shipping logistics interests, warehouse efficiency focus, and global trade career goals.',
   },
   {
     id: 'b73f210e-cbe9-4e3c-a77c-d6c2c9832921',
     name: 'International Business & Global Trade',
-    description: 'Study import-export custom regulations, analyze foreign exchange fluctuations, and manage multinational ventures.',
+    description:
+      'Study import-export custom regulations, analyze foreign exchange fluctuations, and manage multinational ventures.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'arts', 'general'],
@@ -917,12 +1009,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 4, workplace: 1, structure: 3 },
     priorities: ['global_mobility', 'high_salary', 'prestige_status'],
-    reasoningTemplate: 'Aligns with your multinational operations focus, currency markets interest, and high prestige goals.',
+    reasoningTemplate:
+      'Aligns with your multinational operations focus, currency markets interest, and high prestige goals.',
   },
   {
     id: '104f431c-d8fb-41f2-aec8-b45c32104b03',
     name: 'Fintech & Digital Banking Systems',
-    description: 'Analyze digital payment architectures, evaluate peer-to-peer lending platforms, and understand mobile banking security.',
+    description:
+      'Analyze digital payment architectures, evaluate peer-to-peer lending platforms, and understand mobile banking security.',
     durationYears: 3,
     difficultyLevel: 'Advanced',
     streams: ['commerce', 'pcm', 'general'],
@@ -930,12 +1024,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Coding / Side Projects', 'Solving Puzzles / Chess', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 3 },
     priorities: ['high_salary', 'creative_freedom', 'global_mobility'],
-    reasoningTemplate: 'A stellar combination of your digital payments interest, software coding projects, and financial tech goals.',
+    reasoningTemplate:
+      'A stellar combination of your digital payments interest, software coding projects, and financial tech goals.',
   },
   {
     id: '81109276-834d-452d-a802-5dc0ae810012',
     name: 'Real Estate Development & Finance',
-    description: 'Evaluate commercial property values, manage real estate investment trusts (REITs), and study urban zoning laws.',
+    description:
+      'Evaluate commercial property values, manage real estate investment trusts (REITs), and study urban zoning laws.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'general'],
@@ -943,12 +1039,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Debating / Public Speaking'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['high_salary', 'prestige_status'],
-    reasoningTemplate: 'Perfect for your property valuation interests, asset management focus, and wealth building goals.',
+    reasoningTemplate:
+      'Perfect for your property valuation interests, asset management focus, and wealth building goals.',
   },
   {
     id: '6a2cbd0a-2021-43e4-a04a-0d834a20203c',
     name: 'Hospitality & Luxury Tourism Management',
-    description: 'Manage 5-star resort operations, coordinate global luxury travel events, and optimize customer experience metrics.',
+    description:
+      'Manage 5-star resort operations, coordinate global luxury travel events, and optimize customer experience metrics.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['commerce', 'arts', 'general'],
@@ -956,12 +1054,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Gardening / Cooking'],
     workStyle: { collaboration: 5, workplace: 3, structure: 3 },
     priorities: ['global_mobility', 'work_life_balance', 'prestige_status'],
-    reasoningTemplate: 'Ideal for your hotel operations focus, customer service style, and global luxury career goals.',
+    reasoningTemplate:
+      'Ideal for your hotel operations focus, customer service style, and global luxury career goals.',
   },
   {
     id: '1c2e4fe0-194c-4335-a805-627cb8180c03',
     name: 'E-Commerce & Digital Retail Operations',
-    description: 'Manage online digital storefronts, optimize digital conversion funnels, and coordinate retail shipping logistics.',
+    description:
+      'Manage online digital storefronts, optimize digital conversion funnels, and coordinate retail shipping logistics.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['commerce', 'arts', 'general'],
@@ -969,12 +1069,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Creative Writing / Blogging', 'Photography / Videography', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'high_salary', 'work_life_balance'],
-    reasoningTemplate: 'Matches your online retail interests, customer acquisition focus, and digital business goals.',
+    reasoningTemplate:
+      'Matches your online retail interests, customer acquisition focus, and digital business goals.',
   },
   {
     id: '6b341a41-bc9d-48e4-a3d7-a9940228140a',
     name: 'Actuarial Science & Risk Valuation',
-    description: 'Apply probability models, design insurance policies, and calculate long-term financial liabilities.',
+    description:
+      'Apply probability models, design insurance policies, and calculate long-term financial liabilities.',
     durationYears: 3,
     difficultyLevel: 'Advanced',
     streams: ['commerce', 'pcm', 'general'],
@@ -982,25 +1084,33 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Reading / Podcasts', 'Coding / Side Projects'],
     workStyle: { collaboration: 2, workplace: 1, structure: 1 },
     priorities: ['stability_security', 'high_salary', 'prestige_status'],
-    reasoningTemplate: 'Aligns with your probability modeling strengths, deep quantitative focus, and stable career priority.',
+    reasoningTemplate:
+      'Aligns with your probability modeling strengths, deep quantitative focus, and stable career priority.',
   },
   {
     id: '440ac686-4b57-4d1c-a50f-5d17434002c0',
     name: 'Brand Strategy & Public Relations',
-    description: 'Orchestrate media communication campaigns, design corporate identities, and manage public crisis communications.',
+    description:
+      'Orchestrate media communication campaigns, design corporate identities, and manage public crisis communications.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['commerce', 'arts', 'general'],
     interests: ['marketing_pr', 'media_writing'],
-    hobbies: ['Creative Writing / Blogging', 'Debating / Public Speaking', 'Photography / Videography'],
+    hobbies: [
+      'Creative Writing / Blogging',
+      'Debating / Public Speaking',
+      'Photography / Videography',
+    ],
     workStyle: { collaboration: 4, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'prestige_status', 'work_life_balance'],
-    reasoningTemplate: 'Matches your brand messaging focus, corporate PR style, and media relations goals.',
+    reasoningTemplate:
+      'Matches your brand messaging focus, corporate PR style, and media relations goals.',
   },
   {
     id: '701a3975-074a-4df9-ac77-50e6e9000a19',
     name: 'Enterprise Sales & Business Development',
-    description: 'Master B2B negotiation techniques, manage sales CRM software pipelines, and pitch corporate proposals.',
+    description:
+      'Master B2B negotiation techniques, manage sales CRM software pipelines, and pitch corporate proposals.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['commerce', 'arts', 'general'],
@@ -1008,12 +1118,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Playing Sports / Fitness'],
     workStyle: { collaboration: 4, workplace: 2, structure: 3 },
     priorities: ['high_salary', 'global_mobility'],
-    reasoningTemplate: 'Perfect for your corporate B2B sales focus, active negotiation style, and high commission priority.',
+    reasoningTemplate:
+      'Perfect for your corporate B2B sales focus, active negotiation style, and high commission priority.',
   },
   {
     id: 'bb4315c4-cd48-493a-a176-0b8665894011',
     name: 'Wealth Management & Private Banking',
-    description: 'Formulate private client investment strategies, analyze tax shelters, and manage high-net-worth portfolios.',
+    description:
+      'Formulate private client investment strategies, analyze tax shelters, and manage high-net-worth portfolios.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'general'],
@@ -1021,12 +1133,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Reading / Podcasts', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'prestige_status', 'stability_security'],
-    reasoningTemplate: 'Aligns with your portfolio management interests, private banking style, and wealth protection goals.',
+    reasoningTemplate:
+      'Aligns with your portfolio management interests, private banking style, and wealth protection goals.',
   },
   {
     id: '51d8b66b-1e0d-424e-ac4f-d59287100824',
     name: 'Sustainability Management & Green Business',
-    description: 'Audit corporate carbon emissions, implement ESG recycling circularity, and design green product packaging.',
+    description:
+      'Audit corporate carbon emissions, implement ESG recycling circularity, and design green product packaging.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'arts', 'pcm', 'general'],
@@ -1034,12 +1148,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Gardening / Cooking', 'Debating / Public Speaking'],
     workStyle: { collaboration: 4, workplace: 1, structure: 3 },
     priorities: ['social_impact', 'work_life_balance', 'creative_freedom'],
-    reasoningTemplate: 'Matches your corporate environmental interests, carbon metrics focus, and global stewardship goals.',
+    reasoningTemplate:
+      'Matches your corporate environmental interests, carbon metrics focus, and global stewardship goals.',
   },
   {
     id: 'f807c8da-3814-4226-a0c0-13eaba380400',
     name: 'Business Intelligence & Data Analytics',
-    description: 'Configure corporate BI dashboard analytics, write SQL queries, and build corporate trend forecasting models.',
+    description:
+      'Configure corporate BI dashboard analytics, write SQL queries, and build corporate trend forecasting models.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'pcm', 'general'],
@@ -1047,12 +1163,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Coding / Side Projects', 'Reading / Podcasts'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'stability_security', 'global_mobility'],
-    reasoningTemplate: 'Matches your corporate data analytics interest, coding projects, and corporate forecasting goals.',
+    reasoningTemplate:
+      'Matches your corporate data analytics interest, coding projects, and corporate forecasting goals.',
   },
   {
     id: '50ecf1a5-f463-40dd-a8a4-8ffc7d506001',
     name: 'Venture Capital & Private Equity',
-    description: 'Evaluate early-stage startup business models, structure term sheets, and conduct corporate due diligence valuations.',
+    description:
+      'Evaluate early-stage startup business models, structure term sheets, and conduct corporate due diligence valuations.',
     durationYears: 3,
     difficultyLevel: 'Advanced',
     streams: ['commerce', 'pcm', 'general'],
@@ -1060,12 +1178,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Reading / Podcasts', 'Debating / Public Speaking'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'prestige_status', 'global_mobility'],
-    reasoningTemplate: 'Matches your startup valuation interests, term sheet structures, and venture capital goals.',
+    reasoningTemplate:
+      'Matches your startup valuation interests, term sheet structures, and venture capital goals.',
   },
   {
     id: 'ee86281f-b7e4-41f8-a959-623796a68408',
     name: 'Behavioral Economics & Market Psychology',
-    description: 'Study cognitive biases in spending, design corporate nudges, and analyze market pricing models.',
+    description:
+      'Study cognitive biases in spending, design corporate nudges, and analyze market pricing models.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'arts', 'general'],
@@ -1073,12 +1193,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Debating / Public Speaking'],
     workStyle: { collaboration: 3, workplace: 1, structure: 3 },
     priorities: ['social_impact', 'creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Perfect for your behavioral economics interests, spending psychology focus, and market nudges goals.',
+    reasoningTemplate:
+      'Perfect for your behavioral economics interests, spending psychology focus, and market nudges goals.',
   },
   {
     id: '69773905-1c66-430a-a775-1109a2086630',
     name: 'Agribusiness & Food Supply Chains',
-    description: 'Manage agricultural commodity trading, optimize cold storage networks, and evaluate farming technology investments.',
+    description:
+      'Manage agricultural commodity trading, optimize cold storage networks, and evaluate farming technology investments.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['commerce', 'pcb', 'general'],
@@ -1086,12 +1208,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Gardening / Cooking', 'Reading / Podcasts', 'Playing Sports / Fitness'],
     workStyle: { collaboration: 3, workplace: 3, structure: 3 },
     priorities: ['stability_security', 'social_impact', 'work_life_balance'],
-    reasoningTemplate: 'Matches your commodity trading interests, cold chain logistics focus, and agricultural tech goals.',
+    reasoningTemplate:
+      'Matches your commodity trading interests, cold chain logistics focus, and agricultural tech goals.',
   },
   {
     id: 'a437f081-ebcd-4bbd-ab4f-fa4b5aa005b0',
     name: 'Operations Research & Lean Six Sigma',
-    description: 'Optimize corporate manufacturing throughput, map lean value streams, and eliminate operational waste.',
+    description:
+      'Optimize corporate manufacturing throughput, map lean value streams, and eliminate operational waste.',
     durationYears: 3,
     difficultyLevel: 'Advanced',
     streams: ['commerce', 'pcm', 'general'],
@@ -1099,25 +1223,33 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Tinkering with gadgets', 'Coding / Side Projects'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['high_salary', 'stability_security', 'global_mobility'],
-    reasoningTemplate: 'Matches your factory optimization focus, manufacturing metrics interest, and lean processes goals.',
+    reasoningTemplate:
+      'Matches your factory optimization focus, manufacturing metrics interest, and lean processes goals.',
   },
   {
     id: '164af15d-f963-4da7-abef-292b261042d0',
     name: 'Product Marketing & Growth Hacking',
-    description: 'Orchestrate software product launches, run digital user acquisition tests, and analyze product retention cohorts.',
+    description:
+      'Orchestrate software product launches, run digital user acquisition tests, and analyze product retention cohorts.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['commerce', 'arts', 'general'],
     interests: ['marketing_pr', 'business_ent'],
-    hobbies: ['Creative Writing / Blogging', 'Photography / Videography', 'Debating / Public Speaking'],
+    hobbies: [
+      'Creative Writing / Blogging',
+      'Photography / Videography',
+      'Debating / Public Speaking',
+    ],
     workStyle: { collaboration: 4, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'high_salary', 'global_mobility'],
-    reasoningTemplate: 'Matches your software launch interest, user acquisition campaigns, and product marketing goals.',
+    reasoningTemplate:
+      'Matches your software launch interest, user acquisition campaigns, and product marketing goals.',
   },
   {
     id: 'af222a43-8431-4348-a12b-131ec2842020',
     name: 'Franchise Operations & Retail Expansion',
-    description: 'Structure franchise operating models, evaluate retail site selections, and audit multi-location standards.',
+    description:
+      'Structure franchise operating models, evaluate retail site selections, and audit multi-location standards.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['commerce', 'general'],
@@ -1125,12 +1257,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Playing Sports / Fitness'],
     workStyle: { collaboration: 4, workplace: 2, structure: 2 },
     priorities: ['high_salary', 'stability_security'],
-    reasoningTemplate: 'Matches your retail franchise interest, store expansion layouts, and multi-location standards.',
+    reasoningTemplate:
+      'Matches your retail franchise interest, store expansion layouts, and multi-location standards.',
   },
   {
     id: '5f6e1e06-d48b-4cad-af8b-e5d4d9540a0a',
     name: 'Intellectual Property & Patent Law',
-    description: 'Study international trademark filings, draft patent claims, and analyze copyright infringement case law.',
+    description:
+      'Study international trademark filings, draft patent claims, and analyze copyright infringement case law.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['arts', 'commerce', 'pcm', 'general'],
@@ -1138,12 +1272,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Coding / Side Projects'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'prestige_status', 'global_mobility'],
-    reasoningTemplate: 'Perfect for your intellectual property interests, patent filings focus, and high prestige priority.',
+    reasoningTemplate:
+      'Perfect for your intellectual property interests, patent filings focus, and high prestige priority.',
   },
   {
     id: 'dd93051f-184d-485d-a2c5-de80cd180105',
     name: 'International Law & Global Treaties',
-    description: 'Analyze UN charters, study international maritime boundaries, and evaluate cross-border dispute resolutions.',
+    description:
+      'Analyze UN charters, study international maritime boundaries, and evaluate cross-border dispute resolutions.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['arts', 'commerce', 'general'],
@@ -1151,12 +1287,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['prestige_status', 'global_mobility', 'social_impact'],
-    reasoningTemplate: 'Matches your global treaty interests, cross-border dispute focus, and international advocacy goals.',
+    reasoningTemplate:
+      'Matches your global treaty interests, cross-border dispute focus, and international advocacy goals.',
   },
   {
     id: 'ea68baaf-1243-438d-a5f8-2b827a024038',
     name: 'Public Policy & Legislative Studies',
-    description: 'Evaluate social policy cost-benefits, draft legislative frameworks, and analyze public administration dynamics.',
+    description:
+      'Evaluate social policy cost-benefits, draft legislative frameworks, and analyze public administration dynamics.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'commerce', 'general'],
@@ -1164,12 +1302,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Creative Writing / Blogging'],
     workStyle: { collaboration: 4, workplace: 1, structure: 3 },
     priorities: ['social_impact', 'stability_security', 'prestige_status'],
-    reasoningTemplate: 'Aligns with your social policy interests, legislative draft focus, and public administration goals.',
+    reasoningTemplate:
+      'Aligns with your social policy interests, legislative draft focus, and public administration goals.',
   },
   {
     id: 'a3db8d5a-acc8-4039-a60f-138ecca0c801',
     name: 'Political Science & Comparative Politics',
-    description: 'Study classic political philosophies, analyze voting patterns, and evaluate national governance models.',
+    description:
+      'Study classic political philosophies, analyze voting patterns, and evaluate national governance models.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
@@ -1177,12 +1317,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Creative Writing / Blogging'],
     workStyle: { collaboration: 3, workplace: 1, structure: 3 },
     priorities: ['social_impact', 'prestige_status', 'stability_security'],
-    reasoningTemplate: 'Matches your political philosophy interest, governance models focus, and public leadership goals.',
+    reasoningTemplate:
+      'Matches your political philosophy interest, governance models focus, and public leadership goals.',
   },
   {
     id: 'dc1d4e1b-88c6-48ea-af54-dbc0b488040e',
     name: 'Sociology & Social Anthropology',
-    description: 'Study community demographic shifts, analyze class struggles, and conduct ethnographical field studies.',
+    description:
+      'Study community demographic shifts, analyze class struggles, and conduct ethnographical field studies.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
@@ -1190,12 +1332,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Debating / Public Speaking', 'Photography / Videography'],
     workStyle: { collaboration: 3, workplace: 3, structure: 4 },
     priorities: ['social_impact', 'work_life_balance'],
-    reasoningTemplate: 'Perfect for your community social studies focus, empathetic research style, and social advocacy goals.',
+    reasoningTemplate:
+      'Perfect for your community social studies focus, empathetic research style, and social advocacy goals.',
   },
   {
     id: '8093e936-b002-470b-ae30-919988800260',
     name: 'World History & Archival Research',
-    description: 'Analyze historical primary source texts, study archaeological histories, and manage institutional museum archives.',
+    description:
+      'Analyze historical primary source texts, study archaeological histories, and manage institutional museum archives.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
@@ -1203,12 +1347,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Photography / Videography', 'Gardening / Cooking'],
     workStyle: { collaboration: 2, workplace: 1, structure: 3 },
     priorities: ['stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Matches your world history interest, archival research focus, and stable museum goals.',
+    reasoningTemplate:
+      'Matches your world history interest, archival research focus, and stable museum goals.',
   },
   {
     id: 'a33e96bf-49de-42e4-a4ea-e0b8fb011e06',
     name: 'Philosophy, Logic & Cognitive Ethics',
-    description: 'Master formal logical reasoning, study epistemology theories, and analyze contemporary applied bioethics.',
+    description:
+      'Master formal logical reasoning, study epistemology theories, and analyze contemporary applied bioethics.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'general'],
@@ -1216,12 +1362,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Debating / Public Speaking'],
     workStyle: { collaboration: 2, workplace: 1, structure: 3 },
     priorities: ['creative_freedom', 'social_impact', 'work_life_balance'],
-    reasoningTemplate: 'Perfect for your logical ethics focus, theoretical philosophy interest, and academic goals.',
+    reasoningTemplate:
+      'Perfect for your logical ethics focus, theoretical philosophy interest, and academic goals.',
   },
   {
     id: '79c14fda-b50f-40c4-accc-ce439631010c',
     name: 'English Literature & Comparative Texts',
-    description: 'Analyze classical and post-colonial literary canons, study narrative structures, and write critical essays.',
+    description:
+      'Analyze classical and post-colonial literary canons, study narrative structures, and write critical essays.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
@@ -1229,12 +1377,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Creative Writing / Blogging', 'Reading / Podcasts', 'Debating / Public Speaking'],
     workStyle: { collaboration: 2, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Ideal for your literary analysis focus, writing creativity, and publishing industry goals.',
+    reasoningTemplate:
+      'Ideal for your literary analysis focus, writing creativity, and publishing industry goals.',
   },
   {
     id: '5f0c3047-55a3-42f5-a10a-af1f16550020',
     name: 'Criminology & Criminal Justice System',
-    description: 'Study psychological criminal profiling, evaluate penitentiary correction models, and analyze crime statistics.',
+    description:
+      'Study psychological criminal profiling, evaluate penitentiary correction models, and analyze crime statistics.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'general'],
@@ -1242,12 +1392,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Solving Puzzles / Chess', 'Debating / Public Speaking'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['social_impact', 'stability_security', 'prestige_status'],
-    reasoningTemplate: 'Matches your criminal psychology focus, judicial systems interest, and public safety goals.',
+    reasoningTemplate:
+      'Matches your criminal psychology focus, judicial systems interest, and public safety goals.',
   },
   {
     id: '6bf11dbf-1835-4f91-a073-c4e4af083119',
     name: 'Environmental Law & Climate Treaties',
-    description: 'Analyze national forestry conservation laws, study global climate accords, and litigate pollution liability cases.',
+    description:
+      'Analyze national forestry conservation laws, study global climate accords, and litigate pollution liability cases.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['arts', 'commerce', 'pcm', 'general'],
@@ -1255,12 +1407,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Gardening / Cooking'],
     workStyle: { collaboration: 3, workplace: 2, structure: 2 },
     priorities: ['social_impact', 'global_mobility', 'prestige_status'],
-    reasoningTemplate: 'Perfect for your environmental protection interests, carbon accords focus, and green litigation goals.',
+    reasoningTemplate:
+      'Perfect for your environmental protection interests, carbon accords focus, and green litigation goals.',
   },
   {
     id: 'd93e1e35-73c7-4c5d-aaaa-f9dbef510604',
     name: 'Constitutional Law & Civil Rights',
-    description: 'Master fundamental constitutional amendments, study landmark civil liberty judgments, and draft writ petitions.',
+    description:
+      'Master fundamental constitutional amendments, study landmark civil liberty judgments, and draft writ petitions.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['arts', 'commerce', 'general'],
@@ -1268,12 +1422,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['prestige_status', 'social_impact', 'stability_security'],
-    reasoningTemplate: 'Matches your constitutional rights interest, judicial precedent focus, and civil rights litigation.',
+    reasoningTemplate:
+      'Matches your constitutional rights interest, judicial precedent focus, and civil rights litigation.',
   },
   {
     id: '62c6ffda-d0ec-4976-a3b2-2a68b940c497',
     name: 'Cyber Law & Digital Privacy Regulations',
-    description: 'Analyze national IT acts, study global data privacy regulations (GDPR), and evaluate cybercrime prosecution guidelines.',
+    description:
+      'Analyze national IT acts, study global data privacy regulations (GDPR), and evaluate cybercrime prosecution guidelines.',
     durationYears: 5,
     difficultyLevel: 'Advanced',
     streams: ['arts', 'commerce', 'pcm', 'general'],
@@ -1281,12 +1437,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Coding / Side Projects'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'stability_security', 'global_mobility'],
-    reasoningTemplate: 'Perfect for your digital privacy interests, cybersecurity laws focus, and tech compliance priority.',
+    reasoningTemplate:
+      'Perfect for your digital privacy interests, cybersecurity laws focus, and tech compliance priority.',
   },
   {
     id: '84f06cb6-d9a0-4625-a55d-500ee380a060',
     name: 'International Relations & Diplomacy',
-    description: 'Analyze foreign embassy relations, study bilateral trade negotiations, and evaluate global geopolitical conflicts.',
+    description:
+      'Analyze foreign embassy relations, study bilateral trade negotiations, and evaluate global geopolitical conflicts.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'commerce', 'general'],
@@ -1294,12 +1452,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 4, workplace: 1, structure: 3 },
     priorities: ['global_mobility', 'prestige_status', 'social_impact'],
-    reasoningTemplate: 'Matches your embassy diplomacy focus, foreign policy interest, and international relations goals.',
+    reasoningTemplate:
+      'Matches your embassy diplomacy focus, foreign policy interest, and international relations goals.',
   },
   {
     id: 'cc4b475f-318a-4ee7-a3fd-c1a92c000a46',
     name: 'Archaeology & Cultural Heritage Preservation',
-    description: 'Conduct archaeological excavation digs, utilize carbon-dating equipment, and conserve historical monument sites.',
+    description:
+      'Conduct archaeological excavation digs, utilize carbon-dating equipment, and conserve historical monument sites.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'general'],
@@ -1307,12 +1467,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Photography / Videography', 'Playing Sports / Fitness'],
     workStyle: { collaboration: 3, workplace: 4, structure: 3 },
     priorities: ['stability_security', 'creative_freedom'],
-    reasoningTemplate: 'Matches your excavation dig interests, historical preservation focus, and physical fieldwork style.',
+    reasoningTemplate:
+      'Matches your excavation dig interests, historical preservation focus, and physical fieldwork style.',
   },
   {
     id: 'b90cdf56-fc5c-4d62-aa45-50097cb80cd6',
     name: 'Linguistics & Phonetics Analysis',
-    description: 'Study syntax structures, analyze phonetic speech patterns, and research evolutionary historical linguistics.',
+    description:
+      'Study syntax structures, analyze phonetic speech patterns, and research evolutionary historical linguistics.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'general'],
@@ -1320,12 +1482,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Playing musical instruments', 'Creative Writing / Blogging'],
     workStyle: { collaboration: 2, workplace: 1, structure: 3 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Aligns with your phonetic speech focus, grammatical logic, and structural linguistics research.',
+    reasoningTemplate:
+      'Aligns with your phonetic speech focus, grammatical logic, and structural linguistics research.',
   },
   {
     id: '62051e7c-c856-40e9-a9aa-5310e540040e',
     name: 'Human Geography & Urban Demographics',
-    description: 'Study urban migration patterns, analyze resources distributions, and build geographic demographic models.',
+    description:
+      'Study urban migration patterns, analyze resources distributions, and build geographic demographic models.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
@@ -1333,12 +1497,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Photography / Videography', 'Tinkering with gadgets'],
     workStyle: { collaboration: 3, workplace: 2, structure: 3 },
     priorities: ['stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Matches your demographic mapping interest, urban migration focus, and stable analytical goals.',
+    reasoningTemplate:
+      'Matches your demographic mapping interest, urban migration focus, and stable analytical goals.',
   },
   {
     id: 'e544e32d-8c05-4307-a369-41d35e840420',
     name: 'Macroeconomics & Global Development',
-    description: 'Study monetary banking policies, evaluate international development metrics, and model financial inflation.',
+    description:
+      'Study monetary banking policies, evaluate international development metrics, and model financial inflation.',
     durationYears: 3,
     difficultyLevel: 'Advanced',
     streams: ['commerce', 'pcm', 'arts', 'general'],
@@ -1346,12 +1512,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Solving Puzzles / Chess', 'Reading / Podcasts', 'Debating / Public Speaking'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'prestige_status', 'global_mobility'],
-    reasoningTemplate: 'Matches your banking monetary interest, inflation forecasting models, and macroeconomics goals.',
+    reasoningTemplate:
+      'Matches your banking monetary interest, inflation forecasting models, and macroeconomics goals.',
   },
   {
     id: '7d36d01a-8f3e-4740-aaf2-08a4100d3650',
     name: 'Gender Studies & Inclusive Advocacy',
-    description: 'Study feminist theories, analyze gender representations, and design workplace diversity policy frameworks.',
+    description:
+      'Study feminist theories, analyze gender representations, and design workplace diversity policy frameworks.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
@@ -1359,25 +1527,33 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Reading / Podcasts', 'Debating / Public Speaking', 'Creative Writing / Blogging'],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['social_impact', 'creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Perfect for your workplace inclusion focus, gender equality advocacy, and social policy goals.',
+    reasoningTemplate:
+      'Perfect for your workplace inclusion focus, gender equality advocacy, and social policy goals.',
   },
   {
     id: 'c74a589f-dc1e-4891-a51b-54d18ac40a08',
     name: 'Art History & Curatorial Practices',
-    description: 'Trace global art movements, evaluate historical paintings, and curate contemporary art gallery exhibitions.',
+    description:
+      'Trace global art movements, evaluate historical paintings, and curate contemporary art gallery exhibitions.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
     interests: ['design_arts', 'education_social'],
-    hobbies: ['Painting / Sketching / Sculpting', 'Reading / Podcasts', 'Photography / Videography'],
+    hobbies: [
+      'Painting / Sketching / Sculpting',
+      'Reading / Podcasts',
+      'Photography / Videography',
+    ],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Matches your historical art movements focus, museum cataloging style, and gallery curation goals.',
+    reasoningTemplate:
+      'Matches your historical art movements focus, museum cataloging style, and gallery curation goals.',
   },
   {
     id: 'dcf9df5b-d7e1-44f0-a90b-189052d4e14f',
     name: 'Family Law & Domestic Mediations',
-    description: 'Analyze marriage dissolution codes, manage custody disputes, and coordinate domestic mediation arbitrations.',
+    description:
+      'Analyze marriage dissolution codes, manage custody disputes, and coordinate domestic mediation arbitrations.',
     durationYears: 5,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'commerce', 'general'],
@@ -1385,12 +1561,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Debating / Public Speaking', 'Reading / Podcasts'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['social_impact', 'stability_security', 'work_life_balance'],
-    reasoningTemplate: 'Matches your custody dispute mediation interest, domestic counseling focus, and judicial family law.',
+    reasoningTemplate:
+      'Matches your custody dispute mediation interest, domestic counseling focus, and judicial family law.',
   },
   {
     id: '8b0b437a-2a37-423c-a1a1-3c60bb0a0303',
     name: 'Graphic Design & Visual Branding',
-    description: 'Master typographic systems, design corporate visual brand books, and configure digital publishing vector layouts.',
+    description:
+      'Master typographic systems, design corporate visual brand books, and configure digital publishing vector layouts.',
     durationYears: 4,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'commerce', 'general'],
@@ -1398,51 +1576,71 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Painting / Sketching / Sculpting', 'Photography / Videography', 'Video Gaming'],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Perfect for your typographic layout interests, brand identity design, and visual styling.',
+    reasoningTemplate:
+      'Perfect for your typographic layout interests, brand identity design, and visual styling.',
   },
   {
     id: 'bec50dd3-4c90-416b-a1f2-551b620c8004',
     name: 'Fashion Design & Textile Technology',
-    description: 'Draft garment pattern layouts, analyze textile fabric mechanics, and choreograph seasonal runway fashion shows.',
+    description:
+      'Draft garment pattern layouts, analyze textile fabric mechanics, and choreograph seasonal runway fashion shows.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'commerce', 'general'],
     interests: ['design_arts', 'business_ent'],
-    hobbies: ['Painting / Sketching / Sculpting', 'Photography / Videography', 'Gardening / Cooking'],
+    hobbies: [
+      'Painting / Sketching / Sculpting',
+      'Photography / Videography',
+      'Gardening / Cooking',
+    ],
     workStyle: { collaboration: 4, workplace: 3, structure: 3 },
     priorities: ['creative_freedom', 'prestige_status', 'global_mobility'],
-    reasoningTemplate: 'Matches your garment pattern layout interest, runway styling focus, and global apparel career.',
+    reasoningTemplate:
+      'Matches your garment pattern layout interest, runway styling focus, and global apparel career.',
   },
   {
     id: '194de232-aadc-4190-afb3-91fb3d084c00',
     name: 'Interior Architecture & Spatial Design',
-    description: 'Construct 3D CAD spatial blueprints, analyze interior lighting optics, and select sustainable building finishes.',
+    description:
+      'Construct 3D CAD spatial blueprints, analyze interior lighting optics, and select sustainable building finishes.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'commerce', 'pcm', 'general'],
     interests: ['design_arts', 'tech_ai'],
-    hobbies: ['Painting / Sketching / Sculpting', 'Tinkering with gadgets', 'Photography / Videography'],
+    hobbies: [
+      'Painting / Sketching / Sculpting',
+      'Tinkering with gadgets',
+      'Photography / Videography',
+    ],
     workStyle: { collaboration: 4, workplace: 3, structure: 3 },
     priorities: ['creative_freedom', 'high_salary', 'work_life_balance'],
-    reasoningTemplate: 'Matches your spatial design CAD interest, lighting fixtures focus, and structural styling goals.',
+    reasoningTemplate:
+      'Matches your spatial design CAD interest, lighting fixtures focus, and structural styling goals.',
   },
   {
     id: 'b45cd710-7984-40b7-a0cd-d8dc60300403',
     name: 'Fine Arts & Studio Painting',
-    description: 'Master oil painting textures, study anatomical sketching proportions, and curate public studio art exhibitions.',
+    description:
+      'Master oil painting textures, study anatomical sketching proportions, and curate public studio art exhibitions.',
     durationYears: 4,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
     interests: ['design_arts'],
-    hobbies: ['Painting / Sketching / Sculpting', 'Photography / Videography', 'Reading / Podcasts'],
+    hobbies: [
+      'Painting / Sketching / Sculpting',
+      'Photography / Videography',
+      'Reading / Podcasts',
+    ],
     workStyle: { collaboration: 2, workplace: 1, structure: 5 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Perfect for your oil painting textures focus, studio sketching hobbies, and fine arts curator goals.',
+    reasoningTemplate:
+      'Perfect for your oil painting textures focus, studio sketching hobbies, and fine arts curator goals.',
   },
   {
     id: '9f927618-4a1e-4af0-a9d5-8cd9110a1226',
     name: 'Creative Writing & Screenwriting',
-    description: 'Master fictional plot arcs, write character dialogue scripts, and draft manuscripts for novel publishing houses.',
+    description:
+      'Master fictional plot arcs, write character dialogue scripts, and draft manuscripts for novel publishing houses.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
@@ -1450,25 +1648,33 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Creative Writing / Blogging', 'Reading / Podcasts', 'Debating / Public Speaking'],
     workStyle: { collaboration: 2, workplace: 1, structure: 5 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Ideal for your screenwriting dialogue focus, novel manuscript publishing, and creative writing.',
+    reasoningTemplate:
+      'Ideal for your screenwriting dialogue focus, novel manuscript publishing, and creative writing.',
   },
   {
     id: '56fe229d-e6b3-4446-aab0-4d66f746b200',
     name: 'Film Production & Cinema Studies',
-    description: 'Choreograph camera lighting angles, direct dramatic actors, and edit sound timelines using Premiere Pro.',
+    description:
+      'Choreograph camera lighting angles, direct dramatic actors, and edit sound timelines using Premiere Pro.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'general'],
     interests: ['design_arts', 'media_writing'],
-    hobbies: ['Photography / Videography', 'Creative Writing / Blogging', 'Playing musical instruments'],
+    hobbies: [
+      'Photography / Videography',
+      'Creative Writing / Blogging',
+      'Playing musical instruments',
+    ],
     workStyle: { collaboration: 4, workplace: 3, structure: 4 },
     priorities: ['creative_freedom', 'global_mobility', 'prestige_status'],
-    reasoningTemplate: 'Matches your camera angles choreographing, video editing focus, and dramatic film directing.',
+    reasoningTemplate:
+      'Matches your camera angles choreographing, video editing focus, and dramatic film directing.',
   },
   {
     id: '121eaf7a-0826-40c7-a11a-38a30b00060c',
     name: '3D Animation & Character Rigging',
-    description: 'Model 3D characters, build complex motion rigging skeletons, and animate cinematic sequences using Maya and Blender.',
+    description:
+      'Model 3D characters, build complex motion rigging skeletons, and animate cinematic sequences using Maya and Blender.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'arts', 'general'],
@@ -1476,12 +1682,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Video Gaming', 'Coding / Side Projects', 'Painting / Sketching / Sculpting'],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'high_salary', 'global_mobility'],
-    reasoningTemplate: 'Combines your 3D character modeling focus, skeletal motion rigging, and digital animation goals.',
+    reasoningTemplate:
+      'Combines your 3D character modeling focus, skeletal motion rigging, and digital animation goals.',
   },
   {
     id: '0eb20c5e-fb19-432a-acf5-ab3ef20a1000',
     name: 'Game Design & Interactive Mechanics',
-    description: 'Draft comprehensive game design documents, prototype level mechanics, and analyze player engagement telemetry.',
+    description:
+      'Draft comprehensive game design documents, prototype level mechanics, and analyze player engagement telemetry.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'commerce', 'arts', 'general'],
@@ -1489,12 +1697,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Video Gaming', 'Coding / Side Projects', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 4, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'high_salary', 'global_mobility'],
-    reasoningTemplate: 'Matches your gameplay mechanics design, interactive level prototyping, and player analytics.',
+    reasoningTemplate:
+      'Matches your gameplay mechanics design, interactive level prototyping, and player analytics.',
   },
   {
     id: '7e5c87a4-a385-459c-afdd-d9de6b220401',
     name: 'Photography & Commercial Photojournalism',
-    description: 'Master camera lens exposures, coordinate studio lighting setups, and edit high-resolution digital image portfolios.',
+    description:
+      'Master camera lens exposures, coordinate studio lighting setups, and edit high-resolution digital image portfolios.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
@@ -1502,25 +1712,33 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Photography / Videography', 'Creative Writing / Blogging', 'Reading / Podcasts'],
     workStyle: { collaboration: 3, workplace: 2, structure: 4 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Matches your camera lens exposures interest, studio lighting setups, and photojournalism portfolio.',
+    reasoningTemplate:
+      'Matches your camera lens exposures interest, studio lighting setups, and photojournalism portfolio.',
   },
   {
     id: '03ee8380-b059-45c0-acb3-b7df8c004800',
     name: 'Industrial & Hardware Product Design',
-    description: 'Sculpt physical product mockups, analyze ergonomic grip metrics, and design hardware casings for manufacturing.',
+    description:
+      'Sculpt physical product mockups, analyze ergonomic grip metrics, and design hardware casings for manufacturing.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'general'],
     interests: ['design_arts', 'tech_ai'],
-    hobbies: ['Tinkering with gadgets', 'Painting / Sketching / Sculpting', 'Coding / Side Projects'],
+    hobbies: [
+      'Tinkering with gadgets',
+      'Painting / Sketching / Sculpting',
+      'Coding / Side Projects',
+    ],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['high_salary', 'creative_freedom', 'stability_security'],
-    reasoningTemplate: 'Matches your physical product modeling, ergonomic manufacturing metrics, and hardware casings design.',
+    reasoningTemplate:
+      'Matches your physical product modeling, ergonomic manufacturing metrics, and hardware casings design.',
   },
   {
     id: '36719122-a238-47d9-af94-49ecbd223011',
     name: 'Digital Illustration & Concept Art',
-    description: 'Paint digital fantasy landscape backdrops, draw anatomical character concepts, and configure Photoshop brushes.',
+    description:
+      'Paint digital fantasy landscape backdrops, draw anatomical character concepts, and configure Photoshop brushes.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'general'],
@@ -1528,12 +1746,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Painting / Sketching / Sculpting', 'Video Gaming', 'Photography / Videography'],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Matches your digital fantasy layouts, digital sketching brushes, and concept art portfolio.',
+    reasoningTemplate:
+      'Matches your digital fantasy layouts, digital sketching brushes, and concept art portfolio.',
   },
   {
     id: '4efdc96a-b34e-41c6-aafd-b3d500024c08',
     name: 'Typography & Typeface Design',
-    description: 'Study letterform anatomies, design custom digital font families, and configure font hinting kerning algorithms.',
+    description:
+      'Study letterform anatomies, design custom digital font families, and configure font hinting kerning algorithms.',
     durationYears: 3,
     difficultyLevel: 'Advanced',
     streams: ['arts', 'general'],
@@ -1541,12 +1761,14 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Painting / Sketching / Sculpting', 'Reading / Podcasts', 'Solving Puzzles / Chess'],
     workStyle: { collaboration: 2, workplace: 1, structure: 3 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Matches your custom letterform design, digital font files development, and type kerning algorithms.',
+    reasoningTemplate:
+      'Matches your custom letterform design, digital font files development, and type kerning algorithms.',
   },
   {
     id: '62b0088f-7117-47ee-ac13-a77663601008',
     name: 'Audio Tech & Music Production',
-    description: 'Mix multi-track studio recordings, configure synthesizer filters, and master digital audio files using Pro Tools.',
+    description:
+      'Mix multi-track studio recordings, configure synthesizer filters, and master digital audio files using Pro Tools.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['pcm', 'general'],
@@ -1554,25 +1776,33 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Playing musical instruments', 'Tinkering with gadgets', 'Coding / Side Projects'],
     workStyle: { collaboration: 3, workplace: 1, structure: 3 },
     priorities: ['creative_freedom', 'high_salary', 'work_life_balance'],
-    reasoningTemplate: 'Matches your multi-track studio mixing, synthesizer filters configuring, and audio mastering.',
+    reasoningTemplate:
+      'Matches your multi-track studio mixing, synthesizer filters configuring, and audio mastering.',
   },
   {
     id: '57d4f8f8-df7e-4902-af88-aa68d7575490',
     name: 'Fashion Styling & Creative Direction',
-    description: 'Curate catalog outfits, direct model photographic editorials, and consult brands on seasonal fashion trends.',
+    description:
+      'Curate catalog outfits, direct model photographic editorials, and consult brands on seasonal fashion trends.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
     interests: ['design_arts', 'business_ent'],
-    hobbies: ['Photography / Videography', 'Painting / Sketching / Sculpting', 'Reading / Podcasts'],
+    hobbies: [
+      'Photography / Videography',
+      'Painting / Sketching / Sculpting',
+      'Reading / Podcasts',
+    ],
     workStyle: { collaboration: 4, workplace: 2, structure: 4 },
     priorities: ['creative_freedom', 'global_mobility', 'prestige_status'],
-    reasoningTemplate: 'Matches your fashion catalog curating, creative photoshoots directing, and trend consulting.',
+    reasoningTemplate:
+      'Matches your fashion catalog curating, creative photoshoots directing, and trend consulting.',
   },
   {
     id: '74160e13-0039-4564-a974-2f585a001006',
     name: 'Jewelry Design & Gemology',
-    description: 'Sketch luxury jewelry settings, evaluate gemstone clarities (4Cs), and operate metal casting tools.',
+    description:
+      'Sketch luxury jewelry settings, evaluate gemstone clarities (4Cs), and operate metal casting tools.',
     durationYears: 3,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'commerce', 'general'],
@@ -1580,64 +1810,90 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Painting / Sketching / Sculpting', 'Tinkering with gadgets', 'Gardening / Cooking'],
     workStyle: { collaboration: 3, workplace: 1, structure: 2 },
     priorities: ['creative_freedom', 'stability_security', 'high_salary'],
-    reasoningTemplate: 'Matches your luxury ornament sketching, gemstone clarities evaluation, and metal castings.',
+    reasoningTemplate:
+      'Matches your luxury ornament sketching, gemstone clarities evaluation, and metal castings.',
   },
   {
     id: 'a1398fb3-2362-4a9a-a482-5b2617212089',
     name: 'Ceramic Design & Studio Pottery',
-    description: 'Throw clay vessels on pottery wheels, master mineral glaze chemical firings, and operate kiln ovens.',
+    description:
+      'Throw clay vessels on pottery wheels, master mineral glaze chemical firings, and operate kiln ovens.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
     interests: ['design_arts'],
-    hobbies: ['Painting / Sketching / Sculpting', 'Gardening / Cooking', 'Playing Sports / Fitness'],
+    hobbies: [
+      'Painting / Sketching / Sculpting',
+      'Gardening / Cooking',
+      'Playing Sports / Fitness',
+    ],
     workStyle: { collaboration: 2, workplace: 1, structure: 5 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Matches your hand-crafted clay throwing, mineral glaze firings, and kiln oven operations.',
+    reasoningTemplate:
+      'Matches your hand-crafted clay throwing, mineral glaze firings, and kiln oven operations.',
   },
   {
     id: '7daa0c82-0c64-486d-ae71-ce8a5c0c2004',
     name: 'Exhibition & Museum Space Design',
-    description: 'Design interactive corporate trade stalls, configure museum pathways, and set up gallery display structures.',
+    description:
+      'Design interactive corporate trade stalls, configure museum pathways, and set up gallery display structures.',
     durationYears: 4,
     difficultyLevel: 'Intermediate',
     streams: ['arts', 'commerce', 'general'],
     interests: ['design_arts', 'education_social'],
-    hobbies: ['Painting / Sketching / Sculpting', 'Photography / Videography', 'Tinkering with gadgets'],
+    hobbies: [
+      'Painting / Sketching / Sculpting',
+      'Photography / Videography',
+      'Tinkering with gadgets',
+    ],
     workStyle: { collaboration: 4, workplace: 3, structure: 3 },
     priorities: ['creative_freedom', 'work_life_balance'],
-    reasoningTemplate: 'Matches your trade show booth layouts, museum navigation setups, and gallery display architecture.',
+    reasoningTemplate:
+      'Matches your trade show booth layouts, museum navigation setups, and gallery display architecture.',
   },
   {
     id: '05979b11-59ae-4c62-a35c-395d32018682',
     name: 'Broadcast Journalism & News Production',
-    description: 'Anchor live digital news broadcasts, write teleprompter scripts, and coordinate studio control boards.',
+    description:
+      'Anchor live digital news broadcasts, write teleprompter scripts, and coordinate studio control boards.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'general'],
     interests: ['media_writing', 'marketing_pr'],
-    hobbies: ['Debating / Public Speaking', 'Creative Writing / Blogging', 'Photography / Videography'],
+    hobbies: [
+      'Debating / Public Speaking',
+      'Creative Writing / Blogging',
+      'Photography / Videography',
+    ],
     workStyle: { collaboration: 4, workplace: 1, structure: 4 },
     priorities: ['prestige_status', 'work_life_balance', 'creative_freedom'],
-    reasoningTemplate: 'Matches your news teleprompter writing, camera anchor anchoring, and live control room directing.',
+    reasoningTemplate:
+      'Matches your news teleprompter writing, camera anchor anchoring, and live control room directing.',
   },
   {
     id: '44e6aa7d-79e9-41e3-af3d-0fb44240e00a',
     name: 'Advertising Design & Creative Copywriting',
-    description: 'Write print advertising headlines, design storyboard video concepts, and manage agency client pitches.',
+    description:
+      'Write print advertising headlines, design storyboard video concepts, and manage agency client pitches.',
     durationYears: 3,
     difficultyLevel: 'Beginner',
     streams: ['arts', 'commerce', 'general'],
     interests: ['marketing_pr', 'media_writing'],
-    hobbies: ['Creative Writing / Blogging', 'Debating / Public Speaking', 'Photography / Videography'],
+    hobbies: [
+      'Creative Writing / Blogging',
+      'Debating / Public Speaking',
+      'Photography / Videography',
+    ],
     workStyle: { collaboration: 4, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'high_salary', 'work_life_balance'],
-    reasoningTemplate: 'Matches your print headline copywriting, creative storyboards design, and corporate client pitches.',
+    reasoningTemplate:
+      'Matches your print headline copywriting, creative storyboards design, and corporate client pitches.',
   },
   {
     id: 'e0e6a0a9-ecba-46f4-a50c-5ccfece0a220',
     name: 'Visual Effects (VFX) & Compositing',
-    description: 'Choreograph green screen compositing keys, track camera motions, and integrate CGI models using Nuke.',
+    description:
+      'Choreograph green screen compositing keys, track camera motions, and integrate CGI models using Nuke.',
     durationYears: 4,
     difficultyLevel: 'Advanced',
     streams: ['pcm', 'arts', 'general'],
@@ -1645,7 +1901,8 @@ export const PREDEFINED_COURSES: Course[] = [
     hobbies: ['Video Gaming', 'Coding / Side Projects', 'Photography / Videography'],
     workStyle: { collaboration: 3, workplace: 1, structure: 4 },
     priorities: ['creative_freedom', 'high_salary', 'global_mobility'],
-    reasoningTemplate: 'Matches your green screen compositing, camera motion tracking, and CGI software integration.',
+    reasoningTemplate:
+      'Matches your green screen compositing, camera motion tracking, and CGI software integration.',
   },
 ];
 

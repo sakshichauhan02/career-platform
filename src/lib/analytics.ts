@@ -5,7 +5,9 @@ type AnalyticsEvent =
   | 'session_resumed'
   | 'session_reset'
   | 'assessment_autosaved'
-  | 'assessment_submitted';
+  | 'assessment_submitted'
+  | 'mentor_booking_clicked'
+  | 'mentor_redirected';
 
 export const trackEvent = (event: AnalyticsEvent, properties?: Record<string, unknown>) => {
   // Console logging for verification. In production, this can be wired to Mixpanel, Google Analytics, Amplitude, etc.

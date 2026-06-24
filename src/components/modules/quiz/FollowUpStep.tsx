@@ -3,7 +3,17 @@
 import { useAssessmentStore } from '@/store/useAssessmentStore';
 import { QuestionCard } from '@/components/ui/question-card';
 import { SingleSelect, type SingleSelectOption } from '@/components/ui/single-select';
-import { Briefcase, Paintbrush, Atom, Coins, Landmark, BookOpen, Scale, Sparkles, HeartPulse } from 'lucide-react';
+import {
+  Briefcase,
+  Paintbrush,
+  Atom,
+  Coins,
+  Landmark,
+  BookOpen,
+  Scale,
+  Sparkles,
+  HeartPulse,
+} from 'lucide-react';
 
 interface FollowUpStepProps {
   onSelect?: () => void;
@@ -114,7 +124,7 @@ export default function FollowUpStep({ onSelect }: FollowUpStepProps) {
   if (activeStream === 'commerce') {
     options = commerceOptions;
     title = 'Choose your business focus area';
-    desc = 'Commerce offers diverse roles. Let\'s align on what excites you most.';
+    desc = "Commerce offers diverse roles. Let's align on what excites you most.";
   } else if (activeStream === 'arts') {
     options = artsOptions;
     title = 'Choose your creative or social focus area';
@@ -122,7 +132,7 @@ export default function FollowUpStep({ onSelect }: FollowUpStepProps) {
   } else {
     options = scienceOptions;
     title = 'Choose your science focus area';
-    desc = 'Science spans engineering to biology. Let\'s specify your interest focus.';
+    desc = "Science spans engineering to biology. Let's specify your interest focus.";
   }
 
   return (

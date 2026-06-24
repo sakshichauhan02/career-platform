@@ -87,7 +87,9 @@ export default function WorkStyleStep() {
                   <span className={value <= 2 ? 'font-extrabold text-blue-600' : ''}>
                     {sld.leftLabel}
                   </span>
-                  <span className={value === 3 ? 'font-extrabold text-blue-600' : ''}>Moderate</span>
+                  <span className={value === 3 ? 'font-extrabold text-blue-600' : ''}>
+                    Moderate
+                  </span>
                   <span className={value >= 4 ? 'font-extrabold text-blue-600' : ''}>
                     {sld.rightLabel}
                   </span>

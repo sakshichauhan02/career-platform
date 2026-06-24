@@ -15,7 +15,7 @@ const statesAndCities = [
   { state: 'Rajasthan', cities: ['Jaipur', 'Pilani', 'Jodhpur'] },
   { state: 'Haryana', cities: ['Gurugram', 'Sonepat', 'Faridabad'] },
   { state: 'Kerala', cities: ['Kochi', 'Trivandrum', 'Calicut'] },
-  { state: 'Punjab', cities: ['Chandigarh', 'Amritsar', 'Ludhiana'] }
+  { state: 'Punjab', cities: ['Chandigarh', 'Amritsar', 'Ludhiana'] },
 ];
 
 const collegeTypes = ['Government', 'Private'];
@@ -30,7 +30,7 @@ const techCourses = [
   'Game Development & Graphics Programming',
   'Cybersecurity Analyst',
   'Cloud Architect',
-  'Prompt Engineer'
+  'Prompt Engineer',
 ];
 
 const medicalCourses = [
@@ -41,7 +41,7 @@ const medicalCourses = [
   'Nursing & Patient Care Sciences',
   'Pharmacy & Pharmaceutical Chemistry',
   'Biotechnology',
-  'Bioinformatics Analyst'
+  'Bioinformatics Analyst',
 ];
 
 const businessCourses = [
@@ -51,21 +51,21 @@ const businessCourses = [
   'International Business & Global Trade',
   'Fintech & Digital Banking Systems',
   'AI Product Manager',
-  'Business Intelligence & Data Analytics'
+  'Business Intelligence & Data Analytics',
 ];
 
 const lawCourses = [
   'Corporate & Civil Law (BA LLB)',
   'Clinical Psychology & Therapy',
   'Sustainability Consultant',
-  'Law & Civil Services'
+  'Law & Civil Services',
 ];
 
 const designCourses = [
   'Product Design & UI/UX',
   'UX Researcher',
   'Visual Effects (VFX) & Compositing',
-  'Advertising Design & Creative Copywriting'
+  'Advertising Design & Creative Copywriting',
 ];
 
 const collegeNameTemplates = [
@@ -74,26 +74,38 @@ const collegeNameTemplates = [
   { prefix: 'Institute of Medical Sciences (AIIMS)', type: 'Government', streams: ['medical'] },
   { prefix: 'National Law School (NLS)', type: 'Government', streams: ['law'] },
   { prefix: 'Institute of Management (IIM)', type: 'Government', streams: ['business'] },
-  { prefix: 'Birla Institute of Technology and Science (BITS)', type: 'Private', streams: ['tech'] },
+  {
+    prefix: 'Birla Institute of Technology and Science (BITS)',
+    type: 'Private',
+    streams: ['tech'],
+  },
   { prefix: 'Vellore Institute of Technology (VIT)', type: 'Private', streams: ['tech'] },
   { prefix: 'Academy of Higher Education', type: 'Private', streams: ['medical', 'tech'] },
   { prefix: 'Symbiosis International University', type: 'Private', streams: ['business', 'law'] },
   { prefix: 'Christ University', type: 'Private', streams: ['business', 'design'] },
-  { prefix: 'SRM Institute of Science and Technology', type: 'Private', streams: ['tech', 'medical'] },
+  {
+    prefix: 'SRM Institute of Science and Technology',
+    type: 'Private',
+    streams: ['tech', 'medical'],
+  },
   { prefix: 'Amity University', type: 'Private', streams: ['tech', 'business', 'design'] },
   { prefix: 'Delhi University (DU) College of', type: 'Government', streams: ['business', 'law'] },
   { prefix: 'National Institute of Design (NID)', type: 'Government', streams: ['design'] },
   { prefix: 'Lovely Professional University', type: 'Private', streams: ['tech', 'business'] },
   { prefix: 'St. Xavier College of', type: 'Private', streams: ['business', 'law'] },
-  { prefix: 'Jawaharlal Nehru University (JNU) School of', type: 'Government', streams: ['law', 'medical'] },
+  {
+    prefix: 'Jawaharlal Nehru University (JNU) School of',
+    type: 'Government',
+    streams: ['law', 'medical'],
+  },
   { prefix: 'Thapar Institute of Engineering', type: 'Private', streams: ['tech'] },
   { prefix: 'Dhirubhai Ambani Institute of ICT', type: 'Private', streams: ['tech'] },
-  { prefix: 'ICFAI Business School', type: 'Private', streams: ['business'] }
+  { prefix: 'ICFAI Business School', type: 'Private', streams: ['business'] },
 ];
 
 function generateColleges() {
   const colleges = [];
-  
+
   // 1. Seed our 6 existing high-fidelity colleges first to preserve continuity
   colleges.push(
     {
@@ -108,9 +120,12 @@ function generateColleges() {
       admission_criteria: 'JEE Entrance Examination',
       website_url: 'https://www.iitb.ac.in',
       courses_offered: [
-        { specialization: 'Computer Science & AI', course_name: 'Computer Science & Artificial Intelligence' },
-        { specialization: 'Aerospace Engineering', course_name: 'Space Science & Astrophysics' }
-      ]
+        {
+          specialization: 'Computer Science & AI',
+          course_name: 'Computer Science & Artificial Intelligence',
+        },
+        { specialization: 'Aerospace Engineering', course_name: 'Space Science & Astrophysics' },
+      ],
     },
     {
       id: 'mc-2',
@@ -124,8 +139,8 @@ function generateColleges() {
       admission_criteria: 'NEET Merit List',
       website_url: 'https://www.aiims.edu',
       courses_offered: [
-        { specialization: 'General Surgery & MBBS', course_name: 'Medicine & Healthcare (MBBS)' }
-      ]
+        { specialization: 'General Surgery & MBBS', course_name: 'Medicine & Healthcare (MBBS)' },
+      ],
     },
     {
       id: 'mc-3',
@@ -139,8 +154,8 @@ function generateColleges() {
       admission_criteria: 'DAT Entrance Exam',
       website_url: 'https://www.nid.edu',
       courses_offered: [
-        { specialization: 'Interaction Design', course_name: 'Product Design & UI/UX' }
-      ]
+        { specialization: 'Interaction Design', course_name: 'Product Design & UI/UX' },
+      ],
     },
     {
       id: 'mc-4',
@@ -154,8 +169,8 @@ function generateColleges() {
       admission_criteria: 'CUET Marks Cutoff',
       website_url: 'https://www.srcc.edu',
       courses_offered: [
-        { specialization: 'Financial Accounting', course_name: 'Chartered Accountancy (CA)' }
-      ]
+        { specialization: 'Financial Accounting', course_name: 'Chartered Accountancy (CA)' },
+      ],
     },
     {
       id: 'mc-5',
@@ -169,8 +184,11 @@ function generateColleges() {
       admission_criteria: 'CAT Entrance Score',
       website_url: 'https://www.iima.ac.in',
       courses_offered: [
-        { specialization: 'Post Graduate Program', course_name: 'Business Administration & Management' }
-      ]
+        {
+          specialization: 'Post Graduate Program',
+          course_name: 'Business Administration & Management',
+        },
+      ],
     },
     {
       id: 'mc-6',
@@ -184,8 +202,11 @@ function generateColleges() {
       admission_criteria: 'AAT & Aptitude Interview',
       website_url: 'https://www.ashoka.edu.in',
       courses_offered: [
-        { specialization: 'Cognitive Science & Psychology', course_name: 'Clinical Psychology & Therapy' }
-      ]
+        {
+          specialization: 'Cognitive Science & Psychology',
+          course_name: 'Clinical Psychology & Therapy',
+        },
+      ],
     }
   );
 
@@ -204,14 +225,14 @@ function generateColleges() {
     // Determine type, ranking, and fees
     const type = template.type;
     const ranking = rankCounter++;
-    
+
     let fees_annual = 0;
     if (type === 'Government') {
       // Government fees: ₹10,000 to ₹1,80,000
-      fees_annual = Math.round((10000 + (i * 1729) % 170000) / 1000) * 1000;
+      fees_annual = Math.round((10000 + ((i * 1729) % 170000)) / 1000) * 1000;
     } else {
       // Private fees: ₹2,50,000 to ₹18,00,000
-      fees_annual = Math.round((250000 + (i * 19283) % 1550000) / 10000) * 10000;
+      fees_annual = Math.round((250000 + ((i * 19283) % 1550000)) / 10000) * 10000;
     }
 
     // Determine entrance exams
@@ -287,7 +308,7 @@ function generateColleges() {
       entrance_exams,
       admission_criteria,
       website_url,
-      courses_offered
+      courses_offered,
     });
   }
 
@@ -312,7 +333,9 @@ export const MOCK_COLLEGES: College[] = ${JSON.stringify(colleges, null, 2)};
 
   try {
     fs.writeFileSync(targetFilePath, tsContent, 'utf8');
-    console.log(`Successfully generated and wrote 100 highly detailed colleges to ${targetFilePath}.`);
+    console.log(
+      `Successfully generated and wrote 100 highly detailed colleges to ${targetFilePath}.`
+    );
   } catch (err) {
     console.error('Failed to write mockColleges.ts:', err);
     process.exit(1);

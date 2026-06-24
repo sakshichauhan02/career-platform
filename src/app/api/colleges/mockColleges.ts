@@ -15,2492 +15,2195 @@ export interface College {
 
 export const MOCK_COLLEGES: College[] = [
   {
-    "id": "mc-1",
-    "name": "IIT Bombay",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 1,
-    "fees_annual": 220000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main",
-      "JEE Advanced"
-    ],
-    "admission_criteria": "JEE Entrance Examination",
-    "website_url": "https://www.iitb.ac.in",
-    "courses_offered": [
-      {
-        "specialization": "Computer Science & AI",
-        "course_name": "Computer Science & Artificial Intelligence"
-      },
-      {
-        "specialization": "Aerospace Engineering",
-        "course_name": "Space Science & Astrophysics"
-      }
-    ]
-  },
-  {
-    "id": "mc-2",
-    "name": "AIIMS New Delhi",
-    "location": "Delhi",
-    "state": "Delhi",
-    "ranking": 2,
-    "fees_annual": 1628,
-    "type": "Government",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Merit List",
-    "website_url": "https://www.aiims.edu",
-    "courses_offered": [
-      {
-        "specialization": "General Surgery & MBBS",
-        "course_name": "Medicine & Healthcare (MBBS)"
-      }
-    ]
-  },
-  {
-    "id": "mc-3",
-    "name": "NID Ahmedabad",
-    "location": "Ahmedabad",
-    "state": "Gujarat",
-    "ranking": 5,
-    "fees_annual": 180000,
-    "type": "Government",
-    "entrance_exams": [
-      "NID DAT"
-    ],
-    "admission_criteria": "DAT Entrance Exam",
-    "website_url": "https://www.nid.edu",
-    "courses_offered": [
-      {
-        "specialization": "Interaction Design",
-        "course_name": "Product Design & UI/UX"
-      }
-    ]
-  },
-  {
-    "id": "mc-4",
-    "name": "SRCC Delhi",
-    "location": "Delhi",
-    "state": "Delhi",
-    "ranking": 10,
-    "fees_annual": 35000,
-    "type": "Government",
-    "entrance_exams": [
-      "CUET UG"
-    ],
-    "admission_criteria": "CUET Marks Cutoff",
-    "website_url": "https://www.srcc.edu",
-    "courses_offered": [
-      {
-        "specialization": "Financial Accounting",
-        "course_name": "Chartered Accountancy (CA)"
-      }
-    ]
-  },
-  {
-    "id": "mc-5",
-    "name": "IIM Ahmedabad",
-    "location": "Ahmedabad",
-    "state": "Gujarat",
-    "ranking": 1,
-    "fees_annual": 2300000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT",
-      "GMAT"
-    ],
-    "admission_criteria": "CAT Entrance Score",
-    "website_url": "https://www.iima.ac.in",
-    "courses_offered": [
-      {
-        "specialization": "Post Graduate Program",
-        "course_name": "Business Administration & Management"
-      }
-    ]
-  },
-  {
-    "id": "mc-6",
-    "name": "Ashoka University",
-    "location": "Sonepat",
-    "state": "Haryana",
-    "ranking": 15,
-    "fees_annual": 950000,
-    "type": "Private",
-    "entrance_exams": [
-      "AAT",
-      "SAT"
-    ],
-    "admission_criteria": "AAT & Aptitude Interview",
-    "website_url": "https://www.ashoka.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cognitive Science & Psychology",
-        "course_name": "Clinical Psychology & Therapy"
-      }
-    ]
-  },
-  {
-    "id": "mc-7",
-    "name": "Academy of Higher Education Greater Noida",
-    "location": "Greater Noida",
-    "state": "Uttar Pradesh",
-    "ranking": 16,
-    "fees_annual": 380000,
-    "type": "Private",
-    "entrance_exams": [
-      "NEET UG"
+    id: 'mc-1',
+    name: 'IIT Bombay',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 1,
+    fees_annual: 220000,
+    type: 'Government',
+    entrance_exams: ['JEE Main', 'JEE Advanced'],
+    admission_criteria: 'JEE Entrance Examination',
+    website_url: 'https://www.iitb.ac.in',
+    courses_offered: [
+      {
+        specialization: 'Computer Science & AI',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+      {
+        specialization: 'Aerospace Engineering',
+        course_name: 'Space Science & Astrophysics',
+      },
+    ],
+  },
+  {
+    id: 'mc-2',
+    name: 'AIIMS New Delhi',
+    location: 'Delhi',
+    state: 'Delhi',
+    ranking: 2,
+    fees_annual: 1628,
+    type: 'Government',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Merit List',
+    website_url: 'https://www.aiims.edu',
+    courses_offered: [
+      {
+        specialization: 'General Surgery & MBBS',
+        course_name: 'Medicine & Healthcare (MBBS)',
+      },
+    ],
+  },
+  {
+    id: 'mc-3',
+    name: 'NID Ahmedabad',
+    location: 'Ahmedabad',
+    state: 'Gujarat',
+    ranking: 5,
+    fees_annual: 180000,
+    type: 'Government',
+    entrance_exams: ['NID DAT'],
+    admission_criteria: 'DAT Entrance Exam',
+    website_url: 'https://www.nid.edu',
+    courses_offered: [
+      {
+        specialization: 'Interaction Design',
+        course_name: 'Product Design & UI/UX',
+      },
+    ],
+  },
+  {
+    id: 'mc-4',
+    name: 'SRCC Delhi',
+    location: 'Delhi',
+    state: 'Delhi',
+    ranking: 10,
+    fees_annual: 35000,
+    type: 'Government',
+    entrance_exams: ['CUET UG'],
+    admission_criteria: 'CUET Marks Cutoff',
+    website_url: 'https://www.srcc.edu',
+    courses_offered: [
+      {
+        specialization: 'Financial Accounting',
+        course_name: 'Chartered Accountancy (CA)',
+      },
+    ],
+  },
+  {
+    id: 'mc-5',
+    name: 'IIM Ahmedabad',
+    location: 'Ahmedabad',
+    state: 'Gujarat',
+    ranking: 1,
+    fees_annual: 2300000,
+    type: 'Government',
+    entrance_exams: ['CAT', 'GMAT'],
+    admission_criteria: 'CAT Entrance Score',
+    website_url: 'https://www.iima.ac.in',
+    courses_offered: [
+      {
+        specialization: 'Post Graduate Program',
+        course_name: 'Business Administration & Management',
+      },
+    ],
+  },
+  {
+    id: 'mc-6',
+    name: 'Ashoka University',
+    location: 'Sonepat',
+    state: 'Haryana',
+    ranking: 15,
+    fees_annual: 950000,
+    type: 'Private',
+    entrance_exams: ['AAT', 'SAT'],
+    admission_criteria: 'AAT & Aptitude Interview',
+    website_url: 'https://www.ashoka.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cognitive Science & Psychology',
+        course_name: 'Clinical Psychology & Therapy',
+      },
+    ],
+  },
+  {
+    id: 'mc-7',
+    name: 'Academy of Higher Education Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    ranking: 16,
+    fees_annual: 380000,
+    type: 'Private',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.academyofhigher.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Bioinformatics Analyst',
+        course_name: 'Bioinformatics Analyst',
+      },
+      {
+        specialization: 'Cloud Architect Tech',
+        course_name: 'Cloud Architect',
+      },
+      {
+        specialization: 'Software Engineering Engineering',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-8',
+    name: 'Symbiosis International University Jodhpur',
+    location: 'Jodhpur',
+    state: 'Rajasthan',
+    ranking: 17,
+    fees_annual: 400000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.symbiosisintern.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Corporate Finance & Treasury Management',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-9',
+    name: 'Christ University Gurugram',
+    location: 'Gurugram',
+    state: 'Haryana',
+    ranking: 18,
+    fees_annual: 420000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.christuniversit.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Human Resources & Talent Management',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-10',
+    name: 'SRM Institute of Science and Technology Trivandrum',
+    location: 'Trivandrum',
+    state: 'Kerala',
+    ranking: 19,
+    fees_annual: 440000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.srminstituteofs.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Software Engineering Tech',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+      {
+        specialization: 'DevOps Engineering',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+      {
+        specialization: 'Neurology Brain Sciences',
+        course_name: 'Neurology & Brain Sciences',
+      },
+    ],
+  },
+  {
+    id: 'mc-11',
+    name: 'Amity University Ludhiana',
+    location: 'Ludhiana',
+    state: 'Punjab',
+    ranking: 20,
+    fees_annual: 460000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.amityuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Robotics Tech',
+        course_name: 'Robotics & Automation Engineering',
+      },
+      {
+        specialization: 'Game Development Engineering',
+        course_name: 'Game Development & Graphics Programming',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'Fintech & Digital Banking Systems',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'Advertising Design & Creative Copywriting',
+      },
+    ],
+  },
+  {
+    id: 'mc-12',
+    name: 'Delhi University (DU) College of Mumbai',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 21,
+    fees_annual: 31000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.delhiuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'AI Product Manager',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-13',
+    name: 'National Institute of Design (NID) New Delhi',
+    location: 'New Delhi',
+    state: 'Delhi',
+    ranking: 22,
+    fees_annual: 32000,
+    type: 'Government',
+    entrance_exams: ['UCEED', 'NID DAT'],
+    admission_criteria: 'Design Portfolio Interview',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-14',
+    name: 'Lovely Professional University Mangalore',
+    location: 'Mangalore',
+    state: 'Karnataka',
+    ranking: 23,
+    fees_annual: 520000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.lovelyprofessio.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Game Development Tech',
+        course_name: 'Game Development & Graphics Programming',
+      },
+      {
+        specialization: 'Prompt Engineer Engineering',
+        course_name: 'Prompt Engineer',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Administration & Management',
+      },
+    ],
+  },
+  {
+    id: 'mc-15',
+    name: 'St. Xavier College of Trichy',
+    location: 'Trichy',
+    state: 'Tamil Nadu',
+    ranking: 24,
+    fees_annual: 540000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.stxaviercollege.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Corporate Finance & Treasury Management',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
+    ],
+  },
+  {
+    id: 'mc-16',
+    name: 'Jawaharlal Nehru University (JNU) School of Gandhinagar',
+    location: 'Gandhinagar',
+    state: 'Gujarat',
+    ranking: 25,
+    fees_annual: 38000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.jawaharlalnehru.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+      {
+        specialization: 'Medicine Healthcare (MBBS)',
+        course_name: 'Medicine & Healthcare (MBBS)',
+      },
+    ],
+  },
+  {
+    id: 'mc-17',
+    name: 'Thapar Institute of Engineering Hyderabad',
+    location: 'Hyderabad',
+    state: 'Telangana',
+    ranking: 26,
+    fees_annual: 580000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.thaparinstitute.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Prompt Engineer Tech',
+        course_name: 'Prompt Engineer',
+      },
+      {
+        specialization: 'Robotics Engineering',
+        course_name: 'Robotics & Automation Engineering',
+      },
+    ],
+  },
+  {
+    id: 'mc-18',
+    name: 'Dhirubhai Ambani Institute of ICT Kolkata',
+    location: 'Kolkata',
+    state: 'West Bengal',
+    ranking: 27,
+    fees_annual: 600000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.dhirubhaiambani.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Computer Science Tech',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+      {
+        specialization: 'Internet of Things (IoT) Engineering',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-19',
+    name: 'ICFAI Business School Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    ranking: 28,
+    fees_annual: 620000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.icfaibusinesssc.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'AI Product Manager',
+      },
+    ],
+  },
+  {
+    id: 'mc-20',
+    name: 'Institute of Technology (IIT) Jodhpur',
+    location: 'Jodhpur',
+    state: 'Rajasthan',
+    ranking: 29,
+    fees_annual: 45000,
+    type: 'Government',
+    entrance_exams: ['JEE Main'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.instituteoftech.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Robotics Tech',
+        course_name: 'Robotics & Automation Engineering',
+      },
+      {
+        specialization: 'Game Development Engineering',
+        course_name: 'Game Development & Graphics Programming',
+      },
+    ],
+  },
+  {
+    id: 'mc-21',
+    name: 'National Institute of Technology (NIT) Gurugram',
+    location: 'Gurugram',
+    state: 'Haryana',
+    ranking: 30,
+    fees_annual: 46000,
+    type: 'Government',
+    entrance_exams: ['JEE Main', 'JEE Advanced'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Internet of Things (IoT) Tech',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+      {
+        specialization: 'Cybersecurity Analyst Engineering',
+        course_name: 'Cybersecurity Analyst',
+      },
+    ],
+  },
+  {
+    id: 'mc-22',
+    name: 'Institute of Medical Sciences (AIIMS) Trivandrum',
+    location: 'Trivandrum',
+    state: 'Kerala',
+    ranking: 31,
+    fees_annual: 48000,
+    type: 'Government',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.instituteofmedi.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Biotechnology',
+        course_name: 'Biotechnology',
+      },
+    ],
+  },
+  {
+    id: 'mc-23',
+    name: 'National Law School (NLS) Ludhiana',
+    location: 'Ludhiana',
+    state: 'Punjab',
+    ranking: 32,
+    fees_annual: 50000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.nationallawscho.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
+    ],
+  },
+  {
+    id: 'mc-24',
+    name: 'Institute of Management (IIM) Mumbai',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 33,
+    fees_annual: 51000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.instituteofmana.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'International Business & Global Trade',
+      },
+    ],
+  },
+  {
+    id: 'mc-25',
+    name: 'Birla Institute of Technology and Science (BITS) New Delhi',
+    location: 'New Delhi',
+    state: 'Delhi',
+    ranking: 34,
+    fees_annual: 730000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.birlainstituteo.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cloud Architect Tech',
+        course_name: 'Cloud Architect',
+      },
+      {
+        specialization: 'Software Engineering Engineering',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-26',
+    name: 'Vellore Institute of Technology (VIT) Mangalore',
+    location: 'Mangalore',
+    state: 'Karnataka',
+    ranking: 35,
+    fees_annual: 750000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.velloreinstitut.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Prompt Engineer Tech',
+        course_name: 'Prompt Engineer',
+      },
+      {
+        specialization: 'Robotics Engineering',
+        course_name: 'Robotics & Automation Engineering',
+      },
+    ],
+  },
+  {
+    id: 'mc-27',
+    name: 'Academy of Higher Education Trichy',
+    location: 'Trichy',
+    state: 'Tamil Nadu',
+    ranking: 36,
+    fees_annual: 770000,
+    type: 'Private',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.academyofhigher.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Pediatrics Child Healthcare',
+        course_name: 'Pediatrics & Child Healthcare',
+      },
+      {
+        specialization: 'Computer Science Tech',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+      {
+        specialization: 'Internet of Things (IoT) Engineering',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-28',
+    name: 'Symbiosis International University Gandhinagar',
+    location: 'Gandhinagar',
+    state: 'Gujarat',
+    ranking: 37,
+    fees_annual: 790000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.symbiosisintern.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Administration & Management',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-29',
+    name: 'Christ University Hyderabad',
+    location: 'Hyderabad',
+    state: 'Telangana',
+    ranking: 38,
+    fees_annual: 810000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.christuniversit.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Corporate Finance & Treasury Management',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-30',
+    name: 'SRM Institute of Science and Technology Kolkata',
+    location: 'Kolkata',
+    state: 'West Bengal',
+    ranking: 39,
+    fees_annual: 830000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.srminstituteofs.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Internet of Things (IoT) Tech',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+      {
+        specialization: 'Cybersecurity Analyst Engineering',
+        course_name: 'Cybersecurity Analyst',
+      },
+      {
+        specialization: 'Biotechnology',
+        course_name: 'Biotechnology',
+      },
+    ],
+  },
+  {
+    id: 'mc-31',
+    name: 'Amity University Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    ranking: 40,
+    fees_annual: 850000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.amityuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'DevOps Tech',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+      {
+        specialization: 'Cloud Architect Engineering',
+        course_name: 'Cloud Architect',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'International Business & Global Trade',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'Advertising Design & Creative Copywriting',
+      },
+    ],
+  },
+  {
+    id: 'mc-32',
+    name: 'Delhi University (DU) College of Jodhpur',
+    location: 'Jodhpur',
+    state: 'Rajasthan',
+    ranking: 41,
+    fees_annual: 65000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.delhiuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Fintech & Digital Banking Systems',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-33',
+    name: 'National Institute of Design (NID) Gurugram',
+    location: 'Gurugram',
+    state: 'Haryana',
+    ranking: 42,
+    fees_annual: 67000,
+    type: 'Government',
+    entrance_exams: ['UCEED', 'NID DAT'],
+    admission_criteria: 'Design Portfolio Interview',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-34',
+    name: 'Lovely Professional University Trivandrum',
+    location: 'Trivandrum',
+    state: 'Kerala',
+    ranking: 43,
+    fees_annual: 910000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.lovelyprofessio.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cloud Architect Tech',
+        course_name: 'Cloud Architect',
+      },
+      {
+        specialization: 'Software Engineering Engineering',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Intelligence & Data Analytics',
+      },
+    ],
+  },
+  {
+    id: 'mc-35',
+    name: 'St. Xavier College of Ludhiana',
+    location: 'Ludhiana',
+    state: 'Punjab',
+    ranking: 44,
+    fees_annual: 920000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.stxaviercollege.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Administration & Management',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
+    ],
+  },
+  {
+    id: 'mc-36',
+    name: 'Jawaharlal Nehru University (JNU) School of Mumbai',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 45,
+    fees_annual: 72000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.jawaharlalnehru.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+      {
+        specialization: 'Nursing Patient Care Sciences',
+        course_name: 'Nursing & Patient Care Sciences',
+      },
+    ],
+  },
+  {
+    id: 'mc-37',
+    name: 'Thapar Institute of Engineering New Delhi',
+    location: 'New Delhi',
+    state: 'Delhi',
+    ranking: 46,
+    fees_annual: 960000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.thaparinstitute.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Software Engineering Tech',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+      {
+        specialization: 'DevOps Engineering',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+    ],
+  },
+  {
+    id: 'mc-38',
+    name: 'Dhirubhai Ambani Institute of ICT Mangalore',
+    location: 'Mangalore',
+    state: 'Karnataka',
+    ranking: 47,
+    fees_annual: 980000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.dhirubhaiambani.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Robotics Tech',
+        course_name: 'Robotics & Automation Engineering',
+      },
+      {
+        specialization: 'Game Development Engineering',
+        course_name: 'Game Development & Graphics Programming',
+      },
+    ],
+  },
+  {
+    id: 'mc-39',
+    name: 'ICFAI Business School Trichy',
+    location: 'Trichy',
+    state: 'Tamil Nadu',
+    ranking: 48,
+    fees_annual: 1000000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.icfaibusinesssc.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Fintech & Digital Banking Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-40',
+    name: 'Institute of Technology (IIT) Gandhinagar',
+    location: 'Gandhinagar',
+    state: 'Gujarat',
+    ranking: 49,
+    fees_annual: 79000,
+    type: 'Government',
+    entrance_exams: ['JEE Main'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.instituteoftech.edu.in',
+    courses_offered: [
+      {
+        specialization: 'DevOps Tech',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+      {
+        specialization: 'Cloud Architect Engineering',
+        course_name: 'Cloud Architect',
+      },
+    ],
+  },
+  {
+    id: 'mc-41',
+    name: 'National Institute of Technology (NIT) Hyderabad',
+    location: 'Hyderabad',
+    state: 'Telangana',
+    ranking: 50,
+    fees_annual: 81000,
+    type: 'Government',
+    entrance_exams: ['JEE Main'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Game Development Tech',
+        course_name: 'Game Development & Graphics Programming',
+      },
+      {
+        specialization: 'Prompt Engineer Engineering',
+        course_name: 'Prompt Engineer',
+      },
+    ],
+  },
+  {
+    id: 'mc-42',
+    name: 'Institute of Medical Sciences (AIIMS) Kolkata',
+    location: 'Kolkata',
+    state: 'West Bengal',
+    ranking: 51,
+    fees_annual: 83000,
+    type: 'Government',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.instituteofmedi.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Neurology Brain Sciences',
+        course_name: 'Neurology & Brain Sciences',
+      },
+    ],
+  },
+  {
+    id: 'mc-43',
+    name: 'National Law School (NLS) Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    ranking: 52,
+    fees_annual: 84000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.nationallawscho.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
+    ],
+  },
+  {
+    id: 'mc-44',
+    name: 'Institute of Management (IIM) Jodhpur',
+    location: 'Jodhpur',
+    state: 'Rajasthan',
+    ranking: 53,
+    fees_annual: 86000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.instituteofmana.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Human Resources & Talent Management',
+      },
+    ],
+  },
+  {
+    id: 'mc-45',
+    name: 'Birla Institute of Technology and Science (BITS) Gurugram',
+    location: 'Gurugram',
+    state: 'Haryana',
+    ranking: 54,
+    fees_annual: 1120000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.birlainstituteo.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Computer Science Tech',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+      {
+        specialization: 'Internet of Things (IoT) Engineering',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-46',
+    name: 'Vellore Institute of Technology (VIT) Trivandrum',
+    location: 'Trivandrum',
+    state: 'Kerala',
+    ranking: 55,
+    fees_annual: 1140000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.velloreinstitut.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Software Engineering Tech',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+      {
+        specialization: 'DevOps Engineering',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+    ],
+  },
+  {
+    id: 'mc-47',
+    name: 'Academy of Higher Education Ludhiana',
+    location: 'Ludhiana',
+    state: 'Punjab',
+    ranking: 56,
+    fees_annual: 1160000,
+    type: 'Private',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.academyofhigher.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Bioinformatics Analyst',
+        course_name: 'Bioinformatics Analyst',
+      },
+      {
+        specialization: 'Robotics Tech',
+        course_name: 'Robotics & Automation Engineering',
+      },
+      {
+        specialization: 'Game Development Engineering',
+        course_name: 'Game Development & Graphics Programming',
+      },
+    ],
+  },
+  {
+    id: 'mc-48',
+    name: 'Symbiosis International University Mumbai',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 57,
+    fees_annual: 1180000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.symbiosisintern.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Intelligence & Data Analytics',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-49',
+    name: 'Christ University New Delhi',
+    location: 'New Delhi',
+    state: 'Delhi',
+    ranking: 58,
+    fees_annual: 1190000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.christuniversit.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Administration & Management',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-50',
+    name: 'SRM Institute of Science and Technology Mangalore',
+    location: 'Mangalore',
+    state: 'Karnataka',
+    ranking: 59,
+    fees_annual: 1210000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.srminstituteofs.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Game Development Tech',
+        course_name: 'Game Development & Graphics Programming',
+      },
+      {
+        specialization: 'Prompt Engineer Engineering',
+        course_name: 'Prompt Engineer',
+      },
+      {
+        specialization: 'Neurology Brain Sciences',
+        course_name: 'Neurology & Brain Sciences',
+      },
+    ],
+  },
+  {
+    id: 'mc-51',
+    name: 'Amity University Trichy',
+    location: 'Trichy',
+    state: 'Tamil Nadu',
+    ranking: 60,
+    fees_annual: 1230000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.amityuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cybersecurity Analyst Tech',
+        course_name: 'Cybersecurity Analyst',
+      },
+      {
+        specialization: 'Computer Science Engineering',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'Human Resources & Talent Management',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'Advertising Design & Creative Copywriting',
+      },
+    ],
+  },
+  {
+    id: 'mc-52',
+    name: 'Delhi University (DU) College of Gandhinagar',
+    location: 'Gandhinagar',
+    state: 'Gujarat',
+    ranking: 61,
+    fees_annual: 100000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.delhiuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'International Business & Global Trade',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-53',
+    name: 'National Institute of Design (NID) Hyderabad',
+    location: 'Hyderabad',
+    state: 'Telangana',
+    ranking: 62,
+    fees_annual: 102000,
+    type: 'Government',
+    entrance_exams: ['UCEED', 'NID DAT'],
+    admission_criteria: 'Design Portfolio Interview',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-54',
+    name: 'Lovely Professional University Kolkata',
+    location: 'Kolkata',
+    state: 'West Bengal',
+    ranking: 63,
+    fees_annual: 1290000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.lovelyprofessio.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Computer Science Tech',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+      {
+        specialization: 'Internet of Things (IoT) Engineering',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'AI Product Manager',
+      },
+    ],
+  },
+  {
+    id: 'mc-55',
+    name: 'St. Xavier College of Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    ranking: 64,
+    fees_annual: 1310000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.stxaviercollege.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Intelligence & Data Analytics',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
+    ],
+  },
+  {
+    id: 'mc-56',
+    name: 'Jawaharlal Nehru University (JNU) School of Jodhpur',
+    location: 'Jodhpur',
+    state: 'Rajasthan',
+    ranking: 65,
+    fees_annual: 107000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.jawaharlalnehru.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+      {
+        specialization: 'Medicine Healthcare (MBBS)',
+        course_name: 'Medicine & Healthcare (MBBS)',
+      },
+    ],
+  },
+  {
+    id: 'mc-57',
+    name: 'Thapar Institute of Engineering Gurugram',
+    location: 'Gurugram',
+    state: 'Haryana',
+    ranking: 66,
+    fees_annual: 1350000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.thaparinstitute.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Internet of Things (IoT) Tech',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+      {
+        specialization: 'Cybersecurity Analyst Engineering',
+        course_name: 'Cybersecurity Analyst',
+      },
+    ],
+  },
+  {
+    id: 'mc-58',
+    name: 'Dhirubhai Ambani Institute of ICT Trivandrum',
+    location: 'Trivandrum',
+    state: 'Kerala',
+    ranking: 67,
+    fees_annual: 1370000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.dhirubhaiambani.edu.in',
+    courses_offered: [
+      {
+        specialization: 'DevOps Tech',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+      {
+        specialization: 'Cloud Architect Engineering',
+        course_name: 'Cloud Architect',
+      },
+    ],
+  },
+  {
+    id: 'mc-59',
+    name: 'ICFAI Business School Ludhiana',
+    location: 'Ludhiana',
+    state: 'Punjab',
+    ranking: 68,
+    fees_annual: 1390000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.icfaibusinesssc.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'International Business & Global Trade',
+      },
+    ],
+  },
+  {
+    id: 'mc-60',
+    name: 'Institute of Technology (IIT) Mumbai',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 69,
+    fees_annual: 114000,
+    type: 'Government',
+    entrance_exams: ['JEE Main', 'JEE Advanced'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.instituteoftech.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cybersecurity Analyst Tech',
+        course_name: 'Cybersecurity Analyst',
+      },
+      {
+        specialization: 'Computer Science Engineering',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+    ],
+  },
+  {
+    id: 'mc-61',
+    name: 'National Institute of Technology (NIT) New Delhi',
+    location: 'New Delhi',
+    state: 'Delhi',
+    ranking: 70,
+    fees_annual: 115000,
+    type: 'Government',
+    entrance_exams: ['JEE Main'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cloud Architect Tech',
+        course_name: 'Cloud Architect',
+      },
+      {
+        specialization: 'Software Engineering Engineering',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-62',
+    name: 'Institute of Medical Sciences (AIIMS) Mangalore',
+    location: 'Mangalore',
+    state: 'Karnataka',
+    ranking: 71,
+    fees_annual: 117000,
+    type: 'Government',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.instituteofmedi.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Biotechnology',
+        course_name: 'Biotechnology',
+      },
+    ],
+  },
+  {
+    id: 'mc-63',
+    name: 'National Law School (NLS) Trichy',
+    location: 'Trichy',
+    state: 'Tamil Nadu',
+    ranking: 72,
+    fees_annual: 119000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.nationallawscho.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
+    ],
+  },
+  {
+    id: 'mc-64',
+    name: 'Institute of Management (IIM) Gandhinagar',
+    location: 'Gandhinagar',
+    state: 'Gujarat',
+    ranking: 73,
+    fees_annual: 121000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.instituteofmana.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Corporate Finance & Treasury Management',
+      },
+    ],
+  },
+  {
+    id: 'mc-65',
+    name: 'Birla Institute of Technology and Science (BITS) Hyderabad',
+    location: 'Hyderabad',
+    state: 'Telangana',
+    ranking: 74,
+    fees_annual: 1500000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.birlainstituteo.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Robotics Tech',
+        course_name: 'Robotics & Automation Engineering',
+      },
+      {
+        specialization: 'Game Development Engineering',
+        course_name: 'Game Development & Graphics Programming',
+      },
+    ],
+  },
+  {
+    id: 'mc-66',
+    name: 'Vellore Institute of Technology (VIT) Kolkata',
+    location: 'Kolkata',
+    state: 'West Bengal',
+    ranking: 75,
+    fees_annual: 1520000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.velloreinstitut.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Internet of Things (IoT) Tech',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+      {
+        specialization: 'Cybersecurity Analyst Engineering',
+        course_name: 'Cybersecurity Analyst',
+      },
+    ],
+  },
+  {
+    id: 'mc-67',
+    name: 'Academy of Higher Education Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    ranking: 76,
+    fees_annual: 1540000,
+    type: 'Private',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.academyofhigher.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Pediatrics Child Healthcare',
+        course_name: 'Pediatrics & Child Healthcare',
+      },
+      {
+        specialization: 'DevOps Tech',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+      {
+        specialization: 'Cloud Architect Engineering',
+        course_name: 'Cloud Architect',
+      },
+    ],
+  },
+  {
+    id: 'mc-68',
+    name: 'Symbiosis International University Jodhpur',
+    location: 'Jodhpur',
+    state: 'Rajasthan',
+    ranking: 77,
+    fees_annual: 1560000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.symbiosisintern.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'AI Product Manager',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-69',
+    name: 'Christ University Gurugram',
+    location: 'Gurugram',
+    state: 'Haryana',
+    ranking: 78,
+    fees_annual: 1580000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.christuniversit.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Intelligence & Data Analytics',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-70',
+    name: 'SRM Institute of Science and Technology Trivandrum',
+    location: 'Trivandrum',
+    state: 'Kerala',
+    ranking: 79,
+    fees_annual: 1600000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.srminstituteofs.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cloud Architect Tech',
+        course_name: 'Cloud Architect',
+      },
+      {
+        specialization: 'Software Engineering Engineering',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+      {
+        specialization: 'Biotechnology',
+        course_name: 'Biotechnology',
+      },
+    ],
+  },
+  {
+    id: 'mc-71',
+    name: 'Amity University Ludhiana',
+    location: 'Ludhiana',
+    state: 'Punjab',
+    ranking: 80,
+    fees_annual: 1620000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.amityuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Prompt Engineer Tech',
+        course_name: 'Prompt Engineer',
+      },
+      {
+        specialization: 'Robotics Engineering',
+        course_name: 'Robotics & Automation Engineering',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'Corporate Finance & Treasury Management',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'Advertising Design & Creative Copywriting',
+      },
+    ],
+  },
+  {
+    id: 'mc-72',
+    name: 'Delhi University (DU) College of Mumbai',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 81,
+    fees_annual: 134000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.delhiuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Human Resources & Talent Management',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-73',
+    name: 'National Institute of Design (NID) New Delhi',
+    location: 'New Delhi',
+    state: 'Delhi',
+    ranking: 82,
+    fees_annual: 136000,
+    type: 'Government',
+    entrance_exams: ['UCEED', 'NID DAT'],
+    admission_criteria: 'Design Portfolio Interview',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-74',
+    name: 'Lovely Professional University Mangalore',
+    location: 'Mangalore',
+    state: 'Karnataka',
+    ranking: 83,
+    fees_annual: 1680000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.lovelyprofessio.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Robotics Tech',
+        course_name: 'Robotics & Automation Engineering',
+      },
+      {
+        specialization: 'Game Development Engineering',
+        course_name: 'Game Development & Graphics Programming',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'Fintech & Digital Banking Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-75',
+    name: 'St. Xavier College of Trichy',
+    location: 'Trichy',
+    state: 'Tamil Nadu',
+    ranking: 84,
+    fees_annual: 1700000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.stxaviercollege.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'AI Product Manager',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
+    ],
+  },
+  {
+    id: 'mc-76',
+    name: 'Jawaharlal Nehru University (JNU) School of Gandhinagar',
+    location: 'Gandhinagar',
+    state: 'Gujarat',
+    ranking: 85,
+    fees_annual: 141000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.jawaharlalnehru.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+      {
+        specialization: 'Nursing Patient Care Sciences',
+        course_name: 'Nursing & Patient Care Sciences',
+      },
+    ],
+  },
+  {
+    id: 'mc-77',
+    name: 'Thapar Institute of Engineering Hyderabad',
+    location: 'Hyderabad',
+    state: 'Telangana',
+    ranking: 86,
+    fees_annual: 1730000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.thaparinstitute.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Game Development Tech',
+        course_name: 'Game Development & Graphics Programming',
+      },
+      {
+        specialization: 'Prompt Engineer Engineering',
+        course_name: 'Prompt Engineer',
+      },
+    ],
+  },
+  {
+    id: 'mc-78',
+    name: 'Dhirubhai Ambani Institute of ICT Kolkata',
+    location: 'Kolkata',
+    state: 'West Bengal',
+    ranking: 87,
+    fees_annual: 1750000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.dhirubhaiambani.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cybersecurity Analyst Tech',
+        course_name: 'Cybersecurity Analyst',
+      },
+      {
+        specialization: 'Computer Science Engineering',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+    ],
+  },
+  {
+    id: 'mc-79',
+    name: 'ICFAI Business School Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    ranking: 88,
+    fees_annual: 1770000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.icfaibusinesssc.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Human Resources & Talent Management',
+      },
+    ],
+  },
+  {
+    id: 'mc-80',
+    name: 'Institute of Technology (IIT) Jodhpur',
+    location: 'Jodhpur',
+    state: 'Rajasthan',
+    ranking: 89,
+    fees_annual: 148000,
+    type: 'Government',
+    entrance_exams: ['JEE Main'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.instituteoftech.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Prompt Engineer Tech',
+        course_name: 'Prompt Engineer',
+      },
+      {
+        specialization: 'Robotics Engineering',
+        course_name: 'Robotics & Automation Engineering',
+      },
+    ],
+  },
+  {
+    id: 'mc-81',
+    name: 'National Institute of Technology (NIT) Gurugram',
+    location: 'Gurugram',
+    state: 'Haryana',
+    ranking: 90,
+    fees_annual: 150000,
+    type: 'Government',
+    entrance_exams: ['JEE Main', 'JEE Advanced'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Computer Science Tech',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+      {
+        specialization: 'Internet of Things (IoT) Engineering',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+    ],
+  },
+  {
+    id: 'mc-82',
+    name: 'Institute of Medical Sciences (AIIMS) Trivandrum',
+    location: 'Trivandrum',
+    state: 'Kerala',
+    ranking: 91,
+    fees_annual: 152000,
+    type: 'Government',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.instituteofmedi.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Neurology Brain Sciences',
+        course_name: 'Neurology & Brain Sciences',
+      },
+    ],
+  },
+  {
+    id: 'mc-83',
+    name: 'National Law School (NLS) Ludhiana',
+    location: 'Ludhiana',
+    state: 'Punjab',
+    ranking: 92,
+    fees_annual: 154000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.nationallawscho.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
+    ],
+  },
+  {
+    id: 'mc-84',
+    name: 'Institute of Management (IIM) Mumbai',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 93,
+    fees_annual: 155000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.instituteofmana.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Administration & Management',
+      },
+    ],
+  },
+  {
+    id: 'mc-85',
+    name: 'Birla Institute of Technology and Science (BITS) New Delhi',
+    location: 'New Delhi',
+    state: 'Delhi',
+    ranking: 94,
+    fees_annual: 340000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.birlainstituteo.edu.in',
+    courses_offered: [
+      {
+        specialization: 'DevOps Tech',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+      {
+        specialization: 'Cloud Architect Engineering',
+        course_name: 'Cloud Architect',
+      },
+    ],
+  },
+  {
+    id: 'mc-86',
+    name: 'Vellore Institute of Technology (VIT) Mangalore',
+    location: 'Mangalore',
+    state: 'Karnataka',
+    ranking: 95,
+    fees_annual: 360000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.velloreinstitut.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Game Development Tech',
+        course_name: 'Game Development & Graphics Programming',
+      },
+      {
+        specialization: 'Prompt Engineer Engineering',
+        course_name: 'Prompt Engineer',
+      },
+    ],
+  },
+  {
+    id: 'mc-87',
+    name: 'Academy of Higher Education Trichy',
+    location: 'Trichy',
+    state: 'Tamil Nadu',
+    ranking: 96,
+    fees_annual: 380000,
+    type: 'Private',
+    entrance_exams: ['NEET UG'],
+    admission_criteria: 'NEET Counseling Cutoff',
+    website_url: 'https://www.academyofhigher.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Bioinformatics Analyst',
+        course_name: 'Bioinformatics Analyst',
+      },
+      {
+        specialization: 'Cybersecurity Analyst Tech',
+        course_name: 'Cybersecurity Analyst',
+      },
+      {
+        specialization: 'Computer Science Engineering',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+    ],
+  },
+  {
+    id: 'mc-88',
+    name: 'Symbiosis International University Gandhinagar',
+    location: 'Gandhinagar',
+    state: 'Gujarat',
+    ranking: 97,
+    fees_annual: 400000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.symbiosisintern.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Fintech & Digital Banking Systems',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
+    ],
+  },
+  {
+    id: 'mc-89',
+    name: 'Christ University Hyderabad',
+    location: 'Hyderabad',
+    state: 'Telangana',
+    ranking: 98,
+    fees_annual: 420000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.christuniversit.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'AI Product Manager',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
+    ],
+  },
+  {
+    id: 'mc-90',
+    name: 'SRM Institute of Science and Technology Kolkata',
+    location: 'Kolkata',
+    state: 'West Bengal',
+    ranking: 99,
+    fees_annual: 440000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.srminstituteofs.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Computer Science Tech',
+        course_name: 'Computer Science & Artificial Intelligence',
+      },
+      {
+        specialization: 'Internet of Things (IoT) Engineering',
+        course_name: 'Internet of Things (IoT) & Embedded Systems',
+      },
+      {
+        specialization: 'Neurology Brain Sciences',
+        course_name: 'Neurology & Brain Sciences',
+      },
+    ],
+  },
+  {
+    id: 'mc-91',
+    name: 'Amity University Greater Noida',
+    location: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    ranking: 100,
+    fees_annual: 450000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.amityuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Software Engineering Tech',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+      {
+        specialization: 'DevOps Engineering',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+      {
+        specialization: 'General MBA',
+        course_name: 'Business Administration & Management',
+      },
+      {
+        specialization: 'Creative Studies',
+        course_name: 'Advertising Design & Creative Copywriting',
+      },
+    ],
+  },
+  {
+    id: 'mc-92',
+    name: 'Delhi University (DU) College of Jodhpur',
+    location: 'Jodhpur',
+    state: 'Rajasthan',
+    ranking: 101,
+    fees_annual: 169000,
+    type: 'Government',
+    entrance_exams: ['CAT'],
+    admission_criteria: 'CAT Percentile Merit',
+    website_url: 'https://www.delhiuniversity.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Corporate Finance & Treasury Management',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
+      },
     ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.academyofhigher.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Bioinformatics Analyst",
-        "course_name": "Bioinformatics Analyst"
-      },
-      {
-        "specialization": "Cloud Architect Tech",
-        "course_name": "Cloud Architect"
-      },
-      {
-        "specialization": "Software Engineering Engineering",
-        "course_name": "Software Engineering & Distributed Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-8",
-    "name": "Symbiosis International University Jodhpur",
-    "location": "Jodhpur",
-    "state": "Rajasthan",
-    "ranking": 17,
-    "fees_annual": 400000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
+  },
+  {
+    id: 'mc-93',
+    name: 'National Institute of Design (NID) Gurugram',
+    location: 'Gurugram',
+    state: 'Haryana',
+    ranking: 102,
+    fees_annual: 171000,
+    type: 'Government',
+    entrance_exams: ['UCEED', 'NID DAT'],
+    admission_criteria: 'Design Portfolio Interview',
+    website_url: 'https://www.nationalinstitu.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Creative Studies',
+        course_name: 'UX Researcher',
+      },
     ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.symbiosisintern.edu.in",
-    "courses_offered": [
+  },
+  {
+    id: 'mc-94',
+    name: 'Lovely Professional University Trivandrum',
+    location: 'Trivandrum',
+    state: 'Kerala',
+    ranking: 103,
+    fees_annual: 510000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.lovelyprofessio.edu.in',
+    courses_offered: [
+      {
+        specialization: 'DevOps Tech',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
       {
-        "specialization": "General MBA",
-        "course_name": "Corporate Finance & Treasury Management"
+        specialization: 'Cloud Architect Engineering',
+        course_name: 'Cloud Architect',
       },
       {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
+        specialization: 'General MBA',
+        course_name: 'International Business & Global Trade',
+      },
+    ],
+  },
   {
-    "id": "mc-9",
-    "name": "Christ University Gurugram",
-    "location": "Gurugram",
-    "state": "Haryana",
-    "ranking": 18,
-    "fees_annual": 420000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
+    id: 'mc-95',
+    name: 'St. Xavier College of Ludhiana',
+    location: 'Ludhiana',
+    state: 'Punjab',
+    ranking: 104,
+    fees_annual: 530000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.stxaviercollege.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Fintech & Digital Banking Systems',
+      },
+      {
+        specialization: 'Integrated LLB',
+        course_name: 'Law & Civil Services',
+      },
     ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.christuniversit.edu.in",
-    "courses_offered": [
+  },
+  {
+    id: 'mc-96',
+    name: 'Jawaharlal Nehru University (JNU) School of Mumbai',
+    location: 'Mumbai',
+    state: 'Maharashtra',
+    ranking: 105,
+    fees_annual: 176000,
+    type: 'Government',
+    entrance_exams: ['CLAT'],
+    admission_criteria: 'CLAT Score Cutoff',
+    website_url: 'https://www.jawaharlalnehru.edu.in',
+    courses_offered: [
       {
-        "specialization": "General MBA",
-        "course_name": "Human Resources & Talent Management"
+        specialization: 'Integrated LLB',
+        course_name: 'Corporate & Civil Law (BA LLB)',
       },
       {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
+        specialization: 'Medicine Healthcare (MBBS)',
+        course_name: 'Medicine & Healthcare (MBBS)',
+      },
+    ],
+  },
   {
-    "id": "mc-10",
-    "name": "SRM Institute of Science and Technology Trivandrum",
-    "location": "Trivandrum",
-    "state": "Kerala",
-    "ranking": 19,
-    "fees_annual": 440000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
+    id: 'mc-97',
+    name: 'Thapar Institute of Engineering New Delhi',
+    location: 'New Delhi',
+    state: 'Delhi',
+    ranking: 106,
+    fees_annual: 570000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.thaparinstitute.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Cloud Architect Tech',
+        course_name: 'Cloud Architect',
+      },
+      {
+        specialization: 'Software Engineering Engineering',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
     ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.srminstituteofs.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Software Engineering Tech",
-        "course_name": "Software Engineering & Distributed Systems"
-      },
-      {
-        "specialization": "DevOps Engineering",
-        "course_name": "DevOps & Cloud Site Reliability"
-      },
-      {
-        "specialization": "Neurology Brain Sciences",
-        "course_name": "Neurology & Brain Sciences"
-      }
-    ]
-  },
-  {
-    "id": "mc-11",
-    "name": "Amity University Ludhiana",
-    "location": "Ludhiana",
-    "state": "Punjab",
-    "ranking": 20,
-    "fees_annual": 460000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
+  },
+  {
+    id: 'mc-98',
+    name: 'Dhirubhai Ambani Institute of ICT Mangalore',
+    location: 'Mangalore',
+    state: 'Karnataka',
+    ranking: 107,
+    fees_annual: 590000,
+    type: 'Private',
+    entrance_exams: ['JEE Main', 'BITS AT', 'VIT EEE'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.dhirubhaiambani.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Prompt Engineer Tech',
+        course_name: 'Prompt Engineer',
+      },
+      {
+        specialization: 'Robotics Engineering',
+        course_name: 'Robotics & Automation Engineering',
+      },
     ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.amityuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Robotics Tech",
-        "course_name": "Robotics & Automation Engineering"
-      },
-      {
-        "specialization": "Game Development Engineering",
-        "course_name": "Game Development & Graphics Programming"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "Fintech & Digital Banking Systems"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "Advertising Design & Creative Copywriting"
-      }
-    ]
-  },
+  },
   {
-    "id": "mc-12",
-    "name": "Delhi University (DU) College of Mumbai",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 21,
-    "fees_annual": 31000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.delhiuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "AI Product Manager"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
+    id: 'mc-99',
+    name: 'ICFAI Business School Trichy',
+    location: 'Trichy',
+    state: 'Tamil Nadu',
+    ranking: 108,
+    fees_annual: 610000,
+    type: 'Private',
+    entrance_exams: ['MAT', 'GMAT'],
+    admission_criteria: 'Management Aptitude Score',
+    website_url: 'https://www.icfaibusinesssc.edu.in',
+    courses_offered: [
+      {
+        specialization: 'General MBA',
+        course_name: 'Corporate Finance & Treasury Management',
+      },
+    ],
+  },
   {
-    "id": "mc-13",
-    "name": "National Institute of Design (NID) New Delhi",
-    "location": "New Delhi",
-    "state": "Delhi",
-    "ranking": 22,
-    "fees_annual": 32000,
-    "type": "Government",
-    "entrance_exams": [
-      "UCEED",
-      "NID DAT"
-    ],
-    "admission_criteria": "Design Portfolio Interview",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-14",
-    "name": "Lovely Professional University Mangalore",
-    "location": "Mangalore",
-    "state": "Karnataka",
-    "ranking": 23,
-    "fees_annual": 520000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.lovelyprofessio.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Game Development Tech",
-        "course_name": "Game Development & Graphics Programming"
-      },
-      {
-        "specialization": "Prompt Engineer Engineering",
-        "course_name": "Prompt Engineer"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Administration & Management"
-      }
-    ]
-  },
-  {
-    "id": "mc-15",
-    "name": "St. Xavier College of Trichy",
-    "location": "Trichy",
-    "state": "Tamil Nadu",
-    "ranking": 24,
-    "fees_annual": 540000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.stxaviercollege.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Corporate Finance & Treasury Management"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-16",
-    "name": "Jawaharlal Nehru University (JNU) School of Gandhinagar",
-    "location": "Gandhinagar",
-    "state": "Gujarat",
-    "ranking": 25,
-    "fees_annual": 38000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.jawaharlalnehru.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      },
-      {
-        "specialization": "Medicine Healthcare (MBBS)",
-        "course_name": "Medicine & Healthcare (MBBS)"
-      }
-    ]
-  },
-  {
-    "id": "mc-17",
-    "name": "Thapar Institute of Engineering Hyderabad",
-    "location": "Hyderabad",
-    "state": "Telangana",
-    "ranking": 26,
-    "fees_annual": 580000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.thaparinstitute.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Prompt Engineer Tech",
-        "course_name": "Prompt Engineer"
-      },
-      {
-        "specialization": "Robotics Engineering",
-        "course_name": "Robotics & Automation Engineering"
-      }
-    ]
-  },
-  {
-    "id": "mc-18",
-    "name": "Dhirubhai Ambani Institute of ICT Kolkata",
-    "location": "Kolkata",
-    "state": "West Bengal",
-    "ranking": 27,
-    "fees_annual": 600000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.dhirubhaiambani.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Computer Science Tech",
-        "course_name": "Computer Science & Artificial Intelligence"
-      },
-      {
-        "specialization": "Internet of Things (IoT) Engineering",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-19",
-    "name": "ICFAI Business School Greater Noida",
-    "location": "Greater Noida",
-    "state": "Uttar Pradesh",
-    "ranking": 28,
-    "fees_annual": 620000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.icfaibusinesssc.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "AI Product Manager"
-      }
-    ]
-  },
-  {
-    "id": "mc-20",
-    "name": "Institute of Technology (IIT) Jodhpur",
-    "location": "Jodhpur",
-    "state": "Rajasthan",
-    "ranking": 29,
-    "fees_annual": 45000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.instituteoftech.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Robotics Tech",
-        "course_name": "Robotics & Automation Engineering"
-      },
-      {
-        "specialization": "Game Development Engineering",
-        "course_name": "Game Development & Graphics Programming"
-      }
-    ]
-  },
-  {
-    "id": "mc-21",
-    "name": "National Institute of Technology (NIT) Gurugram",
-    "location": "Gurugram",
-    "state": "Haryana",
-    "ranking": 30,
-    "fees_annual": 46000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main",
-      "JEE Advanced"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Internet of Things (IoT) Tech",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      },
-      {
-        "specialization": "Cybersecurity Analyst Engineering",
-        "course_name": "Cybersecurity Analyst"
-      }
-    ]
-  },
-  {
-    "id": "mc-22",
-    "name": "Institute of Medical Sciences (AIIMS) Trivandrum",
-    "location": "Trivandrum",
-    "state": "Kerala",
-    "ranking": 31,
-    "fees_annual": 48000,
-    "type": "Government",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.instituteofmedi.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Biotechnology",
-        "course_name": "Biotechnology"
-      }
-    ]
-  },
-  {
-    "id": "mc-23",
-    "name": "National Law School (NLS) Ludhiana",
-    "location": "Ludhiana",
-    "state": "Punjab",
-    "ranking": 32,
-    "fees_annual": 50000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.nationallawscho.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-24",
-    "name": "Institute of Management (IIM) Mumbai",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 33,
-    "fees_annual": 51000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.instituteofmana.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "International Business & Global Trade"
-      }
-    ]
-  },
-  {
-    "id": "mc-25",
-    "name": "Birla Institute of Technology and Science (BITS) New Delhi",
-    "location": "New Delhi",
-    "state": "Delhi",
-    "ranking": 34,
-    "fees_annual": 730000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.birlainstituteo.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cloud Architect Tech",
-        "course_name": "Cloud Architect"
-      },
-      {
-        "specialization": "Software Engineering Engineering",
-        "course_name": "Software Engineering & Distributed Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-26",
-    "name": "Vellore Institute of Technology (VIT) Mangalore",
-    "location": "Mangalore",
-    "state": "Karnataka",
-    "ranking": 35,
-    "fees_annual": 750000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.velloreinstitut.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Prompt Engineer Tech",
-        "course_name": "Prompt Engineer"
-      },
-      {
-        "specialization": "Robotics Engineering",
-        "course_name": "Robotics & Automation Engineering"
-      }
-    ]
-  },
-  {
-    "id": "mc-27",
-    "name": "Academy of Higher Education Trichy",
-    "location": "Trichy",
-    "state": "Tamil Nadu",
-    "ranking": 36,
-    "fees_annual": 770000,
-    "type": "Private",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.academyofhigher.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Pediatrics Child Healthcare",
-        "course_name": "Pediatrics & Child Healthcare"
-      },
-      {
-        "specialization": "Computer Science Tech",
-        "course_name": "Computer Science & Artificial Intelligence"
-      },
-      {
-        "specialization": "Internet of Things (IoT) Engineering",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-28",
-    "name": "Symbiosis International University Gandhinagar",
-    "location": "Gandhinagar",
-    "state": "Gujarat",
-    "ranking": 37,
-    "fees_annual": 790000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.symbiosisintern.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Administration & Management"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
-  {
-    "id": "mc-29",
-    "name": "Christ University Hyderabad",
-    "location": "Hyderabad",
-    "state": "Telangana",
-    "ranking": 38,
-    "fees_annual": 810000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.christuniversit.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Corporate Finance & Treasury Management"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-30",
-    "name": "SRM Institute of Science and Technology Kolkata",
-    "location": "Kolkata",
-    "state": "West Bengal",
-    "ranking": 39,
-    "fees_annual": 830000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.srminstituteofs.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Internet of Things (IoT) Tech",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      },
-      {
-        "specialization": "Cybersecurity Analyst Engineering",
-        "course_name": "Cybersecurity Analyst"
-      },
-      {
-        "specialization": "Biotechnology",
-        "course_name": "Biotechnology"
-      }
-    ]
-  },
-  {
-    "id": "mc-31",
-    "name": "Amity University Greater Noida",
-    "location": "Greater Noida",
-    "state": "Uttar Pradesh",
-    "ranking": 40,
-    "fees_annual": 850000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.amityuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "DevOps Tech",
-        "course_name": "DevOps & Cloud Site Reliability"
-      },
-      {
-        "specialization": "Cloud Architect Engineering",
-        "course_name": "Cloud Architect"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "International Business & Global Trade"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "Advertising Design & Creative Copywriting"
-      }
-    ]
-  },
-  {
-    "id": "mc-32",
-    "name": "Delhi University (DU) College of Jodhpur",
-    "location": "Jodhpur",
-    "state": "Rajasthan",
-    "ranking": 41,
-    "fees_annual": 65000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.delhiuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Fintech & Digital Banking Systems"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
-  {
-    "id": "mc-33",
-    "name": "National Institute of Design (NID) Gurugram",
-    "location": "Gurugram",
-    "state": "Haryana",
-    "ranking": 42,
-    "fees_annual": 67000,
-    "type": "Government",
-    "entrance_exams": [
-      "UCEED",
-      "NID DAT"
-    ],
-    "admission_criteria": "Design Portfolio Interview",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-34",
-    "name": "Lovely Professional University Trivandrum",
-    "location": "Trivandrum",
-    "state": "Kerala",
-    "ranking": 43,
-    "fees_annual": 910000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.lovelyprofessio.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cloud Architect Tech",
-        "course_name": "Cloud Architect"
-      },
-      {
-        "specialization": "Software Engineering Engineering",
-        "course_name": "Software Engineering & Distributed Systems"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Intelligence & Data Analytics"
-      }
-    ]
-  },
-  {
-    "id": "mc-35",
-    "name": "St. Xavier College of Ludhiana",
-    "location": "Ludhiana",
-    "state": "Punjab",
-    "ranking": 44,
-    "fees_annual": 920000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.stxaviercollege.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Administration & Management"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-36",
-    "name": "Jawaharlal Nehru University (JNU) School of Mumbai",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 45,
-    "fees_annual": 72000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.jawaharlalnehru.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      },
-      {
-        "specialization": "Nursing Patient Care Sciences",
-        "course_name": "Nursing & Patient Care Sciences"
-      }
-    ]
-  },
-  {
-    "id": "mc-37",
-    "name": "Thapar Institute of Engineering New Delhi",
-    "location": "New Delhi",
-    "state": "Delhi",
-    "ranking": 46,
-    "fees_annual": 960000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.thaparinstitute.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Software Engineering Tech",
-        "course_name": "Software Engineering & Distributed Systems"
-      },
-      {
-        "specialization": "DevOps Engineering",
-        "course_name": "DevOps & Cloud Site Reliability"
-      }
-    ]
-  },
-  {
-    "id": "mc-38",
-    "name": "Dhirubhai Ambani Institute of ICT Mangalore",
-    "location": "Mangalore",
-    "state": "Karnataka",
-    "ranking": 47,
-    "fees_annual": 980000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.dhirubhaiambani.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Robotics Tech",
-        "course_name": "Robotics & Automation Engineering"
-      },
-      {
-        "specialization": "Game Development Engineering",
-        "course_name": "Game Development & Graphics Programming"
-      }
-    ]
-  },
-  {
-    "id": "mc-39",
-    "name": "ICFAI Business School Trichy",
-    "location": "Trichy",
-    "state": "Tamil Nadu",
-    "ranking": 48,
-    "fees_annual": 1000000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.icfaibusinesssc.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Fintech & Digital Banking Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-40",
-    "name": "Institute of Technology (IIT) Gandhinagar",
-    "location": "Gandhinagar",
-    "state": "Gujarat",
-    "ranking": 49,
-    "fees_annual": 79000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.instituteoftech.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "DevOps Tech",
-        "course_name": "DevOps & Cloud Site Reliability"
-      },
-      {
-        "specialization": "Cloud Architect Engineering",
-        "course_name": "Cloud Architect"
-      }
-    ]
-  },
-  {
-    "id": "mc-41",
-    "name": "National Institute of Technology (NIT) Hyderabad",
-    "location": "Hyderabad",
-    "state": "Telangana",
-    "ranking": 50,
-    "fees_annual": 81000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Game Development Tech",
-        "course_name": "Game Development & Graphics Programming"
-      },
-      {
-        "specialization": "Prompt Engineer Engineering",
-        "course_name": "Prompt Engineer"
-      }
-    ]
-  },
-  {
-    "id": "mc-42",
-    "name": "Institute of Medical Sciences (AIIMS) Kolkata",
-    "location": "Kolkata",
-    "state": "West Bengal",
-    "ranking": 51,
-    "fees_annual": 83000,
-    "type": "Government",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.instituteofmedi.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Neurology Brain Sciences",
-        "course_name": "Neurology & Brain Sciences"
-      }
-    ]
-  },
-  {
-    "id": "mc-43",
-    "name": "National Law School (NLS) Greater Noida",
-    "location": "Greater Noida",
-    "state": "Uttar Pradesh",
-    "ranking": 52,
-    "fees_annual": 84000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.nationallawscho.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-44",
-    "name": "Institute of Management (IIM) Jodhpur",
-    "location": "Jodhpur",
-    "state": "Rajasthan",
-    "ranking": 53,
-    "fees_annual": 86000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.instituteofmana.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Human Resources & Talent Management"
-      }
-    ]
-  },
-  {
-    "id": "mc-45",
-    "name": "Birla Institute of Technology and Science (BITS) Gurugram",
-    "location": "Gurugram",
-    "state": "Haryana",
-    "ranking": 54,
-    "fees_annual": 1120000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.birlainstituteo.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Computer Science Tech",
-        "course_name": "Computer Science & Artificial Intelligence"
-      },
-      {
-        "specialization": "Internet of Things (IoT) Engineering",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-46",
-    "name": "Vellore Institute of Technology (VIT) Trivandrum",
-    "location": "Trivandrum",
-    "state": "Kerala",
-    "ranking": 55,
-    "fees_annual": 1140000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.velloreinstitut.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Software Engineering Tech",
-        "course_name": "Software Engineering & Distributed Systems"
-      },
-      {
-        "specialization": "DevOps Engineering",
-        "course_name": "DevOps & Cloud Site Reliability"
-      }
-    ]
-  },
-  {
-    "id": "mc-47",
-    "name": "Academy of Higher Education Ludhiana",
-    "location": "Ludhiana",
-    "state": "Punjab",
-    "ranking": 56,
-    "fees_annual": 1160000,
-    "type": "Private",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.academyofhigher.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Bioinformatics Analyst",
-        "course_name": "Bioinformatics Analyst"
-      },
-      {
-        "specialization": "Robotics Tech",
-        "course_name": "Robotics & Automation Engineering"
-      },
-      {
-        "specialization": "Game Development Engineering",
-        "course_name": "Game Development & Graphics Programming"
-      }
-    ]
-  },
-  {
-    "id": "mc-48",
-    "name": "Symbiosis International University Mumbai",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 57,
-    "fees_annual": 1180000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.symbiosisintern.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Intelligence & Data Analytics"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
-  {
-    "id": "mc-49",
-    "name": "Christ University New Delhi",
-    "location": "New Delhi",
-    "state": "Delhi",
-    "ranking": 58,
-    "fees_annual": 1190000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.christuniversit.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Administration & Management"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-50",
-    "name": "SRM Institute of Science and Technology Mangalore",
-    "location": "Mangalore",
-    "state": "Karnataka",
-    "ranking": 59,
-    "fees_annual": 1210000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.srminstituteofs.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Game Development Tech",
-        "course_name": "Game Development & Graphics Programming"
-      },
-      {
-        "specialization": "Prompt Engineer Engineering",
-        "course_name": "Prompt Engineer"
-      },
-      {
-        "specialization": "Neurology Brain Sciences",
-        "course_name": "Neurology & Brain Sciences"
-      }
-    ]
-  },
-  {
-    "id": "mc-51",
-    "name": "Amity University Trichy",
-    "location": "Trichy",
-    "state": "Tamil Nadu",
-    "ranking": 60,
-    "fees_annual": 1230000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.amityuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cybersecurity Analyst Tech",
-        "course_name": "Cybersecurity Analyst"
-      },
-      {
-        "specialization": "Computer Science Engineering",
-        "course_name": "Computer Science & Artificial Intelligence"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "Human Resources & Talent Management"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "Advertising Design & Creative Copywriting"
-      }
-    ]
-  },
-  {
-    "id": "mc-52",
-    "name": "Delhi University (DU) College of Gandhinagar",
-    "location": "Gandhinagar",
-    "state": "Gujarat",
-    "ranking": 61,
-    "fees_annual": 100000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.delhiuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "International Business & Global Trade"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
-  {
-    "id": "mc-53",
-    "name": "National Institute of Design (NID) Hyderabad",
-    "location": "Hyderabad",
-    "state": "Telangana",
-    "ranking": 62,
-    "fees_annual": 102000,
-    "type": "Government",
-    "entrance_exams": [
-      "UCEED",
-      "NID DAT"
-    ],
-    "admission_criteria": "Design Portfolio Interview",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-54",
-    "name": "Lovely Professional University Kolkata",
-    "location": "Kolkata",
-    "state": "West Bengal",
-    "ranking": 63,
-    "fees_annual": 1290000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.lovelyprofessio.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Computer Science Tech",
-        "course_name": "Computer Science & Artificial Intelligence"
-      },
-      {
-        "specialization": "Internet of Things (IoT) Engineering",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "AI Product Manager"
-      }
-    ]
-  },
-  {
-    "id": "mc-55",
-    "name": "St. Xavier College of Greater Noida",
-    "location": "Greater Noida",
-    "state": "Uttar Pradesh",
-    "ranking": 64,
-    "fees_annual": 1310000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.stxaviercollege.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Intelligence & Data Analytics"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-56",
-    "name": "Jawaharlal Nehru University (JNU) School of Jodhpur",
-    "location": "Jodhpur",
-    "state": "Rajasthan",
-    "ranking": 65,
-    "fees_annual": 107000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.jawaharlalnehru.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      },
-      {
-        "specialization": "Medicine Healthcare (MBBS)",
-        "course_name": "Medicine & Healthcare (MBBS)"
-      }
-    ]
-  },
-  {
-    "id": "mc-57",
-    "name": "Thapar Institute of Engineering Gurugram",
-    "location": "Gurugram",
-    "state": "Haryana",
-    "ranking": 66,
-    "fees_annual": 1350000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.thaparinstitute.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Internet of Things (IoT) Tech",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      },
-      {
-        "specialization": "Cybersecurity Analyst Engineering",
-        "course_name": "Cybersecurity Analyst"
-      }
-    ]
-  },
-  {
-    "id": "mc-58",
-    "name": "Dhirubhai Ambani Institute of ICT Trivandrum",
-    "location": "Trivandrum",
-    "state": "Kerala",
-    "ranking": 67,
-    "fees_annual": 1370000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.dhirubhaiambani.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "DevOps Tech",
-        "course_name": "DevOps & Cloud Site Reliability"
-      },
-      {
-        "specialization": "Cloud Architect Engineering",
-        "course_name": "Cloud Architect"
-      }
-    ]
-  },
-  {
-    "id": "mc-59",
-    "name": "ICFAI Business School Ludhiana",
-    "location": "Ludhiana",
-    "state": "Punjab",
-    "ranking": 68,
-    "fees_annual": 1390000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.icfaibusinesssc.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "International Business & Global Trade"
-      }
-    ]
-  },
-  {
-    "id": "mc-60",
-    "name": "Institute of Technology (IIT) Mumbai",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 69,
-    "fees_annual": 114000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main",
-      "JEE Advanced"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.instituteoftech.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cybersecurity Analyst Tech",
-        "course_name": "Cybersecurity Analyst"
-      },
-      {
-        "specialization": "Computer Science Engineering",
-        "course_name": "Computer Science & Artificial Intelligence"
-      }
-    ]
-  },
-  {
-    "id": "mc-61",
-    "name": "National Institute of Technology (NIT) New Delhi",
-    "location": "New Delhi",
-    "state": "Delhi",
-    "ranking": 70,
-    "fees_annual": 115000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cloud Architect Tech",
-        "course_name": "Cloud Architect"
-      },
-      {
-        "specialization": "Software Engineering Engineering",
-        "course_name": "Software Engineering & Distributed Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-62",
-    "name": "Institute of Medical Sciences (AIIMS) Mangalore",
-    "location": "Mangalore",
-    "state": "Karnataka",
-    "ranking": 71,
-    "fees_annual": 117000,
-    "type": "Government",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.instituteofmedi.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Biotechnology",
-        "course_name": "Biotechnology"
-      }
-    ]
-  },
-  {
-    "id": "mc-63",
-    "name": "National Law School (NLS) Trichy",
-    "location": "Trichy",
-    "state": "Tamil Nadu",
-    "ranking": 72,
-    "fees_annual": 119000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.nationallawscho.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-64",
-    "name": "Institute of Management (IIM) Gandhinagar",
-    "location": "Gandhinagar",
-    "state": "Gujarat",
-    "ranking": 73,
-    "fees_annual": 121000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.instituteofmana.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Corporate Finance & Treasury Management"
-      }
-    ]
-  },
-  {
-    "id": "mc-65",
-    "name": "Birla Institute of Technology and Science (BITS) Hyderabad",
-    "location": "Hyderabad",
-    "state": "Telangana",
-    "ranking": 74,
-    "fees_annual": 1500000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.birlainstituteo.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Robotics Tech",
-        "course_name": "Robotics & Automation Engineering"
-      },
-      {
-        "specialization": "Game Development Engineering",
-        "course_name": "Game Development & Graphics Programming"
-      }
-    ]
-  },
-  {
-    "id": "mc-66",
-    "name": "Vellore Institute of Technology (VIT) Kolkata",
-    "location": "Kolkata",
-    "state": "West Bengal",
-    "ranking": 75,
-    "fees_annual": 1520000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.velloreinstitut.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Internet of Things (IoT) Tech",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      },
-      {
-        "specialization": "Cybersecurity Analyst Engineering",
-        "course_name": "Cybersecurity Analyst"
-      }
-    ]
-  },
-  {
-    "id": "mc-67",
-    "name": "Academy of Higher Education Greater Noida",
-    "location": "Greater Noida",
-    "state": "Uttar Pradesh",
-    "ranking": 76,
-    "fees_annual": 1540000,
-    "type": "Private",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.academyofhigher.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Pediatrics Child Healthcare",
-        "course_name": "Pediatrics & Child Healthcare"
-      },
-      {
-        "specialization": "DevOps Tech",
-        "course_name": "DevOps & Cloud Site Reliability"
-      },
-      {
-        "specialization": "Cloud Architect Engineering",
-        "course_name": "Cloud Architect"
-      }
-    ]
-  },
-  {
-    "id": "mc-68",
-    "name": "Symbiosis International University Jodhpur",
-    "location": "Jodhpur",
-    "state": "Rajasthan",
-    "ranking": 77,
-    "fees_annual": 1560000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.symbiosisintern.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "AI Product Manager"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
-  {
-    "id": "mc-69",
-    "name": "Christ University Gurugram",
-    "location": "Gurugram",
-    "state": "Haryana",
-    "ranking": 78,
-    "fees_annual": 1580000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.christuniversit.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Intelligence & Data Analytics"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-70",
-    "name": "SRM Institute of Science and Technology Trivandrum",
-    "location": "Trivandrum",
-    "state": "Kerala",
-    "ranking": 79,
-    "fees_annual": 1600000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.srminstituteofs.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cloud Architect Tech",
-        "course_name": "Cloud Architect"
-      },
-      {
-        "specialization": "Software Engineering Engineering",
-        "course_name": "Software Engineering & Distributed Systems"
-      },
-      {
-        "specialization": "Biotechnology",
-        "course_name": "Biotechnology"
-      }
-    ]
-  },
-  {
-    "id": "mc-71",
-    "name": "Amity University Ludhiana",
-    "location": "Ludhiana",
-    "state": "Punjab",
-    "ranking": 80,
-    "fees_annual": 1620000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.amityuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Prompt Engineer Tech",
-        "course_name": "Prompt Engineer"
-      },
-      {
-        "specialization": "Robotics Engineering",
-        "course_name": "Robotics & Automation Engineering"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "Corporate Finance & Treasury Management"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "Advertising Design & Creative Copywriting"
-      }
-    ]
-  },
-  {
-    "id": "mc-72",
-    "name": "Delhi University (DU) College of Mumbai",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 81,
-    "fees_annual": 134000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.delhiuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Human Resources & Talent Management"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
-  {
-    "id": "mc-73",
-    "name": "National Institute of Design (NID) New Delhi",
-    "location": "New Delhi",
-    "state": "Delhi",
-    "ranking": 82,
-    "fees_annual": 136000,
-    "type": "Government",
-    "entrance_exams": [
-      "UCEED",
-      "NID DAT"
-    ],
-    "admission_criteria": "Design Portfolio Interview",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-74",
-    "name": "Lovely Professional University Mangalore",
-    "location": "Mangalore",
-    "state": "Karnataka",
-    "ranking": 83,
-    "fees_annual": 1680000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.lovelyprofessio.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Robotics Tech",
-        "course_name": "Robotics & Automation Engineering"
-      },
-      {
-        "specialization": "Game Development Engineering",
-        "course_name": "Game Development & Graphics Programming"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "Fintech & Digital Banking Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-75",
-    "name": "St. Xavier College of Trichy",
-    "location": "Trichy",
-    "state": "Tamil Nadu",
-    "ranking": 84,
-    "fees_annual": 1700000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.stxaviercollege.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "AI Product Manager"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-76",
-    "name": "Jawaharlal Nehru University (JNU) School of Gandhinagar",
-    "location": "Gandhinagar",
-    "state": "Gujarat",
-    "ranking": 85,
-    "fees_annual": 141000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.jawaharlalnehru.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      },
-      {
-        "specialization": "Nursing Patient Care Sciences",
-        "course_name": "Nursing & Patient Care Sciences"
-      }
-    ]
-  },
-  {
-    "id": "mc-77",
-    "name": "Thapar Institute of Engineering Hyderabad",
-    "location": "Hyderabad",
-    "state": "Telangana",
-    "ranking": 86,
-    "fees_annual": 1730000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.thaparinstitute.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Game Development Tech",
-        "course_name": "Game Development & Graphics Programming"
-      },
-      {
-        "specialization": "Prompt Engineer Engineering",
-        "course_name": "Prompt Engineer"
-      }
-    ]
-  },
-  {
-    "id": "mc-78",
-    "name": "Dhirubhai Ambani Institute of ICT Kolkata",
-    "location": "Kolkata",
-    "state": "West Bengal",
-    "ranking": 87,
-    "fees_annual": 1750000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.dhirubhaiambani.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cybersecurity Analyst Tech",
-        "course_name": "Cybersecurity Analyst"
-      },
-      {
-        "specialization": "Computer Science Engineering",
-        "course_name": "Computer Science & Artificial Intelligence"
-      }
-    ]
-  },
-  {
-    "id": "mc-79",
-    "name": "ICFAI Business School Greater Noida",
-    "location": "Greater Noida",
-    "state": "Uttar Pradesh",
-    "ranking": 88,
-    "fees_annual": 1770000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.icfaibusinesssc.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Human Resources & Talent Management"
-      }
-    ]
-  },
-  {
-    "id": "mc-80",
-    "name": "Institute of Technology (IIT) Jodhpur",
-    "location": "Jodhpur",
-    "state": "Rajasthan",
-    "ranking": 89,
-    "fees_annual": 148000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.instituteoftech.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Prompt Engineer Tech",
-        "course_name": "Prompt Engineer"
-      },
-      {
-        "specialization": "Robotics Engineering",
-        "course_name": "Robotics & Automation Engineering"
-      }
-    ]
-  },
-  {
-    "id": "mc-81",
-    "name": "National Institute of Technology (NIT) Gurugram",
-    "location": "Gurugram",
-    "state": "Haryana",
-    "ranking": 90,
-    "fees_annual": 150000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main",
-      "JEE Advanced"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Computer Science Tech",
-        "course_name": "Computer Science & Artificial Intelligence"
-      },
-      {
-        "specialization": "Internet of Things (IoT) Engineering",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-82",
-    "name": "Institute of Medical Sciences (AIIMS) Trivandrum",
-    "location": "Trivandrum",
-    "state": "Kerala",
-    "ranking": 91,
-    "fees_annual": 152000,
-    "type": "Government",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.instituteofmedi.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Neurology Brain Sciences",
-        "course_name": "Neurology & Brain Sciences"
-      }
-    ]
-  },
-  {
-    "id": "mc-83",
-    "name": "National Law School (NLS) Ludhiana",
-    "location": "Ludhiana",
-    "state": "Punjab",
-    "ranking": 92,
-    "fees_annual": 154000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.nationallawscho.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-84",
-    "name": "Institute of Management (IIM) Mumbai",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 93,
-    "fees_annual": 155000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.instituteofmana.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Administration & Management"
-      }
-    ]
-  },
-  {
-    "id": "mc-85",
-    "name": "Birla Institute of Technology and Science (BITS) New Delhi",
-    "location": "New Delhi",
-    "state": "Delhi",
-    "ranking": 94,
-    "fees_annual": 340000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.birlainstituteo.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "DevOps Tech",
-        "course_name": "DevOps & Cloud Site Reliability"
-      },
-      {
-        "specialization": "Cloud Architect Engineering",
-        "course_name": "Cloud Architect"
-      }
-    ]
-  },
-  {
-    "id": "mc-86",
-    "name": "Vellore Institute of Technology (VIT) Mangalore",
-    "location": "Mangalore",
-    "state": "Karnataka",
-    "ranking": 95,
-    "fees_annual": 360000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.velloreinstitut.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Game Development Tech",
-        "course_name": "Game Development & Graphics Programming"
-      },
-      {
-        "specialization": "Prompt Engineer Engineering",
-        "course_name": "Prompt Engineer"
-      }
-    ]
-  },
-  {
-    "id": "mc-87",
-    "name": "Academy of Higher Education Trichy",
-    "location": "Trichy",
-    "state": "Tamil Nadu",
-    "ranking": 96,
-    "fees_annual": 380000,
-    "type": "Private",
-    "entrance_exams": [
-      "NEET UG"
-    ],
-    "admission_criteria": "NEET Counseling Cutoff",
-    "website_url": "https://www.academyofhigher.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Bioinformatics Analyst",
-        "course_name": "Bioinformatics Analyst"
-      },
-      {
-        "specialization": "Cybersecurity Analyst Tech",
-        "course_name": "Cybersecurity Analyst"
-      },
-      {
-        "specialization": "Computer Science Engineering",
-        "course_name": "Computer Science & Artificial Intelligence"
-      }
-    ]
-  },
-  {
-    "id": "mc-88",
-    "name": "Symbiosis International University Gandhinagar",
-    "location": "Gandhinagar",
-    "state": "Gujarat",
-    "ranking": 97,
-    "fees_annual": 400000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.symbiosisintern.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Fintech & Digital Banking Systems"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
-  {
-    "id": "mc-89",
-    "name": "Christ University Hyderabad",
-    "location": "Hyderabad",
-    "state": "Telangana",
-    "ranking": 98,
-    "fees_annual": 420000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.christuniversit.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "AI Product Manager"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-90",
-    "name": "SRM Institute of Science and Technology Kolkata",
-    "location": "Kolkata",
-    "state": "West Bengal",
-    "ranking": 99,
-    "fees_annual": 440000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.srminstituteofs.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Computer Science Tech",
-        "course_name": "Computer Science & Artificial Intelligence"
-      },
-      {
-        "specialization": "Internet of Things (IoT) Engineering",
-        "course_name": "Internet of Things (IoT) & Embedded Systems"
-      },
-      {
-        "specialization": "Neurology Brain Sciences",
-        "course_name": "Neurology & Brain Sciences"
-      }
-    ]
-  },
-  {
-    "id": "mc-91",
-    "name": "Amity University Greater Noida",
-    "location": "Greater Noida",
-    "state": "Uttar Pradesh",
-    "ranking": 100,
-    "fees_annual": 450000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.amityuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Software Engineering Tech",
-        "course_name": "Software Engineering & Distributed Systems"
-      },
-      {
-        "specialization": "DevOps Engineering",
-        "course_name": "DevOps & Cloud Site Reliability"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "Business Administration & Management"
-      },
-      {
-        "specialization": "Creative Studies",
-        "course_name": "Advertising Design & Creative Copywriting"
-      }
-    ]
-  },
-  {
-    "id": "mc-92",
-    "name": "Delhi University (DU) College of Jodhpur",
-    "location": "Jodhpur",
-    "state": "Rajasthan",
-    "ranking": 101,
-    "fees_annual": 169000,
-    "type": "Government",
-    "entrance_exams": [
-      "CAT"
-    ],
-    "admission_criteria": "CAT Percentile Merit",
-    "website_url": "https://www.delhiuniversity.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Corporate Finance & Treasury Management"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      }
-    ]
-  },
-  {
-    "id": "mc-93",
-    "name": "National Institute of Design (NID) Gurugram",
-    "location": "Gurugram",
-    "state": "Haryana",
-    "ranking": 102,
-    "fees_annual": 171000,
-    "type": "Government",
-    "entrance_exams": [
-      "UCEED",
-      "NID DAT"
-    ],
-    "admission_criteria": "Design Portfolio Interview",
-    "website_url": "https://www.nationalinstitu.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Creative Studies",
-        "course_name": "UX Researcher"
-      }
-    ]
-  },
-  {
-    "id": "mc-94",
-    "name": "Lovely Professional University Trivandrum",
-    "location": "Trivandrum",
-    "state": "Kerala",
-    "ranking": 103,
-    "fees_annual": 510000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.lovelyprofessio.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "DevOps Tech",
-        "course_name": "DevOps & Cloud Site Reliability"
-      },
-      {
-        "specialization": "Cloud Architect Engineering",
-        "course_name": "Cloud Architect"
-      },
-      {
-        "specialization": "General MBA",
-        "course_name": "International Business & Global Trade"
-      }
-    ]
-  },
-  {
-    "id": "mc-95",
-    "name": "St. Xavier College of Ludhiana",
-    "location": "Ludhiana",
-    "state": "Punjab",
-    "ranking": 104,
-    "fees_annual": 530000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.stxaviercollege.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Fintech & Digital Banking Systems"
-      },
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Law & Civil Services"
-      }
-    ]
-  },
-  {
-    "id": "mc-96",
-    "name": "Jawaharlal Nehru University (JNU) School of Mumbai",
-    "location": "Mumbai",
-    "state": "Maharashtra",
-    "ranking": 105,
-    "fees_annual": 176000,
-    "type": "Government",
-    "entrance_exams": [
-      "CLAT"
-    ],
-    "admission_criteria": "CLAT Score Cutoff",
-    "website_url": "https://www.jawaharlalnehru.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Integrated LLB",
-        "course_name": "Corporate & Civil Law (BA LLB)"
-      },
-      {
-        "specialization": "Medicine Healthcare (MBBS)",
-        "course_name": "Medicine & Healthcare (MBBS)"
-      }
-    ]
-  },
-  {
-    "id": "mc-97",
-    "name": "Thapar Institute of Engineering New Delhi",
-    "location": "New Delhi",
-    "state": "Delhi",
-    "ranking": 106,
-    "fees_annual": 570000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.thaparinstitute.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Cloud Architect Tech",
-        "course_name": "Cloud Architect"
-      },
-      {
-        "specialization": "Software Engineering Engineering",
-        "course_name": "Software Engineering & Distributed Systems"
-      }
-    ]
-  },
-  {
-    "id": "mc-98",
-    "name": "Dhirubhai Ambani Institute of ICT Mangalore",
-    "location": "Mangalore",
-    "state": "Karnataka",
-    "ranking": 107,
-    "fees_annual": 590000,
-    "type": "Private",
-    "entrance_exams": [
-      "JEE Main",
-      "BITS AT",
-      "VIT EEE"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.dhirubhaiambani.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Prompt Engineer Tech",
-        "course_name": "Prompt Engineer"
-      },
-      {
-        "specialization": "Robotics Engineering",
-        "course_name": "Robotics & Automation Engineering"
-      }
-    ]
-  },
-  {
-    "id": "mc-99",
-    "name": "ICFAI Business School Trichy",
-    "location": "Trichy",
-    "state": "Tamil Nadu",
-    "ranking": 108,
-    "fees_annual": 610000,
-    "type": "Private",
-    "entrance_exams": [
-      "MAT",
-      "GMAT"
-    ],
-    "admission_criteria": "Management Aptitude Score",
-    "website_url": "https://www.icfaibusinesssc.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "General MBA",
-        "course_name": "Corporate Finance & Treasury Management"
-      }
-    ]
-  },
-  {
-    "id": "mc-100",
-    "name": "Institute of Technology (IIT) Gandhinagar",
-    "location": "Gandhinagar",
-    "state": "Gujarat",
-    "ranking": 109,
-    "fees_annual": 13000,
-    "type": "Government",
-    "entrance_exams": [
-      "JEE Main"
-    ],
-    "admission_criteria": "Engineering Entrance Exam Score",
-    "website_url": "https://www.instituteoftech.edu.in",
-    "courses_offered": [
-      {
-        "specialization": "Software Engineering Tech",
-        "course_name": "Software Engineering & Distributed Systems"
-      },
-      {
-        "specialization": "DevOps Engineering",
-        "course_name": "DevOps & Cloud Site Reliability"
-      }
-    ]
-  }
+    id: 'mc-100',
+    name: 'Institute of Technology (IIT) Gandhinagar',
+    location: 'Gandhinagar',
+    state: 'Gujarat',
+    ranking: 109,
+    fees_annual: 13000,
+    type: 'Government',
+    entrance_exams: ['JEE Main'],
+    admission_criteria: 'Engineering Entrance Exam Score',
+    website_url: 'https://www.instituteoftech.edu.in',
+    courses_offered: [
+      {
+        specialization: 'Software Engineering Tech',
+        course_name: 'Software Engineering & Distributed Systems',
+      },
+      {
+        specialization: 'DevOps Engineering',
+        course_name: 'DevOps & Cloud Site Reliability',
+      },
+    ],
+  },
 ];

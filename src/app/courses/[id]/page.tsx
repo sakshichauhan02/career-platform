@@ -172,7 +172,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
         <Navbar />
         <main className="flex flex-grow items-center justify-center">
           <div className="flex flex-col items-center space-y-3">
-            <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+            <div className="border-primary h-10 w-10 animate-spin rounded-full border-4 border-t-transparent" />
             <span className="animate-pulse text-sm font-bold text-slate-400">
               Fetching program curriculum...
             </span>
@@ -194,7 +194,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
             removed by an administrator.
           </p>
           <Link href="/">
-            <Button className="rounded-full bg-primary px-6 text-white hover:bg-primary/95">
+            <Button className="bg-primary hover:bg-primary/95 rounded-full px-6 text-white">
               Return to Portal
             </Button>
           </Link>
@@ -228,7 +228,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
           {/* Back button */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 transition-colors hover:text-primary"
+            className="hover:text-primary inline-flex items-center gap-2 text-xs font-bold text-slate-500 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Portal
@@ -238,12 +238,12 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
           <div className="border-border rounded-3xl border bg-white p-6 shadow-sm md:p-10">
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-bold text-primary">
+                <span className="text-primary inline-flex items-center gap-1 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-bold">
                   <Clock className="h-3.5 w-3.5" />
                   {course.durationYears} Years Program
                 </span>
                 <span className="border-border inline-flex items-center gap-1 rounded-full border bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">
-                  <Award className="h-3.5 w-3.5 text-primary" />
+                  <Award className="text-primary h-3.5 w-3.5" />
                   {course.difficultyLevel} Level
                 </span>
               </div>
@@ -281,7 +281,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                       className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-xs font-bold transition-all ${
                         activeTab === sec.id
                           ? 'bg-primary text-white shadow-md'
-                          : 'text-slate-500 hover:bg-slate-50 hover:text-slate-955'
+                          : 'hover:text-slate-955 text-slate-500 hover:bg-slate-50'
                       }`}
                     >
                       <Icon className="h-4.5 w-4.5 shrink-0" />
@@ -345,9 +345,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                         Foreign credentials must have equivalent evaluations from the Association of
                         Indian Universities (AIU).
                       </li>
-                      <li>
-                        Reserved category quotas apply matching Central/State guidelines.
-                      </li>
+                      <li>Reserved category quotas apply matching Central/State guidelines.</li>
                     </ul>
                   </div>
                 )}
@@ -370,7 +368,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                           className="border-border flex items-center justify-between rounded-xl border bg-slate-50 p-4"
                         >
                           <span className="text-xs font-bold text-slate-900">{exam}</span>
-                          <span className="text-[9px] font-bold text-primary uppercase">
+                          <span className="text-primary text-[9px] font-bold uppercase">
                             National Level
                           </span>
                         </div>
@@ -395,7 +393,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                           key={i}
                           className="border-border flex items-center gap-3 rounded-xl border bg-slate-50 p-3.5"
                         >
-                          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary/5 text-[10px] font-bold text-primary">
+                          <span className="bg-primary/5 text-primary flex h-6 w-6 items-center justify-center rounded-lg text-[10px] font-bold">
                             0{i + 1}
                           </span>
                           <span className="text-xs font-semibold text-slate-700">{sub}</span>
@@ -463,7 +461,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                                 <span className="font-semibold text-slate-500">
                                   Spec: {item.specialization_name}
                                 </span>
-                                <span className="font-bold text-primary">
+                                <span className="text-primary font-bold">
                                   {item.seats_available} Seats
                                 </span>
                               </div>
@@ -517,10 +515,10 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-bold">
                           <span className="text-slate-500">Starting Packages (0-2 Yrs)</span>
-                          <span className="font-bold text-primary">{details.salary.starting}</span>
+                          <span className="text-primary font-bold">{details.salary.starting}</span>
                         </div>
                         <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-                          <div className="h-full w-1/3 rounded-full bg-primary" />
+                          <div className="bg-primary h-full w-1/3 rounded-full" />
                         </div>
                       </div>
 
@@ -528,10 +526,10 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-bold">
                           <span className="text-slate-500">Mid Level (3-6 Yrs)</span>
-                          <span className="font-bold text-primary">{details.salary.mid}</span>
+                          <span className="text-primary font-bold">{details.salary.mid}</span>
                         </div>
                         <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-                          <div className="h-full w-3/5 rounded-full bg-primary" />
+                          <div className="bg-primary h-full w-3/5 rounded-full" />
                         </div>
                       </div>
 
@@ -539,10 +537,10 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-bold">
                           <span className="text-slate-500">Executive & Lead Roles</span>
-                          <span className="font-bold text-primary">{details.salary.top}</span>
+                          <span className="text-primary font-bold">{details.salary.top}</span>
                         </div>
                         <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
-                          <div className="h-full w-[85%] rounded-full bg-gradient-to-r from-primary to-primary/80" />
+                          <div className="from-primary to-primary/80 h-full w-[85%] rounded-full bg-gradient-to-r" />
                         </div>
                       </div>
                     </div>
@@ -566,7 +564,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                           key={i}
                           className="border-border flex items-center gap-2 rounded-xl border bg-slate-50 px-4 py-3 text-xs font-bold text-slate-700"
                         >
-                          <TrendingUp className="h-3.5 w-3.5 text-primary" />
+                          <TrendingUp className="text-primary h-3.5 w-3.5" />
                           {rec}
                         </div>
                       ))}
@@ -599,7 +597,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
             </Link>
             <Button
               onClick={scrollToColleges}
-              className="flex flex-grow items-center gap-2 rounded-full bg-primary font-bold text-white shadow-md shadow-primary/10 transition-all hover:bg-primary/95 sm:flex-initial"
+              className="bg-primary shadow-primary/10 hover:bg-primary/95 flex flex-grow items-center gap-2 rounded-full font-bold text-white shadow-md transition-all sm:flex-initial"
             >
               <GraduationCap className="h-4.5 w-4.5" />
               Explore Colleges

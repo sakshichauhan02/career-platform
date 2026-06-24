@@ -110,7 +110,7 @@ export default function SubjectsStep() {
                     <button
                       type="button"
                       onClick={() => toggleSubject(subj)}
-                      className="rounded-full p-0.5 hover:bg-blue-100 hover:text-blue-750 focus:outline-none"
+                      className="hover:text-blue-750 rounded-full p-0.5 hover:bg-blue-100 focus:outline-none"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -130,7 +130,7 @@ export default function SubjectsStep() {
               placeholder="Search subjects..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pr-4 pl-9 text-sm text-slate-900 placeholder-slate-400 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+              className="focus:border-primary focus:ring-primary w-full rounded-lg border border-slate-200 bg-white py-2.5 pr-4 pl-9 text-sm text-slate-900 placeholder-slate-400 focus:ring-1 focus:outline-none"
             />
           </div>
           <form onSubmit={handleAddCustom} className="flex gap-2">
@@ -139,11 +139,11 @@ export default function SubjectsStep() {
               placeholder="Add other subject..."
               value={customSubject}
               onChange={(e) => setCustomSubject(e.target.value)}
-              className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+              className="focus:border-primary focus:ring-primary rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:ring-1 focus:outline-none"
             />
             <button
               type="submit"
-              className="flex items-center justify-center rounded-lg bg-primary px-4 py-2.5 text-white transition-colors hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 flex items-center justify-center rounded-lg px-4 py-2.5 text-white transition-colors"
             >
               <Plus className="h-4 w-4" />
             </button>
@@ -168,7 +168,7 @@ export default function SubjectsStep() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => toggleSubject(subj)}
-                  className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-700 hover:border-blue-500/20 hover:bg-slate-50/50 focus:ring-1 focus:ring-primary focus:outline-none"
+                  className="focus:ring-primary rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-700 hover:border-blue-500/20 hover:bg-slate-50/50 focus:ring-1 focus:outline-none"
                 >
                   {subj}
                 </motion.button>

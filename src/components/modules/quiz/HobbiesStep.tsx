@@ -72,7 +72,7 @@ export default function HobbiesStep() {
                     <button
                       type="button"
                       onClick={() => toggleHobby(hobby)}
-                      className="rounded-full p-0.5 hover:bg-blue-100 hover:text-blue-750 focus:outline-none"
+                      className="hover:text-blue-750 rounded-full p-0.5 hover:bg-blue-100 focus:outline-none"
                     >
                       <X className="h-3 w-3" />
                     </button>
@@ -94,9 +94,9 @@ export default function HobbiesStep() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => toggleHobby(hobby)}
-                className={`rounded-lg border px-3 py-2 text-xs font-medium transition-all duration-200 focus:ring-1 focus:ring-primary focus:outline-none ${
+                className={`focus:ring-primary rounded-lg border px-3 py-2 text-xs font-medium transition-all duration-200 focus:ring-1 focus:outline-none ${
                   isSelected
-                    ? 'border-blue-600 bg-blue-50/50 text-blue-700 font-bold'
+                    ? 'border-blue-600 bg-blue-50/50 font-bold text-blue-700'
                     : 'border-slate-200 bg-white text-slate-700 hover:border-blue-500/20 hover:bg-slate-50/50'
                 }`}
               >
@@ -115,12 +115,12 @@ export default function HobbiesStep() {
               placeholder="Type other hobby..."
               value={customHobby}
               onChange={(e) => setCustomHobby(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 bg-white py-2 pr-4 pl-9 text-xs text-slate-900 placeholder-slate-400 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+              className="focus:border-primary focus:ring-primary w-full rounded-lg border border-slate-200 bg-white py-2 pr-4 pl-9 text-xs text-slate-900 placeholder-slate-400 focus:ring-1 focus:outline-none"
             />
           </div>
           <button
             type="submit"
-            className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-primary/90 focus:ring-1 focus:ring-primary focus:outline-none"
+            className="bg-primary hover:bg-primary/90 focus:ring-primary flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-semibold text-white transition-colors focus:ring-1 focus:outline-none"
           >
             <Plus className="h-3.5 w-3.5" />
             Add

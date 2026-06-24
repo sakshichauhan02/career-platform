@@ -46,7 +46,9 @@ export default function CollegesCatalogPage() {
   const [loading, setLoading] = useState(true);
 
   // Quiz results state for AI Match Scoring
-  const [profile, setProfile] = useState<(AssessmentData & { id?: string; name?: string; email?: string }) | null>(null);
+  const [profile, setProfile] = useState<
+    (AssessmentData & { id?: string; name?: string; email?: string }) | null
+  >(null);
   const [recommendations, setRecommendations] = useState<ScoredCourse[]>([]);
   const [hasQuizResults, setHasQuizResults] = useState(false);
 
@@ -59,7 +61,9 @@ export default function CollegesCatalogPage() {
   const [selectedType, setSelectedType] = useState('All');
 
   // Sorting (Add fitScore)
-  const [sortBy, setSortBy] = useState<'feesAsc' | 'feesDesc' | 'ranking' | 'relevance' | 'fitScore'>('ranking');
+  const [sortBy, setSortBy] = useState<
+    'feesAsc' | 'feesDesc' | 'ranking' | 'relevance' | 'fitScore'
+  >('ranking');
 
   // Mobile Filter Panel Toggle
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -138,7 +142,7 @@ export default function CollegesCatalogPage() {
     // 1. Budget Match (25% Weight)
     let budgetScore = 100;
     let targetBudget = maxBudget;
-    
+
     if (profile?.budget) {
       const b = profile.budget;
       if (b === 'under_1l') targetBudget = 100000;
@@ -184,14 +188,18 @@ export default function CollegesCatalogPage() {
 
     // 3. Recommended Course Match (30% Weight)
     let courseScore = 0;
-    
+
     if (hasQuizResults && recommendations.length > 0) {
       const topRecommendations = recommendations.map((r) => r.course.name.toLowerCase());
       const offeredNames = col.courses_offered.map((co) => co.course_name.toLowerCase());
-      
+
       let bestMatchIdx = -1;
       for (let i = 0; i < topRecommendations.length; i++) {
-        if (offeredNames.some((o) => o.includes(topRecommendations[i]) || topRecommendations[i].includes(o))) {
+        if (
+          offeredNames.some(
+            (o) => o.includes(topRecommendations[i]) || topRecommendations[i].includes(o)
+          )
+        ) {
           bestMatchIdx = i;
           break;
         }
@@ -206,15 +214,50 @@ export default function CollegesCatalogPage() {
       } else {
         const stream = profile?.stream || 'general';
         const streamKeywords: Record<string, string[]> = {
-          pcm: ['computer science', 'engineering', 'technology', 'physics', 'astrophysics', 'mathematics'],
-          pcb: ['medicine', 'healthcare', 'biology', 'clinical', 'pharmacy', 'biotechnology', 'nursing'],
-          commerce: ['chartered accountancy', 'accounting', 'finance', 'economics', 'business', 'management'],
-          arts: ['design', 'art', 'ui/ux', 'media', 'writing', 'psychology', 'law', 'civil services'],
+          pcm: [
+            'computer science',
+            'engineering',
+            'technology',
+            'physics',
+            'astrophysics',
+            'mathematics',
+          ],
+          pcb: [
+            'medicine',
+            'healthcare',
+            'biology',
+            'clinical',
+            'pharmacy',
+            'biotechnology',
+            'nursing',
+          ],
+          commerce: [
+            'chartered accountancy',
+            'accounting',
+            'finance',
+            'economics',
+            'business',
+            'management',
+          ],
+          arts: [
+            'design',
+            'art',
+            'ui/ux',
+            'media',
+            'writing',
+            'psychology',
+            'law',
+            'civil services',
+          ],
         };
 
         const keywords = streamKeywords[stream as string] || [];
-        const hasStreamMatch = col.courses_offered.some((co) => 
-          keywords.some((kw) => co.course_name.toLowerCase().includes(kw) || co.specialization.toLowerCase().includes(kw))
+        const hasStreamMatch = col.courses_offered.some((co) =>
+          keywords.some(
+            (kw) =>
+              co.course_name.toLowerCase().includes(kw) ||
+              co.specialization.toLowerCase().includes(kw)
+          )
         );
 
         if (hasStreamMatch) {
@@ -245,24 +288,26 @@ export default function CollegesCatalogPage() {
         } else if (p === 'high_salary') {
           match = col.ranking ? (col.ranking <= 10 ? 100 : col.ranking <= 25 ? 85 : 60) : 50;
         } else if (p === 'social_impact') {
-          const hasImpact = col.courses_offered.some((co) => 
-            co.course_name.toLowerCase().includes('medicine') || 
-            co.course_name.toLowerCase().includes('healthcare') || 
-            co.course_name.toLowerCase().includes('public policy') || 
-            co.course_name.toLowerCase().includes('social')
+          const hasImpact = col.courses_offered.some(
+            (co) =>
+              co.course_name.toLowerCase().includes('medicine') ||
+              co.course_name.toLowerCase().includes('healthcare') ||
+              co.course_name.toLowerCase().includes('public policy') ||
+              co.course_name.toLowerCase().includes('social')
           );
           match = hasImpact ? 100 : 50;
         } else if (p === 'global_mobility') {
-          const hasGlobalExams = col.entrance_exams.some((exam) => 
+          const hasGlobalExams = col.entrance_exams.some((exam) =>
             ['SAT', 'GMAT', 'GRE', 'TOEFL', 'IELTS'].includes(exam.toUpperCase())
           );
-          match = (hasGlobalExams || (col.ranking && col.ranking <= 5)) ? 100 : 50;
+          match = hasGlobalExams || (col.ranking && col.ranking <= 5) ? 100 : 50;
         } else if (p === 'creative_freedom') {
-          const hasCreative = col.courses_offered.some((co) => 
-            co.course_name.toLowerCase().includes('design') || 
-            co.course_name.toLowerCase().includes('art') || 
-            co.course_name.toLowerCase().includes('creative') || 
-            co.course_name.toLowerCase().includes('media')
+          const hasCreative = col.courses_offered.some(
+            (co) =>
+              co.course_name.toLowerCase().includes('design') ||
+              co.course_name.toLowerCase().includes('art') ||
+              co.course_name.toLowerCase().includes('creative') ||
+              co.course_name.toLowerCase().includes('media')
           );
           match = hasCreative ? 100 : 50;
         }
@@ -272,10 +317,7 @@ export default function CollegesCatalogPage() {
     }
 
     return Math.round(
-      budgetScore * 0.25 +
-      locationScore * 0.25 +
-      courseScore * 0.30 +
-      priorityScore * 0.20
+      budgetScore * 0.25 + locationScore * 0.25 + courseScore * 0.3 + priorityScore * 0.2
     );
   };
 
@@ -386,45 +428,58 @@ export default function CollegesCatalogPage() {
             {/* 1. Left Sidebar Filters (Desktop View) */}
             <div className="border-border hidden h-fit space-y-5 rounded-3xl border bg-white p-5 shadow-sm lg:col-span-1 lg:block">
               <div className="border-border flex items-center gap-2 border-b pb-3 text-sm font-bold text-slate-900">
-                <Filter className="h-4.5 w-4.5 text-primary" />
+                <Filter className="text-primary h-4.5 w-4.5" />
                 Filter Controls
               </div>
 
               {/* AI Fit Personalization Widget */}
               {hasQuizResults ? (
-                <div className="rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4 space-y-2.5 shadow-inner">
+                <div className="space-y-2.5 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4 shadow-inner">
                   <div className="flex items-center gap-2">
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
                     </span>
-                    <span className="text-[10px] font-extrabold tracking-wider text-emerald-850 uppercase">
+                    <span className="text-emerald-850 text-[10px] font-extrabold tracking-wider uppercase">
                       AI Fit Active
                     </span>
                   </div>
-                  <div className="space-y-1 text-[11px] text-emerald-900 font-medium">
-                    <p className="line-clamp-2">🎯 <strong className="font-bold">Target Course:</strong> {recommendations[0]?.course.name}</p>
-                    <p>💰 <strong className="font-bold">Budget Tiers:</strong> {profile?.budget.replace('_', ' ').replace('under ', '< ').replace('above ', '> ')}</p>
+                  <div className="space-y-1 text-[11px] font-medium text-emerald-900">
+                    <p className="line-clamp-2">
+                      🎯 <strong className="font-bold">Target Course:</strong>{' '}
+                      {recommendations[0]?.course.name}
+                    </p>
+                    <p>
+                      💰 <strong className="font-bold">Budget Tiers:</strong>{' '}
+                      {profile?.budget
+                        .replace('_', ' ')
+                        .replace('under ', '< ')
+                        .replace('above ', '> ')}
+                    </p>
                   </div>
                   <Link href="/quiz" className="block">
-                    <Button variant="outline" className="w-full h-8 rounded-xl border-emerald-200 bg-white hover:bg-emerald-50 text-[10px] font-bold text-emerald-700 transition-colors">
+                    <Button
+                      variant="outline"
+                      className="h-8 w-full rounded-xl border-emerald-200 bg-white text-[10px] font-bold text-emerald-700 transition-colors hover:bg-emerald-50"
+                    >
                       Retake Career Quiz
                     </Button>
                   </Link>
                 </div>
               ) : (
-                <div className="rounded-2xl border border-blue-100 bg-blue-50/50 p-4 space-y-2.5 shadow-inner">
+                <div className="space-y-2.5 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 shadow-inner">
                   <div className="flex items-center gap-2">
-                    <Brain className="h-4.5 w-4.5 text-primary animate-pulse" />
-                    <span className="text-[10px] font-extrabold tracking-wider text-primary uppercase">
+                    <Brain className="text-primary h-4.5 w-4.5 animate-pulse" />
+                    <span className="text-primary text-[10px] font-extrabold tracking-wider uppercase">
                       AI Fit Match Locked
                     </span>
                   </div>
-                  <p className="text-[10px] leading-relaxed text-slate-600 font-medium">
-                    Unlock personalized match scoring based on your budget, location, and recommended pathways.
+                  <p className="text-[10px] leading-relaxed font-medium text-slate-600">
+                    Unlock personalized match scoring based on your budget, location, and
+                    recommended pathways.
                   </p>
                   <Link href="/quiz" className="block">
-                    <Button className="w-full h-8 rounded-xl bg-primary hover:bg-primary/90 text-[10px] font-bold text-white shadow-sm transition-all hover:shadow-md">
+                    <Button className="bg-primary hover:bg-primary/90 h-8 w-full rounded-xl text-[10px] font-bold text-white shadow-sm transition-all hover:shadow-md">
                       Take 5-Min Career Quiz
                     </Button>
                   </Link>
@@ -439,7 +494,7 @@ export default function CollegesCatalogPage() {
                 <select
                   value={selectedCourse}
                   onChange={(e) => setSelectedCourse(e.target.value)}
-                  className="border-border w-full rounded-xl border bg-slate-50 p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="border-border focus:border-primary focus:ring-primary/20 w-full rounded-xl border bg-slate-50 p-2.5 text-slate-900 outline-none focus:ring-2"
                 >
                   <option value="All">All Courses</option>
                   {coursesList.map((course) => (
@@ -463,7 +518,7 @@ export default function CollegesCatalogPage() {
                   step={20000}
                   value={maxBudget}
                   onChange={(e) => setMaxBudget(Number(e.target.value))}
-                  className="h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-primary"
+                  className="accent-primary h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200"
                 />
               </div>
 
@@ -473,7 +528,7 @@ export default function CollegesCatalogPage() {
                 <select
                   value={selectedState}
                   onChange={(e) => setSelectedState(e.target.value)}
-                  className="border-border w-full rounded-xl border bg-slate-50 p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="border-border focus:border-primary focus:ring-primary/20 w-full rounded-xl border bg-slate-50 p-2.5 text-slate-900 outline-none focus:ring-2"
                 >
                   <option value="All">All States</option>
                   {statesList.map((st) => (
@@ -490,7 +545,7 @@ export default function CollegesCatalogPage() {
                 <select
                   value={selectedCity}
                   onChange={(e) => setSelectedCity(e.target.value)}
-                  className="border-border w-full rounded-xl border bg-slate-50 p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="border-border focus:border-primary focus:ring-primary/20 w-full rounded-xl border bg-slate-50 p-2.5 text-slate-900 outline-none focus:ring-2"
                 >
                   <option value="All">All Cities</option>
                   {citiesList.map((city) => (
@@ -509,7 +564,7 @@ export default function CollegesCatalogPage() {
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="border-border w-full rounded-xl border bg-slate-50 p-2.5 text-slate-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="border-border focus:border-primary focus:ring-primary/20 w-full rounded-xl border bg-slate-50 p-2.5 text-slate-900 outline-none focus:ring-2"
                 >
                   <option value="All">All Types</option>
                   <option value="Government">Government</option>
@@ -530,7 +585,7 @@ export default function CollegesCatalogPage() {
                     placeholder="Search by college name, city..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="border-border w-full rounded-xl border bg-white py-2.5 pr-4 pl-11 text-xs text-slate-900 placeholder-slate-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="border-border focus:border-primary focus:ring-primary/20 w-full rounded-xl border bg-white py-2.5 pr-4 pl-11 text-xs text-slate-900 placeholder-slate-400 outline-none focus:ring-2"
                   />
                 </div>
 
@@ -543,11 +598,9 @@ export default function CollegesCatalogPage() {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value as any)}
-                      className="border-border rounded-xl border bg-white p-2 text-xs text-slate-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+                      className="border-border focus:border-primary focus:ring-primary/20 rounded-xl border bg-white p-2 text-xs text-slate-900 outline-none focus:ring-2"
                     >
-                      {hasQuizResults && (
-                        <option value="fitScore">✨ AI Fit Match Score</option>
-                      )}
+                      {hasQuizResults && <option value="fitScore">✨ AI Fit Match Score</option>}
                       <option value="ranking">Best Ranking First</option>
                       <option value="feesAsc">Fees: Low to High</option>
                       <option value="feesDesc">Fees: High to Low</option>
@@ -583,41 +636,54 @@ export default function CollegesCatalogPage() {
 
                   {/* Mobile AI Fit Personalization Widget */}
                   {hasQuizResults ? (
-                    <div className="rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4 space-y-2.5 shadow-inner">
+                    <div className="space-y-2.5 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4 shadow-inner">
                       <div className="flex items-center gap-2">
                         <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
                         </span>
-                        <span className="text-[10px] font-extrabold tracking-wider text-emerald-850 uppercase">
+                        <span className="text-emerald-850 text-[10px] font-extrabold tracking-wider uppercase">
                           AI Fit Active
                         </span>
                       </div>
-                      <div className="space-y-1 text-[11px] text-emerald-900 font-medium">
-                        <p className="line-clamp-2">🎯 <strong className="font-bold">Target Course:</strong> {recommendations[0]?.course.name}</p>
-                        <p>💰 <strong className="font-bold">Budget Tiers:</strong> {profile?.budget.replace('_', ' ').replace('under ', '< ').replace('above ', '> ')}</p>
+                      <div className="space-y-1 text-[11px] font-medium text-emerald-900">
+                        <p className="line-clamp-2">
+                          🎯 <strong className="font-bold">Target Course:</strong>{' '}
+                          {recommendations[0]?.course.name}
+                        </p>
+                        <p>
+                          💰 <strong className="font-bold">Budget Tiers:</strong>{' '}
+                          {profile?.budget
+                            .replace('_', ' ')
+                            .replace('under ', '< ')
+                            .replace('above ', '> ')}
+                        </p>
                       </div>
                       <Link href="/quiz" className="block">
-                        <Button variant="outline" className="w-full h-8 rounded-xl border-emerald-200 bg-white hover:bg-emerald-50 text-[10px] font-bold text-emerald-700 transition-colors">
+                        <Button
+                          variant="outline"
+                          className="h-8 w-full rounded-xl border-emerald-200 bg-white text-[10px] font-bold text-emerald-700 transition-colors hover:bg-emerald-50"
+                        >
                           Retake Career Quiz
                         </Button>
                       </Link>
                     </div>
                   ) : (
-                    <div className="rounded-2xl border border-blue-100 bg-blue-50/50 p-4 space-y-2.5 shadow-inner">
+                    <div className="space-y-2.5 rounded-2xl border border-blue-100 bg-blue-50/50 p-4 shadow-inner">
                       <div className="flex items-center gap-2">
-                        <Brain className="h-4.5 w-4.5 text-primary animate-pulse" />
-                        <span className="text-[10px] font-extrabold tracking-wider text-primary uppercase">
+                        <Brain className="text-primary h-4.5 w-4.5 animate-pulse" />
+                        <span className="text-primary text-[10px] font-extrabold tracking-wider uppercase">
                           AI Fit Match Locked
                         </span>
                       </div>
-                      <p className="text-[10px] leading-relaxed text-slate-600 font-medium">
-                        Unlock personalized match scoring based on your budget, location, and recommended pathways.
+                      <p className="text-[10px] leading-relaxed font-medium text-slate-600">
+                        Unlock personalized match scoring based on your budget, location, and
+                        recommended pathways.
                       </p>
                       <Link href="/quiz" className="block">
-                        <Button className="w-full h-8 rounded-xl bg-primary hover:bg-primary/90 text-[10px] font-bold text-white shadow-sm transition-all hover:shadow-md">
+                        <Button className="bg-primary hover:bg-primary/90 h-8 w-full rounded-xl text-[10px] font-bold text-white shadow-sm transition-all hover:shadow-md">
                           Take 5-Min Career Quiz
-                    </Button>
+                        </Button>
                       </Link>
                     </div>
                   )}
@@ -628,7 +694,7 @@ export default function CollegesCatalogPage() {
                     <select
                       value={selectedCourse}
                       onChange={(e) => setSelectedCourse(e.target.value)}
-                      className="border-border w-full rounded-xl border bg-slate-50 p-2 text-slate-900 outline-none focus:border-primary"
+                      className="border-border focus:border-primary w-full rounded-xl border bg-slate-50 p-2 text-slate-900 outline-none"
                     >
                       <option value="All">All Courses</option>
                       {coursesList.map((course) => (
@@ -652,7 +718,7 @@ export default function CollegesCatalogPage() {
                       step={20000}
                       value={maxBudget}
                       onChange={(e) => setMaxBudget(Number(e.target.value))}
-                      className="w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-primary"
+                      className="accent-primary w-full cursor-pointer appearance-none rounded-lg bg-slate-200"
                     />
                   </div>
 
@@ -662,7 +728,7 @@ export default function CollegesCatalogPage() {
                     <select
                       value={selectedState}
                       onChange={(e) => setSelectedState(e.target.value)}
-                      className="border-border w-full rounded-xl border bg-slate-50 p-2 text-slate-900 outline-none focus:border-primary"
+                      className="border-border focus:border-primary w-full rounded-xl border bg-slate-50 p-2 text-slate-900 outline-none"
                     >
                       <option value="All">All States</option>
                       {statesList.map((st) => (
@@ -679,7 +745,7 @@ export default function CollegesCatalogPage() {
                     <select
                       value={selectedCity}
                       onChange={(e) => setSelectedCity(e.target.value)}
-                      className="border-border w-full rounded-xl border bg-slate-50 p-2 text-slate-900 outline-none focus:border-primary"
+                      className="border-border focus:border-primary w-full rounded-xl border bg-slate-50 p-2 text-slate-900 outline-none"
                     >
                       <option value="All">All Cities</option>
                       {citiesList.map((city) => (
@@ -696,7 +762,7 @@ export default function CollegesCatalogPage() {
                     <select
                       value={selectedType}
                       onChange={(e) => setSelectedType(e.target.value)}
-                      className="border-border w-full rounded-xl border bg-slate-50 p-2 text-slate-900 outline-none focus:border-primary"
+                      className="border-border focus:border-primary w-full rounded-xl border bg-slate-50 p-2 text-slate-900 outline-none"
                     >
                       <option value="All">All Types</option>
                       <option value="Government">Government</option>
@@ -709,7 +775,7 @@ export default function CollegesCatalogPage() {
               {/* Loader */}
               {loading ? (
                 <div className="flex min-h-[300px] flex-col items-center justify-center space-y-3">
-                  <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+                  <div className="border-primary h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
                   <span className="animate-pulse text-xs font-bold text-slate-400">
                     Loading listings...
                   </span>
@@ -722,7 +788,7 @@ export default function CollegesCatalogPage() {
                       No colleges found matching the active explorer filters.
                       <button
                         onClick={resetFilters}
-                        className="mx-auto mt-3 block text-xs font-bold text-primary hover:underline"
+                        className="text-primary mx-auto mt-3 block text-xs font-bold hover:underline"
                       >
                         Reset all filters
                       </button>
@@ -733,7 +799,7 @@ export default function CollegesCatalogPage() {
                       return (
                         <div
                           key={col.id}
-                          className="group border-border flex flex-col justify-between rounded-3xl border bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5"
+                          className="group border-border hover:border-primary/20 hover:shadow-primary/5 flex flex-col justify-between rounded-3xl border bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                         >
                           <div className="space-y-4">
                             <div className="flex items-center justify-between">
@@ -741,28 +807,28 @@ export default function CollegesCatalogPage() {
                                 className={`inline-flex items-center rounded px-2 py-0.5 text-[9px] font-bold ${
                                   col.type === 'Government'
                                     ? 'border border-emerald-100 bg-emerald-50 text-emerald-600'
-                                    : 'border border-blue-100 bg-blue-50 text-primary'
+                                    : 'text-primary border border-blue-100 bg-blue-50'
                                 }`}
                               >
                                 {col.type}
                               </span>
-                              
+
                               {/* Personalized AI Fit Match Score Badge */}
                               {hasQuizResults ? (
                                 <span
-                                  className={`flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-extrabold border shadow-sm ${
+                                  className={`flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[10px] font-extrabold shadow-sm ${
                                     fitScore >= 85
-                                      ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                                      ? 'border-emerald-100 bg-emerald-50 text-emerald-700'
                                       : fitScore >= 70
-                                      ? 'bg-blue-50 text-blue-700 border-blue-100'
-                                      : 'bg-slate-50 text-slate-600 border-slate-100'
+                                        ? 'border-blue-100 bg-blue-50 text-blue-700'
+                                        : 'border-slate-100 bg-slate-50 text-slate-600'
                                   }`}
                                 >
                                   <Sparkles className="h-3 w-3 text-amber-500" />
                                   {fitScore}% Match
                                 </span>
                               ) : (
-                                <span className="flex items-center gap-1 rounded-full bg-slate-50 border border-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">
+                                <span className="flex items-center gap-1 rounded-full border border-slate-100 bg-slate-50 px-2 py-0.5 text-[10px] font-semibold text-slate-500">
                                   <Lock className="h-2.5 w-2.5" />
                                   {fitScore}% Fit (Est.)
                                 </span>
@@ -770,7 +836,7 @@ export default function CollegesCatalogPage() {
                             </div>
 
                             <div className="space-y-1.5">
-                              <h3 className="text-base font-extrabold text-slate-950 transition-colors group-hover:text-primary">
+                              <h3 className="group-hover:text-primary text-base font-extrabold text-slate-950 transition-colors">
                                 {col.name}
                               </h3>
                               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium text-slate-500">
@@ -779,7 +845,7 @@ export default function CollegesCatalogPage() {
                                   {col.location}, {col.state}
                                 </span>
                                 {col.ranking && (
-                                  <span className="flex items-center gap-1 text-[10px] font-semibold text-slate-400 border-l border-slate-200 pl-3">
+                                  <span className="flex items-center gap-1 border-l border-slate-200 pl-3 text-[10px] font-semibold text-slate-400">
                                     <Trophy className="h-3 w-3 text-amber-500/85" />
                                     National Rank: #{col.ranking}
                                   </span>
@@ -787,71 +853,71 @@ export default function CollegesCatalogPage() {
                               </div>
                             </div>
 
-                          <div className="border-border grid grid-cols-2 gap-3 border-y py-3 text-[10px]">
-                            <div className="space-y-0.5">
-                              <span className="flex items-center gap-1 font-bold text-slate-400 uppercase">
-                                <DollarSign className="h-3 w-3 text-primary" />
-                                Annual Fees
-                              </span>
-                              <span className="font-bold text-slate-700">
-                                ₹{col.fees_annual.toLocaleString('en-IN')}
-                              </span>
-                            </div>
-                            <div className="space-y-0.5">
-                              <span className="flex items-center gap-1 font-bold text-slate-400 uppercase">
-                                <Ticket className="h-3 w-3 text-primary" />
-                                Entrance Exams
-                              </span>
-                              <span className="block truncate font-bold text-slate-700">
-                                {col.entrance_exams.length > 0
-                                  ? col.entrance_exams.join(', ')
-                                  : 'Direct Entry'}
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="space-y-1.5">
-                            <span className="flex items-center gap-1 text-[9px] font-bold tracking-widest text-slate-400 uppercase">
-                              <Building2 className="text-primary/90 h-3 w-3" />
-                              Offered Programs
-                            </span>
-                            <div className="flex max-h-[50px] flex-wrap gap-1 overflow-y-auto">
-                              {col.courses_offered && col.courses_offered.length > 0 ? (
-                                col.courses_offered.map((spec, i) => (
-                                  <span
-                                    key={i}
-                                    className="border-border rounded border bg-slate-50 px-2 py-0.5 text-[8px] font-semibold text-slate-600"
-                                  >
-                                    {spec.specialization} ({spec.course_name})
-                                  </span>
-                                ))
-                              ) : (
-                                <span className="text-[9px] text-slate-400 italic">
-                                  No courses mapped.
+                            <div className="border-border grid grid-cols-2 gap-3 border-y py-3 text-[10px]">
+                              <div className="space-y-0.5">
+                                <span className="flex items-center gap-1 font-bold text-slate-400 uppercase">
+                                  <DollarSign className="text-primary h-3 w-3" />
+                                  Annual Fees
                                 </span>
-                              )}
+                                <span className="font-bold text-slate-700">
+                                  ₹{col.fees_annual.toLocaleString('en-IN')}
+                                </span>
+                              </div>
+                              <div className="space-y-0.5">
+                                <span className="flex items-center gap-1 font-bold text-slate-400 uppercase">
+                                  <Ticket className="text-primary h-3 w-3" />
+                                  Entrance Exams
+                                </span>
+                                <span className="block truncate font-bold text-slate-700">
+                                  {col.entrance_exams.length > 0
+                                    ? col.entrance_exams.join(', ')
+                                    : 'Direct Entry'}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <span className="flex items-center gap-1 text-[9px] font-bold tracking-widest text-slate-400 uppercase">
+                                <Building2 className="text-primary/90 h-3 w-3" />
+                                Offered Programs
+                              </span>
+                              <div className="flex max-h-[50px] flex-wrap gap-1 overflow-y-auto">
+                                {col.courses_offered && col.courses_offered.length > 0 ? (
+                                  col.courses_offered.map((spec, i) => (
+                                    <span
+                                      key={i}
+                                      className="border-border rounded border bg-slate-50 px-2 py-0.5 text-[8px] font-semibold text-slate-600"
+                                    >
+                                      {spec.specialization} ({spec.course_name})
+                                    </span>
+                                  ))
+                                ) : (
+                                  <span className="text-[9px] text-slate-400 italic">
+                                    No courses mapped.
+                                  </span>
+                                )}
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className="pt-6">
-                          {col.website_url ? (
-                            <a href={col.website_url} target="_blank" rel="noopener noreferrer">
-                              <Button className="flex w-full items-center justify-center gap-1 rounded-full bg-slate-50 px-4 py-2 text-xs font-bold text-slate-600 shadow-sm transition-all hover:bg-primary hover:text-white hover:shadow-md">
-                                Visit Website
-                                <ArrowRight className="h-3.5 w-3.5" />
+                          <div className="pt-6">
+                            {col.website_url ? (
+                              <a href={col.website_url} target="_blank" rel="noopener noreferrer">
+                                <Button className="hover:bg-primary flex w-full items-center justify-center gap-1 rounded-full bg-slate-50 px-4 py-2 text-xs font-bold text-slate-600 shadow-sm transition-all hover:text-white hover:shadow-md">
+                                  Visit Website
+                                  <ArrowRight className="h-3.5 w-3.5" />
+                                </Button>
+                              </a>
+                            ) : (
+                              <Button
+                                disabled
+                                className="border-border w-full rounded-full border bg-slate-100 text-xs font-bold text-slate-400"
+                              >
+                                Website Offline
                               </Button>
-                            </a>
-                          ) : (
-                            <Button
-                              disabled
-                              className="border-border w-full rounded-full border bg-slate-100 text-xs font-bold text-slate-400"
-                            >
-                              Website Offline
-                            </Button>
-                          )}
+                            )}
+                          </div>
                         </div>
-                      </div>
                       );
                     })
                   )}

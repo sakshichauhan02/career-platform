@@ -80,7 +80,7 @@ export default function BudgetStep({ onSelect }: BudgetStepProps) {
                   setTimeout(onSelect, 250);
                 }
               }}
-              className={`flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-200 focus:ring-1 focus:ring-primary focus:outline-none ${
+              className={`focus:ring-primary flex w-full items-center justify-between rounded-xl border p-4 text-left transition-all duration-200 focus:ring-1 focus:outline-none ${
                 isSelected
                   ? 'border-blue-600 bg-blue-50/50 shadow-md shadow-blue-500/5'
                   : 'border-slate-200 bg-white hover:border-blue-500/20 hover:bg-slate-50/50'
@@ -103,7 +103,7 @@ export default function BudgetStep({ onSelect }: BudgetStepProps) {
               <div className="pl-3 text-right">
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-bold ${
-                    isSelected ? 'bg-blue-100 text-blue-750' : 'bg-slate-100 text-slate-600'
+                    isSelected ? 'text-blue-750 bg-blue-100' : 'bg-slate-100 text-slate-600'
                   }`}
                 >
                   {opt.feeText}

@@ -30,6 +30,8 @@ import { supabase } from '@/lib/supabase';
 import { PREDEFINED_COURSES, ScoredCourse } from '@/services/recommendationEngine';
 import { generateExplanation, CAREER_OUTLOOKS, defaultOutlook } from '@/services/explanationEngine';
 import { AssessmentData } from '@/types/assessment';
+import { trackEvent } from '@/lib/analytics';
+import { MentorBookingSection } from '@/components/common/MentorBookingSection';
 
 // Mapping dictionaries for user profile summary display
 const INTEREST_LABELS: Record<string, string> = {
@@ -186,7 +188,9 @@ const defaultMentor = {
 
 export default function ResultsPage() {
   const [recommendations, setRecommendations] = useState<ScoredCourse[]>([]);
-  const [profile, setProfile] = useState<(AssessmentData & { id?: string; name?: string; email?: string }) | null>(null);
+  const [profile, setProfile] = useState<
+    (AssessmentData & { id?: string; name?: string; email?: string }) | null
+  >(null);
   const [isLoading, setIsLoading] = useState(true);
   const [expandedCourseId, setExpandedCourseId] = useState<string | null>(null);
   const [activeTabByCourse, setActiveTabByCourse] = useState<
@@ -196,6 +200,19 @@ export default function ResultsPage() {
   // CTA States
   const [selectedCourseForDetail, setSelectedCourseForDetail] = useState<ScoredCourse | null>(null);
   const [showUnlockModal, setShowUnlockModal] = useState(false);
+
+  const handleMentorBookingClick = () => {
+    trackEvent('mentor_booking_clicked', {
+      mentorName: 'Sakshi Chauhan',
+      sessionType: '1:1 Career Guidance',
+      price: '₹99',
+    });
+    trackEvent('mentor_redirected', {
+      url: 'https://topmate.io/sakshi_chauhan34/2170492',
+    });
+    window.open('https://topmate.io/sakshi_chauhan34/2170492', '_blank', 'noopener,noreferrer');
+  };
+
   const [selectedMentorCourse, setSelectedMentorCourse] = useState<ScoredCourse | null>(null);
   const [bookingDate, setBookingDate] = useState('');
   const [bookingTime, setBookingTime] = useState('');
@@ -606,8 +623,10 @@ export default function ResultsPage() {
         try {
           const parsed = JSON.parse(localData);
           if (parsed.recommendations && parsed.recommendations.length > 0) {
-            const activeProfile = parsed.profile as (AssessmentData & { id?: string; name?: string; email?: string }) | null;
-            
+            const activeProfile = parsed.profile as
+              | (AssessmentData & { id?: string; name?: string; email?: string })
+              | null;
+
             // Recalculate explanations on the fly to ensure grammar and styling fixes are immediately applied
             const updatedRecs = parsed.recommendations.map((item: ScoredCourse) => {
               if (activeProfile) {
@@ -693,9 +712,15 @@ export default function ResultsPage() {
                   if (matchedCourse) {
                     let sanitizedReasoning = row.reasoning;
                     if (sanitizedReasoning.includes('You enjoy matches your')) {
-                      sanitizedReasoning = sanitizedReasoning.replace('You enjoy matches your', 'You enjoy exploring your');
+                      sanitizedReasoning = sanitizedReasoning.replace(
+                        'You enjoy matches your',
+                        'You enjoy exploring your'
+                      );
                     } else if (sanitizedReasoning.includes('You enjoy matches')) {
-                      sanitizedReasoning = sanitizedReasoning.replace('You enjoy matches', 'You enjoy focusing on');
+                      sanitizedReasoning = sanitizedReasoning.replace(
+                        'You enjoy matches',
+                        'You enjoy focusing on'
+                      );
                     }
 
                     const explanation = activeProfile
@@ -872,13 +897,13 @@ export default function ResultsPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-between overflow-x-hidden bg-background font-sans text-foreground">
+    <div className="bg-background text-foreground flex min-h-screen flex-col justify-between overflow-x-hidden font-sans">
       <Navbar />
 
       <main className="relative flex-grow px-4 pt-28 pb-16">
         {/* Glow Effects */}
-        <div className="pointer-events-none absolute top-10 left-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-primary/5 blur-[130px]" />
-        <div className="pointer-events-none absolute right-1/4 bottom-20 h-96 w-96 translate-x-1/2 rounded-full bg-secondary/5 blur-[140px]" />
+        <div className="bg-primary/5 pointer-events-none absolute top-10 left-1/4 h-96 w-96 -translate-x-1/2 rounded-full blur-[130px]" />
+        <div className="bg-secondary/5 pointer-events-none absolute right-1/4 bottom-20 h-96 w-96 translate-x-1/2 rounded-full blur-[140px]" />
 
         <div className="mx-auto max-w-7xl">
           {/* Back Button */}
@@ -893,7 +918,7 @@ export default function ResultsPage() {
           {/* Loading State */}
           {isLoading ? (
             <div className="flex min-h-[450px] flex-col items-center justify-center space-y-4 text-center">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+              <div className="border-primary h-10 w-10 animate-spin rounded-full border-4 border-t-transparent" />
               <p className="animate-pulse text-sm font-semibold text-slate-500">
                 Analyzing profiles and generating career roadmaps...
               </p>
@@ -908,7 +933,7 @@ export default function ResultsPage() {
                 cached results have expired.
               </p>
               <Link href="/quiz">
-                <Button className="rounded-full bg-primary font-semibold text-white hover:bg-primary/90">
+                <Button className="bg-primary hover:bg-primary/90 rounded-full font-semibold text-white">
                   Take Assessment Now
                 </Button>
               </Link>
@@ -921,8 +946,8 @@ export default function ResultsPage() {
                 {/* Header & Profile Stats */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 animate-pulse text-primary" />
-                    <span className="text-xs font-bold tracking-wider text-primary uppercase">
+                    <Sparkles className="text-primary h-5 w-5 animate-pulse" />
+                    <span className="text-primary text-xs font-bold tracking-wider uppercase">
                       AI Recommendation Core
                     </span>
                   </div>
@@ -942,14 +967,14 @@ export default function ResultsPage() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {profile.educationLevel && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 border border-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                            <GraduationCap className="h-3.5 w-3.5 text-primary" />
+                          <span className="inline-flex items-center gap-1 rounded-full border border-slate-100 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
+                            <GraduationCap className="text-primary h-3.5 w-3.5" />
                             {EDUCATION_LABELS[profile.educationLevel] || profile.educationLevel}
                           </span>
                         )}
                         {profile.stream && (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 border border-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                            <Compass className="h-3.5 w-3.5 text-primary" />
+                          <span className="inline-flex items-center gap-1 rounded-full border border-slate-100 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
+                            <Compass className="text-primary h-3.5 w-3.5" />
                             Stream: {profile.stream.toUpperCase()}
                           </span>
                         )}
@@ -957,9 +982,9 @@ export default function ResultsPage() {
                           profile.interests.slice(0, 2).map((interest: string) => (
                             <span
                               key={interest}
-                              className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary"
+                              className="border-primary/20 bg-primary/5 text-primary inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium"
                             >
-                              <Brain className="h-3.5 w-3.5 text-primary" />
+                              <Brain className="text-primary h-3.5 w-3.5" />
                               {INTEREST_LABELS[interest] || interest}
                             </span>
                           ))}
@@ -995,7 +1020,7 @@ export default function ResultsPage() {
                         className={`group rounded-2xl border transition-all duration-300 ${
                           isExpanded
                             ? 'border-primary/40 bg-white shadow-lg'
-                            : 'border-slate-200 bg-white hover:border-slate-350 hover:shadow-md'
+                            : 'hover:border-slate-350 border-slate-200 bg-white hover:shadow-md'
                         }`}
                       >
                         {/* Summary Header block */}
@@ -1004,11 +1029,11 @@ export default function ResultsPage() {
                           className="flex cursor-pointer flex-wrap items-center justify-between gap-4 p-5 select-none"
                         >
                           <div className="flex min-w-[250px] flex-1 items-center gap-4">
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 font-extrabold text-primary shadow-sm">
+                            <span className="text-primary flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 font-extrabold shadow-sm">
                               #{idx + 1}
                             </span>
                             <div className="space-y-1">
-                              <h3 className="text-lg font-bold text-slate-900 transition-colors group-hover:text-primary">
+                              <h3 className="group-hover:text-primary text-lg font-bold text-slate-900 transition-colors">
                                 {course.name}
                               </h3>
                               <div className="flex items-center gap-3 text-xs text-slate-500">
@@ -1035,11 +1060,9 @@ export default function ResultsPage() {
 
                           {/* Match % visualization */}
                           <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1">
-                              <span className="text-xs font-bold text-primary">Match %</span>
-                              <span className="text-sm font-extrabold text-primary">
-                                {score}%
-                              </span>
+                            <div className="border-primary/20 bg-primary/5 flex items-center gap-1.5 rounded-full border px-3 py-1">
+                              <span className="text-primary text-xs font-bold">Match %</span>
+                              <span className="text-primary text-sm font-extrabold">{score}%</span>
                             </div>
                             {isExpanded ? (
                               <ChevronUp className="h-5 w-5 text-slate-500" />
@@ -1061,23 +1084,23 @@ export default function ResultsPage() {
                             >
                               <div className="space-y-6 p-5">
                                 {/* Description */}
-                                <p className="text-sm leading-relaxed text-slate-650">
+                                <p className="text-slate-650 text-sm leading-relaxed">
                                   {course.description}
                                 </p>
 
                                 {/* why it matches checklist */}
                                 {matchReasons && matchReasons.length > 0 && (
                                   <div className="space-y-2">
-                                    <div className="text-[10px] font-bold tracking-wider text-primary uppercase">
+                                    <div className="text-primary text-[10px] font-bold tracking-wider uppercase">
                                       Key Match Indicators
                                     </div>
                                     <ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
                                       {matchReasons.map((reason, rIdx) => (
                                         <li
                                           key={rIdx}
-                                          className="flex items-start gap-2 rounded-lg border border-primary/10 bg-primary/5 p-2.5 text-xs text-primary"
+                                          className="border-primary/10 bg-primary/5 text-primary flex items-start gap-2 rounded-lg border p-2.5 text-xs"
                                         >
-                                          <Compass className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                                          <Compass className="text-primary mt-0.5 h-4 w-4 shrink-0" />
                                           <span>{reason}</span>
                                         </li>
                                       ))}
@@ -1091,25 +1114,25 @@ export default function ResultsPage() {
                                   <div className="flex gap-2 overflow-x-auto border-b border-slate-100 text-xs font-semibold">
                                     <button
                                       onClick={() => handleTabChange(course.id, 'why')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'why' ? 'border-b-2 border-primary font-bold text-primary' : 'text-slate-500 hover:text-slate-900'}`}
+                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'why' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
                                     >
                                       Summary Fit
                                     </button>
                                     <button
                                       onClick={() => handleTabChange(course.id, 'strength')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'strength' ? 'border-b-2 border-primary font-bold text-primary' : 'text-slate-500 hover:text-slate-900'}`}
+                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'strength' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
                                     >
                                       Strengths Analysis
                                     </button>
                                     <button
                                       onClick={() => handleTabChange(course.id, 'interests')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'interests' ? 'border-b-2 border-primary font-bold text-primary' : 'text-slate-500 hover:text-slate-900'}`}
+                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'interests' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
                                     >
                                       Interest Fit
                                     </button>
                                     <button
                                       onClick={() => handleTabChange(course.id, 'workStyle')}
-                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'workStyle' ? 'border-b-2 border-primary font-bold text-primary' : 'text-slate-500 hover:text-slate-900'}`}
+                                      className={`shrink-0 px-3 pb-2.5 transition-colors ${currentTab === 'workStyle' ? 'border-primary text-primary border-b-2 font-bold' : 'text-slate-500 hover:text-slate-900'}`}
                                     >
                                       Work Style Fit
                                     </button>
@@ -1117,40 +1140,40 @@ export default function ResultsPage() {
 
                                   {/* Tab Content */}
                                   <div className="min-h-[100px] text-xs leading-relaxed text-slate-600">
-                                     {currentTab === 'why' && explanation && (
-                                       <p className="rounded-xl border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed shadow-sm">
-                                         {explanation.whyThisCourseFits}
-                                       </p>
-                                     )}
-                                     {currentTab === 'strength' && explanation && (
-                                       <p className="rounded-xl border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed shadow-sm">
-                                         {explanation.strengthAnalysis}
-                                       </p>
-                                     )}
-                                     {currentTab === 'interests' && explanation && (
-                                       <p className="rounded-xl border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed shadow-sm">
-                                         {explanation.interestAnalysis}
-                                       </p>
-                                     )}
-                                     {currentTab === 'workStyle' && (
-                                       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                                         <div className="flex items-center rounded-xl border border-slate-200 bg-white p-5 text-slate-700 leading-relaxed shadow-sm">
-                                           <p>{explanation?.careerFitAnalysis}</p>
-                                         </div>
-                                         {profile &&
-                                           renderWorkStyleComparison(
-                                             profile.workStyle,
-                                             course.workStyle
-                                           )}
-                                       </div>
-                                     )}
-                                   </div>
-                                 </div>
+                                    {currentTab === 'why' && explanation && (
+                                      <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
+                                        {explanation.whyThisCourseFits}
+                                      </p>
+                                    )}
+                                    {currentTab === 'strength' && explanation && (
+                                      <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
+                                        {explanation.strengthAnalysis}
+                                      </p>
+                                    )}
+                                    {currentTab === 'interests' && explanation && (
+                                      <p className="rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
+                                        {explanation.interestAnalysis}
+                                      </p>
+                                    )}
+                                    {currentTab === 'workStyle' && (
+                                      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                        <div className="flex items-center rounded-xl border border-slate-200 bg-white p-5 leading-relaxed text-slate-700 shadow-sm">
+                                          <p>{explanation?.careerFitAnalysis}</p>
+                                        </div>
+                                        {profile &&
+                                          renderWorkStyleComparison(
+                                            profile.workStyle,
+                                            course.workStyle
+                                          )}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
 
-                                 {/* Career Outlook Subcard */}
-                                 <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                                  <div className="flex items-center gap-2 border-b border-slate-250/60 pb-2.5">
-                                    <TrendingUp className="h-4.5 w-4.5 text-primary" />
+                                {/* Career Outlook Subcard */}
+                                <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                                  <div className="border-slate-250/60 flex items-center gap-2 border-b pb-2.5">
+                                    <TrendingUp className="text-primary h-4.5 w-4.5" />
                                     <h4 className="text-sm font-bold text-slate-900">
                                       Career Outlook & Market Trends
                                     </h4>
@@ -1182,7 +1205,7 @@ export default function ResultsPage() {
                                       <span className="text-[10px] font-semibold text-slate-500 uppercase">
                                         Decade Growth
                                       </span>
-                                      <div className="font-extrabold text-primary">
+                                      <div className="text-primary font-extrabold">
                                         {outlook.growthRate.split(' ')[0]}
                                       </div>
                                     </div>
@@ -1222,24 +1245,24 @@ export default function ResultsPage() {
                                   <Button
                                     onClick={() => setSelectedCourseForDetail(item)}
                                     variant="outline"
-                                    className="min-w-[140px] flex-1 border-slate-200 text-slate-650 hover:bg-slate-50 rounded-full"
+                                    className="text-slate-650 min-w-[140px] flex-1 rounded-full border-slate-200 hover:bg-slate-50"
                                   >
                                     <BookOpen className="mr-1.5 h-4 w-4" />
                                     Explore Course
                                   </Button>
                                   <Button
                                     onClick={() => setShowUnlockModal(true)}
-                                    className="min-w-[140px] flex-1 bg-secondary text-white hover:bg-secondary/90 rounded-full"
+                                    className="bg-secondary hover:bg-secondary/90 min-w-[140px] flex-1 rounded-full text-white"
                                   >
                                     <Download className="mr-1.5 h-4 w-4 text-white" />
                                     Unlock Report
                                   </Button>
                                   <Button
-                                    onClick={() => setSelectedMentorCourse(item)}
-                                    className="min-w-[140px] flex-1 bg-primary text-white hover:bg-primary/90 rounded-full"
+                                    onClick={handleMentorBookingClick}
+                                    className="bg-primary hover:bg-primary/90 min-w-[140px] flex-1 rounded-full text-white"
                                   >
                                     <User className="mr-1.5 h-4 w-4" />
-                                    Talk To Mentor
+                                    Book 1:1 Career Guidance Session ₹99
                                   </Button>
                                 </div>
                               </div>
@@ -1256,7 +1279,7 @@ export default function ResultsPage() {
                   <Link href="/quiz">
                     <Button
                       variant="outline"
-                      className="border-slate-200 text-slate-500 hover:bg-slate-50 rounded-full"
+                      className="rounded-full border-slate-200 text-slate-500 hover:bg-slate-50"
                     >
                       Retake Career Assessment
                     </Button>
@@ -1267,12 +1290,12 @@ export default function ResultsPage() {
               {/* Right Column: Premium Sidebar details */}
               <div className="space-y-6 lg:col-span-4">
                 {/* 1. Unlock Report Card */}
-                <div className="relative overflow-hidden rounded-2xl border border-secondary/20 bg-secondary/5 p-5 shadow-sm">
-                  <div className="absolute top-0 right-0 h-16 w-16 translate-x-4 -translate-y-4 rounded-full bg-secondary/10 blur-md" />
+                <div className="border-secondary/20 bg-secondary/5 relative overflow-hidden rounded-2xl border p-5 shadow-sm">
+                  <div className="bg-secondary/10 absolute top-0 right-0 h-16 w-16 translate-x-4 -translate-y-4 rounded-full blur-md" />
 
                   <div className="mb-3 flex items-center gap-2">
-                    <Sparkles className="h-4.5 w-4.5 animate-pulse text-secondary" />
-                    <span className="text-[10px] font-extrabold tracking-wider text-secondary uppercase">
+                    <Sparkles className="text-secondary h-4.5 w-4.5 animate-pulse" />
+                    <span className="text-secondary text-[10px] font-extrabold tracking-wider uppercase">
                       Premium Toolkit
                     </span>
                   </div>
@@ -1280,7 +1303,7 @@ export default function ResultsPage() {
                   <h3 className="mb-2 text-base font-bold text-slate-900">
                     Comprehensive Career Discovery Report
                   </h3>
-                  <p className="mb-4 text-xs leading-relaxed text-slate-655">
+                  <p className="text-slate-655 mb-4 text-xs leading-relaxed">
                     Get a 15-page tailored PDF audit showing deep analytical assessments,
                     year-by-year action plans, college checklists, and salary trends.
                   </p>
@@ -1288,82 +1311,30 @@ export default function ResultsPage() {
                   {/* Bullet Preview */}
                   <ul className="mb-6 space-y-2 text-xs text-slate-700">
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-secondary" />
+                      <CheckCircle2 className="text-secondary h-4 w-4 shrink-0" />
                       <span>Custom subject choices</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-secondary" />
+                      <CheckCircle2 className="text-secondary h-4 w-4 shrink-0" />
                       <span>Top 10 College admission guides</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-secondary" />
+                      <CheckCircle2 className="text-secondary h-4 w-4 shrink-0" />
                       <span>12-Month execution roadmap</span>
                     </li>
                   </ul>
 
                   <Button
                     onClick={() => setShowUnlockModal(true)}
-                    className="w-full bg-secondary text-white font-semibold shadow-sm hover:bg-secondary/90 rounded-full"
+                    className="bg-secondary hover:bg-secondary/90 w-full rounded-full font-semibold text-white shadow-sm"
                   >
                     <Lock className="mr-1.5 h-4 w-4" />
                     Unlock Premium Report
                   </Button>
                 </div>
 
-                {/* 2. Top Mentors Preview */}
-                <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-                    <h3 className="text-sm font-bold text-slate-900">Recommended Mentors</h3>
-                    <span className="text-[10px] font-semibold text-primary uppercase">
-                      1:1 Advice
-                    </span>
-                  </div>
-
-                  <p className="text-xs leading-relaxed text-slate-550">
-                    Connect directly with industry experts matching your recommended career paths to
-                    clarify syllabus questions or corporate realities.
-                  </p>
-
-                  {/* Mentor List */}
-                  <div className="space-y-3">
-                    {recommendations.slice(0, 2).map((item) => {
-                      const mentor = MENTORS_BY_COURSE[item.course.id] || defaultMentor;
-                      return (
-                        <div
-                          key={item.course.id}
-                          className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/50 p-3"
-                        >
-                          <img
-                            src={mentor.avatar}
-                            alt={mentor.name}
-                            className="h-10 w-10 shrink-0 rounded-full border border-slate-200 object-cover"
-                          />
-                          <div className="min-w-0 flex-1">
-                            <h4 className="truncate text-xs font-bold text-slate-900">{mentor.name}</h4>
-                            <p className="truncate text-[10px] text-slate-550">{mentor.role}</p>
-                            <p className="truncate text-[9px] text-slate-400">{mentor.company}</p>
-                          </div>
-                          <button
-                            onClick={() => setSelectedMentorCourse(item)}
-                            className="shrink-0 text-[10px] font-bold text-primary hover:text-primary/80"
-                          >
-                            Book
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <Button
-                    onClick={() => {
-                      if (recommendations[0]) setSelectedMentorCourse(recommendations[0]);
-                    }}
-                    variant="outline"
-                    className="w-full border-slate-200 text-xs text-slate-600 hover:bg-slate-50 rounded-full"
-                  >
-                    Browse All Mentors
-                  </Button>
-                </div>
+                {/* 2. Topmate Mentor Booking Section */}
+                <MentorBookingSection variant="card" />
 
                 {/* 3. Next Steps Quick Checklist */}
                 <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -1373,7 +1344,7 @@ export default function ResultsPage() {
                       <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-100 text-[10px] font-bold text-slate-600">
                         1
                       </span>
-                      <p className="leading-normal text-slate-550">
+                      <p className="text-slate-550 leading-normal">
                         Verify college eligibility requirements under{' '}
                         <span className="font-semibold text-slate-900">Explore Course</span>.
                       </p>
@@ -1382,7 +1353,7 @@ export default function ResultsPage() {
                       <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-100 text-[10px] font-bold text-slate-600">
                         2
                       </span>
-                      <p className="leading-normal text-slate-550">
+                      <p className="text-slate-550 leading-normal">
                         Download your customized career audit report.
                       </p>
                     </div>
@@ -1390,12 +1361,16 @@ export default function ResultsPage() {
                       <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded bg-slate-100 text-[10px] font-bold text-slate-600">
                         3
                       </span>
-                      <p className="leading-normal text-slate-550">
+                      <p className="text-slate-550 leading-normal">
                         Schedule a 15-minute alignment call with a mentor.
                       </p>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-12">
+                <MentorBookingSection variant="full" />
               </div>
             </div>
           )}
@@ -1426,7 +1401,7 @@ export default function ResultsPage() {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="text-[10px] font-extrabold tracking-widest text-primary uppercase">
+                  <span className="text-primary text-[10px] font-extrabold tracking-widest uppercase">
                     Course Exploration
                   </span>
                   <h3 className="mt-1 text-xl font-bold text-slate-900">
@@ -1481,7 +1456,7 @@ export default function ResultsPage() {
               <div className="flex flex-col gap-2 pt-2">
                 <div className="flex gap-3">
                   <Link href={`/courses/${selectedCourseForDetail.course.id}`} className="flex-1">
-                    <Button className="w-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 rounded-full">
+                    <Button className="w-full rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
                       View Full Details
                     </Button>
                   </Link>
@@ -1490,7 +1465,7 @@ export default function ResultsPage() {
                       setSelectedCourseForDetail(null);
                       setShowUnlockModal(true);
                     }}
-                    className="flex-1 bg-primary text-white hover:bg-primary/90 rounded-full"
+                    className="bg-primary hover:bg-primary/90 flex-1 rounded-full text-white"
                   >
                     Get Roadmap PDF
                   </Button>
@@ -1524,17 +1499,19 @@ export default function ResultsPage() {
               className="relative w-full max-w-md space-y-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-2xl"
             >
               {/* Decorative background gradients */}
-              <div className="pointer-events-none absolute -top-16 -left-16 h-32 w-32 rounded-full bg-secondary/5 blur-2xl" />
-              <div className="pointer-events-none absolute -right-16 -bottom-16 h-32 w-32 rounded-full bg-primary/5 blur-2xl" />
+              <div className="bg-secondary/5 pointer-events-none absolute -top-16 -left-16 h-32 w-32 rounded-full blur-2xl" />
+              <div className="bg-primary/5 pointer-events-none absolute -right-16 -bottom-16 h-32 w-32 rounded-full blur-2xl" />
 
               {paymentStep === 'details' && (
                 <>
-                  <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-secondary/15 text-secondary">
+                  <div className="bg-secondary/15 text-secondary mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full">
                     <Lock className="h-6 w-6" />
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-slate-900">Unlock Premium Career Report</h3>
+                    <h3 className="text-xl font-bold text-slate-900">
+                      Unlock Premium Career Report
+                    </h3>
                     <p className="mx-auto max-w-sm text-xs leading-relaxed text-slate-600">
                       Get instant access to your 10-page detailed analysis, mentor matching, action
                       milestones, and target college audits.
@@ -1544,26 +1521,26 @@ export default function ResultsPage() {
                   {/* Features list */}
                   <div className="my-2 space-y-2 border-t border-b border-slate-200 px-1 py-2 text-left text-xs text-slate-600">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-secondary">✦</span>
+                      <span className="text-secondary text-sm">✦</span>
                       <span>10-Page Tailored Print-Ready PDF</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-secondary">✦</span>
+                      <span className="text-secondary text-sm">✦</span>
                       <span>Verified Industry Mentor Recommendations</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-secondary">✦</span>
+                      <span className="text-secondary text-sm">✦</span>
                       <span>Personalized Stream & Course Action Plan</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-secondary">✦</span>
+                      <span className="text-secondary text-sm">✦</span>
                       <span>Free 1:1 Live Counseling Booking Token</span>
                     </div>
                   </div>
 
                   {/* Simulated pricing panel */}
-                  <div className="space-y-1 rounded-xl border border-secondary/10 bg-secondary/5 p-4">
-                    <div className="text-[10px] font-bold tracking-wider text-secondary uppercase">
+                  <div className="border-secondary/10 bg-secondary/5 space-y-1 rounded-xl border p-4">
+                    <div className="text-secondary text-[10px] font-bold tracking-wider uppercase">
                       Premium Access Pass
                     </div>
                     <div className="text-2xl font-black text-slate-900">
@@ -1577,14 +1554,14 @@ export default function ResultsPage() {
                   <div className="flex flex-col gap-2 pt-2">
                     <Button
                       onClick={handleStartPayment}
-                      className="h-11 w-full bg-secondary font-semibold text-white shadow-sm transition-all hover:bg-secondary/90 rounded-full"
+                      className="bg-secondary hover:bg-secondary/90 h-11 w-full rounded-full font-semibold text-white shadow-sm transition-all"
                     >
                       Pay & Download Report
                     </Button>
                     <Button
                       onClick={() => setShowUnlockModal(false)}
                       variant="ghost"
-                      className="w-full text-slate-500 hover:bg-slate-50 rounded-full"
+                      className="w-full rounded-full text-slate-500 hover:bg-slate-50"
                     >
                       Go Back
                     </Button>
@@ -1595,8 +1572,8 @@ export default function ResultsPage() {
               {paymentStep === 'paying' && (
                 <div className="flex flex-col items-center space-y-6 py-8">
                   <div className="relative flex items-center justify-center">
-                    <div className="h-16 w-16 animate-spin rounded-full border-4 border-secondary/10 border-t-secondary" />
-                    <div className="absolute text-secondary">
+                    <div className="border-secondary/10 border-t-secondary h-16 w-16 animate-spin rounded-full border-4" />
+                    <div className="text-secondary absolute">
                       <Sparkles className="h-6 w-6 animate-pulse" />
                     </div>
                   </div>
@@ -1608,7 +1585,7 @@ export default function ResultsPage() {
                     </p>
                   </div>
                   <div className="h-1.5 w-full max-w-[200px] overflow-hidden rounded-full bg-slate-100">
-                    <div className="h-full w-2/3 animate-pulse rounded-full bg-secondary" />
+                    <div className="bg-secondary h-full w-2/3 animate-pulse rounded-full" />
                   </div>
                 </div>
               )}
@@ -1627,7 +1604,7 @@ export default function ResultsPage() {
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-slate-650">1. Generating custom PDF report</span>
                       {deliveryStatus.generating === 'loading' && (
-                        <span className="animate-pulse font-medium text-primary">
+                        <span className="text-primary animate-pulse font-medium">
                           Generating...
                         </span>
                       )}
@@ -1635,7 +1612,7 @@ export default function ResultsPage() {
                         <span className="font-semibold text-emerald-600">✓ Ready</span>
                       )}
                       {deliveryStatus.generating === 'error' && (
-                        <span className="font-semibold text-red-655">✕ Failed</span>
+                        <span className="text-red-655 font-semibold">✕ Failed</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between text-xs">
@@ -1647,7 +1624,7 @@ export default function ResultsPage() {
                         <span className="font-semibold text-emerald-600">✓ Stored</span>
                       )}
                       {deliveryStatus.storing === 'error' && (
-                        <span className="font-semibold text-red-655">✕ Failed</span>
+                        <span className="text-red-655 font-semibold">✕ Failed</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between text-xs">
@@ -1661,7 +1638,7 @@ export default function ResultsPage() {
                         <span className="font-semibold text-emerald-600">✓ Emailed</span>
                       )}
                       {deliveryStatus.emailing === 'error' && (
-                        <span className="font-semibold text-red-655">✕ Failed</span>
+                        <span className="text-red-655 font-semibold">✕ Failed</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between text-xs">
@@ -1670,7 +1647,7 @@ export default function ResultsPage() {
                         <span className="font-medium text-slate-500">Pending...</span>
                       )}
                       {deliveryStatus.downloading === 'loading' && (
-                        <span className="animate-pulse font-medium text-primary">
+                        <span className="text-primary animate-pulse font-medium">
                           Downloading...
                         </span>
                       )}
@@ -1678,7 +1655,7 @@ export default function ResultsPage() {
                         <span className="font-semibold text-emerald-600">✓ Downloaded</span>
                       )}
                       {deliveryStatus.downloading === 'error' && (
-                        <span className="font-semibold text-red-655">✕ Failed</span>
+                        <span className="text-red-655 font-semibold">✕ Failed</span>
                       )}
                     </div>
                   </div>
@@ -1697,208 +1674,10 @@ export default function ResultsPage() {
                       successfully.
                     </p>
                   </div>
-                  <div className="animate-pulse pt-2 text-xs font-semibold text-primary">
+                  <div className="text-primary animate-pulse pt-2 text-xs font-semibold">
                     Closing modal in a moment...
                   </div>
                 </div>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* 3. Talk To Mentor Scheduling Modal */}
-      <AnimatePresence>
-        {selectedMentorCourse && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/40 p-4 backdrop-blur-sm"
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 15 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 15 }}
-              className="w-full max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-6 text-left shadow-2xl"
-            >
-              {bookingSuccess ? (
-                /* Success booking message */
-                <div className="space-y-4 py-6 text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-                    <CheckCircle2 className="h-6 w-6" />
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-bold text-slate-900">Consultation Scheduled!</h3>
-                    <p className="text-xs leading-relaxed text-slate-600">
-                      Your 1:1 advising call has been confirmed. A calendar invite with details and
-                      access link has been sent to your email.
-                    </p>
-                  </div>
-                  <Button
-                    onClick={() => {
-                      setBookingSuccess(false);
-                      setSelectedMentorCourse(null);
-                    }}
-                    className="mt-2 w-full bg-primary hover:bg-primary/90 text-white rounded-full"
-                  >
-                    Awesome, Thanks!
-                  </Button>
-                </div>
-              ) : (
-                /* Scheduler form */
-                <>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <span className="text-[10px] font-extrabold tracking-widest text-primary uppercase">
-                        Mentor Booking
-                      </span>
-                      <h3 className="mt-1 text-lg font-bold text-slate-900">
-                        Schedule 1:1 Career Consultation
-                      </h3>
-                    </div>
-                    <button
-                      onClick={() => setSelectedMentorCourse(null)}
-                      className="text-xs font-bold text-slate-400 hover:text-slate-950"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-
-                  {/* Consultation Pricing Banner */}
-                  <div className="flex items-center justify-between rounded-xl border border-primary/10 bg-primary/5 px-4 py-2.5">
-                    <span className="text-[10px] font-bold tracking-wider text-primary uppercase">
-                      Consultation Fee
-                    </span>
-                    <span className="text-sm font-black text-slate-900">
-                      ₹99{' '}
-                      <span className="text-[9px] font-normal text-slate-500">/ 30-min call</span>
-                    </span>
-                  </div>
-
-                  {/* Mentor mini card */}
-                  {(() => {
-                    const mentor =
-                      MENTORS_BY_COURSE[selectedMentorCourse.course.id] || defaultMentor;
-                    return (
-                      <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50/50 p-3">
-                        <img
-                          src={mentor.avatar}
-                          alt={mentor.name}
-                          className="h-10 w-10 rounded-full border border-slate-205 object-cover"
-                        />
-                        <div>
-                          <h4 className="text-xs font-bold text-slate-900">{mentor.name}</h4>
-                          <p className="text-[10px] text-primary">
-                            {mentor.role} at {mentor.company}
-                          </p>
-                          <div className="mt-0.5 flex items-center gap-2 text-[8px] text-slate-500">
-                            <span className="flex items-center gap-0.5 text-amber-500">
-                              <Star className="h-2.5 w-2.5 fill-amber-500 text-amber-500" />{' '}
-                              {mentor.rating}
-                            </span>
-                            <span>•</span>
-                            <span>{mentor.experience} exp</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })()}
-
-                  <form onSubmit={handleMentorPayment} className="space-y-3 text-xs">
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
-                        Full Name
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Enter your name"
-                        value={bookingName}
-                        onChange={(e) => setBookingName(e.target.value)}
-                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="Enter your phone number"
-                        value={bookingPhone}
-                        onChange={(e) => setBookingPhone(e.target.value)}
-                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="Enter your email"
-                        value={bookingEmail}
-                        onChange={(e) => setBookingEmail(e.target.value)}
-                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
-                        Choose Date
-                      </label>
-                      <input
-                        type="date"
-                        required
-                        value={bookingDate}
-                        onChange={(e) => setBookingDate(e.target.value)}
-                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-semibold text-slate-500 uppercase">
-                        Choose Time Slot
-                      </label>
-                      <select
-                        required
-                        value={bookingTime}
-                        onChange={(e) => setBookingTime(e.target.value)}
-                        className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-slate-900 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-                      >
-                        <option value="">Select a slot...</option>
-                        <option value="10:00 AM">10:00 AM - 10:30 AM</option>
-                        <option value="11:30 AM">11:30 AM - 12:00 PM</option>
-                        <option value="02:00 PM">02:00 PM - 02:30 PM</option>
-                        <option value="04:30 PM">04:30 PM - 05:00 PM</option>
-                      </select>
-                    </div>
-
-                    <div className="flex gap-3 pt-3">
-                      <Button
-                        type="button"
-                        onClick={() => setSelectedMentorCourse(null)}
-                        variant="outline"
-                        className="flex-1 border-slate-200 text-slate-500 hover:bg-slate-50 rounded-full"
-                        disabled={isBookingLoading}
-                      >
-                        Go Back
-                      </Button>
-                      <Button
-                        type="submit"
-                        className="flex-1 bg-primary text-white font-bold hover:bg-primary/90 rounded-full"
-                        disabled={isBookingLoading}
-                      >
-                        {isBookingLoading ? 'Processing...' : 'Pay & Confirm Booking'}
-                      </Button>
-                    </div>
-                  </form>
-                </>
               )}
             </motion.div>
           </motion.div>

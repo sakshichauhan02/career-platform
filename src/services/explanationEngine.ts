@@ -195,7 +195,12 @@ export const CAREER_OUTLOOKS: Record<string, CareerOutlook> = {
     salaryRange: '₹8L - ₹22L / $90,000 - $145,000',
     growthRate: '28% (Explosive Growth)',
     demandLevel: 'Very High',
-    topRoles: ['Prompt Engineer', 'AI Interaction Designer', 'NLP Specialist', 'Generative AI Developer'],
+    topRoles: [
+      'Prompt Engineer',
+      'AI Interaction Designer',
+      'NLP Specialist',
+      'Generative AI Developer',
+    ],
     outlookDescription:
       'As generative AI models become core operating infrastructure for enterprises, the ability to instruct and orchestrate these models with high precision is becoming a crucial professional skill set.',
     topColleges: [
@@ -210,10 +215,21 @@ export const CAREER_OUTLOOKS: Record<string, CareerOutlook> = {
     salaryRange: '₹14L - ₹38L / $120,000 - $190,000',
     growthRate: '24% (Very Fast)',
     demandLevel: 'Critically High',
-    topRoles: ['AI Product Manager', 'Product Owner - ML Systems', 'Director of AI Products', 'Technical PM'],
+    topRoles: [
+      'AI Product Manager',
+      'Product Owner - ML Systems',
+      'Director of AI Products',
+      'Technical PM',
+    ],
     outlookDescription:
       'Building commercial AI products requires a unique blend of business acumen and machine learning literacy. Companies are actively hiring leaders who can translate model metrics into business value.',
-    topColleges: ['IIM Bangalore', 'Wharton School', 'UC Berkeley Haas', 'ISB Hyderabad', 'Stanford GSB'],
+    topColleges: [
+      'IIM Bangalore',
+      'Wharton School',
+      'UC Berkeley Haas',
+      'ISB Hyderabad',
+      'Stanford GSB',
+    ],
   },
   'ux-researcher': {
     salaryRange: '₹5L - ₹15L / $75,000 - $125,000',
@@ -234,7 +250,12 @@ export const CAREER_OUTLOOKS: Record<string, CareerOutlook> = {
     salaryRange: '₹10L - ₹28L / $105,000 - $165,000',
     growthRate: '21% (Exceptional Growth)',
     demandLevel: 'Critically High',
-    topRoles: ['Data Scientist', 'Machine Learning Engineer', 'Quantitative Analyst', 'Data Science Consultant'],
+    topRoles: [
+      'Data Scientist',
+      'Machine Learning Engineer',
+      'Quantitative Analyst',
+      'Data Science Consultant',
+    ],
     outlookDescription:
       'Data is the new corporate currency. Organizations across finance, e-commerce, healthcare, and tech require advanced predictive modeling to make data-driven decisions and automate workflows.',
     topColleges: [
@@ -249,16 +270,32 @@ export const CAREER_OUTLOOKS: Record<string, CareerOutlook> = {
     salaryRange: '₹6L - ₹18L / $80,000 - $135,000',
     growthRate: '17% (Rapid Expansion)',
     demandLevel: 'High',
-    topRoles: ['Bioinformatics Analyst', 'Computational Biologist', 'Genomics Data Scientist', 'Biostatistics Specialist'],
+    topRoles: [
+      'Bioinformatics Analyst',
+      'Computational Biologist',
+      'Genomics Data Scientist',
+      'Biostatistics Specialist',
+    ],
     outlookDescription:
       'The fusion of genomics, personalized cancer therapy, and pharmaceutical development has created massive datasets that require advanced computational analysis, placing bioinformatics at the heart of biotechnology.',
-    topColleges: ['IIT Delhi', 'IBAB Bangalore', 'Johns Hopkins University', 'University of Oxford', 'Harvard University'],
+    topColleges: [
+      'IIT Delhi',
+      'IBAB Bangalore',
+      'Johns Hopkins University',
+      'University of Oxford',
+      'Harvard University',
+    ],
   },
   'sustainability-consultant': {
     salaryRange: '₹5L - ₹16L / $70,000 - $120,000',
     growthRate: '13% (Steady Increase)',
     demandLevel: 'High',
-    topRoles: ['Sustainability Consultant', 'ESG Analyst', 'Environmental Consultant', 'Chief Sustainability Officer (CSO)'],
+    topRoles: [
+      'Sustainability Consultant',
+      'ESG Analyst',
+      'Environmental Consultant',
+      'Chief Sustainability Officer (CSO)',
+    ],
     outlookDescription:
       'With global net-zero goals, carbon taxation, and strict ESG compliance mandates, corporations are hiring green consultants to audit supply chains, design sustainability programs, and optimize resource usage.',
     topColleges: [
@@ -273,16 +310,32 @@ export const CAREER_OUTLOOKS: Record<string, CareerOutlook> = {
     salaryRange: '₹8L - ₹24L / $95,000 - $160,000',
     growthRate: '26% (Very Fast)',
     demandLevel: 'Critically High',
-    topRoles: ['Cybersecurity Analyst', 'Penetration Tester', 'Information Security Officer', 'Security Architect'],
+    topRoles: [
+      'Cybersecurity Analyst',
+      'Penetration Tester',
+      'Information Security Officer',
+      'Security Architect',
+    ],
     outlookDescription:
       'As cyber threats become highly sophisticated and destructive, digital asset protection is a top corporate priority. Certified security specialists are critical to guarding networks, clouds, and database architectures.',
-    topColleges: ['IIT Madras', 'IIIT Allahabad', 'Georgia Tech', 'Purdue University', 'SANS Technology Institute'],
+    topColleges: [
+      'IIT Madras',
+      'IIIT Allahabad',
+      'Georgia Tech',
+      'Purdue University',
+      'SANS Technology Institute',
+    ],
   },
   'cloud-architect': {
     salaryRange: '₹12L - ₹32L / $115,000 - $175,000',
     growthRate: '18% (High Demand)',
     demandLevel: 'Very High',
-    topRoles: ['Cloud Architect', 'DevOps Engineer', 'Cloud Infrastructure Engineer', 'Solutions Architect'],
+    topRoles: [
+      'Cloud Architect',
+      'DevOps Engineer',
+      'Cloud Infrastructure Engineer',
+      'Solutions Architect',
+    ],
     outlookDescription:
       'The corporate migration to AWS, Microsoft Azure, and Google Cloud is universal. Cloud architects are in high demand to design secure, highly-available, and cost-effective cloud system layouts.',
     topColleges: [
@@ -388,7 +441,7 @@ function getWhyItFits(data: AssessmentData, course: Course): string {
   let reasoning = (course.reasoningTemplate || 'analytical problem solving and innovation')
     .trim()
     .replace(/\.$/, '');
-  
+
   // Convert starting "Matches your" or "Matches" to fit grammatically after "You enjoy"
   let cleanedReasoning = reasoning.toLowerCase();
   if (cleanedReasoning.startsWith('matches your')) {
@@ -398,16 +451,19 @@ function getWhyItFits(data: AssessmentData, course: Course): string {
   }
 
   // Format matching interest keywords
-  const interestsText = course.interests.slice(0, 2).map((i) => {
-    if (i === 'tech_ai') return 'technology and AI';
-    if (i === 'finance_econ') return 'finance and economics';
-    if (i === 'business_ent') return 'business and entrepreneurship';
-    if (i === 'design_arts') return 'creative design and product aesthetics';
-    if (i === 'marketing_pr') return 'marketing and public communication';
-    if (i === 'law_civil') return 'legal systems and public policy';
-    if (i === 'media_writing') return 'writing and digital storytelling';
-    return INTEREST_LABELS[i] || i;
-  }).join(', ');
+  const interestsText = course.interests
+    .slice(0, 2)
+    .map((i) => {
+      if (i === 'tech_ai') return 'technology and AI';
+      if (i === 'finance_econ') return 'finance and economics';
+      if (i === 'business_ent') return 'business and entrepreneurship';
+      if (i === 'design_arts') return 'creative design and product aesthetics';
+      if (i === 'marketing_pr') return 'marketing and public communication';
+      if (i === 'law_civil') return 'legal systems and public policy';
+      if (i === 'media_writing') return 'writing and digital storytelling';
+      return INTEREST_LABELS[i] || i;
+    })
+    .join(', ');
 
   return `You enjoy ${cleanedReasoning} and applying your skills in ${interestsText}.`;
 }
@@ -457,9 +513,13 @@ function getCareerFitAnalysis(data: AssessmentData, course: Course): string {
   const diffCollab = Math.abs(data.workStyle.collaboration - course.workStyle.collaboration);
   if (diffCollab <= 1) {
     if (course.workStyle.collaboration >= 4) {
-      analysisParts.push(`Your preference for team collaboration fits the highly interactive group dynamics here.`);
+      analysisParts.push(
+        `Your preference for team collaboration fits the highly interactive group dynamics here.`
+      );
     } else if (course.workStyle.collaboration <= 2) {
-      analysisParts.push(`Your focus on independent execution matches the deep solo concentration required in this domain.`);
+      analysisParts.push(
+        `Your focus on independent execution matches the deep solo concentration required in this domain.`
+      );
     }
   }
 
@@ -467,9 +527,13 @@ function getCareerFitAnalysis(data: AssessmentData, course: Course): string {
   const diffWorkplace = Math.abs(data.workStyle.workplace - course.workStyle.workplace);
   if (diffWorkplace <= 1) {
     if (course.workStyle.workplace >= 4) {
-      analysisParts.push(`Your love for active, outdoor work fits the operational environment of this track.`);
+      analysisParts.push(
+        `Your love for active, outdoor work fits the operational environment of this track.`
+      );
     } else if (course.workStyle.workplace <= 2) {
-      analysisParts.push(`Your preference for indoor settings fits the studio, desk, or lab environments of this field.`);
+      analysisParts.push(
+        `Your preference for indoor settings fits the studio, desk, or lab environments of this field.`
+      );
     }
   }
 
@@ -477,9 +541,13 @@ function getCareerFitAnalysis(data: AssessmentData, course: Course): string {
   const diffStructure = Math.abs(data.workStyle.structure - course.workStyle.structure);
   if (diffStructure <= 1) {
     if (course.workStyle.structure >= 4) {
-      analysisParts.push(`Your desire for creative freedom matches the dynamic, open-ended problem solving in this role.`);
+      analysisParts.push(
+        `Your desire for creative freedom matches the dynamic, open-ended problem solving in this role.`
+      );
     } else if (course.workStyle.structure <= 2) {
-      analysisParts.push(`Your preference for structured guidelines aligns with the organized processes of this career.`);
+      analysisParts.push(
+        `Your preference for structured guidelines aligns with the organized processes of this career.`
+      );
     }
   }
 
@@ -488,7 +556,9 @@ function getCareerFitAnalysis(data: AssessmentData, course: Course): string {
     const matchedPriorities = data.priorities.filter((p) => course.priorities.includes(p));
     if (matchedPriorities.length > 0) {
       const topPriority = matchedPriorities[0].split('_').join(' ');
-      analysisParts.push(`This career also directly supports your goal of achieving a "${topPriority}" profile.`);
+      analysisParts.push(
+        `This career also directly supports your goal of achieving a "${topPriority}" profile.`
+      );
     }
   }
 

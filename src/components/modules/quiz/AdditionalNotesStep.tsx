@@ -25,7 +25,7 @@ export default function AdditionalNotesStep() {
           placeholder="I want to build a career in AI and study at IITs, or explore international colleges offering scholarships..."
           value={value}
           onChange={(e) => handleChange(e.target.value)}
-          className="w-full resize-none rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-900 placeholder-slate-400 transition-all duration-200 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
+          className="focus:border-primary focus:ring-primary w-full resize-none rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-900 placeholder-slate-400 transition-all duration-200 focus:ring-1 focus:outline-none"
         />
 
         <div className="flex justify-between text-xs text-slate-500">

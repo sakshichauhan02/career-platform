@@ -72,7 +72,7 @@
   --chart-3: #2563eb;
   --chart-4: #6d28d9;
   --chart-5: #3b82f6;
-  --radius: 1.0rem;
+  --radius: 1rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #0f172a;
   --sidebar-primary: #1e40af;
@@ -107,7 +107,7 @@
   --chart-3: #2563eb;
   --chart-4: #6d28d9;
   --chart-5: #3b82f6;
-  --radius: 1.0rem;
+  --radius: 1rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #0f172a;
   --sidebar-primary: #1e40af;
@@ -128,7 +128,13 @@
   html {
     @apply font-sans;
   }
-  h1, h2, h3, h4, h5, h6, .font-heading {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-heading {
     @apply font-heading;
   }
   select option {
