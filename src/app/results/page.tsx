@@ -32,6 +32,7 @@ import { generateExplanation, CAREER_OUTLOOKS, defaultOutlook } from '@/services
 import { AssessmentData } from '@/types/assessment';
 import { trackEvent } from '@/lib/analytics';
 import { MentorBookingSection } from '@/components/common/MentorBookingSection';
+import { MentorBookingModal } from '@/components/common/MentorBookingModal';
 
 // Mapping dictionaries for user profile summary display
 const INTEREST_LABELS: Record<string, string> = {
@@ -202,16 +203,15 @@ export default function ResultsPage() {
   const [showUnlockModal, setShowUnlockModal] = useState(false);
   const [isReportUnlocked, setIsReportUnlocked] = useState(false);
 
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   const handleMentorBookingClick = () => {
     trackEvent('mentor_booking_clicked', {
       mentorName: 'Sakshi Chauhan',
       sessionType: '1:1 Career Guidance',
       price: '₹99',
     });
-    trackEvent('mentor_redirected', {
-      url: 'https://topmate.io/sakshi_chauhan34/2170492',
-    });
-    window.open('https://topmate.io/sakshi_chauhan34/2170492', '_blank', 'noopener,noreferrer');
+    setIsBookingModalOpen(true);
   };
 
   const [selectedMentorCourse, setSelectedMentorCourse] = useState<ScoredCourse | null>(null);
@@ -1807,6 +1807,9 @@ export default function ResultsPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* 3. Mentor Booking Modal */}
+      <MentorBookingModal isOpen={isBookingModalOpen} onClose={() => setIsBookingModalOpen(false)} />
     </div>
   );
 }
