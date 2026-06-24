@@ -1,137 +1,132 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Calendar, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Calendar, Video, CheckCircle2, Star, ArrowRight, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const mentors = [
-  {
-    name: 'Siddharth Sen',
-    role: 'Ex-Google Product Lead',
-    alma: 'IIT Kharagpur',
-    stream: 'PCM & Tech Careers',
-    avatarBg: 'bg-blue-50 text-blue-600',
-  },
-  {
-    name: 'Dr. Anjali Rao',
-    role: 'Medical Advisor & Surgeon',
-    alma: 'AIIMS, New Delhi',
-    stream: 'PCB & Medical Sciences',
-    avatarBg: 'bg-emerald-50 text-emerald-600',
-  },
-  {
-    name: 'Megha Gupta',
-    role: 'Senior Strategy Consultant',
-    alma: 'ISB Hyderabad',
-    stream: 'Commerce & Management',
-    avatarBg: 'bg-violet-50 text-violet-600',
-  },
-];
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
+import { trackEvent } from '@/lib/analytics';
 
 export function MentorSection() {
+  const handleBooking = () => {
+    trackEvent('mentor_booking_clicked', {
+      mentorName: 'Sakshi Chauhan',
+      sessionType: '1:1 Career Guidance',
+      price: '₹99',
+    });
+    trackEvent('mentor_redirected', {
+      url: 'https://topmate.io/sakshi_chauhan34/2170492',
+    });
+    window.open('https://topmate.io/sakshi_chauhan34/2170492', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section className="border-border relative border-t bg-slate-50/50 py-24">
+      {/* Background soft glow */}
+      <div className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full bg-blue-400/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-indigo-400/5 blur-3xl" />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Grids Layout */}
+        {/* Grid Layout */}
         <div className="items-center lg:grid lg:grid-cols-12 lg:gap-12">
           {/* Content Left */}
-          <div className="mb-12 lg:col-span-5 lg:mb-0">
+          <div className="mb-12 lg:col-span-7 lg:mb-0 space-y-6">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50/60 px-3.5 py-1 text-[11px] font-bold text-blue-700">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              Direct Expert Mentorship
+            </div>
+
             <h2 className="text-3xl leading-tight font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-              1-on-1 Guidance from Top Industry Mentors
+              1-on-1 Guidance from Your Career Mentor
             </h2>
-            <p className="mt-4 text-base leading-relaxed font-medium text-slate-500">
-              AI recommendation gives you scientific data, but speaking with someone who has
-              actually walked the path is invaluable. Verify your career plans with leaders from top
-              universities and global companies.
+            <p className="text-base leading-relaxed font-medium text-slate-500">
+              AI recommendations give you scientific data, but speaking with an expert who has actually walked the path is invaluable. Verify your career plans, clear doubts, align parents, and chart a bulletproof action plan.
             </p>
 
-            <ul className="mt-8 space-y-4 text-sm font-semibold text-slate-600">
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-blue-600" />
-                Verified profiles from IITs, AIIMs, and Tier-1 colleges.
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-blue-600" />
-                Stream verification and year-by-year entrance strategies.
-              </li>
-              <li className="flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-blue-600" />
-                30-minute interactive live video calls.
-              </li>
-            </ul>
+            <div className="grid gap-4 sm:grid-cols-2 pt-2">
+              <div className="flex items-start gap-2.5">
+                <Video className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900">30-Min Live Video Call</h4>
+                  <p className="text-xs text-slate-500">Personalized Zoom/Google Meet session</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <Calendar className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900">Flexible Scheduling</h4>
+                  <p className="text-xs text-slate-500">Select slots that match your availability</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900">Stream & College Strategy</h4>
+                  <p className="text-xs text-slate-500">Custom mapping matching your budget tier</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900">Parent-Student Alignment</h4>
+                  <p className="text-xs text-slate-500">Involve your parents to resolve stream conflicts</p>
+                </div>
+              </div>
+            </div>
 
-            <div className="mt-8">
-              <Link href="/quiz">
-                <Button className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-2.5 font-bold text-white shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] hover:from-blue-700 hover:to-blue-600 active:scale-[0.98]">
-                  Book Slot Now
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
+            <div className="pt-4">
+              <Button
+                onClick={handleBooking}
+                className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-2.5 font-bold text-white shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] hover:from-blue-700 hover:to-blue-600 active:scale-[0.98]"
+              >
+                Book Slot Now
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
             </div>
           </div>
 
-          {/* Mentors Grid Right */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            className="space-y-6 lg:col-span-7"
-          >
-            {mentors.map((mentor) => (
-              <motion.div
-                key={mentor.name}
-                variants={itemVariants}
-                className="group border-border flex flex-col justify-between gap-4 rounded-3xl border bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-500/20 hover:shadow-lg hover:shadow-blue-500/5 sm:flex-row sm:items-center"
-              >
-                <div className="flex items-center gap-4">
-                  {/* Avatar Placeholder with initials */}
-                  <div
-                    className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl text-base font-bold ${mentor.avatarBg}`}
-                  >
-                    {mentor.name
-                      .split(' ')
-                      .map((n) => n[0])
-                      .join('')}
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-slate-900">{mentor.name}</h3>
-                    <p className="mt-0.5 text-xs font-semibold text-slate-500">
-                      {mentor.role} &bull; {mentor.alma}
-                    </p>
-                    <span className="mt-2 inline-block rounded-full border border-blue-100 bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-blue-600 uppercase">
-                      {mentor.stream}
-                    </span>
-                  </div>
+          {/* Mentor Showcase Card Right */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="w-full max-w-[360px] rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-100">
+              <div className="flex flex-col items-center text-center">
+                <div className="relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&q=80"
+                    alt="Sakshi Chauhan"
+                    className="h-24 w-24 rounded-full border-4 border-blue-50 object-cover shadow-md"
+                  />
+                  <span className="absolute right-1 bottom-1 h-4.5 w-4.5 rounded-full border-2 border-white bg-emerald-500 animate-pulse" />
                 </div>
 
-                <Link href="/quiz">
+                <h3 className="mt-4 text-lg font-black text-slate-950">Sakshi Chauhan</h3>
+                <p className="text-xs font-bold text-blue-600">Senior Academic Advisor & Mentor</p>
+
+                <div className="mt-2.5 flex items-center gap-1.5 rounded-full bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">
+                  <span className="flex items-center gap-0.5 font-bold text-amber-500">
+                    <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" /> 4.9
+                  </span>
+                  <span>•</span>
+                  <span>120+ bookings this month</span>
+                </div>
+
+                <div className="mt-6 w-full space-y-4 border-t border-slate-100 pt-6">
+                  <div className="flex items-center justify-between text-xs font-bold text-slate-600">
+                    <span>Consultation Fee</span>
+                    <span className="text-base font-black text-slate-950">₹99</span>
+                  </div>
+
                   <Button
-                    variant="outline"
-                    className="border-slate-250 flex h-10 w-full items-center gap-2 rounded-full bg-white px-5 text-xs font-bold text-slate-600 shadow-sm transition-all hover:bg-slate-50 hover:text-slate-900 sm:w-auto"
+                    onClick={handleBooking}
+                    className="group w-full rounded-full bg-gradient-to-r from-blue-600 to-blue-500 py-6 font-bold text-white shadow-md shadow-blue-500/10 transition-all hover:scale-[1.02] hover:from-blue-700 hover:to-blue-600 hover:shadow-lg active:scale-[0.98] flex items-center justify-center gap-1.5"
                   >
-                    <Calendar className="h-4 w-4" />
-                    Book Call
+                    Book 1:1 Career Guidance Session ₹99
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Button>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
