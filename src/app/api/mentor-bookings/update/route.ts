@@ -28,10 +28,24 @@ export async function POST(req: NextRequest) {
     }
 
     if (date && timeSlot) {
-      const startTime = new Date(`${date} ${timeSlot}`).toISOString();
-      const endTime = new Date(
-        new Date(`${date} ${timeSlot}`).getTime() + 30 * 60 * 1000
-      ).toISOString();
+      let startTime: string;
+      let endTime: string;
+
+      try {
+        const parsedStart = new Date(`${date} ${timeSlot}`);
+        if (isNaN(parsedStart.getTime())) {
+          throw new Error('Invalid date/time');
+        }
+        startTime = parsedStart.toISOString();
+        endTime = new Date(parsedStart.getTime() + 30 * 60 * 1000).toISOString();
+      } catch (e) {
+        let fallbackDate = new Date(date);
+        if (isNaN(fallbackDate.getTime())) {
+          fallbackDate = new Date();
+        }
+        startTime = fallbackDate.toISOString();
+        endTime = new Date(fallbackDate.getTime() + 30 * 60 * 1000).toISOString();
+      }
 
       updateData.booking_date = date;
       updateData.time_slot = timeSlot;
